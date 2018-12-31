@@ -12,6 +12,7 @@
   stored somewhere safe.
 * Separate `terraform` user created with: `IAMFullAccess`, `AmazonS3FullAccess`, and `AmazonRoute53FullAccess`
   policies. Created manually as I wasn't sure how to `terraform` the user that `terraform` runs as. Never used
-  the **Access Advisor** before and it's pretty slick!
+  the **Access Advisor** before and it's pretty slick! (looks like I should have a [bootstrap][tf-bootstrap])
 
 [18f-dns]: https://18f.gsa.gov/2018/08/15/shared-infrastructure-as-code/
+[tf-bootstrap]: https://github.com/18F/dns/blob/master/terraform/bootstrap/init.tf
