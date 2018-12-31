@@ -10,6 +10,9 @@
 
 * Follow prerequisites
 * `cd dns && terraform apply`
+* Each domain must have the `Nameserver` entries in gandi.net pointing to the respective
+  NS records created in Amazon (I could not find an API that could do this so it must
+  be done manually)
 
 ### Decision Log
 
