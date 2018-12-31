@@ -1,8 +1,15 @@
 # Mucrastructure
 
+### Prerequisites
+
+* Have `terraform` installed
+* `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` set with `terraform` AWS users values
+* Probably other things that I've missed (will learn what they are next time I repave)
+
 ### DNS
 
-
+* Follow prerequisites
+* `cd dns && terraform apply`
 
 ### Decision Log
 
