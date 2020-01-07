@@ -5,8 +5,8 @@ resource "aws_route53_zone" "mucmail_com" {
 
 
 resource "aws_route53_record" "mx-mucmail_com" {
-  zone_id = "${aws_route53_zone.mucmail_com.zone_id}"
-  name = "${aws_route53_zone.mucmail_com.name}"
+  zone_id = aws_route53_zone.mucmail_com.zone_id
+  name = aws_route53_zone.mucmail_com.name
   type = "MX"
   ttl = "28800"
   records = [

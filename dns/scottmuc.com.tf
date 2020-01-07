@@ -5,8 +5,8 @@ resource "aws_route53_zone" "scottmuc_com" {
 
 
 resource "aws_route53_record" "scottmuc_com" {
-  zone_id = "${aws_route53_zone.scottmuc_com.zone_id}"
-  name = "${aws_route53_zone.scottmuc_com.name}"
+  zone_id = aws_route53_zone.scottmuc_com.zone_id
+  name = aws_route53_zone.scottmuc_com.name
   type = "A"
   ttl = "3600"
   records = [
@@ -19,8 +19,8 @@ resource "aws_route53_record" "scottmuc_com" {
 
 
 resource "aws_route53_record" "mx-scottmuc_com" {
-  zone_id = "${aws_route53_zone.scottmuc_com.zone_id}"
-  name = "${aws_route53_zone.scottmuc_com.name}"
+  zone_id = aws_route53_zone.scottmuc_com.zone_id
+  name = aws_route53_zone.scottmuc_com.name
   type = "MX"
   ttl = "3600"
   records = [
@@ -36,7 +36,7 @@ resource "aws_route53_record" "mx-scottmuc_com" {
 
 
 resource "aws_route53_record" "www_scottmuc_com" {
-  zone_id = "${aws_route53_zone.scottmuc_com.zone_id}"
+  zone_id = aws_route53_zone.scottmuc_com.zone_id
   name = "www.${aws_route53_zone.scottmuc_com.name}"
   type = "CNAME"
   ttl = "3600"
@@ -45,7 +45,7 @@ resource "aws_route53_record" "www_scottmuc_com" {
 
 
 resource "aws_route53_record" "feeds_scottmuc_com" {
-  zone_id = "${aws_route53_zone.scottmuc_com.zone_id}"
+  zone_id = aws_route53_zone.scottmuc_com.zone_id
   name = "feeds.${aws_route53_zone.scottmuc_com.name}"
   type = "CNAME"
   ttl = "3600"
@@ -54,7 +54,7 @@ resource "aws_route53_record" "feeds_scottmuc_com" {
 
 
 resource "aws_route53_record" "mail_scottmuc_com" {
-  zone_id = "${aws_route53_zone.scottmuc_com.zone_id}"
+  zone_id = aws_route53_zone.scottmuc_com.zone_id
   name = "mail.${aws_route53_zone.scottmuc_com.name}"
   type = "CNAME"
   ttl = "3600"
