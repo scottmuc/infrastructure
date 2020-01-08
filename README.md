@@ -2,14 +2,13 @@
 
 ### Prerequisites
 
-* Have `terraform` installed
-* `AWS_ACCESS_KEY` and `AWS_SECRET_ACCESS_KEY` set with `terraform` AWS users values
-* Probably other things that I've missed (will learn what they are next time I repave)
+* Have `terraform`, and `git-crypt` installed
 
 ### DNS
 
 * Follow prerequisites
-* `cd dns && terraform apply`
+* Ensure the repository is unlocked (TODO, add a helper script to manage this)
+* Run `./scripts/terraform apply dns`
 * Each domain must have the `Nameserver` entries in gandi.net pointing to the respective
   NS records created in Amazon (I could not find an API that could do this so it must
   be done manually)
