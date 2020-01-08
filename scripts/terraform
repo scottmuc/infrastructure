@@ -4,6 +4,13 @@ set -e
 set -u
 set -o pipefail
 
+if [[ ! -f .terraform/plugins/darwin_amd64/terraform-provider-gandi ]]; then
+  git clone https://github.com/tiramiseb/terraform-provider-gandi.git /tmp/terraform-provider-gandi
+  (cd /tmp/terraform-provider-gandi && go build)
+  mv /tmp/terraform-provider-gandi/terraform-provider-gandi .terraform/plugins/darwin_amd64
+  rm -rf /tmp/terraform-provider-gandi
+fi
+
 env \
   AWS_ACCESS_KEY="$(cat secrets/AWS_ACCESS_KEY)" \
   AWS_SECRET_ACCESS_KEY="$(cat secrets/AWS_SECRET_ACCESS_KEY)" \

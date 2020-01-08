@@ -1,7 +1,12 @@
-
+variable "gandi_api_key" {
+}
 
 provider "aws" {
   region = "eu-central-1"
+}
+
+provider "gandi" {
+  key = var.gandi_api_key
 }
 
 terraform {
