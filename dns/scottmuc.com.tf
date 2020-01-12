@@ -1,3 +1,6 @@
+variable "home_ip" {
+}
+
 
 resource "aws_route53_zone" "scottmuc_com" {
   name = "scottmuc.com."
@@ -128,6 +131,18 @@ resource "gandi_zonerecord" "mail_scottmuc_com" {
     "ghs.google.com."
   ]
 }
+
+
+resource "gandi_zonerecord" "home_scottmuc_com" {
+  zone = data.gandi_zone.scottmuc_com.id
+  name = "home"
+  type = "A"
+  ttl = "3600"
+  values = [
+    var.home_ip
+  ]
+}
+
 
 
 resource "gandi_domainattachment" "scotttmuc_com" {
