@@ -11,8 +11,4 @@ if [[ ! -f .terraform/plugins/darwin_amd64/terraform-provider-gandi ]]; then
   rm -rf /tmp/terraform-provider-gandi
 fi
 
-env \
-  AWS_ACCESS_KEY="$(cat secrets/AWS_ACCESS_KEY)" \
-  AWS_SECRET_ACCESS_KEY="$(cat secrets/AWS_SECRET_ACCESS_KEY)" \
-  terraform "$@"
-
+terraform "$@"
