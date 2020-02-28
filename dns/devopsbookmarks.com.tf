@@ -20,7 +20,7 @@ resource "gandi_zonerecord" "www_devopsbookmarks_com" {
   type = "CNAME"
   ttl = "3600"
   values = [
-    "devops-bookmarks.herokuapp.com"
+    "devops-bookmarks.herokuapp.com."
   ]
 }
 
