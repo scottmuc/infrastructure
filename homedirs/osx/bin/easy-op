@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+[[ -z "${DEBUG}" ]] || set -x
+
+main() {
+  local sub_command
+  sub_command="$1"
+  case "$sub_command" in
+    list)
+      list
+      ;;
+    show)
+      shift
+      show "$@"
+      ;;
+    *)
+      print_usage_and_exit
+      ;;
+  esac
+}
+
+print_usage_and_exit() {
+  echo "
+usage: $0 <command>
+
+1password CLI without all the JSON parsing
+
+Commands:
+ - list
+     displays some stats of the whole dataset
+
+ - show <title> <field>
+     displays a credential (only works with secure notes)
+"
+  exit 1
+}
+
+show() {
+  local title="$1"
+  local section="$2"
+
+  op get item "${title}" \
+     | jq -r ".details.sections[]
+       | select(.fields)
+       | .fields[]
+       | select(.t == \"${section}\")
+       | .v"
+}
+
+list() {
+  op list items | jq -r .[].overview.title | sort -f
+}
+
+main "$@"

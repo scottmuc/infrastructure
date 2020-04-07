@@ -1,0 +1,26 @@
+[user]
+    name = Scott Muc
+    email = scottmuc@gmail.com
+
+[core]
+    excludesfile = ~/.gitignore
+    editor = vim
+
+[color]
+    ui = auto
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    di = diff
+    dc = diff --cached
+
+    # custom log that is a copy of Gary Bernhardt's
+    l  = "!source ~/.githelpers && pretty_git_log"
+    la = !git l --all
+
+    # I used this one to have a coloured graph and for repositories that have
+    # too many train tracks and push the information off the edge of the screen
+    ll  = log --oneline --decorate --graph
+    lla = !git ll --all

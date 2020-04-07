@@ -1,0 +1,59 @@
+# this file only contains machine level ignores. this is for the purpose of
+# making project level ignore files project specific.
+
+# anyone using OSX just ignore this
+.DS_Store
+
+# Ignoring temporary dot directories
+/.CFUserTextEncoding
+/.NERDTreeBookmarks
+/.Trash
+/.bash_history
+/.zsh_history
+/.bundle
+/.bundler
+/.cache
+/.config/gtk-2.0
+/.cups
+/.docker
+/.gem
+/.lesshst
+/.local
+/.netrc
+/.ssh
+/.terraform.d/
+/.tldrc
+/.vagrant.d
+/.viminfo
+
+# Ignoring application created directories
+/VirtualBox VMs
+/Google Drive
+
+# Ignoring standard OSX directories
+/Applications
+/Desktop
+/Documents
+/Downloads
+/Library
+/Movies
+/Music
+/Pictures
+/Public
+
+# gcloud related directories
+/.gsutil/
+/.config/gcloud/
+
+# 1passowrd CLI directory contains secrets
+/.config/.op
+
+# This is created my the bootstrap script
+/.config/osx-homedir/.softwareupdate_indicator
+/.config/osx-homedir/birthdate
+
+# Location of deep-pockets data
+/.config/deep-pockets
+
+# Where rubys are installed via ruby-install
+/.rubies

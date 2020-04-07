@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -e
+
+(cd ~/ && git remote set-url origin git@github.com:scottmuc/osx-homedir.git)
+(cd ~/workspace/sprout-wrap && git remote set-url origin git@github.com:scottmuc/sprout-wrap.git)

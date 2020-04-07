@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+set -e
+
+main() {
+  cd ~/
+  write_or_check_machine_birthdate
+  invoke_sprout_wrap
+  invoke_homebrew
+  setup_neovim
+  configure_tap_to_click
+  configure_safari
+  invoke_softewareupdate
+}
+
+write_or_check_machine_birthdate() {
+  local birthdate_file
+  local birthdate
+
+  birthdate_file=~/.config/osx-homedir/birthdate
+  if [ ! -f "${birthdate_file}" ]
+  then
+    date > "${birthdate_file}"
+  else
+    birthdate="$(cat ${birthdate_file})"
+    echo "Your machine was born on: ${birthdate}"
+    echo ""
+    echo "Have you considered that it might be time to recreate your workstation?"
+    sleep 5
+  fi
+}
+
+invoke_sprout_wrap() {
+  if [ ! -d ~/workspace/sprout-wrap ]
+  then
+    git clone https://github.com/scottmuc/sprout-wrap.git ~/workspace/sprout-wrap
+  fi
+
+  ~/workspace/sprout-wrap/runsoloist
+}
+
+invoke_homebrew() {
+  if [ ! -x /usr/local/bin/brew ]
+  then
+    /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  else
+    brew update || true
+  fi
+
+  brew bundle cleanup --file=~/.config/osx-homedir/Brewfile
+  brew bundle --file=~/.config/osx-homedir/Brewfile
+}
+
+setup_neovim() {
+  nvim -c "PlugInstall" -c "qall" --headless
+  nvim -c "PlugUpdate" -c "qall" --headless
+  nvim -c "UpdateRemotePlugins" -c "qall" --headless
+  pip3 install -q neovim
+  nvim -c "GoInstallBinaries" -c "qall!" --headless /tmp/foo.go
+}
+
+run_softwareupdate() {
+  local softwareupdate_indicator
+  softwareupdate_indicator="$1"
+  sudo softwareupdate -i -a && touch "${softwareupdate_indicator}"
+}
+
+last_softwareupdate_was_over_7_days_ago() {
+  local softwareupdate_indicator
+  softwareupdate_indicator="$1"
+  last_run=$(echo $(($(date +%s) - $(stat -t %s -f %m -- "${softwareupdate_indicator}"))))
+  last_run_days=$(( $last_run / (24 * 60 * 60) ))
+  echo Last software update was $last_run_days days ago
+  [ "${last_run_days}" -gt "7" ]
+}
+
+
+invoke_softewareupdate() {
+  local softwareupdate_indicator
+  softwareupdate_indicator=~/.config/osx-homedir/.softwareupdate_indicator
+
+  if [ ! -f "${softwareupdate_indicator}" ]
+  then
+    echo Indicator of previous softwareupdate execution does not appearr to exist.
+    run_softwareupdate "${softwareupdate_indicator}"
+  else
+    if last_softwareupdate_was_over_7_days_ago "${softwareupdate_indicator}"
+    then
+      echo Going to run a softwareupdate since it has been a while
+      run_softwareupdate "${softwareupdate_indicator}"
+    else
+      echo Since softwareupdate ran recently, not going to do anything
+      echo remove ${softwareupdate_indicator} to force an update
+    fi
+  fi
+}
+
+# copied from:
+# - https://github.com/mathiasbynens/dotfiles/blob/master/.macos#L147-L150
+# - http://osxdaily.com/2014/01/31/turn-on-mac-touch-to-click-command-line/
+configure_tap_to_click() {
+  defaults write com.apple.AppleMultitouchTrackpad Clicking -bool true
+  defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
+  defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+  defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
+}
+
+# taken from:
+# - https://discussions.apple.com/thread/7084431
+configure_safari() {
+  defaults write com.apple.Safari AutoFillFromAddressBook -bool false
+  defaults write com.apple.Safari AutoFillPasswords -bool false
+  defaults write com.apple.Safari AutoFillCreditCardData -bool false
+  defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
+}
+
+main
