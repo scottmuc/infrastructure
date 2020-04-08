@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 
 set -e
+set -u
+
+# from https://stackoverflow.com/a/246128
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
-  cd ~/
+  symlink_all_the_things
   write_or_check_machine_birthdate
   invoke_sprout_wrap
   invoke_homebrew
@@ -11,6 +15,14 @@ main() {
   configure_tap_to_click
   configure_safari
   invoke_softewareupdate
+}
+
+symlink_all_the_things() {
+  ln -sfv "${DIR}/../.config" ~/.config
+  ln -sfv "${DIR}/../.gitconfig" ~/.gitconfig
+  ln -sfv "${DIR}/../.mrconfig" ~/.mrconfig
+  ln -sfv "${DIR}/../.zshrc" ~/.zshrc
+  ln -sfv "${DIR}/../bin" ~/bin
 }
 
 write_or_check_machine_birthdate() {
