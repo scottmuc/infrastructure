@@ -1,6 +1,7 @@
 [user]
     name = Scott Muc
     email = scottmuc@gmail.com
+    signingkey = "9DB8007A8A826FA3"
 
 [core]
     excludesfile = ~/.gitignore
@@ -24,3 +25,6 @@
     # too many train tracks and push the information off the edge of the screen
     ll  = log --oneline --decorate --graph
     lla = !git ll --all
+
+[commit]
+    gpgsign = true
