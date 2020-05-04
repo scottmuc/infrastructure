@@ -1,0 +1,35 @@
+
+/.bundle
+/.cache
+/.gem
+/.ssh
+/.vagrant.d
+/.vscode
+
+/3D Objects
+/AppData
+/Contacts
+/Desktop
+/Documents
+/Downloads
+/Dropbox
+/Favorites
+/IntelGraphicsProfiles
+/Links
+/Music
+/OneDrive
+/MicrosoftEdgeBackups
+/Pictures
+/Saved Games
+/Searches
+/Videos
+
+/NTUSER*
+
+/.viminfo
+/_viminfo
+
+/.bash_history
+/.NERDTreeBookmarks
+/.VirtualBox
+/VirtualBox VMs
