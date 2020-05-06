@@ -37,3 +37,7 @@ Installed/configured by `~/bin/coalesce_this_machine`:
 * runs **homebrew** things.
 * installs **neovim** plugins
 * runs OSX softwareupdates
+
+### Inspiration
+
+* https://github.com/rockyluke/osx-cli
