@@ -24,20 +24,16 @@ curl -L https://raw.githubusercontent.com/scottmuc/osx-homedir/master/bin/curl-b
 
 ### So What's Included?
 
-The following is made available by being cloned in the `$HOME` directory:
+Installed/configured by `~/bin/coalesce_this_machine`:
 
-* **bash** configuration
-* **git** configuration
-* **~/bin** (added to PATH)
-* **neovim** configuration
-
-The rest is installed/configured by `~/bin/coalesce_this_machine`:
-
-* runs **sprout-wrap** automation which does the following:
-  * fixes my Dock
-  * sets a fast key repeat rate
-  * makes the function keys act as function keys
-  * changes my menubar clock format
+* symlinks a few things to `$HOME`
+  * **bash** configuration
+  * **git** configuration
+  * **~/bin** (added to PATH)
+  * **neovim** configuration
+* makes some osx preference changes:
+  * dock
+  * clock format
 * runs **homebrew** things.
 * installs **neovim** plugins
 * runs OSX softwareupdates

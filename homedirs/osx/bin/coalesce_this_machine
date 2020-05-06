@@ -11,7 +11,6 @@ main() {
   write_or_check_machine_birthdate
   set_clock_format
   set_dock_preferences
-  invoke_sprout_wrap
   invoke_homebrew
   setup_neovim
   configure_tap_to_click
@@ -69,15 +68,6 @@ set_dock_preferences() {
   # clears all the stuff I don't need or want
   defaults write "com.apple.dock" "persistent-apps" -array
   killall Dock
-}
-
-invoke_sprout_wrap() {
-  if [ ! -d ~/workspace/sprout-wrap ]
-  then
-    git clone https://github.com/scottmuc/sprout-wrap.git ~/workspace/sprout-wrap
-  fi
-
-  ~/workspace/sprout-wrap/runsoloist
 }
 
 invoke_homebrew() {
