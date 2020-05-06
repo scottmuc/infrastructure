@@ -9,6 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 main() {
   symlink_all_the_things
   write_or_check_machine_birthdate
+  set_clock_format
   invoke_sprout_wrap
   invoke_homebrew
   setup_neovim
@@ -52,6 +53,13 @@ write_or_check_machine_birthdate() {
     echo "Have you considered that it might be time to recreate your workstation?"
     sleep 5
   fi
+}
+
+# Instruction manual:
+#   https://www.tech-otaku.com/mac/setting-the-date-and-time-format-for-the-macos-menu-bar-clock-using-terminal/
+set_clock_format() {
+  defaults write "com.apple.menuextra.clock" "DateFormat" -string "MMM d  HH:mm:ss"
+  killall SystemUIServer
 }
 
 invoke_sprout_wrap() {
