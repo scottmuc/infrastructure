@@ -10,6 +10,7 @@ main() {
   symlink_all_the_things
   write_or_check_machine_birthdate
   set_clock_format
+  set_dock_preferences
   invoke_sprout_wrap
   invoke_homebrew
   setup_neovim
@@ -60,6 +61,14 @@ write_or_check_machine_birthdate() {
 set_clock_format() {
   defaults write "com.apple.menuextra.clock" "DateFormat" -string "MMM d  HH:mm:ss"
   killall SystemUIServer
+}
+
+set_dock_preferences() {
+  defaults write "com.apple.dock" "orientation" -string "left"
+  defaults write "com.apple.dock" "autohide" -bool "true"
+  # clears all the stuff I don't need or want
+  defaults write "com.apple.dock" "persistent-apps" -array
+  killall Dock
 }
 
 invoke_sprout_wrap() {
