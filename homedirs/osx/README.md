@@ -5,14 +5,22 @@
 Before anything can happen, the first thing that needs to be done is to create a Mojave USB boot device. I've
 followed the [osxdaily post](http://osxdaily.com/2018/09/26/make-macos-mojave-boot-usb-installer/).
 
-### Bootstrapping a brand spanking new machine
-
-On a freshly installed **macOS Mojave** machine the following commands will get everything configured.
+Format a USB stick and name it UNTITLED and run the following command:
 
 ```
+sudo /Applications/Install\ macOS\ Catalina.app/Contents/Resources/createinstallmedia --volume /Volumes/UNTITLED --nointeraction
+```
+
+### Bootstrapping a brand spanking new machine
+
+On a freshly installed **macOS Catalina** machine the following commands will get everything configured.
+
+```
+# install git
 sudo xcodebuild -license
-curl -L https://raw.githubusercontent.com/scottmuc/osx-homedir/master/bin/curl-bash-bootstrap.bash 2> /dev/null | bash
-~/bin/coalesce_this_machine
+mkdir ~/workspace
+git clone https://github.com/scottmuc/infrastructure.git ~/workspace/infrastructure
+~/bin/infrastructure/homedirs/osx/bin/coalesce_this_machine
 ```
 
 **Manual Steps**
