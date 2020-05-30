@@ -8,6 +8,7 @@
 
 * Follow prerequisites
 * Ensure the repository is unlocked (TODO, add a helper script to manage this)
+* Run `./scripts/terraform init dns` if this is the first time
 * Run `./scripts/terraform_apply`
 
 ### Decision Log

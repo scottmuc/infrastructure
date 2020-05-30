@@ -97,7 +97,7 @@ resource "gandi_zonerecord" "pi_home_scottmuc_com" {
   type = "A"
   ttl = "3600"
   values = [
-    "192.168.2.111"
+    "192.168.2.110"
   ]
 }
 
