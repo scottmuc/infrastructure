@@ -76,6 +76,11 @@ proc /proc procfs rw 0 0
 
 * add `tomcat85_enable="YES"` to `/etc/rc.conf` (this corresponds to a file called `/usr/local/etc/rc.d/tomcat85`)
 
+**note** deploying the `airsonic.war` took a very long time. Over 40m so far. Response time is slow in
+general too. I wonder this is a known [issue][gh-issue]?
+
+[gh-issue]: https://github.com/airsonic/airsonic/issues/881
+
 
 [freebsd-airsonic]: https://airsonic.github.io/docs/install/example/freebsd-freenas/
 
@@ -84,8 +89,11 @@ proc /proc procfs rw 0 0
 * neofetch
 * glances
 * bsmtrace
+* https://www.navidrome.org/
 
 # TODO
 
 * Setup a static IP. Either on the DHCP side or on the machine side
+* Run stuff with reduced priv users
+* Setup localization so files with special characters can get loaded
 
