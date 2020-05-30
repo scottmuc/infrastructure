@@ -65,11 +65,27 @@ of the dependencies as packages if possible.
 
 * Followed [installer documentation][freebsd-airsonic]
 
+* `doas pkg install tomcat85`
+
+OpenJDK has a message saying the following needs to be in `/etc/fstab`
+
+```
+fdesc /dev/fd fdescfs rw 0 0
+proc /proc procfs rw 0 0
+```
+
+* add `tomcat85_enable="YES"` to `/etc/rc.conf` (this corresponds to a file called `/usr/local/etc/rc.d/tomcat85`)
+
+
 [freebsd-airsonic]: https://airsonic.github.io/docs/install/example/freebsd-freenas/
 
-### Tools to look at
+# Tools to look at
 
 * neofetch
 * glances
 * bsmtrace
+
+# TODO
+
+* Setup a static IP. Either on the DHCP side or on the machine side
 
