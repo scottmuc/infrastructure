@@ -3,15 +3,26 @@ brew 'neovim'
 
 brew 'autojump'
 brew 'chruby'
+
+# Needed for some coding exercises and also for the terraform-gandi provider
 brew 'golang'
+
+# Trying to sign my commits now
 brew 'gpg'
+
 brew 'jq'
 brew 'mr'
 brew 'pstree'
-brew 'python3'
-brew 'ruby-install'
-brew 'tree'
 
+# Why do I need python3?
+brew 'python3'
+
+brew 'ruby-install'
+
+# Mainly needed by the infrastructure repo
+brew 'terraform'
+
+brew 'tree'
 
 cask '1password'
 cask '1password-cli'
@@ -19,8 +30,12 @@ cask 'brave-browser'
 cask 'iterm2'
 cask 'homebrew/cask/keybase'
 cask 'flycut'
-#cask 'macdown'
+cask 'macdown'
 cask 'monodraw'
 cask 'selfcontrol'
 cask 'shiftit'
+
+# there are some issues to make installing virtualbox smoothly
+# https://apple.stackexchange.com/questions/372492/virtualbox-installation-failed-on-macos-catalina
+cask 'virtualbox'
 cask 'vlc'
