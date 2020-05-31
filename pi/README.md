@@ -95,6 +95,11 @@ I'm assuming I don't have that module available to me.
 Going to back out of the JDK/Airsonic path now and will aim to build navidrome on my laptop
 and deploy the the pi thanks to Go's cross compiler.
 
+I spoke too soon. There are native dependencies so I need to enable CGO which requires
+a cross platform C compiler. 
+
+https://dh1tw.de/2019/12/cross-compiling-golang-cgo-projects/
+
 # Tools to look at
 
 * ~~neofetch~~ pretty system information, nice but not necessary
