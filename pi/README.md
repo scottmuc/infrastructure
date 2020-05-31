@@ -86,7 +86,7 @@ general too. I wonder this is a known [issue][gh-issue]?
 
 # Tools to look at
 
-* neofetch
+* ~~neofetch~~ pretty system information, nice but not necessary
 * glances
 * bsmtrace
 * https://www.navidrome.org/
@@ -96,4 +96,40 @@ general too. I wonder this is a known [issue][gh-issue]?
 * Setup a static IP. Either on the DHCP side or on the machine side
 * Run stuff with reduced priv users
 * Setup localization so files with special characters can get loaded
+* install nginx and letsencrypt to have a TLS terminating endpoint
 
+# FreeBSD Musings
+
+I haven't really used FreeBSD since the 4.x/5.x era.
+
+Some thing have changed:
+
+* portsnap - no more cvsup! Port and pkg installation feel familiar
+* doas seems to be mentioned more as a better alternative to sudo
+
+I find FreeBSD follows a [Make me think!][make-me-think] philosophy. It doesn't do everything
+automatically for you. When you install a service it won't auto-start it. You'll have to
+explicitly enable it in /etc/rc.conf. Configuration is usually secure by default or, no configuration
+exists and you'll be required to think about how you want to configure that thing you
+just installed. I like this approach a lot. As I operate it, I feel like I'm improving my
+understanding.
+
+I'm amazed at the response that a couple tweets got. It left me with the impression that the 
+FreeBSD is a community looking for opportunities to show support. I know it's anecdotal but
+it did give me a very positive impression. 
+
+https://twitter.com/ScottMuc/status/1266650792024518657
+
+[make-me-think]: https://blog.prototypr.io/make-me-think-90b46aa50513
+
+# Train Rides
+
+* https://www.youtube.com/watch?v=dxYiz4knmkU
+* https://www.youtube.com/watch?v=Mw9qiV7XlFs
+* https://www.youtube.com/watch?v=zomZywCAPTA
+
+# Tickets to Write
+
+* https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
+* Cannot install go 1.14.3 on my pi
+* Airsonic very slow to the point of not being usable
