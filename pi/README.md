@@ -80,9 +80,20 @@ proc /proc procfs rw 0 0
 general too. I wonder this is a known [issue][gh-issue]?
 
 [gh-issue]: https://github.com/airsonic/airsonic/issues/881
-
-
 [freebsd-airsonic]: https://airsonic.github.io/docs/install/example/freebsd-freenas/
+
+OK, turns out [the docs][pi-docs] do state that openJDK will result in very slow deployments. I wasn't looking
+at this page because I was looking at the FreeBSD page above. There's an [open issue][openjdk-issue] about
+it as well.
+
+In order to use the Oracle JDK, I need to run it in linux emulation. I couldn't run `kldload linux64` so
+I'm assuming I don't have that module available to me.
+
+[pi-docs]: https://airsonic.github.io/docs/install/example/raspberrypi/
+[openjdk-issue]: https://github.com/airsonic/airsonic/issues/283
+
+Going to back out of the JDK/Airsonic path now and will aim to build navidrome on my laptop
+and deploy the the pi thanks to Go's cross compiler.
 
 # Tools to look at
 
