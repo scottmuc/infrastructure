@@ -100,6 +100,24 @@ a cross platform C compiler.
 
 https://dh1tw.de/2019/12/cross-compiling-golang-cgo-projects/
 
+I also tried the route of creating a FreeBSD VM on my machine using Vagrant. I got build errors like:
+
+```
+vagrant@freebsd:~/workspace/navidrome % env CC=/usr/local/bin/aarch64-unknown-freebsd12.1-gcc CGO_ENABLED="1" GOOS=freebsd GOARCH=arm64 go build
+# runtime/cgo
+In file included from /usr/include/signal.h:43:0,
+                 from gcc_freebsd_arm64.c:9:
+/usr/include/sys/_ucontext.h:46:2: error: unknown type name 'mcontext_t'
+  mcontext_t uc_mcontext;
+  ^~~~~~~~~~
+```
+
+[These docs][ucontext] made me think that there's something in this dependency tree that is not quite portable. A rabbit
+hole for another time. It's made it clear to me that understand cross platform compilation is an area that I don't
+understand very well and could use a bit of studying here.
+
+[uconext]: https://www.unix.com/man-page/FreeBSD/3/ucontext/
+
 # Tools to look at
 
 * ~~neofetch~~ pretty system information, nice but not necessary
@@ -148,4 +166,5 @@ https://twitter.com/ScottMuc/status/1266650792024518657
 
 * https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
 * Cannot install go 1.14.3 on my pi
+* Cannot build with CGO enabled targetting FreeBSD/arm64
 * Airsonic very slow to the point of not being usable
