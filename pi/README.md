@@ -8,7 +8,7 @@ This is what I [bought from amazon][amazon].
 
 [amazon]: https://www.amazon.de/dp/B07BNPZVR7
 
-# Current Operating System
+# FreeBSD Paving Journal
 
 Going with [FreeBSD][freebsd] for nostalgic reasons. There's a pretty easy
 [howto][howto] that got me up and running quickly.
@@ -20,8 +20,6 @@ Going with [FreeBSD][freebsd] for nostalgic reasons. There's a pretty easy
 freebsd@generic:~ % uname -a
 FreeBSD generic 12.1-RELEASE FreeBSD 12.1-RELEASE r354233 GENERIC  arm64
 ```
-
-# Paving Journal
 
 * login as root and run `pkg`. It'll install the package manager
 * `pkg install doas` and change root password to something very hard to guess
@@ -92,6 +90,8 @@ I'm assuming I don't have that module available to me.
 [pi-docs]: https://airsonic.github.io/docs/install/example/raspberrypi/
 [openjdk-issue]: https://github.com/airsonic/airsonic/issues/283
 
+# Navidrome Journal
+
 Going to back out of the JDK/Airsonic path now and will aim to build navidrome on my laptop
 and deploy the the pi thanks to Go's cross compiler.
 
@@ -125,13 +125,6 @@ understand very well and could use a bit of studying here.
 * bsmtrace
 * https://www.navidrome.org/
 
-# TODO
-
-* Setup a static IP. Either on the DHCP side or on the machine side
-* Run stuff with reduced priv users
-* Setup localization so files with special characters can get loaded
-* install nginx and letsencrypt to have a TLS terminating endpoint
-
 # FreeBSD Musings
 
 I haven't really used FreeBSD since the 4.x/5.x era.
@@ -158,9 +151,9 @@ https://twitter.com/ScottMuc/status/1266650792024518657
 
 # Train Rides
 
-* https://www.youtube.com/watch?v=dxYiz4knmkU
-* https://www.youtube.com/watch?v=Mw9qiV7XlFs
-* https://www.youtube.com/watch?v=zomZywCAPTA
+* [Führerstandsmitfahrt S-Bahn Berlin von Alexanderplatz nach Potsdam auf der S7 in 4K](https://www.youtube.com/watch?v=dxYiz4knmkU)
+* [Cab ride St. Moritz - Tirano (Bernina pass), Switzerland to Italy](https://www.youtube.com/watch?v=Mw9qiV7XlFs)
+* [4K CABVIEW Bar - Bijelo Polje -102 tunnels -96 bridges -1029m altitude change from Sea to Mountains](https://www.youtube.com/watch?v=zomZywCAPTA)
 
 # Tickets to Write
 
@@ -168,3 +161,11 @@ https://twitter.com/ScottMuc/status/1266650792024518657
 * Cannot install go 1.14.3 on my pi
 * Cannot build with CGO enabled targetting FreeBSD/arm64
 * Airsonic very slow to the point of not being usable
+
+# TODO
+
+* Setup a static IP. Either on the DHCP side or on the machine side
+* Run stuff with reduced priv users
+* Setup localization so files with special characters can get loaded
+* install nginx and letsencrypt to have a TLS terminating endpoint
+
