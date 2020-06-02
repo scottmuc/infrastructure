@@ -118,6 +118,66 @@ understand very well and could use a bit of studying here.
 
 [uconext]: https://www.unix.com/man-page/FreeBSD/3/ucontext/
 
+# Back to Raspian
+
+Going to park FreeBSD at the moment.
+
+Downloaded Raspberry OS Lite from [the website][raspi-download]. Ran `raspi-config` to enable
+ssd access.
+
+I thought I would go down setting up ingress first. The instructions for lets encrypt were
+pretty easy: https://certbot.eff.org/lets-encrypt/debianbuster-nginx
+
+```
+apt-get install nginx certbot python-certbot-nginx
+certbot --nginx
+```
+
+At some point I'll look at how all this works so I don't have to go through the interactive
+installer next time I repave.
+
+Good news is that https://home.scottmuc.com/ works now.
+
+Getting the USB device mounted was just as easy in FreeBSD
+
+```
+apt-get install exfat-fuse exfat-utils
+mkdir /media/extusb
+mount -t exfat /dev/sda1 /media/extusb
+```
+
+At the moment, I'm happy to re-mount things after a reboot.
+
+I followed the [pre-built binaries][prebuild] installation instructions and it was painless.
+However, I am having issues reading my music library. I get the following error message:
+
+```
+ERRO[0002] Error importing MediaFolder                   error="error extracting metadata files" folder=/home/pi/music
+ERRO[0002] Errors while scanning media. Please check the logs
+ERRO[0002] Error scanning media folder                   error="errors while scanning media" folder=/home/pi/music
+```
+
+This happens even when I copy a single mp3 and put it into a folder and configure navidrome to look
+at the one. Going to try installing ffmpeg through apt now.
+
+After installing `ffmpeg` through apt, the reading of the library works now. To enable public access
+I added the following to `/etc/nginx/sites-enabled/default`
+
+```
+        location /music/ {
+                proxy_pass http://pi.home.scottmuc.com:4533;
+        }
+```
+
+Need to figure out how to now do ngninx surgery to get everything configured. Especially since the
+`certbot` it automatically doing things to this file. I'll likely change that later.
+
+
+[prebuild]: https://www.navidrome.org/docs/installation/pre-built-binaries/
+
+
+[raspi-download]: https://www.raspberrypi.org/downloads/raspbian/
+
 # Tools to look at
 
 * ~~neofetch~~ pretty system information, nice but not necessary
@@ -168,4 +228,10 @@ https://twitter.com/ScottMuc/status/1266650792024518657
 * Run stuff with reduced priv users
 * Setup localization so files with special characters can get loaded
 * install nginx and letsencrypt to have a TLS terminating endpoint
+* Create a service wrapper forr navidrome
+* Setup backups of the navidrome DB
+* Don't let certbot change ngninx config, just generate certs
+* Figure out how to organize ngninx config cleanly
+* setup a splash page for /
+* 
 
