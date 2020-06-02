@@ -172,11 +172,43 @@ I added the following to `/etc/nginx/sites-enabled/default`
 Need to figure out how to now do ngninx surgery to get everything configured. Especially since the
 `certbot` it automatically doing things to this file. I'll likely change that later.
 
-
 [prebuild]: https://www.navidrome.org/docs/installation/pre-built-binaries/
-
-
 [raspi-download]: https://www.raspberrypi.org/downloads/raspbian/
+
+# Samba Setup
+
+I recall doing this many years ago. This is what I did:
+
+`apt-get install samba`
+
+Inside `/etc/samba/smb.conf` I added the lines
+
+```
+[All Stuff]
+  path = /mnt/usbdisk
+  browseable = yes
+  read only = no
+  guest ok = yes
+```
+
+# DNS
+
+I would like to reduce the ads and protect my network so I thought I would
+tinker with [pi-hole][pi-hole].
+
+The curl-bash did the trick. I'm not too happy with the install though. Why
+can't it be installed as a debian package? I also didn't like that it blindly
+installed lighttpd which also binds to port 80 when I already have nginx
+running.
+
+[pi-hole]: https://github.com/pi-hole/pi-hole/#one-step-automated-install
+
+# DHCP
+
+I think eventually it would be best to use the Pi as my DHCP server (for
+the auto DNS server setting).
+
+I cannot switch DNS in my router config but I can at least disable DHCP.
 
 # Tools to look at
 
@@ -233,5 +265,7 @@ https://twitter.com/ScottMuc/status/1266650792024518657
 * Don't let certbot change ngninx config, just generate certs
 * Figure out how to organize ngninx config cleanly
 * setup a splash page for /
-* 
+* secure samba sharing (should have a read-only user) and a power user
+  with write privleges
+* split pi-hole installation up into separate parts
 
