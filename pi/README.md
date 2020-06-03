@@ -1,6 +1,6 @@
 # Raspberry Pi
 
-I now have a raspberry pi and will add my setup here.
+I now have a raspberry pi and this is how I set it up.
 
 # Current Hardware
 
@@ -8,7 +8,52 @@ This is what I [bought from amazon][amazon].
 
 [amazon]: https://www.amazon.de/dp/B07BNPZVR7
 
-# FreeBSD Paving Journal
+# Current Operating System
+
+```
+pi@raspberrypi:~ $ uname -a
+Linux raspberrypi 4.19.118-v7+ #1311 SMP Mon Apr 27 14:21:24 BST 2020 armv7l GNU/Linux
+```
+
+# Features
+
+* Ad blocking DNS for all networked devices
+* Personal music streaming service
+* Apartment network storage
+
+# Setup
+
+Why no standard configuration management tools? Mainly because I don't think
+they are needed for an environment where I am the only maintainer. If I were to
+distribute this as a "solution", I woud look to distribute in a more understood
+way. For this device I am quite content with a supervised partially automated
+setup.
+
+1. Run `raspi-config` and enable SSHD and set the timezone
+2. Run `nginx.sh` on the Pi
+
+# TODO
+
+* Setup a static IP. Either on the DHCP side or on the machine side
+* Run stuff with reduced priv users
+* Create a service wrapper for navidrome
+* Setup backups of the navidrome DB
+* Don't let certbot change ngninx config, just generate certs
+* Figure out how to organize ngninx config cleanly
+* setup a splash page for /
+* secure samba sharing (should have a read-only user) and a power user
+  with write privleges
+* split pi-hole installation up into separate parts
+
+## Tickets to Write
+
+* https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
+* Cannot install go 1.14.3 on my pi in FreeBSD
+* Cannot build with CGO enabled targetting FreeBSD/arm64 on a FreeBSD VM
+
+# Archived Journals
+
+## FreeBSD Paving Journal
 
 Going with [FreeBSD][freebsd] for nostalgic reasons. There's a pretty easy
 [howto][howto] that got me up and running quickly.
@@ -59,7 +104,7 @@ of the dependencies as packages if possible.
 [kld_list_help]: https://forums.freebsd.org/threads/difference-between-boot-loader-conf-and-etc-rc-conf.53694/
 [fstab_help]: https://forums.freebsd.org/threads/mounting-exfat-and-ntfs-3-filesystems-with-fstab.69491/
 
-# Airsonic Journal
+### Airsonic Journal
 
 * Followed [installer documentation][freebsd-airsonic]
 
@@ -90,7 +135,7 @@ I'm assuming I don't have that module available to me.
 [pi-docs]: https://airsonic.github.io/docs/install/example/raspberrypi/
 [openjdk-issue]: https://github.com/airsonic/airsonic/issues/283
 
-# Navidrome Journal
+### Navidrome Journal
 
 Going to back out of the JDK/Airsonic path now and will aim to build navidrome on my laptop
 and deploy the the pi thanks to Go's cross compiler.
@@ -118,12 +163,38 @@ understand very well and could use a bit of studying here.
 
 [uconext]: https://www.unix.com/man-page/FreeBSD/3/ucontext/
 
-# Back to Raspian
+### FreeBSD Musings
+
+I haven't really used FreeBSD since the 4.x/5.x era.
+
+Some thing have changed:
+
+* portsnap - no more cvsup! Port and pkg installation feel familiar
+* doas seems to be mentioned more as a better alternative to sudo
+
+I find FreeBSD follows a [Make me think!][make-me-think] philosophy. It doesn't do everything
+automatically for you. When you install a service it won't auto-start it. You'll have to
+explicitly enable it in /etc/rc.conf. Configuration is usually secure by default or, no configuration
+exists and you'll be required to think about how you want to configure that thing you
+just installed. I like this approach a lot. As I operate it, I feel like I'm improving my
+understanding.
+
+I'm amazed at the response that a couple tweets got. It left me with the impression that the 
+FreeBSD is a community looking for opportunities to show support. I know it's anecdotal but
+it did give me a very positive impression. 
+
+https://twitter.com/ScottMuc/status/1266650792024518657
+
+[make-me-think]: https://blog.prototypr.io/make-me-think-90b46aa50513
+
+## Raspberry Pi OS
+
+### Back to Raspian
 
 Going to park FreeBSD at the moment.
 
 Downloaded Raspberry OS Lite from [the website][raspi-download]. Ran `raspi-config` to enable
-ssd access.
+ssh access.
 
 I thought I would go down setting up ingress first. The instructions for lets encrypt were
 pretty easy: https://certbot.eff.org/lets-encrypt/debianbuster-nginx
@@ -175,7 +246,7 @@ Need to figure out how to now do ngninx surgery to get everything configured. Es
 [prebuild]: https://www.navidrome.org/docs/installation/pre-built-binaries/
 [raspi-download]: https://www.raspberrypi.org/downloads/raspbian/
 
-# Samba Setup
+### Samba Setup
 
 I recall doing this many years ago. This is what I did:
 
@@ -191,7 +262,7 @@ Inside `/etc/samba/smb.conf` I added the lines
   guest ok = yes
 ```
 
-# DNS
+### DNS
 
 I would like to reduce the ads and protect my network so I thought I would
 tinker with [pi-hole][pi-hole].
@@ -203,69 +274,17 @@ running.
 
 [pi-hole]: https://github.com/pi-hole/pi-hole/#one-step-automated-install
 
-# DHCP
+### DHCP
 
 I think eventually it would be best to use the Pi as my DHCP server (for
 the auto DNS server setting).
 
 I cannot switch DNS in my router config but I can at least disable DHCP.
 
-# Tools to look at
-
-* ~~neofetch~~ pretty system information, nice but not necessary
-* glances
-* bsmtrace
-* https://www.navidrome.org/
-
-# FreeBSD Musings
-
-I haven't really used FreeBSD since the 4.x/5.x era.
-
-Some thing have changed:
-
-* portsnap - no more cvsup! Port and pkg installation feel familiar
-* doas seems to be mentioned more as a better alternative to sudo
-
-I find FreeBSD follows a [Make me think!][make-me-think] philosophy. It doesn't do everything
-automatically for you. When you install a service it won't auto-start it. You'll have to
-explicitly enable it in /etc/rc.conf. Configuration is usually secure by default or, no configuration
-exists and you'll be required to think about how you want to configure that thing you
-just installed. I like this approach a lot. As I operate it, I feel like I'm improving my
-understanding.
-
-I'm amazed at the response that a couple tweets got. It left me with the impression that the 
-FreeBSD is a community looking for opportunities to show support. I know it's anecdotal but
-it did give me a very positive impression. 
-
-https://twitter.com/ScottMuc/status/1266650792024518657
-
-[make-me-think]: https://blog.prototypr.io/make-me-think-90b46aa50513
-
-# Train Rides
+# Train Rides to Watch When Repaving
 
 * [Führerstandsmitfahrt S-Bahn Berlin von Alexanderplatz nach Potsdam auf der S7 in 4K](https://www.youtube.com/watch?v=dxYiz4knmkU)
 * [Cab ride St. Moritz - Tirano (Bernina pass), Switzerland to Italy](https://www.youtube.com/watch?v=Mw9qiV7XlFs)
 * [4K CABVIEW Bar - Bijelo Polje -102 tunnels -96 bridges -1029m altitude change from Sea to Mountains](https://www.youtube.com/watch?v=zomZywCAPTA)
 
-# Tickets to Write
-
-* https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
-* Cannot install go 1.14.3 on my pi
-* Cannot build with CGO enabled targetting FreeBSD/arm64
-* Airsonic very slow to the point of not being usable
-
-# TODO
-
-* Setup a static IP. Either on the DHCP side or on the machine side
-* Run stuff with reduced priv users
-* Setup localization so files with special characters can get loaded
-* install nginx and letsencrypt to have a TLS terminating endpoint
-* Create a service wrapper forr navidrome
-* Setup backups of the navidrome DB
-* Don't let certbot change ngninx config, just generate certs
-* Figure out how to organize ngninx config cleanly
-* setup a splash page for /
-* secure samba sharing (should have a read-only user) and a power user
-  with write privleges
-* split pi-hole installation up into separate parts
 
