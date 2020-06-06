@@ -55,6 +55,7 @@ setup.
 * https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
 * Cannot install go 1.14.3 on my pi in FreeBSD
 * Cannot build with CGO enabled targetting FreeBSD/arm64 on a FreeBSD VM
+* Album art images break when you change your password
 
 # Archived Journals
 
