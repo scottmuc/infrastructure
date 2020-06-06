@@ -30,11 +30,16 @@ way. For this device I am quite content with a supervised partially automated
 setup.
 
 1. Run `raspi-config` and enable SSHD and set the timezone
-2. Run `nginx.sh` on the Pi
+2. Turn off `dhcpcd` and statically set the IP ([instructions][static-ip])
+3. Run `nginx.sh` on the Pi
+
+
+[static-ip]: https://raspberrypi.stackexchange.com/questions/78510/disable-dhcpcd-service-for-static-ip
 
 # TODO
 
-* Setup a static IP. Either on the DHCP side or on the machine side
+* Setup a static IP
+* Setup the Pi to be a `dhcpd` server and disable it on my router
 * Run stuff with reduced priv users
 * Create a service wrapper for navidrome
 * Setup backups of the navidrome DB
@@ -215,6 +220,9 @@ Getting the USB device mounted was just as easy in FreeBSD
 apt-get install exfat-fuse exfat-utils
 mkdir /media/extusb
 mount -t exfat /dev/sda1 /media/extusb
+
+# /etc/fstab entry
+UUID=5A47-F8E2 /mnt/usb exfat defaults,auto,users,rw,nofail,umask=000 0 0
 ```
 
 At the moment, I'm happy to re-mount things after a reboot.
