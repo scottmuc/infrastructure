@@ -141,23 +141,26 @@ will be accessible with that account.
 
 # TODO
 
-* Setup a static IP
-* Setup the Pi to be a `dhcpd` server and disable it on my router
-* Run navidrome with reduced priv users
-* Run samba with reduced priv users
-* Run pihole with reduced priv users
-* Create a service wrapper for navidrome
-* Setup backups of the navidrome DB
-* Don't let certbot change ngninx config, just generate certs
-* Figure out how to organize ngninx config cleanly
-* setup a splash page for /
-* secure samba sharing (should have a read-only user) and a power user
+* [x] Setup a static IP
+* [ ] Setup the Pi to be a `dhcpd` server and disable it on my router
+* [x] Run navidrome with reduced priv users
+* [ ] Create a service wrapper for navidrome
+* [ ] ~~Setup backups of the navidrome DB~~ No longer needed as the data
+  lives on the external disk therefore it won't be wiped when I repave
+  the Pi.
+* [x] Don't let certbot change ngninx config, just generate certs
+* [x] Figure out how to organize ngninx config cleanly
+* [ ] setup a splash page for /
+* [x] secure samba sharing (should have a read-only user) and a power user
   with write privleges
-* split pi-hole installation up into separate parts
+* [ ] ~~Run samba with reduced priv users~~ Samba needs to run as root in order
+  to fork as the users for specific share access.
+* [ ] split pi-hole installation up into separate parts
+* [ ] Run pihole with reduced priv users
 
 ## Tickets to Write
 
-* https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
-* Cannot install go 1.14.3 on my pi in FreeBSD
-* Cannot build with CGO enabled targetting FreeBSD/arm64 on a FreeBSD VM
-* Album art images break when you change your password
+* [ ] https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
+* [ ] Cannot install go 1.14.3 on my pi in FreeBSD
+* [ ] Cannot build with CGO enabled targetting FreeBSD/arm64 on a FreeBSD VM
+* [ ] Album art images break when you change your password
