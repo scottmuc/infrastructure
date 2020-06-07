@@ -18,7 +18,8 @@ Linux raspberrypi 4.19.118-v7+ #1311 SMP Mon Apr 27 14:21:24 BST 2020 armv7l GNU
 
 # Features
 
-* Ad blocking DNS for all networked devices
+* ~~Ad blocking DNS for all networked devices~~ Not yet as the more I read about
+  pi-hole, the more I don't like it.
 * Personal music streaming service
 * Apartment network storage
 
@@ -139,6 +140,24 @@ Then create the user:
 After restarting the service `sudo systemctl restart smbd.service` the share
 will be accessible with that account.
 
+## 7. Install and setup ad blocking DNS resolver
+
+This still needs some work. I was initially looking at [pi-hole][pi-hole] but
+upon further investigation, I found it didn't fit how I like to operate things.
+
+1. The `curl bash` script is way too large and complicated to understand for me.
+2. It installs another `httpd` server when I already have one installed.
+3. It still requires you to install a resursive resolver if you don't want to
+   delegte resolution to one of the upstream providers (I didn't know this going
+   into things). I wanted to avoid third-party upstream providers in the first
+   place.
+4. Not a fan that it's a fork of [`dnsmasq`][dnsmasq] and that it is in a state
+   where it cannot receive upstream updates anymore.
+5. Why can I not install it via `apt-get insall`?
+
+[pi-hole]: https://pi-hole.net/
+[dnsmasq]: https://docs.pi-hole.net/ftldns/dns-resolver/
+
 # TODO
 
 * [x] Setup a static IP
@@ -155,8 +174,9 @@ will be accessible with that account.
   with write privleges
 * [ ] ~~Run samba with reduced priv users~~ Samba needs to run as root in order
   to fork as the users for specific share access.
-* [ ] split pi-hole installation up into separate parts
-* [ ] Run pihole with reduced priv users
+* [ ] ~~split pi-hole installation up into separate parts~~ No longer running
+  pi-hole.
+* [ ] ~~Run pihole with reduced priv users~~ No longer running pi-hole.
 
 ## Tickets to Write
 
