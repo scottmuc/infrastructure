@@ -151,9 +151,14 @@ upon further investigation, I found it didn't fit how I like to operate things.
    delegte resolution to one of the upstream providers (I didn't know this going
    into things). I wanted to avoid third-party upstream providers in the first
    place.
-4. Not a fan that it's a fork of [`dnsmasq`][dnsmasq] and that it is in a state
-   where it cannot receive upstream updates anymore.
-5. Why can I not install it via `apt-get insall`?
+4. Not a fan that it's a fork of [`dnsmasq`][dnsmasq].
+5. Why can I not install it via `apt-get intsall`? And if I can, why the `curl bash`?
+6. I sense that pi-hole is intended to be more of an appliance type application
+   and therefore it's best to dedicate a machine to it. It doesn't appear to
+   play well in a shared server.
+
+Some of my complaints might be me not understanding things but the more I
+looked into it, the more layers and confusion I found.
 
 [pi-hole]: https://pi-hole.net/
 [dnsmasq]: https://docs.pi-hole.net/ftldns/dns-resolver/
