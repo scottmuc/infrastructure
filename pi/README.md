@@ -118,6 +118,27 @@ Then reboot to confirm the mount "sticks".
 
 Run [`navidrome.sh`](navidrome.sh) as `root` on the Pi.
 
+## 6. Install and configure Samba
+
+`apt-get install samba`
+
+Add the following to `/etc/samba/smb.conf`
+```
+[All Stuff]
+  path = /mnt/usb
+  browseable = yes
+  read only = no
+  guest ok = no
+  valid users = pi
+```
+
+Then create the user:
+
+`sudo smbpasswd -a pi`
+
+After restarting the service `sudo systemctl restart smbd.service` the share
+will be accessible with that account.
+
 # TODO
 
 * Setup a static IP
