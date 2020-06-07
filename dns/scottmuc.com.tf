@@ -38,17 +38,6 @@ resource "gandi_zonerecord" "mx_at_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "txt_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
-  name = "@"
-  type = "TXT"
-  ttl = "3600"
-  values = [
-    "keybase-site-verification=WYe5ju0VjNIRHhBkHg6s_ERw-CQBJ_LKq6zwfMDO5Wk"
-  ]
-}
-
-
 resource "gandi_zonerecord" "www_scottmuc_com" {
   zone = data.gandi_zone.scottmuc_com.id
   name = "www"
