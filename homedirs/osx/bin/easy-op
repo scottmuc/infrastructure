@@ -9,6 +9,9 @@ main() {
   local sub_command
   sub_command="$1"
   case "$sub_command" in
+    status)
+      auth_check
+      ;;
     list)
       list
       ;;
@@ -29,6 +32,9 @@ usage: $0 <command>
 1password CLI without all the JSON parsing
 
 Commands:
+ - status
+     checks if your terminal session has a valid token
+
  - list
      displays some stats of the whole dataset
 
@@ -36,6 +42,15 @@ Commands:
      displays a credential (only works with secure notes)
 "
   exit 1
+}
+
+auth_check() {
+  if op list vaults > /dev/null 2>&1
+  then
+    echo "authenticated"; exit 0
+  else
+    echo "unauthenticated"; exit 1
+  fi
 }
 
 show() {
