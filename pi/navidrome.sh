@@ -1,20 +1,23 @@
 #!/usr/bin/env bash
 
 rm -rf /opt/navidrome
-mkdir -p /opt/navidrome
 mkdir -p /opt/navidrome/ffmpeg
 
-curl -L https://github.com/deluan/navidrome/releases/download/v0.21.0/navidrome_0.21.0_Linux_armv7.tar.gz 2> /dev/null \
+navidrome_version="0.22.0"
+navidrome_release_url="https://github.com/deluan/navidrome/releases/download/v${navidrome_version}/navidrome_${navidrome_version}_Linux_armv7.tar.gz"
+ffmpeg_download_url="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz"
+
+curl -L "${navidrome_release_url}" 2> /dev/null \
   | tar xzv -C /opt/navidrome
 
-(cd /tmp && curl -LO https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz 2> /dev/null)
+(cd /tmp && curl -LO "${ffmpeg_download_url}" 2> /dev/null)
 
 tar xvf /tmp/ffmpeg-release-armhf-static.tar.xz --strip-components=1 -C /opt/navidrome/ffmpeg
 
 cat > /opt/navidrome/navidrome.toml <<EOF
 LogLevel = "INFO"
 BaseURL = "/music"
-ScanInterval = "30m"
+ScanInterval = "60m"
 TranscodingCacheSize = "15MB"
 DataFolder = "/mnt/usb/navidrome"
 MusicFolder = "/mnt/usb/music"
