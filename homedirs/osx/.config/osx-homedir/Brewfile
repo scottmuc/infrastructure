@@ -37,5 +37,5 @@ cask 'shiftit'
 
 # there are some issues to make installing virtualbox smoothly
 # https://apple.stackexchange.com/questions/372492/virtualbox-installation-failed-on-macos-catalina
-cask 'virtualbox'
+# cask 'virtualbox'
 cask 'vlc'

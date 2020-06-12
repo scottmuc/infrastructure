@@ -78,7 +78,6 @@ invoke_homebrew() {
     brew update || true
   fi
 
-  brew bundle cleanup --file=~/.config/osx-homedir/Brewfile
   brew bundle --file=~/.config/osx-homedir/Brewfile
 }
 
