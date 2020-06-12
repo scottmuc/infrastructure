@@ -256,6 +256,82 @@ the auto DNS server setting).
 
 I cannot switch DNS in my router config but I can at least disable DHCP.
 
+Started looking at `kea` for DHCP because it looks like the old server is
+being phased out. Wasn't a fan of seeing `mysql` dependencies being installed:
+
+```
+pi@pi:~ $ sudo apt-get install kea-dhcp4-server
+Reading package lists... Done
+Building dependency tree
+Reading state information... Done
+The following additional packages will be installed:
+  kea-common liblog4cplus-1.1-9 libmariadb3 libpq5 mariadb-common mysql-common
+Suggested packages:
+  kea-doc
+The following NEW packages will be installed:
+  kea-common kea-dhcp4-server liblog4cplus-1.1-9 libmariadb3 libpq5 mariadb-common mysql-common
+```
+
+Here's the config I got working in `/etc/kea/kea-dhcp4.conf`:
+
+```json
+{
+  "Dhcp4": {
+    "valid-lifetime": 4000,
+    "renew-timer": 1000,
+    "rebind-timer": 2000,
+    "interfaces-config": {
+      "interfaces": [
+        "eth0"
+      ]
+    },
+    "lease-database": {
+      "type": "memfile",
+      "persist": true,
+      "name": "/var/lib/kea/dhcp4.leases"
+    },
+    "subnet4": [
+      {
+        "subnet": "192.168.2.0/24",
+        "pools": [
+          {
+            "pool": "192.168.2.100 - 192.168.2.200"
+          }
+        ],
+        "option-data": [
+          {
+            "name": "routers",
+            "data": "192.168.2.1"
+          },
+          {
+            "name": "domain-name-servers",
+            "data": "192.168.2.10"
+          },
+          {
+            "code": 15,
+            "data": "home.scottmuc.com"
+          },
+          {
+            "name": "domain-search",
+            "data": "home.scottmuc.com"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+It took many troubleshooting of json parsing errors to figure things out. There
+exists [comprehensive docs][kea-docs] but it still took some trial and error.
+
+[kea-docs]: https://kea.readthedocs.io/en/kea-1.6.2/arm/dhcp4-srv.html#dhcpv4-server-configuration
+
+Next rebuild I'm going to look at using [`isc-dhcp-server`][isc-info] as it looks
+nicer to configure despite its age.
+
+[isc-info]: https://tecadmin.net/install-dhcp-server-in-ubuntu/
+
 # Train Rides to Watch When Repaving
 
 * [Führerstandsmitfahrt S-Bahn Berlin von Alexanderplatz nach Potsdam auf der S7 in 4K](https://www.youtube.com/watch?v=dxYiz4knmkU)

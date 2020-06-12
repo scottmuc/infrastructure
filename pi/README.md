@@ -18,7 +18,7 @@ Linux raspberrypi 4.19.118-v7+ #1311 SMP Mon Apr 27 14:21:24 BST 2020 armv7l GNU
 
 # Features
 
-* **Coming soon** Ad blocking DNS for all networked devices
+* Ad blocking DNS for all networked devices
 * Personal music streaming service
 * Apartment network storage
 
@@ -207,6 +207,11 @@ hosts. I'm still not sure what's betterr for my scenario but here's some reading
 * https://docs.pi-hole.net/ftldns/blockingmode/#pi-holes-nxdomain-blocking
 * https://github.com/StevenBlack/hosts#we-recommend-using-0000-instead-of-127001
 * Unrelated but useful: https://www.going-flying.com/blog/better-ad-blocking-and-safer-dns-with-unbound-and-cloudflare.html
+
+## 8. Configure Pi to be a DHCP Server
+
+This is still a work in progress but I have something working. I put my
+notes in my [research doc][RESEARCH.md#dhcp]
 
 # TODO
 
