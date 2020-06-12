@@ -18,8 +18,7 @@ Linux raspberrypi 4.19.118-v7+ #1311 SMP Mon Apr 27 14:21:24 BST 2020 armv7l GNU
 
 # Features
 
-* ~~Ad blocking DNS for all networked devices~~ Not yet as the more I read about
-  pi-hole, the more I don't like it.
+* **Coming soon** Ad blocking DNS for all networked devices
 * Personal music streaming service
 * Apartment network storage
 
@@ -142,28 +141,72 @@ will be accessible with that account.
 
 ## 7. Install and setup ad blocking DNS resolver
 
-This still needs some work. I was initially looking at [pi-hole][pi-hole] but
-upon further investigation, I found it didn't fit how I like to operate things.
-
-1. The `curl bash` script is way too large and complicated to understand for me.
-2. It installs another `httpd` server when I already have one installed. Though it
-   appears I could [disable this][disable-http].
-3. It still requires you to install a resursive resolver if you don't want to
-   delegte resolution to one of the upstream providers (I didn't know this going
-   into things). I wanted to avoid third-party upstream providers in the first
-   place.
-4. Not a fan that it's a fork of [`dnsmasq`][dnsmasq].
-5. Why can I not install it via `apt-get intsall`? And if I can, why the `curl bash`?
-6. I sense that pi-hole is intended to be more of an appliance type application
-   and therefore it's best to dedicate a machine to it. It doesn't appear to
-   play well in a shared server.
-
-Some of my complaints might be me not understanding things but the more I
-looked into it, the more layers and confusion I found.
+I was initially looking at [pi-hole][pi-hole] but upon
+[further investigation][pihole-research], I found it didn't fit how I like to
+ operate things.
 
 [pi-hole]: https://pi-hole.net/
-[dnsmasq]: https://docs.pi-hole.net/ftldns/dns-resolver/
-[disable-http]: https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh#L1406
+[pihole-research]: RESEARCH.md#dns
+
+Instead I decided to go with `[unbound]`[unbound-homepage]. The decision is mainly
+because the BSDs chose to use it and I trust them. Little did I know that I was
+in for an operators treat. The [documentation][unbound-docs] were great and was
+able to get everything working to my liking by following them.
+
+[unbound-homepage]: https://www.nlnetlabs.nl/projects/unbound/about/
+[unbound-docs]: https://www.nlnetlabs.nl/documentation/unbound/unbound.conf/
+
+```
+apt-get install unbound
+```
+
+I then needed to tweak the configuration so I had logs, and appropriate level
+of access.
+
+Create `/etc/unbound/unbound.conf.d/pi-hole-replacement.conf` with the contents:
+
+```
+server:
+  verbosity: 3
+  logfile: /var/log/unbound.log
+
+  interface: 0.0.0.0
+  access-control: 192.68.2.0/24 allow
+```
+
+```
+sudo touch /var/log/unbound.log
+sudo chown unbound:unbound /var/log/unbound.log
+
+# Create the blacklist configuration
+sudo curl -Lo /etc/unbound/unbound.conf.d/blacklist.conf \
+  https://raw.githubusercontent.com/oznu/dns-zone-blacklist/master/unbound/unbound-nxdomain.blacklist
+
+sudo service unbound restart
+```
+
+Need to change so I don't mess up my `/etc/resolv.conf` on reboot:
+
+```
+# /etc/cnetwork/interfaces.d/eth0
+
+auto eth0
+allow-hotplug eth0
+iface eth0 inet static
+address 192.168.2.10
+netmask 255.255.255.0
+gateway 192.168.2.1
+dns-nameservers 127.0.0.1 <------
+dns-search home.scottmuc.com
+```
+
+There were some decisions made on choosing to return `NXDOMAIN` or `0.0.0.0` for the blacklisted
+hosts. I'm still not sure what's betterr for my scenario but here's some reading:
+
+* https://blog.veloc1ty.de/2020/01/04/pihole-nxdomain-bad-idea/
+* https://docs.pi-hole.net/ftldns/blockingmode/#pi-holes-nxdomain-blocking
+* https://github.com/StevenBlack/hosts#we-recommend-using-0000-instead-of-127001
+* Unrelated but useful: https://www.going-flying.com/blog/better-ad-blocking-and-safer-dns-with-unbound-and-cloudflare.html
 
 # TODO
 
