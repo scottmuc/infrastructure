@@ -216,7 +216,7 @@ notes in my [research doc][RESEARCH.md#dhcp]
 # TODO
 
 * [x] Setup a static IP
-* [ ] Setup the Pi to be a `dhcpd` server and disable it on my router
+* [x] Setup the Pi to be a `dhcpd` server and disable it on my router
 * [x] Run navidrome with reduced priv users
 * [ ] Create a service wrapper for navidrome
 * [ ] ~~Setup backups of the navidrome DB~~ No longer needed as the data
