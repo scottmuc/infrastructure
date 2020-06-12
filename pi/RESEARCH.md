@@ -218,14 +218,36 @@ Inside `/etc/samba/smb.conf` I added the lines
 ### DNS
 
 I would like to reduce the ads and protect my network so I thought I would
-tinker with [pi-hole][pi-hole].
+tinker with [pi-hole][pi-hole-install].
 
 The curl-bash did the trick. I'm not too happy with the install though. Why
 can't it be installed as a debian package? I also didn't like that it blindly
 installed lighttpd which also binds to port 80 when I already have nginx
 running.
 
-[pi-hole]: https://github.com/pi-hole/pi-hole/#one-step-automated-install
+[pi-hole-install]: https://github.com/pi-hole/pi-hole/#one-step-automated-install
+
+#### Why Not PiHole
+
+1. The `curl bash` script is way too large and complicated to understand for me.
+2. It installs another `httpd` server when I already have one installed. Though it
+   appears I could [disable this][disable-http].
+3. It still requires you to install a resursive resolver if you don't want to
+   delegte resolution to one of the upstream providers (I didn't know this going
+   into things). I wanted to avoid third-party upstream providers in the first
+   place.
+4. Not a fan that it's a fork of [`dnsmasq`][dnsmasq].
+5. Why can I not install it via `apt-get intsall`? And if I can, why the `curl bash`?
+6. I sense that pi-hole is intended to be more of an appliance type application
+   and therefore it's best to dedicate a machine to it. It doesn't appear to
+   play well in a shared server.
+
+Some of my complaints might be me not understanding things but the more I
+looked into it, the more layers and confusion I found.
+
+[pi-hole]: https://pi-hole.net/
+[dnsmasq]: https://docs.pi-hole.net/ftldns/dns-resolver/
+[disable-http]: https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh#L1406
 
 ### DHCP
 
