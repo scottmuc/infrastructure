@@ -146,7 +146,8 @@ This still needs some work. I was initially looking at [pi-hole][pi-hole] but
 upon further investigation, I found it didn't fit how I like to operate things.
 
 1. The `curl bash` script is way too large and complicated to understand for me.
-2. It installs another `httpd` server when I already have one installed.
+2. It installs another `httpd` server when I already have one installed. Though it
+   appears I could [disable this][disable-http].
 3. It still requires you to install a resursive resolver if you don't want to
    delegte resolution to one of the upstream providers (I didn't know this going
    into things). I wanted to avoid third-party upstream providers in the first
@@ -162,6 +163,7 @@ looked into it, the more layers and confusion I found.
 
 [pi-hole]: https://pi-hole.net/
 [dnsmasq]: https://docs.pi-hole.net/ftldns/dns-resolver/
+[disable-http]: https://github.com/pi-hole/pi-hole/blob/master/automated%20install/basic-install.sh#L1406
 
 # TODO
 
