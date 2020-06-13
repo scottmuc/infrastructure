@@ -213,26 +213,6 @@ hosts. I'm still not sure what's betterr for my scenario but here's some reading
 This is still a work in progress but I have something working. I put my
 notes in my [research doc][RESEARCH.md#dhcp]
 
-# TODO
-
-* [x] Setup a static IP
-* [x] Setup the Pi to be a `dhcpd` server and disable it on my router
-* [x] Run navidrome with reduced priv users
-* [ ] Create a service wrapper for navidrome
-* [ ] ~~Setup backups of the navidrome DB~~ No longer needed as the data
-  lives on the external disk therefore it won't be wiped when I repave
-  the Pi.
-* [x] Don't let certbot change ngninx config, just generate certs
-* [x] Figure out how to organize ngninx config cleanly
-* [ ] setup a splash page for /
-* [x] secure samba sharing (should have a read-only user) and a power user
-  with write privleges
-* [ ] ~~Run samba with reduced priv users~~ Samba needs to run as root in order
-  to fork as the users for specific share access.
-* [ ] ~~split pi-hole installation up into separate parts~~ No longer running
-  pi-hole.
-* [ ] ~~Run pihole with reduced priv users~~ No longer running pi-hole.
-
 ## Tickets to Write
 
 * [ ] https://github.com/scottmuc/infrastructure/commit/f3a9a06ce2dc77d4f978663a6ea8e2baf4ce0834
