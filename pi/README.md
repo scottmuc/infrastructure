@@ -46,7 +46,7 @@ to statically assign the IP.
 ```
 systemctl stop dhcpcd
 systemctl disable dhcpd
-apt remote dhcpd5
+apt remove dhcpd5
 ```
 
 
@@ -211,7 +211,7 @@ hosts. I'm still not sure what's betterr for my scenario but here's some reading
 ## 8. Configure Pi to be a DHCP Server
 
 This is still a work in progress but I have something working. I put my
-notes in my [research doc][RESEARCH.md#dhcp]
+notes in my [research doc](RESEARCH.md#dhcp)
 
 ## Tickets to Write
 
