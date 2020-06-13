@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+service navidrome stop
+
 rm -rf /opt/navidrome
 mkdir -p /opt/navidrome/ffmpeg
 
@@ -23,20 +25,49 @@ DataFolder = "/mnt/usb/navidrome"
 MusicFolder = "/mnt/usb/music"
 EOF
 
-cat > /opt/navidrome/run.sh <<'EOF'
-#!/bin/bash
 
-exec \
-env \
-  PATH=/opt/navidrome/ffmpeg:$PATH \
-  ./navidrome
+cat > /etc/systemd/system/navidrome.service <<EOF
+[Unit]
+Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
+After=remote-fs.target network.target
+AssertPathExists=/opt/navidrome
+
+[Install]
+WantedBy=multi-user.target
+
+[Service]
+User=navidrome
+Group=root
+Type=simple
+ExecStart=/opt/navidrome/navidrome -configfile "/opt/navidrome/navidrome.toml"
+WorkingDirectory=/opt/navidrome
+TimeoutStopSec=20
+KillMode=process
+Restart=on-failure
+Environment="PATH=/opt/navidrome/ffmpeg"
+
+# See https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+DevicePolicy=closed
+NoNewPrivileges=yes
+PrivateTmp=yes
+PrivateUsers=yes
+ProtectControlGroups=yes
+ProtectKernelModules=yes
+ProtectKernelTunables=yes
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+RestrictNamespaces=yes
+RestrictRealtime=yes
+SystemCallFilter=~@clock @debug @module @mount @obsolete @privileged @reboot @setuid @swap
+ReadWritePaths=/mnt/usb/navidrome
+ProtectSystem=strict
+ProtectHome=true
 EOF
 
-chmod +x /opt/navidrome/run.sh
 chown -R navidrome:root /opt/navidrome
 
 useradd --system navidrome --home-dir /opt/navidrome --shell /usr/sbin/nologin/
 
-# To launch
-# cd /opt/navidrome
-# sudo -u navidrome nohup ./run.sh &> /mnt/usb/navidrome/logs/navidrome.log &
+systemctl daemon-reload
+
+service navidrome start
+service navidrome status
