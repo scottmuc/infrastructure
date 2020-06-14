@@ -167,17 +167,11 @@ Create `/etc/unbound/unbound.conf.d/pi-hole-replacement.conf` with the contents:
 
 ```
 server:
-  verbosity: 3
-  logfile: /var/log/unbound.log
-
   interface: 0.0.0.0
-  access-control: 192.68.2.0/24 allow
+  access-control: 192.168.2.0/24 allow
 ```
 
 ```
-sudo touch /var/log/unbound.log
-sudo chown unbound:unbound /var/log/unbound.log
-
 # Create the blacklist configuration
 sudo curl -Lo /etc/unbound/unbound.conf.d/blacklist.conf \
   https://raw.githubusercontent.com/oznu/dns-zone-blacklist/master/unbound/unbound-nxdomain.blacklist
