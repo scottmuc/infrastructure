@@ -11,6 +11,15 @@
 * Run `./scripts/terraform init dns` if this is the first time
 * Run `./scripts/terraform_apply`
 
+### Pi
+
+All configuration and research of my Raspberry Pi is recorded [here](pi/README.md)
+
+### Homedirs
+
+The old [osx-homedir](https://github.com/scottmuc/osx-homedir) repository is retired
+and I am not storing configuration for all OS homedirs in [homedirs](homedirs)
+
 ### Decision Log
 
 * Terraform + AWS because it's boring. I'm familiar with both of these technologies already. Thanks
@@ -22,6 +31,8 @@
   the **Access Advisor** before and it's pretty slick! (looks like I should have a [bootstrap][tf-bootstrap])
 * Still using Terraform but no longer going to use AWS DNS. No need for the level of indirection. Gandi.net
   works just fine.
+* Moved to storing infrastructure related secrets in this repository and securing them
+  using `git-crypt`.
 
 [18f-dns]: https://18f.gsa.gov/2018/08/15/shared-infrastructure-as-code/
 [tf-bootstrap]: https://github.com/18F/dns/blob/master/terraform/bootstrap/init.tf
