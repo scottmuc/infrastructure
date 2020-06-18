@@ -10,7 +10,7 @@ main() {
     unlock)
       # depends on this machine having the following in the PATH
       # https://github.com/scottmuc/infrastructure/blob/master/homedirs/osx/bin/easy-op
-      base64_key="$(easy-op show infrastructure-git-crypt-key git-crypt-key)"
+      base64_key="$(easy-op show -n infrastructure-git-crypt-key -f git-crypt-key)"
       git-crypt unlock <(echo "${base64_key}" | base64 --decode -)
       ;;
     lock)
