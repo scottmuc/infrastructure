@@ -21,23 +21,6 @@ resource "gandi_zonerecord" "at_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "mx_at_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
-  name = "@"
-  type = "MX"
-  ttl = "3600"
-  values = [
-    "90 aspmx2.google.com.",
-    "90 aspmx3.google.com.",
-    "50 alt1.aspmx.l.google.com.",
-    "10 aspmx.l.google.com.",
-    "50 alt2.aspmx.l.google.com.",
-    "90 aspmx4.google.com.",
-    "90 aspmx5.google.com."
-  ]
-}
-
-
 resource "gandi_zonerecord" "txt_scottmuc_com" {
   zone = data.gandi_zone.scottmuc_com.id
   name = "@"
@@ -69,16 +52,6 @@ resource "gandi_zonerecord" "feeds_scottmuc_com" {
   ]
 }
 
-
-resource "gandi_zonerecord" "mail_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
-  name = "mail"
-  type = "CNAME"
-  ttl = "3600"
-  values = [
-    "ghs.google.com."
-  ]
-}
 
 
 resource "gandi_zonerecord" "home_scottmuc_com" {
