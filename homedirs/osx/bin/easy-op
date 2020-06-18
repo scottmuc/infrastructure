@@ -6,9 +6,7 @@ set -o pipefail
 [[ -z "${DEBUG}" ]] || set -x
 
 main() {
-  local sub_command
-  sub_command="$1"
-  case "$sub_command" in
+  case "$1" in
     status)
       auth_check
       ;;
@@ -17,7 +15,7 @@ main() {
       ;;
     show)
       shift
-      show "$@"
+      show_command "$@"
       ;;
     *)
       print_usage_and_exit
@@ -38,8 +36,12 @@ Commands:
  - list
      displays some stats of the whole dataset
 
- - show <title> <field>
+ - show
      displays a credential (only works with secure notes)
+
+     -n      specify note name (default: "")
+
+     -f      specify field name (default: "")
 "
   exit 1
 }
@@ -53,16 +55,38 @@ auth_check() {
   fi
 }
 
+show_command() {
+  local note_name=""
+  local field_name=""
+  while getopts ":n:f:" opt; do
+    case $opt in
+      n) note_name="$OPTARG"
+      ;;
+      f) field_name="$OPTARG"
+      ;;
+      \?) print_usage_and_exit
+      ;;
+    esac
+  done
+
+  show "${note_name}" "${field_name}"
+}
+
 show() {
   local title="$1"
   local section="$2"
 
-  op get item "${title}" \
-     | jq -r ".details.sections[]
-       | select(.fields)
-       | .fields[]
-       | select(.t == \"${section}\")
-       | .v"
+  if [[ -n "${section}" ]]; then
+    op get item "${title}" \
+       | jq -r ".details.sections[]
+         | select(.fields)
+         | .fields[]
+         | select(.t == \"${section}\")
+         | .v"
+  else
+    op get item "${title}" \
+       | jq -r ".details"
+  fi
 }
 
 list() {
