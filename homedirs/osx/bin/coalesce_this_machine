@@ -34,6 +34,7 @@ symlink_all_the_things() {
   ln -sfv "${homedir_source}/bin" ~
 
   ln -sfv "${homedir_source}/.gitconfig" ~
+  ln -sfv "${homedir_source}/.githelpers" ~
   ln -sfv "${homedir_source}/.mrconfig" ~
   ln -sfv "${homedir_source}/.zshrc" ~
 }
