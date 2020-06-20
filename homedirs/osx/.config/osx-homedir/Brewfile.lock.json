@@ -267,7 +267,7 @@
         }
       },
       "1password-cli": {
-        "version": "1.0.0",
+        "version": "1.1.0",
         "options": {
           "full_name": "1password-cli"
         }
@@ -331,12 +331,12 @@
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.3.0",
+        "HOMEBREW_VERSION": "2.4.0",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "1b9271c44b1f2db2930ef1ca854855feb65e166d",
+        "Homebrew/homebrew-core": "e337444f113511d5f2ffdd9ee5764f2015a43997",
         "CLT": "1103.0.32.29",
         "Xcode": "11.4.1",
-        "macOS": "10.15.4"
+        "macOS": "10.15.5"
       }
     }
   }
