@@ -74,19 +74,37 @@ show_command() {
 
 show() {
   local title="$1"
-  local section="$2"
+  local field="$2"
+  local result=""
 
-  if [[ -n "${section}" ]]; then
-    op get item "${title}" \
+  if [[ -n "${field}" ]]; then
+    # The following jq only works with fields that are declared in a sub-section
+    # of a note. Things like Secure Note items don't have a top level fields array
+    # whereas Login items have some fields in a top level and can possibly have
+    # fields in a sub-section one has created them.
+    result=$(op get item "${title}" \
        | jq -r ".details.sections[]
          | select(.fields)
          | .fields[]
-         | select(.t == \"${section}\")
-         | .v"
+         | select(.t == \"${field}\")
+         | .v")
+
+    # We did not find the field in a sub-section so now we are assuming the field
+    # is in a top level.
+    if [[ -z "${result}" ]]; then
+      result=$(op get item "${title}" \
+         | jq -r ".details
+           | select(.fields)
+           | .fields[]
+           | select(.name == \"${field}\")
+           | .value")
+    fi
   else
-    op get item "${title}" \
-       | jq -r ".details"
+    result=$(op get item "${title}" \
+      | jq -r ".details")
   fi
+
+  echo "${result}"
 }
 
 list() {
