@@ -332,6 +332,18 @@ nicer to configure despite its age.
 
 [isc-info]: https://tecadmin.net/install-dhcp-server-in-ubuntu/
 
+### Prometheus
+
+Existing buster apt repo has prometheus 2.7.1 availabel whereas 2.19.x is the latest
+
+https://grafana.com/docs/grafana/latest/installation/debian/
+
+Turns out the URL above doesn't have prometheus in it. Decided to with a tarball install
+similar to navidrome. Was able to configure it so it stored its DB on the USB drive
+
+[Install script](prometheus.sh)
+
+
 # Train Rides to Watch When Repaving
 
 * [Führerstandsmitfahrt S-Bahn Berlin von Alexanderplatz nach Potsdam auf der S7 in 4K](https://www.youtube.com/watch?v=dxYiz4knmkU)
