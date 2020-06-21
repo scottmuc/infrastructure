@@ -334,7 +334,7 @@ nicer to configure despite its age.
 
 ### Prometheus
 
-Existing buster apt repo has prometheus 2.7.1 availabel whereas 2.19.x is the latest
+Existing buster apt repo has prometheus 2.7.1 available whereas 2.19.x is the latest
 
 https://grafana.com/docs/grafana/latest/installation/debian/
 
