@@ -3,4 +3,3 @@
 set -e
 
 (cd ~/workspace/infrastructure && git remote set-url origin git@github.com:scottmuc/infrastructure.git)
-(cd ~/workspace/sprout-wrap && git remote set-url origin git@github.com:scottmuc/sprout-wrap.git)
