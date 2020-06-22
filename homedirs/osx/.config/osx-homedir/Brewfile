@@ -4,6 +4,9 @@ brew 'neovim'
 brew 'autojump'
 brew 'chruby'
 
+# This is used to managed the encryption of this repo
+brew 'git-crypt'
+
 # Needed for some coding exercises and also for the terraform-gandi provider
 brew 'golang'
 
