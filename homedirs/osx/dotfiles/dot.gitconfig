@@ -14,8 +14,6 @@
     st = status
     ci = commit
     co = checkout
-    di = diff
-    dc = diff --cached
 
     # custom log that is a copy of Gary Bernhardt's
     l  = "!source ~/.githelpers && pretty_git_log"
