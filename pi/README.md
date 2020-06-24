@@ -102,6 +102,17 @@ server {
 Need to research if using the `--nginx` flag to `certbot` is worth it. It adds
 a separate `dh_key` along with some `ngninx` specific configuration.
 
+Added the following for work related quality-of-life improvement.
+
+```
+server {
+    listen 80 ;
+    listen [::]:80 ;
+    server_name work.scottmuc.com;
+    return 301 https://myvmware.workspaceair.com/;
+}
+```
+
 ## 4. Setup external USB
 
 ```
