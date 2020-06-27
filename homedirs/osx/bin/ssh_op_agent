@@ -24,6 +24,23 @@ ensure_op_logged_in_or_exit() {
 }
 
 load_command() {
+  # I can't figure out what good defaults would look like. There are so many
+  # ways to slice and dice things in 1 Password. I could see a single note
+  # called "keychain" whith many private key fields hanging off of it. I am
+  # preferring NOT to use the "notesPlain" value because I prefer to use that
+  # for Item metadata and other misc information.
+  #
+  # 1 Passwords strength is its great flexibility, but it also imposes a lot
+  # of decision making to be done.
+  #
+  # Another consequence of using fields is that the key needs to be base64
+  # encoded because fields cannot be multi-line.
+  #
+  # The string used to fetch the field also doesn't need to be the same as the
+  # string that is displayed through the 1 Password GUI. This could make
+  # discoverability quite hard to other tools don't keep these values the same.
+  #
+  # See: https://github.com/scottmuc/infrastructure/blob/365fe76b71c520c947cd482ef4ed11ac132f8921/homedirs/osx/bin/create-repave-secrets#L61-L66
   local note_name="keychain"
   local field_name="base64 encoded ssh private key"
   local timeout="1"
