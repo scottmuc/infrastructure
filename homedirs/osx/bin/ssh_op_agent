@@ -7,12 +7,20 @@ main() {
   case "$1" in
     load)
       shift
+      ensure_op_logged_in_or_exit
       load_command "$@"
       ;;
     *)
       print_usage_and_exit
       ;;
   esac
+}
+
+ensure_op_logged_in_or_exit() {
+  if ! easy-op status > /dev/null; then
+    echo "!! You must be signed-in to 1 Password !!"
+    exit 1
+  fi
 }
 
 load_command() {
