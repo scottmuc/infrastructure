@@ -43,13 +43,16 @@ load_command() {
   # See: https://github.com/scottmuc/infrastructure/blob/365fe76b71c520c947cd482ef4ed11ac132f8921/homedirs/osx/bin/create-repave-secrets#L61-L66
   local note_name="keychain"
   local field_name="base64 encoded ssh private key"
+  local password_field_name=""
   local timeout="1"
 
-  while getopts ":n:t:f:" opt; do
+  while getopts ":n:f:p:t:" opt; do
     case $opt in
       n) note_name="$OPTARG"
       ;;
       f) field_name="$OPTARG"
+      ;;
+      p) password_field_name="$OPTARG"
       ;;
       t) timeout="$OPTARG"
       ;;
@@ -58,26 +61,39 @@ load_command() {
     esac
   done
 
-  load "${note_name}" "${field_name}" "${timeout}"
+  load "${note_name}" "${field_name}" "${password_field_name}" "${timeout}"
 }
 
 load() {
   # Assuming default values have been passed in
   local note_name="$1"
   local field_name="$2"
-  local timeout="$3"
+  local password_field_name="$3"
+  local timeout="$4"
 
   timeout_in_seconds="$(echo "${timeout}*3600" | bc)"
 
-  echo "Adding \"${note_name}\".\"${field_name}\" to your ssh-agent for ${timeout} hour(s)"
   local base64_key="$(easy-op show -n "${note_name}" -f "${field_name}")"
   local decoded_key="$(echo "${base64_key}" | base64 -D)"
-  ssh-add -t "${timeout_in_seconds}" - <<< "$(echo -e "${decoded_key}")"
+
+  # The presence of DISPLAY will enable our setting of SSH_ASKPASS
+  # to be executed. If I could do this as an argument to `env` I would.
+  # I just don't know how ;-)
+  if [[ -n "${password_field_name}" ]]; then
+    export DISPLAY=""
+  fi
+
+  echo "Adding \"${note_name}\".\"${field_name}\" to your ssh-agent for ${timeout} hour(s)"
+  env \
+    SSH_OP_ASKPASS_NOTE="${note_name}" \
+    SSH_OP_ASKPASS_FIELD="${password_field_name}" \
+    SSH_ASKPASS="ssh_op_askpass" \
+    ssh-add -t "${timeout_in_seconds}" - <<< "$(echo -e "${decoded_key}")"
 }
 
 print_usage_and_exit() {
   cat <<USAGE
-usage: $0 <command>
+usage: $0 <command> <args>
 
 Grabs ssh keys from 1 Password and stores them in your ssh-agent. Currently
 this only works with Secure Notes because of the way 1 Password structures
@@ -91,12 +107,13 @@ Commands:
 
      -f      specify the field of the key; needs to be base64 encoded (default: "base64 encoded ssh private key")
 
+     -p      specify the field (assuming the same note specified with -n) containing the key's passphrase (optional)
+
      -t      specify a timeout in hrs (default: 1)
 
 Examples:
 
-ssh_op_agent load -n test -f "base64 encoded ssh private key"
-ssh_op_agent load -n test
+ssh_op_agent load -n test -f "base64 encoded ssh private key" -p "ssh key passphrase"
 USAGE
 
   exit 1
