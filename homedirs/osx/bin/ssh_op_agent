@@ -77,13 +77,47 @@ load() {
   local decoded_key="$(echo "${base64_key}" | base64 -D)"
 
   # The presence of DISPLAY will enable our setting of SSH_ASKPASS
-  # to be executed. If I could do this as an argument to `env` I would.
-  # I just don't know how ;-)
+  # to be executed (as per the man page documentation. I would rather
+  # embed this in the `env` command below but can't figure out how to
+  # provide a condional env variable throug the `env` command
   if [[ -n "${password_field_name}" ]]; then
     export DISPLAY=""
   fi
 
   echo "Adding \"${note_name}\".\"${field_name}\" to your ssh-agent for ${timeout} hour(s)"
+  # Some reasons why this couldn't be used as a generic all-purpose key
+  # loaded is as follows:
+  #
+  # * prefer to have -c passed to ssh-add
+  # * prefer to ensure an empty agent (e.g.: -D)
+  # * prefer to lock/unlock the agent (e.g.: -x, -X)
+  # * prefer to use local keychain for passphrases (e.g. -K, -A)
+  #
+  # There's some bash magic going on here so let's break it down:
+  #
+  # env
+  #           I tend to use env as a way to introduce env variables to a child
+  #           process because it makes it provides a nice shim to remove vars
+  #           I don't want to be inheritied and it also makes the env variables
+  #           scopes to the child process rather thatn the whole script.
+  #
+  # SSH_OP_ASKPASS_NOTE
+  #           Where ssh_op_askpass will find the passphrase
+  #
+  # SSH_OP_ASKPASS_FILED
+  #           Which field in the note where the passphrase will be
+  #
+  # SSH_ASKPASS
+  #           This is understood by `ssh-add` itself. It'll execute the value
+  #           if this variable is set as well as DISPLAY
+  #
+  # -
+  #           Tells ssh-add to read the key from stdin.
+  #
+  # <<<
+  #
+  #           There looks to be many ways of doing this, see:
+  #           https://stackoverflow.com/a/46253163
   env \
     SSH_OP_ASKPASS_NOTE="${note_name}" \
     SSH_OP_ASKPASS_FIELD="${password_field_name}" \
