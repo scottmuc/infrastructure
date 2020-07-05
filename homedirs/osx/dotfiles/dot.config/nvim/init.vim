@@ -4,9 +4,9 @@
 call plug#begin()
 
 " File navigation
-Plug 'ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 
-Plug 'scrooloose/nerdtree'
+Plug 'https://github.com/scrooloose/nerdtree'
 
 " Required
 call plug#end()
