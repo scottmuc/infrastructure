@@ -1,14 +1,11 @@
 "
 " Scott Muc's .vimrc file
 "
+
 call plug#begin()
-
-" File navigation
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
-
 Plug 'https://github.com/scrooloose/nerdtree'
-
-" Required
+Plug 'https://github.com/tpope/vim-sensible'
 call plug#end()
 
 "----------------------------------------------------------
@@ -21,23 +18,18 @@ set nocompatible
 " not sure why I wouldn't ever want syntax on
 syntax on
 
+" elflord is a built in color scheme
 colorscheme elflord
-
-" enable file type detection
-filetype plugin indent on
 
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
-set autoindent
 
 " allows modified buffers to be hidden
 set hidden
 
 set nostartofline
-set scrolloff=6
-set listchars=trail:.,tab:\|\ 
 
 " Paste Toggle (stops <Command>-V paste from having indentation added)
 nnoremap <F2> :set invpaste paste?<CR>
@@ -97,13 +89,12 @@ nmap k gk
 scriptencoding utf-8
 
 "----------------------------------------------------------
-" status line stuff 
+" status line stuff
 "----------------------------------------------------------
 
-set laststatus=2 
-if has("statusline") 
-  set statusline=%<%f\ %h%m%r%=%k[%{(&fenc\ ==\ \"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %-12.(%l,%c%V%)\ %P 
-endif 
+if has("statusline")
+  set statusline=%<%f\ %h%m%r%=%k[%{(&fenc\ ==\ \"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %-12.(%l,%c%V%)\ %P
+endif
 
 """""""""""
 " Multi purpose tab key stolen from ghb
