@@ -3,9 +3,6 @@
 "
 call plug#begin()
 
-" All the colorschemes
-Plug 'flazz/vim-colorschemes'
-
 " File navigation
 Plug 'ctrlpvim/ctrlp.vim'
 
@@ -24,7 +21,7 @@ set nocompatible
 " not sure why I wouldn't ever want syntax on
 syntax on
 
-colorscheme molokai
+colorscheme elflord
 
 " enable file type detection
 filetype plugin indent on
