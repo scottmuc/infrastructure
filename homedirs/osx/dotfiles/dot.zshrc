@@ -9,9 +9,6 @@ export TERM='xterm-256color'
 export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 alias ls='ls -G'
 
-# nvim only
-alias vim='nvim'
-
 export GREP_OPTIONS="--color"
 
 # Erase duplicates in history, keep 10k entris, and append to the history file
@@ -22,7 +19,7 @@ export HISTSIZE=10000
 # Added to signal 1password-cli
 export XDG_CONFIG_HOME="${HOME}/.config"
 
-export EDITOR="vim -f"
+export EDITOR="nvim"
 
 autoload colors && colors
 PS1="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
