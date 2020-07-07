@@ -21,6 +21,8 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 
 export EDITOR="nvim"
 
+export GPG_TTY=$(tty)
+
 autoload colors && colors
 PS1="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
 
