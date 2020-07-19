@@ -17,7 +17,12 @@ main() {
       git-crypt lock
       ;;
     status)
-      echo "not completed"
+      if git-crypt export /dev/null 2>/dev/null; then
+        echo "unlocked"
+      else
+        echo "locked"
+        exit 1
+      fi
       ;;
     *)
       print_usage_and_exit
@@ -38,7 +43,7 @@ Commands:
  - lock
      encrypts the contents defined in .gitattributes
 
- - stauts
+ - status
      prints locked/unlocked
 
 HELP
