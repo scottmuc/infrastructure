@@ -6,18 +6,18 @@ Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-sensible'
 call plug#end()
 
-"----------------------------------------------------------
-" OS specific configuration
-"----------------------------------------------------------
-
 " don't need to be vi compatible. We're not in the 60's anymore
 set nocompatible
 
 " not sure why I wouldn't ever want syntax on
 syntax on
 
-" elflord is a built in color scheme
-colorscheme elflord
+" Settling with a built in color scheme. Most of the time the default does a
+" fine job of highlighting the appropriate things. To list available color
+" schemes run:
+"
+" :colorscheme <TAB>
+colorscheme desert
 
 set tabstop=2
 set shiftwidth=2
