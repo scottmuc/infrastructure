@@ -1,6 +1,4 @@
-"
-" Scott Muc's .vimrc file
-"
+" This configuration is intended to be overexplained :-)
 
 call plug#begin()
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
@@ -58,26 +56,6 @@ let maplocalleader=","
 autocmd BufRead,BufNewFile *.md set wm=2 tw=120
 autocmd BufRead,BufNewFile *.markdown set wm=2 tw=120
 
-"----------------------------------------------------------
-" Line numbers
-"----------------------------------------------------------
-set relativenumber      "use relative numbers by default
-
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-l> :call NumberToggle()<cr>
-
-
-"----------------------------------------------------------
-" NERD Tree plugin settings
-"----------------------------------------------------------
-
 " toggle NERD Tree with CTRL N
 nmap <silent> <c-n> :NERDTreeToggle<cr>
 
@@ -110,6 +88,8 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
+" The following is to encourage use of the hjkl keys to navigate. It makes it
+" feel natural relatively quickly.
 map <Left> :echo "no!"<cr>
 map <Right> :echo "no!"<cr>
 map <Down> :echo "no!"<cr>
