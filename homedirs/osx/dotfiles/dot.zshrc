@@ -20,6 +20,7 @@ export HISTSIZE=10000
 export XDG_CONFIG_HOME="${HOME}/.config"
 
 export EDITOR="nvim"
+alias vim="echo \"don't you mean nvim\"?"
 
 export GPG_TTY=$(tty)
 
