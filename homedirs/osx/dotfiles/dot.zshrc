@@ -20,7 +20,10 @@ export HISTSIZE=10000
 export XDG_CONFIG_HOME="${HOME}/.config"
 
 export EDITOR="nvim"
-alias vim="echo \"don't you mean nvim\"?"
+
+# Why not `alias vim=nvim`? Rather that having the redirection, I would rather
+# develop the muscle memory to type nvim.
+alias vim="echo woopsy, you probably meant nvim, right?"
 
 export GPG_TTY=$(tty)
 
