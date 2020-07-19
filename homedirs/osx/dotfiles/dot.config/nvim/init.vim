@@ -1,9 +1,22 @@
 " This configuration is intended to be overexplained :-)
 
+" I've chosen vim-plug as my plugin manager for the time being. It feels like
+" it hasn't annoyed me too much. More information can be found at:
+"
+" https://github.com/junegunn/vim-plug
+"
+" Becuase I am using this plugin manager, it's easy to vendor (meaning I can
+" check it into my repository) in my ~/.config/nvim/autoload/plug.vim path.
+"
+" As you can see, I prefer to provide the absolute path to the plugin. Why? I
+" just prefer to not hide the fact that github.com is implied. It's not like I
+" have to type this in all the time so I'm content to have this configuration
+" be a bit more verbose.
 call plug#begin()
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-sensible'
+Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " don't need to be vi compatible. We're not in the 60's anymore
