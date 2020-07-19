@@ -17,7 +17,7 @@ main() {
       git-crypt lock
       ;;
     status)
-      if git-crypt export /dev/null 2>/dev/null; then
+      if git-crypt export-key /dev/null 2>/dev/null; then
         echo "unlocked"
       else
         echo "locked"
