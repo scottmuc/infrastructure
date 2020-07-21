@@ -72,6 +72,7 @@ choco install git -y --source="'https://chocolatey.org/api/v2'" `
   --package-parameters='"/GitAndUnixToolsOnPath /WindowsTerminal"'
 
 choco install brave -y --source="'https://chocolatey.org/api/v2'"
+choco install gnucash -y --source="'https://chocolatey.org/api/v2'"
 
 # 1password installer still broken
 # choco install 1password -y --source="'https://chocolatey.org/api/v2'"
