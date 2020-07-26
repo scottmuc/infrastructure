@@ -1,7 +1,3 @@
-variable "home_ip" {
-}
-
-
 data "gandi_zone" "scottmuc_com" {
   name = "scottmuc.com"
 }
