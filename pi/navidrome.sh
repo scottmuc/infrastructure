@@ -5,7 +5,7 @@ service navidrome stop
 rm -rf /opt/navidrome
 mkdir -p /opt/navidrome/ffmpeg
 
-navidrome_version="0.23.0"
+navidrome_version="0.27.0"
 navidrome_release_url="https://github.com/deluan/navidrome/releases/download/v${navidrome_version}/navidrome_${navidrome_version}_Linux_armv7.tar.gz"
 ffmpeg_download_url="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz"
 
@@ -39,7 +39,7 @@ WantedBy=multi-user.target
 User=navidrome
 Group=root
 Type=simple
-ExecStart=/opt/navidrome/navidrome -configfile "/opt/navidrome/navidrome.toml"
+ExecStart=/opt/navidrome/navidrome --configfile "/opt/navidrome/navidrome.toml"
 WorkingDirectory=/opt/navidrome
 TimeoutStopSec=20
 KillMode=process
