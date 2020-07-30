@@ -63,11 +63,12 @@ ProtectSystem=strict
 ProtectHome=true
 EOF
 
-useradd --system navidrome --home-dir /opt/navidrome --shell /usr/sbin/nologin/
-
 chown -R navidrome:root /opt/navidrome
+
+useradd --system navidrome --home-dir /opt/navidrome --shell /usr/sbin/nologin/
 
 systemctl daemon-reload
 
 service navidrome start
 service navidrome status
+
