@@ -16,3 +16,6 @@ checkout = git clone 'git@github.com:scottmuc/infrastructure.git' 'infrastructur
 
 [workspace/devopsbookmarks.com]
 checkout = git clone 'git@github.com:devopsbookmarks/devopsbookmarks.com.git' 'devopsbookmarks.com'
+
+[workspace/goodenoughmoney]
+checkout = git clone 'git@github.com:scottmuc/goodenoughmoney.git' 'goodenoughmoney'
