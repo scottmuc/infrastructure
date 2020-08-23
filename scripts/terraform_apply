@@ -3,6 +3,7 @@
 ./scripts/terraform \
   apply \
   -state ./secrets/dns.terraform.tfstate \
+  -backup - \
   -var "home_ip=$(curl -4 ifconfig.co)" \
   -var "gandi_api_key=$(cat ./secrets/GANDI_API_KEY)" \
   dns
