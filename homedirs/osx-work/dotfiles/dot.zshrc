@@ -24,6 +24,9 @@ export XDG_CONFIG_HOME="${HOME}/.config"
 
 export EDITOR="vim -f"
 
+# Needed so GPG can prompt for decryption passphrase of my signing key
+export GPG_TTY="$(tty)"
+
 autoload colors && colors
 PS1="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
 
