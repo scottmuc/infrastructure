@@ -41,3 +41,4 @@ if [ -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk ]; then
   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
 
+source ~/workspace/bosh-backup-and-restore-home/include.bash.or.zsh

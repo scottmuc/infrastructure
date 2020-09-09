@@ -1,6 +1,7 @@
 [user]
     name = Scott Muc
     email = smuc@vmware.com
+    signingkey = B1DF650342810714
 
 [core]
     excludesfile = ~/.gitignore

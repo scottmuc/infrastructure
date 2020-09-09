@@ -17,15 +17,9 @@ brew 'tree'
 
 cask '1password'
 cask '1password-cli'
-cask 'brave-browser'
 cask 'iterm2'
 cask 'flycut'
 cask 'macdown'
 cask 'monodraw'
 cask 'selfcontrol'
 cask 'shiftit'
-
-# there are some issues to make installing virtualbox smoothly
-# https://apple.stackexchange.com/questions/372492/virtualbox-installation-failed-on-macos-catalina
-# cask 'virtualbox'
-cask 'vlc'
