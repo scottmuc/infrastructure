@@ -4,6 +4,14 @@ set -e
 set -u
 set -o pipefail
 
+if [[ ! -x vendor/bin/terraform ]]; then
+  rm -f /tmp/terraform*
+  curl -o /tmp/terraform.zip -L https://releases.hashicorp.com/terraform/0.12.29/terraform_0.12.29_darwin_amd64.zip 2> /dev/null
+  (cd /tmp && unzip terraform.zip)
+  install /tmp/terraform vendor/bin/terraform
+  rm -f /tmp/terraform*
+fi
+
 if [[ ! -f .terraform/plugins/darwin_amd64/terraform-provider-gandi ]]; then
   git clone https://github.com/tiramiseb/terraform-provider-gandi.git /tmp/terraform-provider-gandi
   (cd /tmp/terraform-provider-gandi && git checkout "v1.1.1" && go build)
@@ -12,4 +20,4 @@ if [[ ! -f .terraform/plugins/darwin_amd64/terraform-provider-gandi ]]; then
   rm -rf /tmp/terraform-provider-gandi
 fi
 
-terraform "$@"
+vendor/bin/terraform "$@"
