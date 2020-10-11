@@ -23,7 +23,7 @@ brew 'python3'
 brew 'ruby-install'
 
 # Mainly needed by the infrastructure repo
-brew 'terraform'
+brew 'terraform@0.12'
 
 brew 'tree'
 

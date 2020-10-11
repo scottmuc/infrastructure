@@ -274,6 +274,27 @@
             }
           }
         }
+      },
+      "terraform@0.12": {
+        "version": "0.12.29",
+        "bottle": {
+          "cellar": ":any_skip_relocation",
+          "prefix": "/usr/local",
+          "files": {
+            "catalina": {
+              "url": "https://homebrew.bintray.com/bottles/terraform%400.12-0.12.29.catalina.bottle.tar.gz",
+              "sha256": "6dd856617186380d96a3b277e6df15f9df0a929c44c1567e70cc1cff8fcc58e3"
+            },
+            "mojave": {
+              "url": "https://homebrew.bintray.com/bottles/terraform%400.12-0.12.29.mojave.bottle.tar.gz",
+              "sha256": "6dd856617186380d96a3b277e6df15f9df0a929c44c1567e70cc1cff8fcc58e3"
+            },
+            "high_sierra": {
+              "url": "https://homebrew.bintray.com/bottles/terraform%400.12-0.12.29.high_sierra.bottle.tar.gz",
+              "sha256": "6dd856617186380d96a3b277e6df15f9df0a929c44c1567e70cc1cff8fcc58e3"
+            }
+          }
+        }
       }
     },
     "cask": {
