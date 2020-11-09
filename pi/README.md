@@ -159,7 +159,7 @@ I was initially looking at [pi-hole][pi-hole] but upon
 [pi-hole]: https://pi-hole.net/
 [pihole-research]: RESEARCH.md#dns
 
-Instead I decided to go with `[unbound]`[unbound-homepage]. The decision is mainly
+Instead I decided to go with [`unbound`][unbound-homepage]. The decision is mainly
 because the BSDs chose to use it and I trust them. Little did I know that I was
 in for an operators treat. The [documentation][unbound-docs] were great and was
 able to get everything working to my liking by following them.
