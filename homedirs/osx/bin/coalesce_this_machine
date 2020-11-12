@@ -42,6 +42,7 @@ symlink_all_the_things() {
   ln -sfv "${dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${dotfiles_dir}/dot.githelpers" ~/.githelpers
   ln -sfv "${dotfiles_dir}/dot.mrconfig" ~/.mrconfig
+  ln -sfv "${dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
 

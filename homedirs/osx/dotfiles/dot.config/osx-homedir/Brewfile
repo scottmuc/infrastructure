@@ -25,6 +25,9 @@ brew 'ruby-install'
 # Mainly needed by the infrastructure repo
 brew 'terraform@0.12'
 
+# alacritty is a single pane terminal so need to use tmux for tabs and panes
+brew 'tmux'
+
 brew 'tree'
 
 cask '1password'
