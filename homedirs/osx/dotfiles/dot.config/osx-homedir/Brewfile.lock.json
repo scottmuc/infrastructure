@@ -359,16 +359,22 @@
         "options": {
           "full_name": "macdown"
         }
+      },
+      "alacritty": {
+        "version": "0.5.0",
+        "options": {
+          "full_name": "alacritty"
+        }
       }
     }
   },
   "system": {
     "macos": {
       "catalina": {
-        "HOMEBREW_VERSION": "2.5.9",
+        "HOMEBREW_VERSION": "2.5.10",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "92da94f839dd27b43f9447723e2f916bddc4d3a3",
-        "CLT": "12.1.0.0.1.1602137645",
+        "Homebrew/homebrew-core": "df12fd0502402b6d13c08dc4a09656ce10e2006d",
+        "CLT": "12.0.32.21",
         "Xcode": "12.0",
         "macOS": "10.15.7"
       }
