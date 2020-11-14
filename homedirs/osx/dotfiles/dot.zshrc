@@ -11,6 +11,10 @@ alias ls='ls -G'
 
 export GREP_OPTIONS="--color"
 
+# Explictly use emacs key bindsings (needed in tmux for some reason)
+# See: https://askubuntu.com/a/1158506
+bindkey -e
+
 # Erase duplicates in history, keep 10k entris, and append to the history file
 # rather than overwriting it.
 export HISTCONTROL=erasedups
