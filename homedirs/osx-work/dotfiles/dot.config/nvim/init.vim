@@ -1,46 +1,48 @@
+" This configuration is intended to be overexplained :-)
+
+" I've chosen vim-plug as my plugin manager for the time being. It feels like
+" it hasn't annoyed me too much. More information can be found at:
 "
-" Scott Muc's .vimrc file
+" https://github.com/junegunn/vim-plug
 "
+" Becuase I am using this plugin manager, it's easy to vendor (meaning I can
+" check it into my repository) in my ~/.config/nvim/autoload/plug.vim path.
 "
+" As you can see, I prefer to provide the absolute path to the plugin. Why? I
+" just prefer to not hide the fact that github.com is implied. It's not like I
+" have to type this in all the time so I'm content to have this configuration
+" be a bit more verbose.
+call plug#begin()
+Plug 'https://github.com/ctrlpvim/ctrlp.vim'
+Plug 'https://github.com/scrooloose/nerdtree'
+Plug 'https://github.com/tpope/vim-sensible'
+Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+call plug#end()
+
 " don't need to be vi compatible. We're not in the 60's anymore
 set nocompatible
-
-call plug#begin()
-
-" All the colorschemes
-Plug 'flazz/vim-colorschemes'
-
-" File navigation
-Plug 'ctrlpvim/ctrlp.vim'
-
-Plug 'scrooloose/nerdtree'
-
-" Trying out ALE for sytax linting (mainly for shellcheck)
-Plug 'w0rp/ale'
-
-" Required
-call plug#end()
 
 " not sure why I wouldn't ever want syntax on
 syntax on
 
-colorscheme molokai
+" Settling with a built in color scheme. Most of the time the default does a
+" fine job of highlighting the appropriate things. To list available color
+" schemes run:
+"
+" :colorscheme <TAB>
+colorscheme desert
 
-" enable file type detection
-filetype plugin indent on
-
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+" Everything that one would want to know about managing tabs can all be found:
+" https://stackoverflow.com/a/1878983/1894
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
-set autoindent
 
 " allows modified buffers to be hidden
 set hidden
 
 set nostartofline
-set scrolloff=6
-set listchars=trail:.,tab:\|\ 
 
 " Paste Toggle (stops <Command>-V paste from having indentation added)
 nnoremap <F2> :set invpaste paste?<CR>
@@ -69,26 +71,6 @@ let maplocalleader=","
 autocmd BufRead,BufNewFile *.md set wm=2 tw=120
 autocmd BufRead,BufNewFile *.markdown set wm=2 tw=120
 
-"----------------------------------------------------------
-" Line numbers
-"----------------------------------------------------------
-set relativenumber      "use relative numbers by default
-
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-l> :call NumberToggle()<cr>
-
-
-"----------------------------------------------------------
-" NERD Tree plugin settings
-"----------------------------------------------------------
-
 " toggle NERD Tree with CTRL N
 nmap <silent> <c-n> :NERDTreeToggle<cr>
 
@@ -99,29 +81,13 @@ nmap k gk
 
 scriptencoding utf-8
 
-nmap <silent> <C-S-k> <Plug>(ale_previous_wrap)
-nmap <silent> <C-S-j> <Plug>(ale_next_wrap)
-
-let g:ale_sign_error = '✘'
-let g:ale_sign_warning = '➤'
-let g:ale_sign_info = '➟'
-let g:ale_sign_column_always = 1
-
-let g:ale_linters = {
-\   'go': ['go build', 'gofmt', 'gometalinter'],
-\}
-
-" Enable completion where available.
-let g:ale_completion_enabled = 1
-
 "----------------------------------------------------------
-" status line stuff 
+" status line stuff
 "----------------------------------------------------------
 
-set laststatus=2 
-if has("statusline") 
-  set statusline=%<%f\ %h%m%r%=%k[%{(&fenc\ ==\ \"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %-12.(%l,%c%V%)\ %P 
-endif 
+if has("statusline")
+  set statusline=%<%f\ %h%m%r%=%k[%{(&fenc\ ==\ \"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %-12.(%l,%c%V%)\ %P
+endif
 
 """""""""""
 " Multi purpose tab key stolen from ghb
@@ -137,6 +103,8 @@ endfunction
 inoremap <tab> <c-r>=InsertTabWrapper()<cr>
 inoremap <s-tab> <c-n>
 
+" The following is to encourage use of the hjkl keys to navigate. It makes it
+" feel natural relatively quickly.
 map <Left> :echo "no!"<cr>
 map <Right> :echo "no!"<cr>
 map <Down> :echo "no!"<cr>

@@ -115,9 +115,8 @@ load() {
   #           Tells ssh-add to read the key from stdin.
   #
   # <<<
-  #
-  #           There looks to be many ways of doing this, see:
-  #           https://stackoverflow.com/a/46253163
+  #           Redirects a herestring to stdin of ssh-add; see:
+  #           https://unix.stackexchange.com/questions/80362/what-does-mean
   env \
     SSH_OP_ASKPASS_NOTE="${note_name}" \
     SSH_OP_ASKPASS_FIELD="${password_field_name}" \
