@@ -47,6 +47,3 @@ if [ -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk ]; then
   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
   source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
 fi
-
-# Temporary PATH augmentation until all things work with the latest terraform
-export PATH="/usr/local/opt/terraform@0.12/bin:$PATH"
