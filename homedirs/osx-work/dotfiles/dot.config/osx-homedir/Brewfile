@@ -1,25 +1,8 @@
 tap 'neovim/neovim'
 brew 'neovim'
 
-brew 'autojump'
-
-# This is used to managed the encryption of this repo
-brew 'git-crypt'
-
-# Trying to sign my commits now
 brew 'gpg'
-
-brew 'jq'
-brew 'mr'
-brew 'pstree'
-
-brew 'tree'
 
 cask '1password'
 cask '1password-cli'
-cask 'iterm2'
-cask 'flycut'
-cask 'macdown'
-cask 'monodraw'
-cask 'selfcontrol'
 cask 'shiftit'
