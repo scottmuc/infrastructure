@@ -4,6 +4,14 @@ brew 'neovim'
 brew 'gpg'
 brew 'jq'
 
+# alacritty is a single pane terminal so need to use tmux for tabs and panes
+brew 'tmux'
+
+# Experimental
+# Terminal is ok for general purpose but I want to experiment with the file based configuration
+# of alactritty. Full color support is nice too.
+cask 'alacritty'
+
 cask '1password'
 cask '1password-cli'
 cask 'shiftit'
