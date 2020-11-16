@@ -129,6 +129,10 @@
           "cellar": ":any_skip_relocation",
           "prefix": "/usr/local",
           "files": {
+            "big_sur": {
+              "url": "https://homebrew.bintray.com/bottles/mr-1.20180726.big_sur.bottle.tar.gz",
+              "sha256": "9b2f724c76a7b2a2504301eeb2dcd5d16d2b919e53fe7f43b404c79f56ce7c75"
+            },
             "catalina": {
               "url": "https://homebrew.bintray.com/bottles/mr-1.20180726.catalina.bottle.tar.gz",
               "sha256": "90ab23bd6811b507860b5ddcc7e9a181abd3f126fc2ab193739987d6d4b31612"
@@ -416,6 +420,12 @@
         "options": {
           "full_name": "docker"
         }
+      },
+      "ledger-live": {
+        "version": "2.16.0",
+        "options": {
+          "full_name": "ledger-live"
+        }
       }
     }
   },
@@ -432,7 +442,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "2.5.11",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "62c90394c773d9ecfa07e18a02eeeabf9cf72236",
+        "Homebrew/homebrew-core": "9e49adabb79f457d48ebcf0de14ee5cff0859897",
         "CLT": "12.2.0.0.1.1604076827",
         "Xcode": "12.0",
         "macOS": "11.0.1"
