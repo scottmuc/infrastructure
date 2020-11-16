@@ -25,6 +25,9 @@ set nocompatible
 " not sure why I wouldn't ever want syntax on
 syntax on
 
+" enable line numbers
+set number
+
 " Settling with a built in color scheme. Most of the time the default does a
 " fine job of highlighting the appropriate things. To list available color
 " schemes run:

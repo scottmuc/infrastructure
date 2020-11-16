@@ -282,6 +282,12 @@
         "options": {
           "full_name": "alacritty"
         }
+      },
+      "tunnelblick": {
+        "version": "3.8.4,5600",
+        "options": {
+          "full_name": "tunnelblick"
+        }
       }
     }
   },
@@ -290,7 +296,7 @@
       "catalina": {
         "HOMEBREW_VERSION": "2.5.10",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "d10fcf145fd63fc88b7a14f6db3d0c19fa9f4f72",
+        "Homebrew/homebrew-core": "ecd83fc25dee69963127dc77023dbe5fdb56eadc",
         "CLT": "12.2.0.0.1.1604628099",
         "Xcode": "12.0",
         "macOS": "10.15.7"

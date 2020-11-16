@@ -20,7 +20,7 @@ On a freshly installed **macOS Catalina** machine the following commands will ge
 sudo xcodebuild -license
 mkdir ~/workspace
 git clone https://github.com/scottmuc/infrastructure.git ~/workspace/infrastructure
-~/bin/infrastructure/homedirs/osx/bin/coalesce_this_machine
+~/workspace/infrastructure/homedirs/osx-work/bin/coalesce_this_machine
 ```
 
 **Manual Steps**
@@ -28,14 +28,13 @@ git clone https://github.com/scottmuc/infrastructure.git ~/workspace/infrastruct
 * Map capslock to control
 * Launch 1Password and authenticate via credentials+salt stored on a dead tree
 * Launch shiftit and get it setup
-* Launch flycut and get it setup
 
 ### So What's Included?
 
 Installed/configured by `~/bin/coalesce_this_machine`:
 
 * symlinks a few things to `$HOME`
-  * **bash** configuration
+  * **zsh** configuration
   * **git** configuration
   * **~/bin** (added to PATH)
   * **neovim** configuration

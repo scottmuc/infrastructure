@@ -2,6 +2,8 @@ tap 'neovim/neovim'
 brew 'neovim'
 
 brew 'gpg'
+
+# Dependency of `easy-op` and all around useful utility
 brew 'jq'
 
 # alacritty is a single pane terminal so need to use tmux for tabs and panes
@@ -15,3 +17,6 @@ cask 'alacritty'
 cask '1password'
 cask '1password-cli'
 cask 'shiftit'
+
+# Needed for Bitnami VPN
+cask 'tunnelblick'
