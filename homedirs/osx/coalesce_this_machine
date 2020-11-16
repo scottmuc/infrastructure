@@ -25,7 +25,7 @@ main() {
 # to
 #   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
 symlink_all_the_things() {
-  local homedir_source=$(cd "${DIR}/.."; pwd)
+  local homedir_source=$(cd "${DIR}/"; pwd)
   local dotfiles_dir="${homedir_source}/dotfiles"
 
   # The target name is always the same as the source (so far) so just specifying "~"

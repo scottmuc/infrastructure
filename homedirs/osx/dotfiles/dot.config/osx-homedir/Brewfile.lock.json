@@ -410,6 +410,12 @@
         "options": {
           "full_name": "alacritty"
         }
+      },
+      "docker": {
+        "version": "2.5.0.1,49550",
+        "options": {
+          "full_name": "docker"
+        }
       }
     }
   },
@@ -424,9 +430,9 @@
         "macOS": "10.15.7"
       },
       "big_sur": {
-        "HOMEBREW_VERSION": "2.5.10",
+        "HOMEBREW_VERSION": "2.5.11",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "d872fee7d83edb77d72a2e550ec2b31152d49e91",
+        "Homebrew/homebrew-core": "62c90394c773d9ecfa07e18a02eeeabf9cf72236",
         "CLT": "12.2.0.0.1.1604076827",
         "Xcode": "12.0",
         "macOS": "11.0.1"

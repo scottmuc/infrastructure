@@ -17,7 +17,7 @@ brew 'jq'
 brew 'mr'
 brew 'pstree'
 
-# Why do I need python3?
+# Why do I need python3? I think it's related to neovim
 brew 'python3'
 
 brew 'ruby-install'
@@ -36,6 +36,7 @@ cask '1password-cli'
 cask 'alacritty'
 
 cask 'brave-browser'
+cask 'docker'
 cask 'flycut'
 cask 'macdown'
 cask 'monodraw'
