@@ -1,5 +1,5 @@
 # 1passowrd CLI directory contains secrets
-dotfiles/dot.config/.op
+dotfiles/dot.config/op
 
 # This is created my the bootstrap script
 dotfiles/dot.config/osx-homedir/.softwareupdate_indicator

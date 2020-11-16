@@ -2,6 +2,7 @@ tap 'neovim/neovim'
 brew 'neovim'
 
 brew 'gpg'
+brew 'jq'
 
 cask '1password'
 cask '1password-cli'
