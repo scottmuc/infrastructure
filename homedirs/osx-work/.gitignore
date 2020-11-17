@@ -1,4 +1,4 @@
-# 1passowrd CLI directory contains secrets
+# 1password CLI directory contains secrets
 dotfiles/dot.config/op
 
 # This is created my the bootstrap script
@@ -7,3 +7,6 @@ dotfiles/dot.config/osx-homedir/birthdate
 
 # Location of deep-pockets data
 dotfiles/dot.config/deep-pockets
+
+# Ignore gcloud credentials
+dotfiles/dot.config/gcloud

@@ -18,6 +18,9 @@ cask 'alacritty'
 
 cask '1password'
 cask '1password-cli'
+
+cask 'docker'
+
 cask 'shiftit'
 
 # Needed for Bitnami VPN
