@@ -1,6 +1,8 @@
 tap 'neovim/neovim'
 brew 'neovim'
 
+brew 'autojump'
+
 brew 'gpg'
 
 # Dependency of `easy-op` and all around useful utility

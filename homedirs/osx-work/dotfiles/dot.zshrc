@@ -1,5 +1,5 @@
 # ~/bin is the location of personal scripts I would like available everywhere
-export PATH="$HOME/bin:$PATH"
+export PATH="$HOME/workspace/infrastructure/homedirs/osx-work/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 
 # need this set to xterm-256color to get proper color support in vim
@@ -27,7 +27,7 @@ export EDITOR="nvim"
 
 # Why not `alias vim=nvim`? Rather that having the redirection, I would rather
 # develop the muscle memory to type nvim.
-alias vim="echo woopsy, you probably meant nvim, right?"
+alias vim="echo 'woopsy, you probably meant nvim, right?'"
 
 export GPG_TTY=$(tty)
 
