@@ -43,7 +43,7 @@ if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
   source /usr/local/etc/profile.d/autojump.sh
 fi
 
-if [ -d /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk ]; then
-  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.zsh.inc
-  source /usr/local/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/completion.zsh.inc
+# Bring in work specific things
+if [ -f "${HOME}/workspace/code-snippets/user/smuc/dotfiles/dot.zsh.include" ]; then
+  source "${HOME}/workspace/code-snippets/user/smuc/dotfiles/dot.zsh.include"
 fi
