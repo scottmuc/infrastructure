@@ -71,6 +71,7 @@ let mapleader=","
 let maplocalleader=","
 
 " set custom file types I've configured
+autocmd BufRead,BufNewFile *.jsonnet set ft=javascript wm=2 tw=120
 autocmd BufRead,BufNewFile *.md set wm=2 tw=120
 autocmd BufRead,BufNewFile *.markdown set wm=2 tw=120
 
