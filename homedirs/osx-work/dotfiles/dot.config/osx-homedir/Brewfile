@@ -11,6 +11,8 @@ brew 'jq'
 # alacritty is a single pane terminal so need to use tmux for tabs and panes
 brew 'tmux'
 
+brew 'watch'
+
 # Experimental
 # Terminal is ok for general purpose but I want to experiment with the file based configuration
 # of alactritty. Full color support is nice too.
