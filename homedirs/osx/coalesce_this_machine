@@ -15,7 +15,6 @@ main() {
   invoke_homebrew
   setup_neovim
   configure_tap_to_click
-  configure_safari
   invoke_softewareupdate
 }
 
@@ -150,15 +149,6 @@ configure_tap_to_click() {
   defaults write com.apple.driver.AppleBluetoothMultitouch.trackpad Clicking -bool true
   defaults -currentHost write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
   defaults write NSGlobalDomain com.apple.mouse.tapBehavior -int 1
-}
-
-# taken from:
-# - https://discussions.apple.com/thread/7084431
-configure_safari() {
-  defaults write com.apple.Safari AutoFillFromAddressBook -bool false
-  defaults write com.apple.Safari AutoFillPasswords -bool false
-  defaults write com.apple.Safari AutoFillCreditCardData -bool false
-  defaults write com.apple.Safari AutoFillMiscellaneousForms -bool false
 }
 
 main
