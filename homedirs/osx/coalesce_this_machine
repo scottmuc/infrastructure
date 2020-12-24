@@ -27,11 +27,6 @@ symlink_all_the_things() {
   local homedir_source=$(cd "${DIR}/"; pwd)
   local dotfiles_dir="${homedir_source}/dotfiles"
 
-  # The target name is always the same as the source (so far) so just specifying "~"
-  # as the destination as it saves the hassle of figuring out how else to make directories
-  # idempotent (see: https://unix.stackexchange.com/a/355220)
-  ln -sfv "${homedir_source}/bin" ~
-
   # I don't know how to do this command in a 1 line indempotent way. Repeated executions
   # but symlinks within the symlink.
   if [[ ! -L ~/.config ]]; then
