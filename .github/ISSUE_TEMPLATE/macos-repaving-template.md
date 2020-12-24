@@ -1,6 +1,6 @@
 ---
 name: Macbook Air Repaving Template
-about: Checklist for repaving my Macos machines
+about: Checklist for repaving my Macbook Air
 title: Rebuild Macbook Air - EXTRA DESCRIPTION
 labels: macos, repave
 assignees: ''
