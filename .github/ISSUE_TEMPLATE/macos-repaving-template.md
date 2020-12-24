@@ -1,7 +1,7 @@
 ---
-name: Macos Repaving Template
+name: Macbook Air Repaving Template
 about: Checklist for repaving my Macos machines
-title: Macos Repave
+title: Rebuild Macbook Air - EXTRA DESCRIPTION
 labels: macos, repave
 assignees: ''
 
@@ -9,9 +9,11 @@ assignees: ''
 
 # Things to do with the existing build
 
-- [ ] Create USB stick with latest macOS
+- [ ] Create USB stick with latest macOS ([instructions][usb-stick-instruction])
 - [ ] Create credentials for the rebuild
 - [ ] Backup anything worth keeping
+
+[usb-stick-instructions]: https://github.com/scottmuc/infrastructure/tree/master/homedirs/osx#bootstrapping-the-bootstrapping
 
 # Rebuild steps
 
