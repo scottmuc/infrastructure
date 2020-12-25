@@ -15,6 +15,21 @@ Making disk bootable...
 Install media now available at "/Volumes/Install macOS Big Sur"
 ```
 
+## Recreate Credentials
+
+Run `create-repave-secrets` with an argument that follows the naming convention of:
+
+`machine.<month name>.air`
+
+## Backup Stuff
+
+Generally, this means look at the following directories for things that I might want to carry over to the fresh
+install or possibly consider saving to a cloud service:
+
+* `Desktop`
+* `Documents`
+* `Downloads`
+
 ## Bootstrapping a fresh Apple machine
 
 
