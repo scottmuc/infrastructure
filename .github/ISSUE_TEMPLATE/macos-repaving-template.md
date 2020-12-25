@@ -30,9 +30,12 @@ assignees: ''
 - [ ] Launch and configure 1 Password
 - [ ] Initialise 1 Password CLI
 
+**note** to speed things up, some of the steps above can be done while `coalese_this_machine` is running.
+
 # Done When
 
 - [ ] Make a tiny DNS change and run terraform
 - [ ] Make a signed commit mentioning this issue (exercises `gpg_op`)
 - [ ] Be able to push the commit (exercises `ssh_op_agent`)
 - [ ] Log into GitHub in Brave (exercises 1 Password browser extension)
+- [ ] Old keys and credentials are deleted (GitHub and 1Password)
