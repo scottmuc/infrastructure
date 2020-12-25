@@ -141,6 +141,17 @@ resource "gandi_zonerecord" "pi_home_scottmuc_com" {
 }
 
 
+resource "gandi_zonerecord" "graffiti_scottmuc_com" {
+  zone = data.gandi_zone.scottmuc_com.id
+  name = "graffiti"
+  type = "TXT"
+  ttl = "3600"
+  values = [
+    "Macbook air repaved on Christmas day of 2020!"
+  ]
+}
+
+
 resource "gandi_domainattachment" "scottmuc_com" {
   zone   = data.gandi_zone.scottmuc_com.id
   domain = "scottmuc.com"
