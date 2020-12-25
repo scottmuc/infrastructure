@@ -10,10 +10,12 @@ assignees: ''
 # Things to do with the existing build
 
 - [ ] Create USB stick with latest macOS ([instructions][usb-stick-instruction])
-- [ ] Create credentials for the rebuild
-- [ ] Backup anything worth keeping
+- [ ] Create credentials for the rebuild ([instructions][recreate-credentials])
+- [ ] Backup anything worth keeping ([instructions][backup-stuff])
 
-[usb-stick-instructions]: https://github.com/scottmuc/infrastructure/tree/master/homedirs/osx#bootstrapping-the-bootstrapping
+[usb-stick-instructions]: https://github.com/scottmuc/infrastructure/blob/master/docs/repaving-macos.md#bootstrapping-the-bootstrapping
+[recreate-credentials]: https://github.com/scottmuc/infrastructure/blob/master/docs/repaving-macos.md#recreate-credentials
+[backup-stuff]: https://github.com/scottmuc/infrastructure/blob/master/docs/repaving-macos.md#backup-stuff
 
 # Rebuild steps
 
