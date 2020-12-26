@@ -61,7 +61,7 @@ foreach ($app in $applicationList) {
 Set-WindowsExplorerOptions `
   -EnableShowFileExtensions
 
-Set-BoxstarterTaskbarOptions -Size Small -Lock -Dock Top
+Set-BoxstarterTaskbarOptions -Size Small -Dock Top
 
 # Switchings CAPSLOCK to CTRL
 $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | % { "0x$_"}
