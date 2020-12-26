@@ -1,10 +1,4 @@
-# Windows Homedir
-
-This repository is analagous to the one that is used for [Mac OSX][osx-homedir] workstation
-automation. Of course there are going to be some subtle differences because of the platform
-differences.
-
-[osx-homedir]: ../osx
+# Repaving Windows
 
 Here's my [primary influence][primary-influence].
 

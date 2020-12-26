@@ -1,3 +1,11 @@
+---
+name: Windows PC Repaving Template
+about: Checklist for repaving my Windows PC
+title: Rebuild Windows PC - EXTRA DESCRIPTION
+labels: windows, repave
+assignees: ''
+
+---
 # Prep
 
 [ ] backup stuff if you think you need it.
@@ -12,5 +20,5 @@
 # Post Paving
 
 [ ] Windows update
-[ ] Installe Box Starter
+[ ] Install Box Starter
 [ ] Install my Box Starter Package
