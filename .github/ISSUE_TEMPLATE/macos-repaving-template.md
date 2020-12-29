@@ -3,19 +3,58 @@ name: Macbook Air Repaving Template
 about: Checklist for repaving my Macbook Air
 title: Rebuild Macbook Air - EXTRA DESCRIPTION
 labels: macos, repave
-assignees: ''
-
+assignees: 'scottmuc'
 ---
+<!--
+From: https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
+<details>
+  <summary>Click to expand!</summary>
+
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
+-->
 
 # Things to do with the existing build
 
-- [ ] Create USB stick with latest macOS ([instructions][usb-stick-instruction])
-- [ ] Create credentials for the rebuild ([instructions][recreate-credentials])
-- [ ] Backup anything worth keeping ([instructions][backup-stuff])
+- [ ] Create USB stick with latest macOS <details>
+  <summary>Instructions</summary>
 
-[usb-stick-instructions]: https://github.com/scottmuc/infrastructure/blob/master/docs/repaving-macos.md#bootstrapping-the-bootstrapping
-[recreate-credentials]: https://github.com/scottmuc/infrastructure/blob/master/docs/repaving-macos.md#recreate-credentials
-[backup-stuff]: https://github.com/scottmuc/infrastructure/blob/master/docs/repaving-macos.md#backup-stuff
+  * Format a USB (> 16GB) stick and name it UNTITLED
+  * Fetch the latest version of macos from the App Store
+  * Run the following
+
+    ```
+    $ sudo /Applications/Install\ macOS\ Big\ Sur.app/Contents/Resources/createinstallmedia --volume /Volumes/UNTITLED --nointeraction
+    Password:
+    Erasing disk: 0%... 10%... 20%... 30%... 100%
+    Copying to disk: 0%... 10%... 20%... 30%... 40%... 50%... 60%... 70%... 80%... 90%... 100%
+    Making disk bootable...
+    Install media now available at "/Volumes/Install macOS Big Sur"
+    ```
+</details>
+
+- [ ] Create credentials for the rebuild <details>
+  <summary>Instructions</summary>
+
+  Run `create-repave-secrets` with an argument that follows the naming convention of:
+
+  `machine.<month name>.air`
+</details>
+
+- [ ] Backup anything worth keeping <details>
+  <summary>Instructions</summary>
+
+  Generally, this means look at the following directories for things that I might want to carry over to the fresh
+  install or possibly consider saving to a cloud service:
+
+  * `Desktop`
+  * `Documents`
+  * `Downloads`
+</details>
 
 # Rebuild steps
 
