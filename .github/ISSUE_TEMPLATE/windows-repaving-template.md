@@ -3,7 +3,7 @@ name: Windows PC Repaving Template
 about: Checklist for repaving my Windows PC
 title: Rebuild Windows PC - EXTRA DESCRIPTION
 labels: windows, repave
-assignees: ''
+assignees: 'scottmuc'
 
 ---
 # Prep
