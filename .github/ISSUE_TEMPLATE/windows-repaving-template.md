@@ -8,7 +8,7 @@ assignees: ''
 ---
 # Prep
 
-[ ] backup stuff if you think you need it. <details>
+- [ ] backup stuff if you think you need it. <details>
   <summary>Instructions</summary>
 
   * Desktop
@@ -16,7 +16,7 @@ assignees: ''
   * Documents
 </details>
 
-[ ] prepare USB device with a Windows installer. <details>
+- [ ] prepare USB device with a Windows installer. <details>
   <summary>Instructions</summary>
   
 Here's my [primary influence][primary-influence].
@@ -26,15 +26,15 @@ Here's my [primary influence][primary-influence].
 
 # Repave
 
-[ ] boot to the USB.
-[ ] wipe old partitions.
-[ ] run Windows installer.
+- [ ] boot to the USB.
+- [ ] wipe old partitions.
+- [ ] run Windows installer.
 
 # Post Paving
 
-[ ] Windows update
-[ ] Install Box Starter
-[ ] Install my Box Starter Package <details>
+- [ ] Windows update
+- [ ] Install Box Starter
+- [ ] Install my Box Starter Package <details>
   <summary>Instructions</summary>
   
 Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
