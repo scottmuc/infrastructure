@@ -19,7 +19,7 @@ assignees: ''
 - [ ] prepare USB device with a Windows installer. <details>
   <summary>Instructions</summary>
   
-Here's my [primary influence][primary-influence].
+  Here's my [primary influence][primary-influence].
 
 [primary-influence]: http://forum.notebookreview.com/threads/guide-clean-install-windows-10-after-m-2-nvme-ssd-upgrade.787420/
 </details>
@@ -37,17 +37,17 @@ Here's my [primary influence][primary-influence].
 - [ ] Install my Box Starter Package <details>
   <summary>Instructions</summary>
   
-Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
+  Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
 
 [rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
 
-Launch Powershell with elevated privileges:
+  Launch Powershell with elevated privileges:
 
-```
-Set-ExecutionPolicy Unrestricted
-. { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
-Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/master/boxstarter.txt
-```
+  ```
+  Set-ExecutionPolicy Unrestricted
+  . { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
+  Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/master/boxstarter.txt
+  ```
 </details>
 
 
