@@ -21,7 +21,7 @@ assignees: ''
   
   Here's my [primary influence][primary-influence].
 
-[primary-influence]: http://forum.notebookreview.com/threads/guide-clean-install-windows-10-after-m-2-nvme-ssd-upgrade.787420/
+  [primary-influence]: http://forum.notebookreview.com/threads/guide-clean-install-windows-10-after-m-2-nvme-ssd-upgrade.787420/
 </details>
 
 # Repave
@@ -39,7 +39,7 @@ assignees: ''
   
   Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
 
-[rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
+  [rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
 
   Launch Powershell with elevated privileges:
 
