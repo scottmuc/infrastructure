@@ -8,8 +8,21 @@ assignees: ''
 ---
 # Prep
 
-[ ] backup stuff if you think you need it.
-[ ] prepare USB device with a Windows installer.
+[ ] backup stuff if you think you need it. <details>
+  <summary>Instructions</summary>
+
+  * Desktop
+  * Downloads
+  * Documents
+</details>
+
+[ ] prepare USB device with a Windows installer. <details>
+  <summary>Instructions</summary>
+  
+Here's my [primary influence][primary-influence].
+
+[primary-influence]: http://forum.notebookreview.com/threads/guide-clean-install-windows-10-after-m-2-nvme-ssd-upgrade.787420/
+</details>
 
 # Repave
 
@@ -21,4 +34,33 @@ assignees: ''
 
 [ ] Windows update
 [ ] Install Box Starter
-[ ] Install my Box Starter Package
+[ ] Install my Box Starter Package <details>
+  <summary>Instructions</summary>
+  
+Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
+
+[rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
+
+Launch Powershell with elevated privileges:
+
+```
+Set-ExecutionPolicy Unrestricted
+. { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
+Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/master/boxstarter.txt
+```
+</details>
+
+
+<!--- 
+From: https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
+<details>
+  <summary>Instructions</summary>
+  
+  ## Heading
+  1. A numbered
+  2. list
+     * With some
+     * Sub bullets
+</details>
+
+-->
