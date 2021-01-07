@@ -32,7 +32,7 @@ alias vim="echo 'woopsy, you probably meant nvim, right?'"
 export GPG_TTY=$(tty)
 
 autoload colors && colors
-PS1="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
+PROMPT="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
 
 
 if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
