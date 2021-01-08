@@ -64,17 +64,17 @@ From: https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
 
 # Post OS install steps
 
-- [ ] Install git and clone this repo <details>
+- [ ] Install git, clone this repo, and run `coalese_this_machine` <details>
   <summary>Instructions</summary>
 
   ```
   git # this will trigger the XCode installer which brings git along with it
   mkdir ~/workspace
   git clone https://github.com/scottmuc/infrastructure.git ~/workspace/infrastructure
-  ~/workspace/infrastructure/homedirs/osx/bin/coalesce_this_machine
-    ```
+  ~/workspace/infrastructure/homedirs/osx/coalesce_this_machine
+  ```
 </details>
-- [ ] Run `coalesce_this_machine`
+
 - [ ] Launch and configure 1 Password
 - [ ] Initialise 1 Password CLI
 - [ ] Map capslock to control
