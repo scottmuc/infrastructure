@@ -64,10 +64,21 @@ From: https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
 
 # Post OS install steps
 
-- [ ] Install git and clone this repo
+- [ ] Install git and clone this repo <details>
+  <summary>Instructions</summary>
+
+  ```
+  git # this will trigger the XCode installer which brings git along with it
+  mkdir ~/workspace
+  git clone https://github.com/scottmuc/infrastructure.git ~/workspace/infrastructure
+  ~/workspace/infrastructure/homedirs/osx/bin/coalesce_this_machine
+    ```
+</details>
 - [ ] Run `coalesce_this_machine`
 - [ ] Launch and configure 1 Password
 - [ ] Initialise 1 Password CLI
+- [ ] Map capslock to control
+- [ ] Launch shiftit and follow all the accessiblity setting instructions
 
 **note** to speed things up, some of the steps above can be done while `coalese_this_machine` is running.
 
