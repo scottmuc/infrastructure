@@ -17,6 +17,12 @@ From: https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
      * Sub bullets
 </details>
 -->
+# Yay for Repaving!
+
+As much as possible is documented inline in this issue template. In case of problems you may find help by viewing
+all the [previous repave issues][repave-history]. Have fun!
+
+[repave-history]: https://github.com/scottmuc/infrastructure/issues?q=is%3Aissue+is%3Aclosed+label%3Amacos+label%3Arepave
 
 # Things to do with the existing build
 
