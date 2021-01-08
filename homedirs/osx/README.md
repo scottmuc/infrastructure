@@ -1,6 +1,6 @@
 # OSX Homedir and Setup
 
-[Installation instructions] are kept organized in a GitHub issue template.
+[Installation instructions][instructions] are kept organized in a GitHub issue template.
 
 [instructions]: https://github.com/scottmuc/infrastructure/blob/master/.github/ISSUE_TEMPLATE/macos-repaving-template.md
 
