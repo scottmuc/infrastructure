@@ -1,0 +1,12 @@
+---
+- hosts: all
+  remote_user: ansible
+
+  tasks:
+  - name: Remove the 'bootstrap' user
+    user:
+      name: bootstrap
+      state: absent
+      remove: yes
+
+
