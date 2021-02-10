@@ -34,9 +34,9 @@ colorscheme desert
 
 " Everything that one would want to know about managing tabs can all be found:
 " https://stackoverflow.com/a/1878983/1894
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
 set expandtab
 
 " allows modified buffers to be hidden
