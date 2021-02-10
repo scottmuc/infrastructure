@@ -24,3 +24,54 @@
       name: net.ipv6.conf.lo.disable_ipv6
       value: '1'
       state: present
+
+  - name: Disable suspend on laptop lid close
+    ansible.builtin.copy:
+      content: |
+        # This file is managed via ansible
+        [Login]
+        HandleLidSwitch=ignore
+        HandleLidSwitchExternalPower=ignore
+      dest: /etc/systemd/logind.conf
+
+  - name: Restart systemd-logind to reflect new config
+    systemd:
+      state: restarted
+      name: systemd-logind
+
+  - name: Need acpid for lid/screen management
+    apt:
+      name: acpid
+
+  - name: Handle laptop lid events
+    ansible.builtin.copy:
+      content: |
+        # This file is managed via ansible
+        event=button/lid.*
+        action=/etc/acpi/lid.sh
+      dest: /etc/acpi/events/lm_lid
+
+  - name: Handle laptop lid events
+    ansible.builtin.copy:
+      content: |
+        #!/bin/bash
+        # This file is managed via ansible
+
+        USER=ansible
+
+        grep -q close /proc/acpi/button/lid/*/state
+
+        if [ $? = 0 ]; then
+          #su -c  "sleep 1 && xset -display :0.0 dpms force off" - $USER
+          echo close>>/tmp/screen.lid
+        fi
+
+        grep -q open /proc/acpi/button/lid/*/state
+
+        if [ $? = 0 ]; then
+          #su -c  "xset -display :0 dpms force on &> /tmp/screen.lid" - $USER
+          echo open>>/tmp/screen.lid
+        fi
+      dest: /etc/acpi/lid.sh
+      mode: '0755'
+
