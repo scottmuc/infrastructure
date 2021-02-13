@@ -15,3 +15,5 @@
   - name: Manage Laptop Lid
     include_tasks: manage_laptop_lid_tasks.yml
 
+  - name: Install all the Concourse Things
+    include_tasks: concourse_tasks.yml

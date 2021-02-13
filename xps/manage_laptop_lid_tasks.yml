@@ -8,6 +8,7 @@
       dest: /etc/systemd/logind.conf
 
   - name: Restart systemd-logind to reflect new config
+    become: true
     systemd:
       state: restarted
       name: systemd-logind

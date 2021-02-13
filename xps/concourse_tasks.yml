@@ -1,0 +1,24 @@
+
+  - name: Disable suspend on laptop lid close
+    apt:
+      pkg:
+      - postgresql-12
+      # Needed by the postgresql community module
+      - python3-psycopg2
+      # Needed to manage ACLs
+      # https://docs.ansible.com/ansible/latest/user_guide/become.html#risks-and-limitations-of-become
+      - acl
+
+  - name: Create DB
+    become: true
+    become_user: postgres
+    community.postgresql.postgresql_db:
+      name: concourse
+
+  - name: Connect to test database and remove an existing user's password
+    become: true
+    become_user: postgres
+    community.postgresql.postgresql_user:
+      db: concourse
+      user: concourse
+      password: "concourse"
