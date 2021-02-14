@@ -56,3 +56,42 @@
       remote_src="true"
       src="/tmp/concourse.tgz"
       dest="/usr/local/concourse/6.7.5"
+
+  - name: Create session signing key
+    become: true
+    become_user: concourse
+    command:
+      creates: /usr/local/concourse/etc/session_signing_key
+      argv:
+      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - generate-key
+      - -t
+      - rsa
+      - -f
+      - /usr/local/concourse/etc/session_signing_key
+
+  - name: Create session TSA host key
+    become: true
+    become_user: concourse
+    command:
+      creates: /usr/local/concourse/etc/tsa_host_key
+      argv:
+      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - generate-key
+      - -t
+      - ssh
+      - -f
+      - /usr/local/concourse/etc/tsa_host_key
+
+  - name: Create session worker key
+    become: true
+    become_user: concourse
+    command:
+      creates: /usr/local/concourse/etc/worker_key
+      argv:
+      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - generate-key
+      - -t
+      - ssh
+      - -f
+      - /usr/local/concourse/etc/worker_key
