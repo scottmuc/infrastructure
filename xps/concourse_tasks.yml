@@ -1,5 +1,5 @@
-
-  - name: Disable suspend on laptop lid close
+  # Inspired by https://github.com/troykinsella/ansible-concourse
+  - name: Install concourse dependencies
     apt:
       pkg:
       - postgresql-12
@@ -95,3 +95,76 @@
       - ssh
       - -f
       - /usr/local/concourse/etc/worker_key
+
+  - name: Set authorized_worker_keys
+    become: true
+    become_user: concourse
+    copy:
+      src: /usr/local/concourse/etc/worker_key.pub
+      dest: /usr/local/concourse/etc/authorized_worker_keys
+      remote_src: yes
+
+
+  - name: create web launch script
+    become: true
+    become_user: concourse
+    copy:
+      dest: /usr/local/concourse/start.sh
+      owner: "concourse"
+      mode: 0755
+      content: |
+        #!/usr/bin/env bash
+        exec /usr/local/concourse/6.7.5/concourse/bin/concourse web \
+          --session-signing-key "/usr/local/concourse/etc/session_signing_key" \
+          --tsa-host-key "/usr/local/concourse/etc/tsa_host_key" \
+          --tsa-authorized-keys "/usr/local/concourse/etc/authorized_worker_keys" \
+          --external-url "http://192.168.2.11:8080" \
+          --postgres-socket "/var/run/postgresql" \
+          --postgres-database "concourse" \
+          --add-local-user "concourse:concourse" \
+          --main-team-local-user "concourse" \
+          ;
+
+
+  - name: create web service
+    become: yes
+    copy:
+      dest: /etc/systemd/system/concourse-web.service
+      owner: root
+      force: yes
+      content: |
+        [Unit]
+        Description=concourse-web
+        Requires=network-online.target
+        After=network-online.target
+
+        [Service]
+        User=concourse
+        TasksMax=infinity
+        LimitNOFILE=infinity
+        LimitMEMLOCK=infinity
+        Restart=on-failure
+        ExecStart=/usr/local/concourse/start.sh
+        ExecReload=/bin/kill -HUP $MAINPID
+        KillSignal=SIGTERM
+
+        [Install]
+        WantedBy=multi-user.target
+
+
+  - name: systemd daemon reload
+    systemd:
+      daemon_reload: yes
+    become: yes
+
+  - name: configure web service
+    service:
+      name: concourse-web
+      enabled: yes
+    become: yes
+
+  - name: start web service
+    service:
+      name: concourse-web
+      state: started
+    become: yes
