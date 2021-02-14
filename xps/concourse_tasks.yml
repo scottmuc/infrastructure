@@ -12,13 +12,13 @@
   - name: Create DB
     become: true
     become_user: postgres
-    community.postgresql.postgresql_db:
+    postgresql_db:
       name: concourse
 
   - name: Connect to test database and remove an existing user's password
     become: true
     become_user: postgres
-    community.postgresql.postgresql_user:
+    postgresql_user:
       db: concourse
       user: concourse
       password: "concourse"
