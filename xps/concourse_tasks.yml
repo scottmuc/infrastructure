@@ -22,3 +22,37 @@
       db: concourse
       user: concourse
       password: "concourse"
+
+  - name: Concourse user
+    become: true
+    user:
+      name: concourse
+
+  - name: Create concourse home
+    become: true
+    file:
+      path: /usr/local/concourse/6.7.5
+      state: directory
+      owner: concourse
+
+  - name: Create concourse config home
+    become: true
+    file:
+      path: /usr/local/concourse/etc
+      state: directory
+      owner: concourse
+
+  - name: Gets tarball
+    get_url:
+      url="https://github.com/concourse/concourse/releases/download/v6.7.5/concourse-6.7.5-linux-amd64.tgz"
+      dest="/tmp/concourse.tgz"
+    register: new_archive
+
+  - name: Unarchive source
+    become: true
+    unarchive:
+      owner="concourse"
+      creates="true"
+      remote_src="true"
+      src="/tmp/concourse.tgz"
+      dest="/usr/local/concourse/6.7.5"
