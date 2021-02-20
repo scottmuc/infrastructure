@@ -15,7 +15,7 @@
     postgresql_db:
       name: concourse
 
-  - name: Connect to test database and remove an existing user's password
+  - name: Create Concourse DB user
     become: true
     become_user: postgres
     postgresql_user:
@@ -39,6 +39,13 @@
     become: true
     file:
       path: /usr/local/concourse/etc
+      state: directory
+      owner: concourse
+
+  - name: Create concourse worker workspace
+    become: true
+    file:
+      path: /usr/local/concourse/worker
       state: directory
       owner: concourse
 
@@ -125,6 +132,25 @@
           --main-team-local-user "concourse" \
           ;
 
+  - name: create web worker launch script
+    become: true
+    become_user: concourse
+    copy:
+      dest: /usr/local/concourse/worker.sh
+      owner: "concourse"
+      mode: 0755
+      content: |
+        #!/usr/bin/env bash
+
+        # https://discuss.concourse-ci.org/t/trying-to-run-concourse-ci-on-ubuntu-azure-machine/2074/5
+        export CONCOURSE_GARDEN_DNS_SERVER=8.8.8.8
+
+        exec /usr/local/concourse/6.7.5/concourse/bin/concourse worker \
+          --tsa-host "127.0.0.1:2222" \
+          --tsa-public-key "/usr/local/concourse/etc/tsa_host_key.pub" \
+          --tsa-worker-private-key "/usr/local/concourse/etc/worker_key" \
+          --work-dir "/usr/local/concourse/worker" \
+          ;
 
   - name: create web service
     become: yes
@@ -152,6 +178,30 @@
         WantedBy=multi-user.target
 
 
+  - name: create worker service
+    become: yes
+    copy:
+      dest: /etc/systemd/system/concourse-worker.service
+      owner: root
+      force: yes
+      content: |
+        [Unit]
+        Description=concourse-worker
+        Requires=network-online.target
+        After=network-online.target
+
+        [Service]
+        TasksMax=infinity
+        LimitNOFILE=infinity
+        LimitMEMLOCK=infinity
+        Restart=on-failure
+        ExecStart=/usr/local/concourse/worker.sh
+        ExecReload=/bin/kill -HUP $MAINPID
+        KillSignal=SIGTERM
+
+        [Install]
+        WantedBy=multi-user.target
+
   - name: systemd daemon reload
     systemd:
       daemon_reload: yes
@@ -166,5 +216,17 @@
   - name: start web service
     service:
       name: concourse-web
+      state: started
+    become: yes
+
+  - name: configure worker service
+    service:
+      name: concourse-worker
+      enabled: yes
+    become: yes
+
+  - name: start worker service
+    service:
+      name: concourse-worker
       state: started
     become: yes
