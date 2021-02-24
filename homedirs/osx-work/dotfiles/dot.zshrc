@@ -34,6 +34,10 @@ export GPG_TTY=$(tty)
 autoload colors && colors
 PROMPT="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
 
+reset_prompt() {
+  PROMPT="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
+}
+
 
 if [ -f /usr/local/opt/chruby/share/chruby/chruby.sh ]; then
   source /usr/local/opt/chruby/share/chruby/chruby.sh
