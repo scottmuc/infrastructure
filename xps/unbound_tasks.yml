@@ -1,0 +1,51 @@
+  # https://blobfolio.com/2017/fix-linux-dns-issues-caused-by-systemd-resolved/
+  - name: Disable resolved
+    become: true
+    service:
+      name: systemd-resolved
+      state: stopped
+      enabled: false
+
+  - name: I can manage my own resolv.conf
+    become: true
+    copy:
+      dest: /etc/resolv.conf
+      content: |
+        search home.scottmuc.com
+        nameserver 192.168.2.10
+        nameserver 192.168.2.11
+
+
+  - name: Not sure why I am doing this
+    become: true
+    copy:
+      dest: /etc/NetworkManager/NetworkManager.conf
+      content: |
+        [main]
+        dns=unbound
+
+  - name: Install unbound package
+    apt: pkg=unbound
+
+  - name: Allow local LAN to connect to unbound
+    become: true
+    copy:
+      dest: /etc/unbound/unbound.conf.d/pi-hole-replacement.conf
+      content: |
+        server:
+          interface: 0.0.0.0
+          access-control: 192.168.2.0/24 allow
+
+
+  - name: Add blocklist
+    become: true
+    get_url:
+      dest: /etc/unbound/unbound.conf.d/blacklist.conf
+      url: https://raw.githubusercontent.com/oznu/dns-zone-blacklist/master/unbound/unbound-nxdomain.blacklist
+
+
+  - name: Ensure unbound is running
+    service:
+      name: unbound
+      state: started
+      enabled: true
