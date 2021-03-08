@@ -1,4 +1,5 @@
   # https://blobfolio.com/2017/fix-linux-dns-issues-caused-by-systemd-resolved/
+  # https://fedoramagazine.org/systemd-resolved-introduction-to-split-dns/
   - name: Disable resolved
     become: true
     service:
