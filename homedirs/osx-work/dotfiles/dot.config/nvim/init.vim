@@ -34,7 +34,7 @@ set number
 " schemes run:
 "
 " :colorscheme <TAB>
-colorscheme desert
+colorscheme elflord
 
 " Everything that one would want to know about managing tabs can all be found:
 " https://stackoverflow.com/a/1878983/1894
@@ -75,6 +75,7 @@ let maplocalleader=","
 autocmd BufRead,BufNewFile *.jsonnet set ft=javascript wm=2 tw=120
 autocmd BufRead,BufNewFile *.md set wm=2 tw=120
 autocmd BufRead,BufNewFile *.markdown set wm=2 tw=120
+autocmd BufRead,BufNewFile Jenkinsfile set ft=groovy
 
 " toggle NERD Tree with CTRL N
 nmap <silent> <c-n> :NERDTreeToggle<cr>
