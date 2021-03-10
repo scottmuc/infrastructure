@@ -2,7 +2,6 @@ tap 'neovim/neovim'
 brew 'neovim'
 
 brew 'autojump'
-brew 'chruby'
 
 # This is used to managed the encryption of this repo
 brew 'git-crypt'
@@ -19,8 +18,6 @@ brew 'pstree'
 
 # Why do I need python3? I think it's related to neovim
 brew 'python3'
-
-brew 'ruby-install'
 
 # alacritty is a single pane terminal so need to use tmux for tabs and panes
 brew 'tmux'
