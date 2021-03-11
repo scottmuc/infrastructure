@@ -26,4 +26,5 @@ cask 'docker'
 cask 'shiftit'
 
 # Needed for Bitnami VPN
+cask 'keybase'
 cask 'tunnelblick'

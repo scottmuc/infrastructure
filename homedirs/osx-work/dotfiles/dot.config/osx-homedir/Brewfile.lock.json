@@ -221,6 +221,12 @@
         "options": {
           "full_name": "docker"
         }
+      },
+      "keybase": {
+        "version": "5.6.2-20210202191343,d72cc00cd3",
+        "options": {
+          "full_name": "keybase"
+        }
       }
     }
   },
@@ -233,6 +239,14 @@
         "CLT": "12.0.32.27",
         "Xcode": "12.0",
         "macOS": "10.15.7"
+      },
+      "big_sur": {
+        "HOMEBREW_VERSION": "3.0.5",
+        "HOMEBREW_PREFIX": "/usr/local",
+        "Homebrew/homebrew-core": "82156ddd18945f5a0598c51d8200c3f850905da0",
+        "CLT": "12.4.0.0.1.1610135815",
+        "Xcode": "12.0",
+        "macOS": "11.2.3"
       }
     }
   }
