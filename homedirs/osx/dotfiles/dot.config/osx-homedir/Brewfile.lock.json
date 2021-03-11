@@ -564,9 +564,21 @@
         }
       },
       "ledger-live": {
-        "version": "2.16.0",
+        "version": "2.23.0",
         "options": {
           "full_name": "ledger-live"
+        }
+      },
+      "protonvpn": {
+        "version": "1.9.1,2101110708",
+        "options": {
+          "full_name": "protonvpn"
+        }
+      },
+      "telegram-desktop": {
+        "version": "2.6.1",
+        "options": {
+          "full_name": "telegram-desktop"
         }
       }
     }
@@ -584,7 +596,7 @@
       "big_sur": {
         "HOMEBREW_VERSION": "3.0.5",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "8ac444675b100cebdba88734144a74625cb3ac4b",
+        "Homebrew/homebrew-core": "364c921eedb45791fdc04ab6fc755eab6cddb3ad",
         "CLT": "12.4.0.0.1.1610135815",
         "Xcode": "12.0",
         "macOS": "11.0.1"

@@ -34,10 +34,12 @@ cask 'alacritty'
 
 cask 'brave-browser'
 cask 'docker'
-#cask 'ledger-live'
+cask 'ledger-live'
 cask 'macdown'
 cask 'monodraw'
+cask 'protonvpn'
 cask 'selfcontrol'
 cask 'shiftit'
+cask 'telegram-desktop'
 
 cask 'vlc'
