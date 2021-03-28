@@ -226,7 +226,7 @@ FOO
   curl \
     https://getpocket.com/v3/get 2>/dev/null \
     -o "${SYNCED_JSON_DATA}" \
-    -X GET \
+    -X POST \
     -H "Content-Type: application/json" \
     -d "${req_json}"
 
