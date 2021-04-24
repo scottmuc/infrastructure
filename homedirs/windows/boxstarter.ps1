@@ -83,5 +83,5 @@ choco install zoom -y --source="'https://chocolatey.org/api/v2'"
 
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
-Disable-NetAdapterBinding -InterfaceAlias "Ethernet" -ComponentID "ms_tcpip6"
+Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
 
