@@ -40,14 +40,30 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Repave
 
-- [ ] boot to the USB.
+- [ ] boot to the USB. <details>
+  <summary>Instructions</summary>
+
+  * Hit `F12` while machine is rebooting to load boot menu.
+  * The drive that is less than 50GB is likely the bootable USB device.
+</details>
+
 - [ ] wipe old partitions.
 - [ ] run Windows installer.
 
 # Post Paving
 
-- [ ] Windows update
-- [ ] Install Box Starter
+- [ ] Install Chocolatey <details>
+  <summary>Instructions</summary>
+
+  * https://chocolatey.org/install
+</details>
+
+- [ ] Install BoxStarter <details>
+  <summary>Instructions</summary>
+
+  * `choco install Boxstarter`
+</details>
+
 - [ ] Install my Box Starter Package <details>
   <summary>Instructions</summary>
 
@@ -58,9 +74,10 @@ all the [previous repave issues][repave-history]. Have fun!
   Launch Powershell with elevated privileges:
 
   ```
-  Set-ExecutionPolicy Unrestricted
-  . { iwr -useb https://boxstarter.org/bootstrapper.ps1 } | iex; get-boxstarter -Force
-  Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/master/boxstarter.txt
+  Install-BoxstarterPackage -DisableReboots -PackageName https://github.com/scottmuc/infrastructure/blob/master/homedirs/windows/boxstarter.ps1
   ```
 </details>
+
+- [ ] Windows update
+
 
