@@ -2,8 +2,8 @@ server {
     server_name www.goodenoughmoney.com;
 
     listen 443 ssl;
-    # Too update these files:
-    # certbot certonly --webroot -w /opt/goodenoughmoney/ -d www.goodenoughmoney.com -m "scottmuc@gmail.com"
+    # Installation command:
+    # certbot certonly --webroot /var/www/html -d www.goodenoughmoney.com -m "scottmuc@gmail.com"
     ssl_certificate /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/www.goodenoughmoney.com/privkey.pem;
 
@@ -16,14 +16,13 @@ server {
 
     listen 80;
 
-    location = /.well-known/acme-challenge/ {
-      return 404;
-    }
-
-    location ^~ /.well-known/acme-challenge/ {
+    location /.well-known/acme-challenge/ {
       default_type "text/plain";
-      root /opt/goodenoughmoney;
+      root /var/www/html;
+      try_files $uri =404;
     }
 
-    return 301 https://www.goodenoughmoney.com$request_uri;
+    location / {
+      return 301 https://www.goodenoughmoney.com$request_uri;
+    }
 }

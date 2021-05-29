@@ -2,8 +2,8 @@ server {
     server_name home.scottmuc.com;
 
     listen 443 ssl;
-    # To rewew:
-    # certbot certonly --webroot -w /var/www/html -d home.scottmuc.com -m "scottmuc@gmail.com"
+    # Installation command:
+    # certbot certonly --webroot /var/www/html -d home.scottmuc.com -m "scottmuc@gmail.com"
     ssl_certificate /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/home.scottmuc.com/privkey.pem;
 
@@ -18,14 +18,13 @@ server {
 
     listen 80;
 
-    location = /.well-known/acme-challenge/ {
-      return 404;
-    }
-
-    location ^~ /.well-known/acme-challenge/ {
+    location /.well-known/acme-challenge/ {
       default_type "text/plain";
       root /var/www/html;
+      try_files $uri =404;
     }
 
-    return 301 https://home.scottmuc.com$request_uri;
+    location / {
+      return 301 https://home.scottmuc.com$request_uri;
+    }
 }
