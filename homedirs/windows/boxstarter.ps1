@@ -78,6 +78,9 @@ choco install steam -y --source="'https://chocolatey.org/api/v2'"
 #choco install goggalaxy -y --source="'https://chocolatey.org/api/v2'"
 choco install zoom -y --source="'https://chocolatey.org/api/v2'"
 
+choco install microsoft-windows-terminal -y --source="'https://chocolatey.org/api/v2'"
+choco install vscode.install -y --source="'https://chocolatey.org/api/v2'"
+
 # 1password installer still broken
 # choco install 1password -y --source="'https://chocolatey.org/api/v2'"
 
