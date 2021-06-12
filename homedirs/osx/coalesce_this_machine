@@ -91,7 +91,7 @@ invoke_homebrew() {
     brew update || true
   fi
 
-  brew bundle --file=~/.config/osx-homedir/Brewfile
+  brew bundle --file=./Brewfile
 }
 
 setup_neovim() {
