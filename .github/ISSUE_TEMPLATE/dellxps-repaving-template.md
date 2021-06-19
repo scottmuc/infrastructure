@@ -44,12 +44,14 @@ all the [previous repave issues][repave-history]. Have fun!
   Not much to say except use `virtualenv`. I don't have a consistent way to set this up because
   my macbook might be my controller, or my windows WSL host will be.
 </details>
+
 - [ ] Copy ssh key using `ssh-copy-id`
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
   `ansible-playbook -i 192.168.2.11, --become --ask-become-pass ./bootstrap-playbook.yml`
 </details>
+
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
