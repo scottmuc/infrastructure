@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+# from https://stackoverflow.com/a/246128
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+main() {
+  symlink_all_the_things
+  setup_neovim
+}
+
+# I am getting the absolute path so that ls -la output goes from:
+#
+#   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/bin/../dotfiles/dot.config
+# to
+#   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
+symlink_all_the_things() {
+  local homedir_source=$(cd "${DIR}/"; pwd)
+  local dotfiles_dir="${homedir_source}/dotfiles"
+
+  # I don't know how to do this command in a 1 line indempotent way. Repeated executions
+  # but symlinks within the symlink.
+  if [[ ! -L ~/.config ]]; then
+    ln -sFfv "${dotfiles_dir}/dot.config" ~/.config
+  fi
+
+  ln -sfv "${dotfiles_dir}/dot.gitconfig" ~/.gitconfig
+  ln -sfv "${dotfiles_dir}/dot.githelpers" ~/.githelpers
+  ln -sfv "${dotfiles_dir}/dot.mrconfig" ~/.mrconfig
+  ln -sfv "${dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
+  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+}
+
+
+setup_neovim() {
+  nvim -c "PlugInstall" -c "qall" --headless
+  nvim -c "PlugUpdate" -c "qall" --headless
+  nvim -c "UpdateRemotePlugins" -c "qall" --headless
+}
+
+main
