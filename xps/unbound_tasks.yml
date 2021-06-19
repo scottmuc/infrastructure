@@ -36,13 +36,14 @@
         server:
           interface: 0.0.0.0
           access-control: 192.168.2.0/24 allow
+          do-ip6: no
 
 
-  - name: Add blocklist
-    become: true
-    get_url:
-      dest: /etc/unbound/unbound.conf.d/blacklist.conf
-      url: https://raw.githubusercontent.com/oznu/dns-zone-blacklist/master/unbound/unbound-nxdomain.blacklist
+#- name: Add blocklist
+#become: true
+#get_url:
+#dest: /etc/unbound/unbound.conf.d/blacklist.conf
+#url: https://raw.githubusercontent.com/oznu/dns-zone-blacklist/master/unbound/unbound-nxdomain.blacklist
 
 
   - name: Ensure unbound is running

@@ -2,7 +2,7 @@
   - name: Install concourse dependencies
     apt:
       pkg:
-      - postgresql-12
+      - postgresql-13
       # Needed by the postgresql community module
       - python3-psycopg2
       # Needed to manage ACLs
