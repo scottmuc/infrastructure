@@ -125,7 +125,7 @@
           --session-signing-key "/usr/local/concourse/etc/session_signing_key" \
           --tsa-host-key "/usr/local/concourse/etc/tsa_host_key" \
           --tsa-authorized-keys "/usr/local/concourse/etc/authorized_worker_keys" \
-          --external-url "http://192.168.2.11:8080" \
+          --external-url "https://concourse.scottmuc.com" \
           --postgres-socket "/var/run/postgresql" \
           --postgres-database "concourse" \
           --add-local-user "concourse:concourse" \
