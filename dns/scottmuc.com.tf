@@ -119,6 +119,17 @@ resource "gandi_zonerecord" "home_scottmuc_com" {
 }
 
 
+resource "gandi_zonerecord" "concourse_scottmuc_com" {
+  zone = data.gandi_zone.scottmuc_com.id
+  name = "concourse"
+  type = "A"
+  ttl = "3600"
+  values = [
+    var.home_ip
+  ]
+}
+
+
 resource "gandi_zonerecord" "concourse_home_scottmuc_com" {
   zone = data.gandi_zone.scottmuc_com.id
   name = "concourse.home"
