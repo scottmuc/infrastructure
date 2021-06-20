@@ -39,3 +39,6 @@ if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
   source /usr/local/etc/profile.d/autojump.sh
 fi
 
+alias op_auth='eval $(op signin my)'
+alias start_agent='eval $(ssh-agent -s)'
+alias keys="ssh_op_agent load -n machine.summer.gaming -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
