@@ -125,7 +125,7 @@ resource "gandi_zonerecord" "concourse_home_scottmuc_com" {
   type = "A"
   ttl = "3600"
   values = [
-    var.home_ip
+    "192.168.2.11"
   ]
 }
 
