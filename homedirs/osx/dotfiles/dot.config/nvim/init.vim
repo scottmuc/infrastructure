@@ -16,7 +16,6 @@ call plug#begin()
 Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-sensible'
-Plug 'https://github.com/fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 call plug#end()
 
 " don't need to be vi compatible. We're not in the 60's anymore
