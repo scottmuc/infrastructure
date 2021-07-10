@@ -1,6 +1,7 @@
 # ~/bin is the location of personal scripts I would like available everywhere
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/osx/bin:$PATH"
+export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
 
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
