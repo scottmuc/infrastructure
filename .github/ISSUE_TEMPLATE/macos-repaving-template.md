@@ -86,8 +86,36 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Done When
 
-- [ ] Make a tiny DNS change and run terraform
-- [ ] Make a signed commit mentioning this issue (exercises `gpg_op`)
+- [ ] Make a tiny DNS change and run terraform<details>
+  <summary>Instructions</summary>
+
+
+    ```
+    # Initialize and log into the 1 Password CLI
+    initialize-1password
+    eval $(op signin my)
+    # Unlock the repo in order to access values in ./secrets dir
+    cd ~/workspace/infrastructure
+    ./scripts/locksmith unlock
+    # Initialize Terraform and apply
+    ./scripts/terraform init dns
+    ./scripts/terraform_apply
+    ```
+</details>
+
+- [ ] Make a signed commit mentioning this issue (exercises `gpg_op`)<details>
+  <summary>Instructions</summary>
+
+
+    ```
+    # Initialize and log into the 1 Password CLI
+    initialize-1password
+    eval $(op signin my)
+    gpg_op restore -e "scott@scottmuc.com"
+    ```
+</details>
+
 - [ ] Be able to push the commit (exercises `ssh_op_agent`)
 - [ ] Log into GitHub in Brave (exercises 1 Password browser extension)
 - [ ] Old keys and credentials are deleted (GitHub and 1Password)
+- [ ] Make this template slightly better
