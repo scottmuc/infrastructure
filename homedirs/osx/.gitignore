@@ -7,3 +7,7 @@ dotfiles/dot.config/osx-homedir/birthdate
 
 # Location of deep-pockets data
 dotfiles/dot.config/deep-pockets
+
+# Created by coalesce_this_machine
+.birthdate
+.softwareupdate_indicator
