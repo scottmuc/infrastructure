@@ -8,14 +8,14 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
   symlink_all_the_things
-  write_or_check_machine_birthdate
+#  write_or_check_machine_birthdate
   disable_ipv6
   set_clock_format
   set_dock_preferences
   invoke_homebrew
   setup_neovim
   configure_tap_to_click
-  invoke_softewareupdate
+#  invoke_softewareupdate
 }
 
 # I am getting the absolute path so that ls -la output goes from:
