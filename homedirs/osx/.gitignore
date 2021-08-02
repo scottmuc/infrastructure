@@ -1,13 +1,3 @@
-# 1passowrd CLI directory contains secrets
-dotfiles/dot.config/op
-
-# This is created my the bootstrap script
-dotfiles/dot.config/osx-homedir/.softwareupdate_indicator
-dotfiles/dot.config/osx-homedir/birthdate
-
-# Location of deep-pockets data
-dotfiles/dot.config/deep-pockets
-
 # Created by coalesce_this_machine
 .birthdate
 .softwareupdate_indicator
