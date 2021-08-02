@@ -25,18 +25,23 @@ main() {
 #   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
 symlink_all_the_things() {
   local homedir_source=$(cd "${DIR}/"; pwd)
+  local common_source=$(cd "${DIR}/../common"; pwd)
   local dotfiles_dir="${homedir_source}/dotfiles"
+  local common_dotfiles_dir="${common_source}/dotfiles"
 
   # I don't know how to do this command in a 1 line indempotent way. Repeated executions
   # but symlinks within the symlink.
-  if [[ ! -L ~/.config ]]; then
-    ln -sFfv "${dotfiles_dir}/dot.config" ~/.config
+  if [[ ! -d ~/.config ]]; then
+    mkdir ~/.config
   fi
 
+  ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
+  ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
+  ln -sFfv "${common_dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
+  ln -sFfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+
   ln -sfv "${dotfiles_dir}/dot.gitconfig" ~/.gitconfig
-  ln -sfv "${dotfiles_dir}/dot.githelpers" ~/.githelpers
   ln -sfv "${dotfiles_dir}/dot.mrconfig" ~/.mrconfig
-  ln -sfv "${dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
 
