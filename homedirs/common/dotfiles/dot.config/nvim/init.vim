@@ -29,7 +29,7 @@ syntax on
 " schemes run:
 "
 " :colorscheme <TAB>
-colorscheme desert
+colorscheme slate
 
 " Everything that one would want to know about managing tabs can all be found:
 " https://stackoverflow.com/a/1878983/1894
@@ -37,6 +37,9 @@ set tabstop=2
 set shiftwidth=2
 set softtabstop=2
 set expandtab
+
+" Enable line numbers. This is off by default
+set number
 
 " allows modified buffers to be hidden
 set hidden
