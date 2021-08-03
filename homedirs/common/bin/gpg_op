@@ -99,8 +99,20 @@ JSON
 
 restore() {
   local email="$1"
-  local secretkey="$(easy-op show -n "gpg.${email}" -f "base64.secret.key" | base64 -D)"
-  local ownertrust="$(easy-op show -n "gpg.${email}" -f "base64.ownertrust" | base64 -D)"
+
+  # base64 uses different flags for decoding between Linux and Darwin. Since I'm not going single OS
+  # anytime soon, I'll define the base64 decode command dependent on the OSTYPE
+  # ref: https://stackoverflow.com/questions/394230/how-to-detect-the-os-from-a-bash-script
+  local base64_decode_cmd=""
+  case $OSTYPE in
+    darwin*) base64_decode_cmd="base64 -D" ;;
+    linux*)  base64_decode_cmd="base64 -d" ;;
+    \?) print_usage_and_exit
+    ;;
+  esac
+
+  local secretkey="$(easy-op show -n "gpg.${email}" -f "base64.secret.key" | $base64_decode_cmd)"
+  local ownertrust="$(easy-op show -n "gpg.${email}" -f "base64.ownertrust" | $base64_decode_cmd)"
 
   gpg --import <(echo -e "${secretkey}")
   gpg --import-ownertrust <(echo -e "${ownertrust}")
