@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-set -u
-
-easy-op show \
-  -n "${SSH_OP_ASKPASS_NOTE}" \
-  -f "${SSH_OP_ASKPASS_FIELD}"
