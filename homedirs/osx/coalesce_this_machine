@@ -37,8 +37,9 @@ symlink_all_the_things() {
 
   ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
-  ln -sFfv "${common_dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
-  ln -sFfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  # https://ss64.com/osx/ln.html the -h is important to not put a symlink in a dir symlink
+  ln -shfv "${common_dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
+  ln -shfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
 
   ln -sfv "${dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${dotfiles_dir}/dot.mrconfig" ~/.mrconfig
