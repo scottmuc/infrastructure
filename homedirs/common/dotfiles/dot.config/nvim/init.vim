@@ -18,6 +18,7 @@ Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-sensible'
 
 Plug 'https://github.com/hashivim/vim-terraform'
+Plug 'https://github.com/fatih/vim-go'
 
 call plug#end()
 
@@ -75,6 +76,7 @@ let maplocalleader=","
 " set custom file types I've configured
 autocmd BufRead,BufNewFile *.md set wm=2 tw=120
 autocmd BufRead,BufNewFile *.markdown set wm=2 tw=120
+autocmd BufRead,BufNewFile *.go set tabstop=4 shiftwidth=4
 
 " toggle NERD Tree with CTRL N
 nmap <silent> <c-n> :NERDTreeToggle<cr>
