@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-if [ -z "$1" ]; then
-  curl http://wttr.in
-else
-  curl http://wttr.in/$1
-fi
-
-

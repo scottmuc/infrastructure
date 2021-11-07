@@ -1,5 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-(cd ~/workspace/infrastructure && git remote set-url origin git@github.com:scottmuc/infrastructure.git)
