@@ -582,12 +582,12 @@
   "system": {
     "macos": {
       "big_sur": {
-        "HOMEBREW_VERSION": "3.3.2",
+        "HOMEBREW_VERSION": "3.3.3",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "3eb4b9bc9ff68ad78e84be8f2fc484e0e845139f",
-        "CLT": "13.0.0.0.1.1630607135",
-        "Xcode": "13.0",
-        "macOS": "11.6"
+        "Homebrew/homebrew-core": "1a0415ac2ba81b241c37466380e0bbe0813ee78d",
+        "CLT": "12.5.1.0.1.1623191612",
+        "Xcode": "12.5.1",
+        "macOS": "11.4"
       }
     }
   }
