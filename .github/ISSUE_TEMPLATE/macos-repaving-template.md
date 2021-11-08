@@ -60,7 +60,12 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Rebuild steps
 
-- [ ] Reboot to load installer
+- [ ] Reboot to load installer <details>
+  <summary>Instructions</summary>
+
+  Hold down the **Option** key to trigger the boot selection menu.
+</details>
+
 - [ ] Use Disk Utility to wipe existing partition and make a new one (new name, new encryption key)
 - [ ] Install the OS
 
