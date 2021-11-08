@@ -160,7 +160,8 @@ resource "gandi_zonerecord" "graffiti_scottmuc_com" {
   values = [
     "Macbook air repaved on Christmas day of 2020!",
     "Macbook air repaved on March 10th 2021",
-    "Macbook air repaved on July 11th 2021"
+    "Macbook air repaved on July 11th 2021",
+    "Macbook air repaved on Nov 8th 2021",
   ]
 }
 
