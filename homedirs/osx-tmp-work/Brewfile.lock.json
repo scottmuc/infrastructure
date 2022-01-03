@@ -557,6 +557,12 @@
         "options": {
           "full_name": "microsoft-teams"
         }
+      },
+      "miro": {
+        "version": "0.7.1",
+        "options": {
+          "full_name": "miro"
+        }
       }
     }
   },
@@ -565,7 +571,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.3.9",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "b84c0298346f983a1643e8b465f1a22c95c4119c",
+        "Homebrew/homebrew-core": "7844861bc8428f5659fc0c04f476b9f925856736",
         "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.1",
         "macOS": "12.1"

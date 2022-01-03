@@ -37,3 +37,4 @@ cask 'shiftit'
 
 # Work specific
 cask 'microsoft-teams'
+cask 'miro'
