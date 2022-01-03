@@ -34,3 +34,6 @@ cask 'alacritty'
 
 cask 'brave-browser'
 cask 'shiftit'
+
+# Work specific
+cask 'microsoft-teams'

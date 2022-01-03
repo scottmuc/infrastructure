@@ -551,6 +551,12 @@
         "options": {
           "full_name": "shiftit"
         }
+      },
+      "microsoft-teams": {
+        "version": "1.4.00.29478",
+        "options": {
+          "full_name": "microsoft-teams"
+        }
       }
     }
   },
@@ -559,8 +565,8 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.3.9",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "82c450a445e5d4b51360a4cbad91a201ca6be22c",
-        "CLT": "13.0.0.0.1.1627064638",
+        "Homebrew/homebrew-core": "b84c0298346f983a1643e8b465f1a22c95c4119c",
+        "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.1",
         "macOS": "12.1"
       }
