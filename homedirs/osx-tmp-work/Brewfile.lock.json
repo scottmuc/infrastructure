@@ -563,6 +563,12 @@
         "options": {
           "full_name": "miro"
         }
+      },
+      "onedrive": {
+        "version": "21.220.1024.0005",
+        "options": {
+          "full_name": "onedrive"
+        }
       }
     }
   },
@@ -571,7 +577,7 @@
       "monterey": {
         "HOMEBREW_VERSION": "3.3.9",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "7844861bc8428f5659fc0c04f476b9f925856736",
+        "Homebrew/homebrew-core": "4dc1a906f56b64632d7b3264f5879df0296a7ad5",
         "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.1",
         "macOS": "12.1"
