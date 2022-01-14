@@ -162,6 +162,7 @@ resource "gandi_zonerecord" "graffiti_scottmuc_com" {
     "Macbook air repaved on March 10th 2021",
     "Macbook air repaved on July 11th 2021",
     "Macbook air repaved on Nov 8th 2021",
+    "Temporary Macbook repaved on Jan 2nd 2022",
   ]
 }
 
