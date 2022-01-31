@@ -608,6 +608,15 @@
         "options": {
           "full_name": "bitwarden"
         }
+      },
+      "alacritty": {
+        "version": "0.10.0",
+        "options": {
+          "args": {
+            "no_quarantine": true
+          },
+          "full_name": "alacritty"
+        }
       }
     }
   },

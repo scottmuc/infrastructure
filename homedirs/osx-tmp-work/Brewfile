@@ -31,7 +31,8 @@ cask '1password-cli'
 # Terminal is ok for general purpose but I want to experiment with the file based configuration
 # of alactritty. Full color support is nice too. Need to install manually due to Gatekeeper
 # https://clubmate.fi/alacritty
-# cask 'alacritty'
+# https://github.com/Homebrew/homebrew-bundle/issues/940
+cask 'alacritty', args: { no_quarantine: true }
 
 cask 'brave-browser'
 cask 'shiftit'
