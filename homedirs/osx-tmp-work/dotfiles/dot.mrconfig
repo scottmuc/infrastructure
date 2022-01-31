@@ -1,21 +1,2 @@
-
-[workspace/scottmuc.github.com]
-checkout = git clone 'git@github.com:scottmuc/scottmuc.github.com.git' 'scottmuc.github.com'
-
-[go/src/github.com/scottmuc/health]
-checkout = git clone 'git@github.com:scottmuc/health.git' 'health'
-
-[workspace/pudget]
-checkout = git clone 'git@github.com:scottmuc/pudget.git' 'pudget'
-
-[workspace/presentations]
-checkout = git clone 'git@github.com:scottmuc/presentations.git' 'presentations'
-
 [workspace/infrastructure]
 checkout = git clone 'git@github.com:scottmuc/infrastructure.git' 'infrastructure'
-
-[workspace/devopsbookmarks.com]
-checkout = git clone 'git@github.com:devopsbookmarks/devopsbookmarks.com.git' 'devopsbookmarks.com'
-
-[workspace/goodenoughmoney]
-checkout = git clone 'git@github.com:scottmuc/goodenoughmoney.git' 'goodenoughmoney'
