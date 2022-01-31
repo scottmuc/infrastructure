@@ -29,8 +29,9 @@ cask '1password-cli'
 
 # Experimental
 # Terminal is ok for general purpose but I want to experiment with the file based configuration
-# of alactritty. Full color support is nice too.
-cask 'alacritty'
+# of alactritty. Full color support is nice too. Need to install manually due to Gatekeeper
+# https://clubmate.fi/alacritty
+# cask 'alacritty'
 
 cask 'brave-browser'
 cask 'shiftit'

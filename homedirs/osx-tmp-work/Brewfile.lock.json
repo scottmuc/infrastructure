@@ -573,14 +573,8 @@
           "full_name": "1password-cli"
         }
       },
-      "alacritty": {
-        "version": "0.9.0",
-        "options": {
-          "full_name": "alacritty"
-        }
-      },
       "brave-browser": {
-        "version": "1.34.80.0,134.80",
+        "version": "1.34.81.0,134.81",
         "options": {
           "full_name": "brave-browser"
         }
@@ -592,7 +586,7 @@
         }
       },
       "microsoft-teams": {
-        "version": "1.4.00.34557",
+        "version": "1.4.00.35562",
         "options": {
           "full_name": "microsoft-teams"
         }
@@ -604,7 +598,7 @@
         }
       },
       "onedrive": {
-        "version": "21.220.1024.0005",
+        "version": "21.245.1128.0002",
         "options": {
           "full_name": "onedrive"
         }
@@ -620,12 +614,12 @@
   "system": {
     "macos": {
       "monterey": {
-        "HOMEBREW_VERSION": "3.3.11",
+        "HOMEBREW_VERSION": "3.3.13",
         "HOMEBREW_PREFIX": "/usr/local",
-        "Homebrew/homebrew-core": "acd1d97a19254890895f8c346ef2a6510e37b5a1",
+        "Homebrew/homebrew-core": "abdb2e2e22ed7f35aef785ba24bfe90038214cbc",
         "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.1",
-        "macOS": "12.1"
+        "macOS": "12.2"
       }
     }
   }
