@@ -1,7 +1,0 @@
-#!/usr/bin/env bash
-
-# reference: https://www.catalinaosx.com/reset-and-flush-dns-cache-macos-catalina/
-sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder
-
-
-echo "Consider yourself flushed!"

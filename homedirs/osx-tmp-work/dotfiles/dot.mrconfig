@@ -1,2 +1,0 @@
-[workspace/infrastructure]
-checkout = git clone 'git@github.com:scottmuc/infrastructure.git' 'infrastructure'
