@@ -74,7 +74,7 @@ all the [previous repave issues][repave-history]. Have fun!
   Launch Powershell with elevated privileges:
 
   ```
-  Install-BoxstarterPackage -DisableReboots -PackageName https://github.com/scottmuc/infrastructure/blob/master/homedirs/windows/boxstarter.ps1
+  Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/master/homedirs/windows/boxstarter.ps1
   ```
 </details>
 
