@@ -33,9 +33,9 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] prepare USB device with a Windows installer. <details>
   <summary>Instructions</summary>
 
-  Here's my [primary influence][primary-influence].
+  Here's the [latest documentation][msdocs] I followed to make a USB installer.
 
-  [primary-influence]: http://forum.notebookreview.com/threads/guide-clean-install-windows-10-after-m-2-nvme-ssd-upgrade.787420/
+  [msdocs]: https://docs.microsoft.com/en-us/windows-hardware/manufacture/desktop/install-windows-from-a-usb-flash-drive
 </details>
 
 # Repave
@@ -79,5 +79,28 @@ all the [previous repave issues][repave-history]. Have fun!
 </details>
 
 - [ ] Windows update
+
+- [ ] Run Novabench<details>
+  <summary>Instructions</summary>
+
+  Score should be around:
+  * CPU 1600
+  * RAM 260
+  * GPU 1000
+  * Disk 340
+</details>
+
+- [ ] Configure Brave<details>
+  <summary>Instructions</summary>
+
+  Do the following:
+  * Ensure 1 Password extension works
+  * Getpocket installed
+  * Unhook extension is installed (and support the author)
+  * Set searrch engine to DuckDuckGo
+</details>
+
+- [ ] Ledger Nano stuff
+- [ ] Install and configure Google Drive
 
 
