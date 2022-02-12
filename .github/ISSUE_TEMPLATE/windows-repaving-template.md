@@ -32,6 +32,7 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] prepare USB device with a Windows installer. <details>
   <summary>Instructions</summary>
+  
 
   Here's the [latest documentation][msdocs] I followed to make a USB installer.
 
@@ -80,16 +81,6 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Windows update
 
-- [ ] Run Novabench<details>
-  <summary>Instructions</summary>
-
-  Score should be around:
-  * CPU 1600
-  * RAM 260
-  * GPU 1000
-  * Disk 340
-</details>
-
 - [ ] Configure Brave<details>
   <summary>Instructions</summary>
 
@@ -101,5 +92,25 @@ all the [previous repave issues][repave-history]. Have fun!
 </details>
 
 - [ ] Install and configure Google Drive
+
+- [ ] Setup Radeon Software<details>
+  <summary>Instructions</summary>
+
+  I'm not sure what to do here. Here are a couple helpful links:
+  * https://www.amd.com/en/support/kb/faq/gpu-kb205
+  * https://raptoreumcalculator.com/blog/radeonsoftware-exe-windows-complaining-about-missing-mfplat-dll-mf-dl-and-mfreadwrite-dll-files/
+  * https://www.amd.com/en/support
+</details>
+
+
+- [ ] Run Novabench<details>
+  <summary>Instructions</summary>
+
+  Score should be around:
+  * CPU 1600
+  * RAM 260
+  * GPU 1000
+  * Disk 340
+</details>
 
 
