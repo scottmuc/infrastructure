@@ -100,7 +100,6 @@ all the [previous repave issues][repave-history]. Have fun!
   * Set searrch engine to DuckDuckGo
 </details>
 
-- [ ] Ledger Nano stuff
 - [ ] Install and configure Google Drive
 
 
