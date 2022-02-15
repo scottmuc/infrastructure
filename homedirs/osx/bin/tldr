@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+if [[ ! -d ~/.tldr ]]; then
+  echo "Fetching tldr-pages from GitHub..."
+  # Use public repo until I have something to hide ;-)
+  # Would need to display a useful message if keys aren't loaded
+  git clone https://github.com/scottmuc/tldr.git ~/.tldr 2> /dev/null
+fi
+
+if [[ "$1" = "--update_cache" || "$1" = "-u" ]]; then
+  echo "Updating tldr-pages from GitHub..."
+  ( cd ~/.tldr && git pull )
+else
+  # Disable the cache so standard tldr-pages repo and zip aren't used
+  env \
+    TLDR_CACHE_ENABLED=0 \
+    TLDR_PAGES_SOURCE_LOCATION="file://${HOME}/.tldr/pages" \
+    "${HOMEBREW_PREFIX}/bin/tldr" "$@"
+fi

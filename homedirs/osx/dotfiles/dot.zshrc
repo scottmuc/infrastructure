@@ -1,4 +1,15 @@
-# ~/bin is the location of personal scripts I would like available everywhere
+# exports
+#   HOMEBREW_CELLAR
+#   HOMEBREW_PREFIX
+#   HOMEBREW_REPOSITORY
+# updates
+#   PATH
+#   MANPATH
+#   INFOPATH
+if type -p brew > /dev/null; then
+  eval "$(brew shellenv)"
+fi
+
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/osx/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
