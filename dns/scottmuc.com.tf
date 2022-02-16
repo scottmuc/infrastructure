@@ -23,9 +23,9 @@ resource "gandi_livedns_record" "txt_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
-    "keybase-site-verification=WYe5ju0VjNIRHhBkHg6s_ERw-CQBJ_LKq6zwfMDO5Wk",
-    "protonmail-verification=18a56110687f875948252dca450d300f0b9dd2e6",
-    "v=spf1 include:_spf.protonmail.ch mx ~all"
+    "\"keybase-site-verification=WYe5ju0VjNIRHhBkHg6s_ERw-CQBJ_LKq6zwfMDO5Wk\"",
+    "\"protonmail-verification=18a56110687f875948252dca450d300f0b9dd2e6\"",
+    "\"v=spf1 include:_spf.protonmail.ch mx ~all\""
   ]
 }
 
@@ -36,7 +36,7 @@ resource "gandi_livedns_record" "dmafc_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
-    "v=DMARC1; p=none; rua=mailto:scott@scottmuc.com"
+    "\"v=DMARC1; p=none; rua=mailto:scott@scottmuc.com\""
   ]
 }
 
@@ -158,10 +158,10 @@ resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
-    "Macbook air repaved on Christmas day of 2020!",
-    "Macbook air repaved on March 10th 2021",
-    "Macbook air repaved on July 11th 2021",
-    "Macbook air repaved on Nov 8th 2021",
-    "Temporary Macbook repaved on Jan 2nd 2022",
+    "\"Macbook air repaved on Christmas day of 2020!\"",
+    "\"Macbook air repaved on March 10th 2021\"",
+    "\"Macbook air repaved on July 11th 2021\"",
+    "\"Macbook air repaved on Nov 8th 2021\"",
+    "\"Temporary Macbook repaved on Jan 2nd 2022\"",
   ]
 }
