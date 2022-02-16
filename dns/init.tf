@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    gandi = {
+      source = "go-gandi/gandi"
+      version = "~> 2.0.0"
+    }
+  }
+}
+
 variable "gandi_api_key" {
 }
 

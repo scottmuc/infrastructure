@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+terraform \
+  apply \
+  -state ../secrets/dns.terraform.tfstate \
+  -backup - \
+  -var "home_ip=$(curl ifconfig.me/ip)" \
+  -var "gandi_api_key=$(cat ../secrets/GANDI_API_KEY)" \
+
