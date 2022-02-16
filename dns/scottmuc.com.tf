@@ -1,10 +1,10 @@
-data "gandi_zone" "scottmuc_com" {
+data "gandi_domain" "scottmuc_com" {
   name = "scottmuc.com"
 }
 
 
-resource "gandi_zonerecord" "at_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "at_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "@"
   type = "A"
   ttl = "3600"
@@ -17,8 +17,8 @@ resource "gandi_zonerecord" "at_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "txt_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "txt_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "@"
   type = "TXT"
   ttl = "3600"
@@ -30,8 +30,8 @@ resource "gandi_zonerecord" "txt_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "dmafc_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "dmafc_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "_dmafc"
   type = "TXT"
   ttl = "3600"
@@ -41,8 +41,8 @@ resource "gandi_zonerecord" "dmafc_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "mx_at_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "mx_at_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "@"
   type = "MX"
   ttl = "3600"
@@ -53,8 +53,8 @@ resource "gandi_zonerecord" "mx_at_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "protonmail_domainkey" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "protonmail_domainkey" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "protonmail._domainkey"
   type = "CNAME"
   ttl = "3600"
@@ -64,8 +64,8 @@ resource "gandi_zonerecord" "protonmail_domainkey" {
 }
 
 
-resource "gandi_zonerecord" "protonmail2_domainkey" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "protonmail2_domainkey" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "protonmail2._domainkey"
   type = "CNAME"
   ttl = "3600"
@@ -75,8 +75,8 @@ resource "gandi_zonerecord" "protonmail2_domainkey" {
 }
 
 
-resource "gandi_zonerecord" "protonmail3_domainkey" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "protonmail3_domainkey" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "protonmail3._domainkey"
   type = "CNAME"
   ttl = "3600"
@@ -86,8 +86,8 @@ resource "gandi_zonerecord" "protonmail3_domainkey" {
 }
 
 
-resource "gandi_zonerecord" "www_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "www_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "www"
   type = "CNAME"
   ttl = "3600"
@@ -97,8 +97,8 @@ resource "gandi_zonerecord" "www_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "feeds_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "feeds_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "feeds"
   type = "CNAME"
   ttl = "3600"
@@ -108,8 +108,8 @@ resource "gandi_zonerecord" "feeds_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "home_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "home_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "home"
   type = "A"
   ttl = "3600"
@@ -119,8 +119,8 @@ resource "gandi_zonerecord" "home_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "concourse_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "concourse_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "concourse"
   type = "A"
   ttl = "3600"
@@ -130,8 +130,8 @@ resource "gandi_zonerecord" "concourse_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "concourse_home_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "concourse_home_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "concourse.home"
   type = "A"
   ttl = "3600"
@@ -141,8 +141,8 @@ resource "gandi_zonerecord" "concourse_home_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "pi_home_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "pi_home_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "pi.home"
   type = "A"
   ttl = "3600"
@@ -152,8 +152,8 @@ resource "gandi_zonerecord" "pi_home_scottmuc_com" {
 }
 
 
-resource "gandi_zonerecord" "graffiti_scottmuc_com" {
-  zone = data.gandi_zone.scottmuc_com.id
+resource "gandi_livedns_record" "graffiti_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
   name = "graffiti"
   type = "TXT"
   ttl = "3600"
@@ -164,10 +164,4 @@ resource "gandi_zonerecord" "graffiti_scottmuc_com" {
     "Macbook air repaved on Nov 8th 2021",
     "Temporary Macbook repaved on Jan 2nd 2022",
   ]
-}
-
-
-resource "gandi_domainattachment" "scottmuc_com" {
-  zone   = data.gandi_zone.scottmuc_com.id
-  domain = "scottmuc.com"
 }

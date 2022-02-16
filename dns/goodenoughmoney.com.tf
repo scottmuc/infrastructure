@@ -1,10 +1,10 @@
-data "gandi_zone" "goodenoughmoney_com" {
+data "gandi_domain" "goodenoughmoney_com" {
   name = "goodenoughmoney.com"
 }
 
 
-resource "gandi_zonerecord" "at_goodenoughmoney_com" {
-  zone = data.gandi_zone.goodenoughmoney_com.id
+resource "gandi_livedns_record" "at_goodenoughmoney_com" {
+  zone = data.gandi_domain.goodenoughmoney_com.id
   name = "@"
   type = "A"
   ttl = "3600"
@@ -14,18 +14,12 @@ resource "gandi_zonerecord" "at_goodenoughmoney_com" {
 }
 
 
-resource "gandi_zonerecord" "www_goodenoughmoney_com" {
-  zone = data.gandi_zone.goodenoughmoney_com.id
+resource "gandi_livedns_record" "www_goodenoughmoney_com" {
+  zone = data.gandi_domain.goodenoughmoney_com.id
   name = "www"
   type = "A"
   ttl = "3600"
   values = [
     var.home_ip
   ]
-}
-
-
-resource "gandi_domainattachment" "goodenoughmoney_com" {
-  zone   = data.gandi_zone.goodenoughmoney_com.id
-  domain = "goodenoughmoney.com"
 }

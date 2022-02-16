@@ -14,7 +14,7 @@ fi
 
 if [[ ! -f .terraform/plugins/darwin_amd64/terraform-provider-gandi ]]; then
   git clone https://github.com/tiramiseb/terraform-provider-gandi.git /tmp/terraform-provider-gandi
-  (cd /tmp/terraform-provider-gandi && git checkout "v1.1.1" && go build)
+  (cd /tmp/terraform-provider-gandi && git checkout "v2.0.0" && go build)
   mkdir -p .terraform/plugins/darwin_amd64
   mv /tmp/terraform-provider-gandi/terraform-provider-gandi .terraform/plugins/darwin_amd64
   rm -rf /tmp/terraform-provider-gandi

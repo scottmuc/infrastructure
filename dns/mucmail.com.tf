@@ -1,10 +1,10 @@
-data "gandi_zone" "mucmail_com" {
+data "gandi_domain" "mucmail_com" {
   name = "mucmail.com"
 }
 
 
-resource "gandi_zonerecord" "mx_at_mucmail_com" {
-  zone = data.gandi_zone.mucmail_com.id
+resource "gandi_livedns_record" "mx_at_mucmail_com" {
+  zone = data.gandi_domain.mucmail_com.id
   name = "@"
   type = "MX"
   ttl = "3600"
@@ -17,10 +17,4 @@ resource "gandi_zonerecord" "mx_at_mucmail_com" {
     "5 ASPMX4.GOOGLEMAIL.COM",
     "5 ASPMX5.GOOGLEMAIL.COM."
   ]
-}
-
-
-resource "gandi_domainattachment" "mucmail_com" {
-  zone   = data.gandi_zone.mucmail_com.id
-  domain = "mucmail.com"
 }

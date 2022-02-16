@@ -1,10 +1,10 @@
-data "gandi_zone" "devopsbookmarks_com" {
+data "gandi_domain" "devopsbookmarks_com" {
   name = "devopsbookmarks.com"
 }
 
 
-resource "gandi_zonerecord" "at_devopsbookmarks_com" {
-  zone = data.gandi_zone.devopsbookmarks_com.id
+resource "gandi_livedns_record" "at_devopsbookmarks_com" {
+  zone = data.gandi_domain.devopsbookmarks_com.id
   name = "@"
   type = "A"
   ttl = "3600"
@@ -14,18 +14,12 @@ resource "gandi_zonerecord" "at_devopsbookmarks_com" {
 }
 
 
-resource "gandi_zonerecord" "www_devopsbookmarks_com" {
-  zone = data.gandi_zone.devopsbookmarks_com.id
+resource "gandi_livedns_record" "www_devopsbookmarks_com" {
+  zone = data.gandi_domain.devopsbookmarks_com.id
   name = "www"
   type = "CNAME"
   ttl = "3600"
   values = [
     "devops-bookmarks.herokuapp.com."
   ]
-}
-
-
-resource "gandi_domainattachment" "devopsbookmarks_com" {
-  zone   = data.gandi_zone.devopsbookmarks_com.id
-  domain = "devopsbookmarks.com"
 }
