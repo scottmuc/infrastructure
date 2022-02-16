@@ -53,6 +53,20 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Post Paving
 
+- [ ] Set machine hostname<details>
+  <summary>Instructions</summary>
+
+  This can come in handy for all services that have recorded the machines
+  hostname for security verification. The timestamp in the name and other
+  metadata can make future auditing a bit easier.
+
+  The convention is YYYYMMDD-something meta.
+
+  Test if this can be done in [powershell][ps-rename].
+
+  [ps-rename]: https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/rename-computer?view=powershell-7.2
+</details>
+
 - [ ] Install Chocolatey <details>
   <summary>Instructions</summary>
 
@@ -102,6 +116,13 @@ all the [previous repave issues][repave-history]. Have fun!
   * https://www.amd.com/en/support
 </details>
 
+- [ ] Install and configure Samsung Magician<details>
+  <summary>Instructions</summary>
+
+  Download [the installer][samsung-magician] and run it. Enable the performance profile.
+
+  [samsung-magician]: https://semiconductor.samsung.com/consumer-storage/magician/
+</details>
 
 - [ ] Run Novabench<details>
   <summary>Instructions</summary>
@@ -113,4 +134,6 @@ all the [previous repave issues][repave-history]. Have fun!
   * Disk 340
 </details>
 
+- [ ] Make [this template][this-template] slightly better
 
+[this-template]: https://github.com/scottmuc/infrastructure/blob/master/.github/ISSUE_TEMPLATE/windows-repaving-template.md
