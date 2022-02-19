@@ -14,9 +14,14 @@ if [[ "$1" = "--update_cache" || "$1" = "-u" ]]; then
   echo "Updating tldr-pages from GitHub..."
   ( cd ~/.tldr && git pull )
 else
+  tldr=/usr/local/bin/tldr
+  if [[ ! -z "${HOMEBREW_PREFIX}" ]]; then
+    tldr="${HOMEBREW_PREFIX}/bin/tldr"
+  fi
+
   # Disable the cache so standard tldr-pages repo and zip aren't used
   env \
     TLDR_CACHE_ENABLED=0 \
     TLDR_PAGES_SOURCE_LOCATION="file://${HOME}/.tldr/pages" \
-    "${HOMEBREW_PREFIX}/bin/tldr" "$@"
+    "${tldr}" "$@"
 fi
