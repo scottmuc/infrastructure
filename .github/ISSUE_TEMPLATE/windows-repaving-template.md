@@ -106,6 +106,7 @@ all the [previous repave issues][repave-history]. Have fun!
 </details>
 
 - [ ] Install and configure Google Drive
+- [ ] Turn off all Windows notification sounds
 
 - [ ] Setup Radeon Software<details>
   <summary>Instructions</summary>
@@ -132,6 +133,14 @@ all the [previous repave issues][repave-history]. Have fun!
   * RAM 260
   * GPU 1000
   * Disk 340
+</details>
+
+- [ ] Run WSL<details>
+  <summary>Instructions</summary>
+
+  * Install Ubuntu
+  * Clone this repository
+  * Run coalesce this machine script
 </details>
 
 - [ ] Make [this template][this-template] slightly better
