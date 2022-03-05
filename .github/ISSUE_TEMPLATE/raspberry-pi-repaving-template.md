@@ -22,7 +22,13 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Things to do with the existing build
 
-- [ ] Create USB stick with latest Raspian
+- [ ] Create SD card with the latest Raspberry Pi OS<details>
+  <summary>Instructions</summary>
+
+  Preferrably with a secondary SD Card to keep the current Pi running.
+  
+  [installer download](https://www.raspberrypi.org/downloads.../)
+</details>
 
 - [ ] Ensure a working ansible enviroment <details>
   <summary>Instructions</summary>
