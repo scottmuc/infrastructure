@@ -1,0 +1,7 @@
+---
+- hosts: all
+  remote_user: ansible
+
+  tasks:
+  - name: Install DNS stuff
+    include_tasks: unbound_tasks.yml
