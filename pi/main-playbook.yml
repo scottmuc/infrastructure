@@ -9,3 +9,5 @@
   - name: Install DNS stuff
     include_tasks: unbound_tasks.yml
 
+  - name: Install nginx and configure websites
+    include_tasks: nginx_tasks.yml

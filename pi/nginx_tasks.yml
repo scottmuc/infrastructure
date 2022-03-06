@@ -1,0 +1,41 @@
+
+  - name: Install nginx package
+    apt: pkg=nginx
+
+  - name: Install certbot package
+    apt: pkg=certbot
+
+
+  - name: Setup www.goodenoughmoney.com home
+    file:
+      path: /opt/goodenoughmoney
+      state: directory
+      owner: root
+      group: pi
+      mode: '0775'
+
+
+  - name: Install www.goodenoughmoney.com config
+    copy:
+      src: root/etc/nginx/sites-available/goodenoughmoney.com
+      dest: /etc/nginx/sites-available/goodenoughmoney.com
+
+
+  - name: Enable www.goodenoughmoney.com
+    file:
+      src: /etc/nginx/sites-available/goodenoughmoney.com
+      dest: /etc/nginx/sites-enabled/goodenoughmoney.com
+      state: link
+
+
+  - name: Install home.scottmuc.com config
+    copy:
+      src: root/etc/nginx/sites-available/home.scottmuc.com
+      dest: /etc/nginx/sites-available/home.scottmuc.com
+
+
+  - name: Enable home.scottmuc.com
+    file:
+      src: /etc/nginx/sites-available/home.scottmuc.com
+      dest: /etc/nginx/sites-enabled/home.scottmuc.com
+      state: link
