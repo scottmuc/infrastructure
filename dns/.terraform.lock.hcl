@@ -6,6 +6,7 @@ provider "registry.terraform.io/go-gandi/gandi" {
   constraints = "~> 2.0.0"
   hashes = [
     "h1:XuCGwa5hIQq/wnbxlogC4ZnAhZTv+4lQ69+ZIFY0VBc=",
+    "h1:mK4HU+cHxKGRNrY0EZ927hEg1GyUyAiMDBAGHJv0ipg=",
     "zh:1644db11a8ce91191249d3885ccf3955f56f7e04b76e4ea08f85417aead2983f",
     "zh:31581a8c919fbd5eff433ad323ec36fbce1188f96738187863b443c7b80a5ba5",
     "zh:47229da7cfd58ee1041d51c3bfb6aae55d7799739f23270d06e7f4267f34af08",
