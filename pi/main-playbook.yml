@@ -11,3 +11,6 @@
 
   - name: Install nginx and configure websites
     include_tasks: nginx_tasks.yml
+
+  - name: Setup USB Drive
+    include_tasks: usb_drive_tasks.yml
