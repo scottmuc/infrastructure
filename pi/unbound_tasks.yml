@@ -29,13 +29,14 @@
           interface: 0.0.0.0
           access-control: 192.168.2.0/24 allow
           do-ip6: no
+          include: /etc/unbound/blocklist.conf
 
 
-#- name: Add blocklist
-#become: true
-#get_url:
-#dest: /etc/unbound/unbound.conf.d/blacklist.conf
-#url: https://raw.githubusercontent.com/oznu/dns-zone-blacklist/master/unbound/unbound-nxdomain.blacklist
+  - name: Add blocklist
+    become: true
+    get_url:
+      dest: /etc/unbound/blocklist.conf
+      url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/master/unbound/unbound.blocklist
 
 
   - name: Ensure unbound is running
