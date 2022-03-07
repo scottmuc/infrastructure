@@ -63,9 +63,9 @@ ProtectSystem=strict
 ProtectHome=true
 EOF
 
-chown -R navidrome:root /opt/navidrome
-
 useradd --system navidrome --home-dir /opt/navidrome --shell /usr/sbin/nologin/
+
+chown -R navidrome:root /opt/navidrome
 
 systemctl daemon-reload
 
