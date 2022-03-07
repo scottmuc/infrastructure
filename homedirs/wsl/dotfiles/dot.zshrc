@@ -9,8 +9,6 @@ export TERM='xterm-256color'
 export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 alias ls="ls --color=always"
 
-export GREP_OPTIONS="--color"
-
 # Explictly use emacs key bindsings (needed in tmux for some reason)
 # See: https://askubuntu.com/a/1158506
 bindkey -e
@@ -39,6 +37,8 @@ if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
   source /usr/local/etc/profile.d/autojump.sh
 fi
 
+# GREP_OPTIONS env variable is deprecated
+alias grep='grep --color'
 alias op_auth='eval $(op signin my)'
 alias start_agent='eval $(ssh-agent -s)'
 alias keys="ssh_op_agent load -n machine.summer.gaming -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
