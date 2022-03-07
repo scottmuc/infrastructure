@@ -2,8 +2,11 @@
 
 set -e
 
-tldr=~/workspace/tldr-python-client/tldr.py
+tldr=~/workspace/my-tldr-python-client/tldr.py
+
+central_tldr_pages=https://raw.githubusercontent.com/tldr-pages/tldr/master/pages
+my_tldr_pages=https://raw.githubusercontent.com/scottmuc/infrastructure/main/tldr-pages
 
 env \
-  TLDR_PAGES_SOURCE_LOCATION="https://raw.githubusercontent.com/tldr-pages/tldr/master/pages;file://${HOME}/workspace/infrastructure/tldr-pages" \
+  TLDR_PAGES_SOURCE_LOCATION="${central_tldr_pages};${my_tldr_pages}" \
   "${tldr}" "$@"
