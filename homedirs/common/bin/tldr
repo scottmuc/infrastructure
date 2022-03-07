@@ -2,7 +2,7 @@
 
 set -e
 
-tldr=~/workspace/my-tldr-python-client/tldr.py
+tldr=~/workspace/tldr-python-client/tldr.py
 
 central_tldr_pages=https://raw.githubusercontent.com/tldr-pages/tldr/master/pages
 my_tldr_pages=https://raw.githubusercontent.com/scottmuc/infrastructure/main/tldr-pages
