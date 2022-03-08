@@ -8,9 +8,10 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
   symlink_all_the_things
-  # unzip, jq, zsh, neovim
+  # unzip, jq, zsh, neovim, terraform, ansible, autojump
   # download and install 1Password CLI
   # switch default shell to zsh
+  # link workspace to Windows mounted volume
   setup_neovim
 }
 
@@ -36,8 +37,8 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
 
-  # Should this be -shfv instead?
-  ln -sFfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  # https://unix.stackexchange.com/a/355220
+  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
