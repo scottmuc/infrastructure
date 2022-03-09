@@ -51,5 +51,4 @@
       dest: /etc/resolv.conf
       content: |
         search home.scottmuc.com
-        nameserver 192.168.2.10
-        nameserver 192.168.2.11
+        nameserver 127.0.0.1
