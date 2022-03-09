@@ -2,4 +2,6 @@
 
 set -e
 
-ansible-playbook -v -i 192.168.2.10, --become ./main-playbook.yml
+pi_ip="${1:-192.168.2.10}"
+
+ansible-playbook -v -i "${pi_ip}," --become ./main-playbook.yml
