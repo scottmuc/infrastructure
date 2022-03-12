@@ -15,5 +15,8 @@
   - name: Setup USB Drive
     include_tasks: usb_drive_tasks.yml
 
+  - name: Setup Samba
+    include_tasks: samba_tasks.yml
+
   - name: Configure static IP
     include_tasks: networking_tasks.yml

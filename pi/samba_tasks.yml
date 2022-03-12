@@ -1,0 +1,17 @@
+
+  - name: Install samba package
+    apt: pkg=samba
+
+  - name: Add share information
+    blockinfile:
+      dest: /etc/samba/smb.conf
+      block: |
+        [fileserver]
+          path = /mnt/usb
+          browseable = yes
+          read only = no
+          guest ok = no
+          valid users = pi
+      backup: yes
+
+# Manually create pi user `sudo smbpasswd -a pi`
