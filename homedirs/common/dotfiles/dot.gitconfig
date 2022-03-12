@@ -3,6 +3,9 @@
     email = scott@scottmuc.com
     signingkey = 9F90692427653A6C
 
+[commit]
+    gpgsign = true
+
 [core]
     excludesfile = ~/.gitignore
     editor = nvim
@@ -23,6 +26,3 @@
     # too many train tracks and push the information off the edge of the screen
     ll  = log --oneline --decorate --graph
     lla = !git ll --all
-
-[commit]
-    gpgsign = true
