@@ -2,8 +2,6 @@ server {
     server_name home.scottmuc.com;
 
     listen 443 ssl;
-    # Installation command:
-    # certbot certonly --webroot /var/www/html -d home.scottmuc.com -m "scottmuc@gmail.com"
     ssl_certificate /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/home.scottmuc.com/privkey.pem;
 

@@ -6,6 +6,20 @@
     apt: pkg=certbot
 
 
+  - name: Ensure nginx is stopped before certbot interactions
+    service:
+      name: nginx
+      state: stopped
+
+
+  - name: Acquire certificate for www.goodenoughmoney.com
+    command: |
+      certbot certonly --standalone -d www.goodenoughmoney.com \
+      --non-interactive --agree-tos -m "scottmuc@gmail.com"
+    args:
+      creates: /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem
+
+
   - name: Setup www.goodenoughmoney.com home
     file:
       path: /opt/goodenoughmoney
@@ -28,6 +42,15 @@
       state: link
 
 
+  - name: Acquire certificate for home.scottmuc.com
+    command: |
+      certbot certonly --standalone -d home.scottmuc.com \
+      --non-interactive --agree-tos -m "scottmuc@gmail.com"
+    args:
+      creates: /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem
+
+
+
   - name: Install home.scottmuc.com config
     copy:
       src: root/etc/nginx/sites-available/home.scottmuc.com
@@ -39,3 +62,9 @@
       src: /etc/nginx/sites-available/home.scottmuc.com
       dest: /etc/nginx/sites-enabled/home.scottmuc.com
       state: link
+
+
+  - name: Start nginx
+    service:
+      name: nginx
+      state: started

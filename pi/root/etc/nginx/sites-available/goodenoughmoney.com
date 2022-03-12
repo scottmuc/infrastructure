@@ -2,8 +2,6 @@ server {
     server_name www.goodenoughmoney.com;
 
     listen 443 ssl;
-    # Installation command:
-    # certbot certonly --webroot -w /var/www/html -d www.goodenoughmoney.com -m "scottmuc@gmail.com"
     ssl_certificate /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/www.goodenoughmoney.com/privkey.pem;
 
