@@ -1,0 +1,17 @@
+
+  - name: Install kea package
+    apt: pkg=kea-dhcp4-server
+
+
+  - name: Kea configuration
+    become: true
+    copy:
+      src: root/etc/kea/kea-dhcp4.conf
+      dest: /etc/kea/kea-dhcp4.conf
+
+
+  - name: Ensure kea is stopped
+    service:
+      name: kea-dhcp4-server
+      state: stopped
+

@@ -20,3 +20,6 @@
 
   - name: Configure static IP
     include_tasks: networking_tasks.yml
+
+  - name: Setup kea dhcpd
+    include_tasks: dhcpd_tasks.yml
