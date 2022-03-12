@@ -68,23 +68,20 @@ $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(
 $kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout'
 New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Value ([byte[]]$hexified)
 
+Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
+
 choco install git -y --source="'https://chocolatey.org/api/v2'" `
   --package-parameters='"/GitAndUnixToolsOnPath /WindowsTerminal"'
 
 choco install brave -y --source="'https://chocolatey.org/api/v2'"
 choco install gnucash -y --source="'https://chocolatey.org/api/v2'"
 choco install steam -y --source="'https://chocolatey.org/api/v2'"
-# goggalaxy has an error need to manually install for now
-#choco install goggalaxy -y --source="'https://chocolatey.org/api/v2'"
 choco install zoom -y --source="'https://chocolatey.org/api/v2'"
 
 choco install microsoft-windows-terminal -y --source="'https://chocolatey.org/api/v2'"
 choco install vscode.install -y --source="'https://chocolatey.org/api/v2'"
 
-# 1password installer still broken
-# choco install 1password -y --source="'https://chocolatey.org/api/v2'"
+choco install autohotkey.install -y --source="'https://chocolatey.org/api/v2'"
 
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-
-Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
 

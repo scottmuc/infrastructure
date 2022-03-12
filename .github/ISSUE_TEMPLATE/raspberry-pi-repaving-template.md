@@ -30,6 +30,18 @@ all the [previous repave issues][repave-history]. Have fun!
   [installer download](https://www.raspberrypi.org/downloads.../)
 </details>
 
+- [ ] Shut down the PI (to prevent DHCP conflicts)
+
+- [ ] Enable DHCP on the router and remove port mapping
+
+# Post OS install steps on the PI
+
+- [ ] Enable SSHD via `rasp-config`
+
+- [ ] Obtain machine IP via `ip a`
+
+# Post OS install steps on desktop
+
 - [ ] Ensure a working ansible enviroment <details>
   <summary>Instructions</summary>
 
@@ -37,11 +49,7 @@ all the [previous repave issues][repave-history]. Have fun!
   my macbook might be my controller, or my windows WSL host will be.
 </details>
 
-# Post OS install steps
-
-- [ ] Ensure machine IP is 192.168.2.10
-
-- [ ] Copy ssh key using `ssh-copy-id`
+- [ ] Copy ssh key using `ssh-copy-id pi@<pi ip>`
 
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
@@ -52,7 +60,13 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
-  `ansible-playbook -i 192.168.2.10, --become ./main-playbook.yml`
+  `./ansible.sh <pi ip>`
 </details>
+
+- [ ] Disable DHCP on the router
+
+- [ ] Reboot PI
+
+- [ ] Add port mapping on the router
 
 - [ ] Make this template slightly better
