@@ -10,8 +10,8 @@
       dest: /etc/kea/kea-dhcp4.conf
 
 
-  - name: Ensure kea is stopped
+  - name: Start the DHCP service
     service:
       name: kea-dhcp4-server
-      state: stopped
+      state: started
 
