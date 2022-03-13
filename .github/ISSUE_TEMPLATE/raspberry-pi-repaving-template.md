@@ -52,13 +52,13 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
-  `ansible-playbook -i <pi ip>, --become --ask-become-pass ./bootstrap-playbook.yml`
+  `./ansible.sh bootstrap -i <pi ip>`
 </details>
 
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
-  `./ansible.sh <pi ip>`
+  `./ansible.sh apply -i <pi ip>`
 </details>
 
 - [ ] Reboot PI
