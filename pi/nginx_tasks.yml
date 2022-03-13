@@ -12,6 +12,13 @@
       state: stopped
 
 
+  - name: Increase server_names_hash_bucket_size in nginx.conf
+    lineinfile:
+      path: /etc/nginx/nginx.conf
+      insertafter: "^http {"
+      line: "server_names_hash_bucket_size 64;"
+
+
   - name: Acquire certificate for www.goodenoughmoney.com
     command: |
       certbot certonly --standalone -d www.goodenoughmoney.com \
