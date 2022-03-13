@@ -26,19 +26,17 @@ all the [previous repave issues][repave-history]. Have fun!
   <summary>Instructions</summary>
 
   Preferrably with a secondary SD Card to keep the current Pi running.
-  
+
   [installer download](https://www.raspberrypi.org/downloads.../)
 </details>
-
-- [ ] Shut down the PI (to prevent DHCP conflicts)
 
 - [ ] Enable DHCP on the router and remove port mapping
 
 # Post OS install steps on the PI
 
-- [ ] Enable SSHD via `rasp-config`
+- [ ] Note the IP assigned to the PI during the OS install
 
-- [ ] Obtain machine IP via `ip a`
+- [ ] Enable SSHD via `rasp-config`
 
 # Post OS install steps on desktop
 
@@ -54,7 +52,7 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
-  `ansible-playbook -i 192.168.2.10, --become --ask-become-pass ./bootstrap-playbook.yml`
+  `ansible-playbook -i <pi ip>, --become --ask-become-pass ./bootstrap-playbook.yml`
 </details>
 
 - [ ] Complete full configuration <details>
@@ -63,10 +61,10 @@ all the [previous repave issues][repave-history]. Have fun!
   `./ansible.sh <pi ip>`
 </details>
 
-- [ ] Disable DHCP on the router
-
 - [ ] Reboot PI
 
 - [ ] Add port mapping on the router
+
+- [ ] Disable DHCP on the router
 
 - [ ] Make this template slightly better
