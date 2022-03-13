@@ -18,7 +18,6 @@ Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-sensible'
 
 Plug 'https://github.com/hashivim/vim-terraform'
-Plug 'https://github.com/fatih/vim-go'
 
 call plug#end()
 
