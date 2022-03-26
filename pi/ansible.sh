@@ -25,7 +25,7 @@ esac
 ip="192.168.2.10"
 while getopts ":i:" opt; do
   case $opt in
-    e) ip="$OPTARG"
+    i) ip="$OPTARG"
     ;;
   esac
 done
