@@ -10,6 +10,15 @@
       dest: /etc/kea/kea-dhcp4.conf
 
 
+  - name: Create missing directory for lockfile
+    file:
+      path: /var/run/kea
+      state: directory
+      owner: root
+      group: root
+      mode: '0775'
+
+
   - name: Start the DHCP service
     service:
       name: kea-dhcp4-server
