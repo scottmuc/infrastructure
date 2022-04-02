@@ -32,7 +32,7 @@
       path: /opt/goodenoughmoney
       state: directory
       owner: root
-      group: pi
+      group: admin
       mode: '0775'
 
 
