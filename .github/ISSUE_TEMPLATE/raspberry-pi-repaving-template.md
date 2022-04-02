@@ -22,17 +22,46 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Things to do with the existing build
 
-- [ ] Enable DHCP on the router and remove port mapping and release/renew IP address
+- [ ] Disable DHCP on the PI<details>
+  <summary>Instructions</summary>
+
+  Ensure that when we renew our DCHP lease, it comes from our router.
+
+  `sudo systemctl stop kea-dhcp4-server`
+</details>
+
+- [ ] Enable DHCP on the router and remove port mapping and release/renew IP address<details>
+  <summary>Instructions</summary>
+
+  Windows: `ipconfig /release` and then `ipconfig /renew`
+</details>
+
+
+- [ ] Shutdown PI<details>
+  <summary>Instructions</summary>
+
+  Make sure the USB drive has spun down before doing any work.
+
+  `sudo shutdown -h now`
+</details>
 
 - [ ] Create SD card with the latest Raspberry Pi OS<details>
   <summary>Instructions</summary>
 
-  Preferrably with a secondary SD Card to keep the current Pi running.
+  Using the SD card in the now powered down PI.
 
-  [installer download](https://www.raspberrypi.org/downloads.../)
+  [installer download](https://www.raspberrypi.org/downloads/)
 </details>
 
-- [ ] Touch `ssh` on the boot volume of the SD Card
+- [ ] Touch `ssh` on the boot volume of the SD Card<details>
+  <summary>Instructions</summary>
+
+  See this [handy post][ssh-enable] for details. This requires disconnecting the SD card and
+  plugging it back in so it gets mounted in Windows.
+
+  [ssh-enable]: https://kenfallon.com/safely-enabling-ssh-in-the-default-raspbian-image/
+</details>
+
 
 # Post OS install steps on desktop
 
@@ -43,15 +72,22 @@ all the [previous repave issues][repave-history]. Have fun!
   my macbook might be my controller, or my windows WSL host will be.
 </details>
 
-- [ ] Note the IP the PI obtained from the Router
+- [ ] Turn on the IP and note the IP obtained from the Router
 
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
+  The password will be the default password for the user `pi`
+
   `./ansible.sh bootstrap -i <pi ip>`
 </details>
 
-- [ ] Add the PI port forwarding
+- [ ] Add the PI port forwardi<details>
+  <summary>Instructions</summary>
+
+  Needed for the `certbot` ACME challenge in the next step.
+
+</details>
 
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
@@ -79,7 +115,6 @@ all the [previous repave issues][repave-history]. Have fun!
 
   run `navidrome.sh` as `root` on the PI
 </details>
-
 
 - [ ] Make this template slightly better
 
