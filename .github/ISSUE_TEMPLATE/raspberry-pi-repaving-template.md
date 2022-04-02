@@ -74,10 +74,20 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Turn on the IP and note the IP obtained from the Router
 
-- [ ] Bootstrap with Ansible <details>
+- [ ] Transfer local public ssh key to PI<details>
   <summary>Instructions</summary>
 
-  The password will be the default password for the user `pi`
+  In order to avoid the use of `sshpass`, copy the current sessions public ssh key to
+  to `./ssh/authorized_keys` of the `pi` user on the PI. This user is only necessary to
+  run the bootstrap playbook (which creates an admin `ansible` user) and will be subsequently
+  cleaned up.
+
+  `ssh-copy-id pi@<pi ip>`
+</details>
+
+
+- [ ] Bootstrap with Ansible <details>
+  <summary>Instructions</summary>
 
   `./ansible.sh bootstrap -i <pi ip>`
 </details>
