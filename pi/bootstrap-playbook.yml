@@ -2,6 +2,7 @@
 - hosts: all
   remote_user: pi
   gather_facts: no
+  become: yes
 
   pre_tasks:
   - name: attempt to update apt's cache
@@ -15,6 +16,8 @@
       system: yes
       state: present
 
+  # The Raspberry PI OS image comes with sudo installed, but will leave this
+  # check here just in case that assumption changes.
   - name: Ensure sudo is installed
     package:
       name: sudo

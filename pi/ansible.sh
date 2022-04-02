@@ -5,12 +5,10 @@ set -e
 case "$1" in
   bootstrap)
     shift
-    become_args="--become --ask-become-pass"
     playbook="./bootstrap-playbook.yml"
     ;;
   apply)
     shift
-    become_args="--become"
     playbook="./main-playbook.yml"
     ;;
   *)
@@ -30,4 +28,4 @@ while getopts ":i:" opt; do
   esac
 done
 
-ansible-playbook -i "${ip}," ${become_args} ${playbook}
+ansible-playbook -i "${ip}," ${playbook}

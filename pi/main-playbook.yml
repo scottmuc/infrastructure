@@ -1,6 +1,7 @@
 ---
 - hosts: all
   remote_user: ansible
+  become: yes
 
   tasks:
   - name: Disable IPV6
