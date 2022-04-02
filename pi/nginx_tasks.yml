@@ -19,6 +19,13 @@
       line: "server_names_hash_bucket_size 64;"
 
 
+  - name: Disable certbot.timer
+    service:
+      name: certbot.timer
+      enabled: no
+      state: stopped
+
+
   - name: Acquire certificate for www.goodenoughmoney.com
     command: |
       certbot certonly --standalone -d www.goodenoughmoney.com \
