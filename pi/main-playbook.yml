@@ -32,6 +32,12 @@
     include_tasks: dhcpd_tasks.yml
 
   handlers:
+  - name: Restart unbound
+    ansible.builtin.service:
+      name: unbound
+      state: restarted
+
+
   - name: Restart kea-dhcp4-server
     ansible.builtin.service:
       name: kea-dhcp4-server

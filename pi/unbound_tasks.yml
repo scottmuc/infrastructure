@@ -30,6 +30,8 @@
           access-control: 192.168.2.0/24 allow
           do-ip6: no
           include: /etc/unbound/blocklist.conf
+    notify:
+    - Restart unbound
 
 
   - name: Add blocklist
@@ -37,6 +39,8 @@
     get_url:
       dest: /etc/unbound/blocklist.conf
       url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/master/unbound/unbound.blocklist
+    notify:
+    - Restart unbound
 
 
   - name: Ensure unbound is running
