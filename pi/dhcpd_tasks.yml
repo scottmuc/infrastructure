@@ -3,13 +3,6 @@
     apt: pkg=kea-dhcp4-server
 
 
-  - name: Kea configuration
-    become: true
-    copy:
-      src: root/etc/kea/kea-dhcp4.conf
-      dest: /etc/kea/kea-dhcp4.conf
-
-
   - name: Create missing directory for lockfile
     file:
       path: /var/run/kea
@@ -19,8 +12,16 @@
       mode: '0775'
 
 
-  - name: Start the DHCP service
+  - name: Kea configuration
+    copy:
+      src: root/etc/kea/kea-dhcp4.conf
+      dest: /etc/kea/kea-dhcp4.conf
+    notify:
+    - Restart kea-dhcp4-server
+
+
+  - name: Ensure the DHCP service is started
     service:
       name: kea-dhcp4-server
       state: started
-
+      enabled: yes

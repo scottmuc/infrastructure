@@ -30,3 +30,9 @@
 
   - name: Setup kea dhcpd
     include_tasks: dhcpd_tasks.yml
+
+  handlers:
+  - name: Restart kea-dhcp4-server
+    ansible.builtin.service:
+      name: kea-dhcp4-server
+      state: restarted
