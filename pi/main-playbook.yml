@@ -42,3 +42,9 @@
     ansible.builtin.service:
       name: kea-dhcp4-server
       state: restarted
+
+
+  - name: Restart nginx
+    ansible.builtin.service:
+      name: nginx
+      state: restarted

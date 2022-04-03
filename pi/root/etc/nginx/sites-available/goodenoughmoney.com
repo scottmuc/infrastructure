@@ -14,12 +14,6 @@ server {
 
     listen 80;
 
-    location /.well-known/acme-challenge/ {
-      default_type "text/plain";
-      root /var/www/html;
-      try_files $uri =404;
-    }
-
     location / {
       return 301 https://www.goodenoughmoney.com$request_uri;
     }

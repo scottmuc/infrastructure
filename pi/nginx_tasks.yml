@@ -6,6 +6,7 @@
     apt: pkg=certbot
 
 
+  # Make this happen only if neither certificates exist
   - name: Ensure nginx is stopped before certbot interactions
     service:
       name: nginx
@@ -17,6 +18,8 @@
       path: /etc/nginx/nginx.conf
       insertafter: "^http {"
       line: "server_names_hash_bucket_size 64;"
+    notify:
+    - Restart nginx
 
 
   - name: Disable certbot.timer
@@ -47,6 +50,8 @@
     copy:
       src: root/etc/nginx/sites-available/goodenoughmoney.com
       dest: /etc/nginx/sites-available/goodenoughmoney.com
+    notify:
+    - Restart nginx
 
 
   - name: Enable www.goodenoughmoney.com
@@ -69,6 +74,8 @@
     copy:
       src: root/etc/nginx/sites-available/home.scottmuc.com
       dest: /etc/nginx/sites-available/home.scottmuc.com
+    notify:
+    - Restart nginx
 
 
   - name: Enable home.scottmuc.com
@@ -82,3 +89,4 @@
     service:
       name: nginx
       state: started
+      enabled: yes
