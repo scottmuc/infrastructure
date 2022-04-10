@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+if op vault list > /dev/null 2>&1; then
+  echo "authenticated"; exit 0
+else
+  echo "unauthenticated"; exit 1
+fi

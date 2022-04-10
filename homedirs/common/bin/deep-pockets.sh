@@ -165,10 +165,7 @@ sync() {
 
   mkdir -p "${CACHE_DIR}"
 
-  # this jq query is an example of what makes the 1password CLI hard to work with
-  # it is also coupling to my personal preference for a password manager
-  consumer_key=$(op get item "deep-pockets" | \
-    jq -r '.details.sections[] |select(.fields)| .fields[] | select(.t == "consumer-key") | .v')
+  consumer_key="$(op read op://automation/deep-pockets/consumer-key)"
 
   # stub webserver to handle browser redirect from getpocket.com
   redirect_url="http://localhost:1500/"

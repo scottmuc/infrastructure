@@ -111,8 +111,8 @@ restore() {
     ;;
   esac
 
-  local secretkey="$(easy-op show -n "gpg.${email}" -f "base64.secret.key" | $base64_decode_cmd)"
-  local ownertrust="$(easy-op show -n "gpg.${email}" -f "base64.ownertrust" | $base64_decode_cmd)"
+  local secretkey="$(op read op://Automation/gpg.${email}/base64.secret.key | $base64_decode_cmd)"
+  local ownertrust="$(op read op://Automation/gpg.${email}/base64.ownertrust | $base64_decode_cmd)"
 
   gpg --import <(echo -e "${secretkey}")
   gpg --import-ownertrust <(echo -e "${ownertrust}")

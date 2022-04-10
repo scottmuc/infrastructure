@@ -3,6 +3,4 @@
 set -e
 set -u
 
-easy-op show \
-  -n "${SSH_OP_ASKPASS_NOTE}" \
-  -f "${SSH_OP_ASKPASS_FIELD}"
+op read "op://Automation/${SSH_OP_ASKPASS_NOTE}/${SSH_OP_ASKPASS_FIELD}"

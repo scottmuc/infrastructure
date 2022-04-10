@@ -17,7 +17,7 @@ main() {
 }
 
 ensure_op_logged_in_or_exit() {
-  if ! easy-op status > /dev/null; then
+  if ! op_auth_status > /dev/null; then
     echo "!! You must be signed-in to 1 Password !!"
     exit 1
   fi
@@ -73,7 +73,7 @@ load() {
 
   timeout_in_seconds="$(echo "${timeout}*3600" | bc)"
 
-  local base64_key="$(easy-op show -n "${note_name}" -f "${field_name}")"
+  local base64_key="$(op read "op://Automation/${note_name}/${field_name}")"
 
   # base64 uses different flags for decoding between Linux and Darwin. Since I'm not going single OS
   # anytime soon, I'll define the base64 decode command dependent on the OSTYPE

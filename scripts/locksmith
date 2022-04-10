@@ -8,9 +8,7 @@ main() {
   sub_command="$1"
   case "$sub_command" in
     unlock)
-      # depends on this machine having the following in the PATH
-      # https://github.com/scottmuc/infrastructure/blob/master/homedirs/osx/bin/easy-op
-      base64_key="$(easy-op show -n infrastructure-git-crypt-key -f git-crypt-key)"
+      base64_key="$(op read op://Automation/infrastructure-git-crypt-key/git-crypt-key)"
       git-crypt unlock <(echo "${base64_key}" | base64 --decode -)
       ;;
     lock)
