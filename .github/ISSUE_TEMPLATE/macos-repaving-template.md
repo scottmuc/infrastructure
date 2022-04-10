@@ -85,7 +85,6 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Launch and configure 1 Password
 - [ ] Initialise 1 Password CLI
 - [ ] Map capslock to control
-- [ ] Launch shiftit and follow all the accessiblity setting instructions
 
 **note** to speed things up, some of the steps above can be done while `coalese_this_machine` is running.
 
@@ -98,13 +97,14 @@ all the [previous repave issues][repave-history]. Have fun!
     ```
     # Initialize and log into the 1 Password CLI
     initialize-1password
-    eval $(op signin my)
+    eval $(op signin)
     # Unlock the repo in order to access values in ./secrets dir
     cd ~/workspace/infrastructure
     ./scripts/locksmith unlock
     # Initialize Terraform and apply
-    ./scripts/terraform init dns
-    ./scripts/terraform_apply
+    cd dns
+    terraform init
+    ./terraform_apply
     ```
 </details>
 
@@ -115,7 +115,7 @@ all the [previous repave issues][repave-history]. Have fun!
     ```
     # Initialize and log into the 1 Password CLI
     initialize-1password
-    eval $(op signin my)
+    eval $(op signin)
     gpg_op restore -e "scott@scottmuc.com"
     ```
 </details>
