@@ -57,7 +57,7 @@ write_or_check_machine_birthdate() {
   local birthdate_file
   local birthdate
 
-  birthdate_file=./.birthdate
+  birthdate_file=~/.birthdate
   if [ ! -f "${birthdate_file}" ]
   then
     date > "${birthdate_file}"
@@ -131,7 +131,7 @@ last_softwareupdate_was_over_7_days_ago() {
 
 invoke_softewareupdate() {
   local softwareupdate_indicator
-  softwareupdate_indicator=./.softwareupdate_indicator
+  softwareupdate_indicator=~/.softwareupdate_indicator
 
   if [ ! -f "${softwareupdate_indicator}" ]
   then
