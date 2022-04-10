@@ -8,11 +8,21 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
   symlink_all_the_things
+  install_1password_cli
   # unzip, jq, zsh, neovim, terraform, ansible, autojump
-  # download and install 1Password CLI
   # switch default shell to zsh
   # link workspace to Windows mounted volume
   setup_neovim
+}
+
+# https://developer.1password.com/docs/cli/install-server
+install_1password_cli() {
+  if ! command -v op &> /dev/null; then
+    curl -sSfo op.zip \
+      https://cache.agilebits.com/dist/1P/op2/pkg/v2.0.0/op_linux_amd64_v2.0.0.zip \
+      && sudo unzip -od /usr/local/bin/ op.zip \
+      && rm op.zip
+  fi
 }
 
 # I am getting the absolute path so that ls -la output goes from:
