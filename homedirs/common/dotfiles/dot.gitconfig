@@ -24,7 +24,7 @@
     co = checkout
 
     # custom log that is a copy of Gary Bernhardt's
-    l  = "!source ~/.githelpers && pretty_git_log"
+    l  = "!. ~/.githelpers && pretty_git_log"
     la = !git l --all
 
     # I used this one to have a coloured graph and for repositories that have
