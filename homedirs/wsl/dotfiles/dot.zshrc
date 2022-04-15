@@ -19,8 +19,12 @@ bindkey -e
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
 
-# Added to signal 1password-cli
+# Explicitly set XDG_* variables
+# https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html
+# These are honoured by several CLI applications
 export XDG_CONFIG_HOME="${HOME}/.config"
+export XDG_CACHE_HOME="${HOME}/.cache"
+export XDG_DATA_HOME="${HOME}/.local/share"
 
 export EDITOR="nvim"
 
