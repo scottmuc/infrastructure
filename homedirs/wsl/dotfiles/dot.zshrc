@@ -5,8 +5,11 @@ export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
 
+if [[ -f ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh ]]; then
+  source ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh
+fi
+
 # I want colorized ls by default
-export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 alias ls="ls --color=always"
 
 # Explictly use emacs key bindsings (needed in tmux for some reason)

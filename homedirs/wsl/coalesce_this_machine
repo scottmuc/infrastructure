@@ -9,6 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 main() {
   symlink_all_the_things
   install_1password_cli
+  install_zsh_solarized
   # unzip, jq, zsh, neovim, terraform, ansible, autojump
   # switch default shell to zsh
   # link workspace to Windows mounted volume
@@ -22,6 +23,20 @@ install_1password_cli() {
       https://cache.agilebits.com/dist/1P/op2/pkg/v2.0.0/op_linux_amd64_v2.0.0.zip \
       && sudo unzip -od /usr/local/bin/ op.zip \
       && rm op.zip
+  fi
+}
+
+
+# https://github.com/joel-porquet/zsh-dircolors-solarized
+install_zsh_solarized() {
+  if [[ ! -d ~/.zsh/zsh-dircolors-solarized ]]; then
+    git clone --recursive \
+      https://github.com/joel-porquet/zsh-dircolors-solarized \
+      ~/.zsh/zsh-dircolors-solarized
+  fi
+
+  if [[ ! -f ~/.zsh-dircolors.config ]]; then
+    /usr/bin/zsh -c '. ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh || setupsolarized dircolors.ansi-light'
   fi
 }
 
