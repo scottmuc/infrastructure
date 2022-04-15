@@ -11,9 +11,15 @@ main() {
   install_os_packages
   install_1password_cli
   install_zsh_solarized
-  # switch default shell to zsh
-  # link workspace to Windows mounted volume
+  default_to_zsh
   setup_neovim
+}
+
+# depends on zsh being install of course
+default_to_zsh() {
+  if [[ ! echo $SHELL | grep zsh > /dev/null ]]; then
+    chsh -s $(which zsh)
+  fi
 }
 
 install_os_packages() {
