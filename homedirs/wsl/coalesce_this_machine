@@ -8,12 +8,18 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 main() {
   symlink_all_the_things
+  install_os_packages
   install_1password_cli
   install_zsh_solarized
-  # unzip, jq, zsh, neovim, terraform, ansible, autojump
   # switch default shell to zsh
   # link workspace to Windows mounted volume
   setup_neovim
+}
+
+install_os_packages() {
+  sudo apt-get update
+  sudo apt-get install -y \
+    unzip jq zsh neovim terraform ansible autojump
 }
 
 # https://developer.1password.com/docs/cli/install-server
