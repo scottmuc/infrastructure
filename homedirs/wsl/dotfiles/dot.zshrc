@@ -38,8 +38,8 @@ autoload colors && colors
 PS1="%{$fg[yellow]%}%~ %{$reset_color%}%\? "
 
 
-if [ -f /usr/local/etc/profile.d/autojump.sh ]; then
-  source /usr/local/etc/profile.d/autojump.sh
+if [[ -f /usr/share/autojump/autojump.sh ]]; then
+  source /usr/share/autojump/autojump.sh
 fi
 
 # GREP_OPTIONS env variable is deprecated
