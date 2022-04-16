@@ -17,7 +17,7 @@ main() {
 
 # depends on zsh being install of course
 default_to_zsh() {
-  if [[ ! echo $SHELL | grep zsh > /dev/null ]]; then
+  if ! echo $SHELL | grep zsh > /dev/null; then
     chsh -s $(which zsh)
   fi
 }
