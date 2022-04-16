@@ -9,10 +9,23 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 main() {
   symlink_all_the_things
   install_os_packages
+  install_all_things_docker
   install_1password_cli
   install_zsh_solarized
   default_to_zsh
   setup_neovim
+}
+
+install_all_things_docker() {
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  sudo add-apt-repository \
+     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+     $(lsb_release -cs) \
+     stable"
+  sudo apt-get update
+  sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+  sudo service docker start
+  sudo usermod -a -G docker wsl
 }
 
 # depends on zsh being install of course
