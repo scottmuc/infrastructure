@@ -30,9 +30,9 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Clone and run coalesce script
 
-- [ ] Attempt DNS Change
-
 - [ ] Initalize 1Password
+
+- [ ] Attempt DNS Change
 
 - [ ] Configure PI (tests ansible)
 
