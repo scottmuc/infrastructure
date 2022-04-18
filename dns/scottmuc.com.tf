@@ -158,11 +158,6 @@ resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
-    "\"Macbook air repaved on Christmas day of 2020!\"",
-    "\"Macbook air repaved on March 10th 2021\"",
-    "\"Macbook air repaved on July 11th 2021\"",
-    "\"Macbook air repaved on Nov 8th 2021\"",
-    "\"Temporary Macbook repaved on Jan 2nd 2022\"",
-    "\"Macbook air repaved, for probably the last time, on Apr 10 2022\"",
+    "\"WSL repaved on Apr 18 2022. Cleaned up the historic graffiti\"",
   ]
 }
