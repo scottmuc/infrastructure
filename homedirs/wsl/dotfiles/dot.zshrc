@@ -44,6 +44,6 @@ fi
 
 # GREP_OPTIONS env variable is deprecated
 alias grep='grep --color'
-alias op_auth='eval $(op signin my)'
+alias op_auth='eval $(op signin)'
 alias start_agent='eval $(ssh-agent -s)'
-alias keys="ssh_op_agent load -n machine.summer.gaming -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
+alias keys="ssh_op_agent load -n machine.air -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
