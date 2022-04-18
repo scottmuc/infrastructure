@@ -50,7 +50,12 @@ default_to_zsh() {
 install_os_packages() {
   sudo apt-get update
   sudo apt-get install -y \
-    unzip jq zsh neovim autojump gnupg
+    autojump              \
+    gnupg                 \
+    jq                    \
+    neovim                \
+    unzip                 \
+    zsh
 }
 
 # https://developer.1password.com/docs/cli/install-server
