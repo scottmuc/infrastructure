@@ -13,8 +13,14 @@ main() {
   install_terraform
   install_1password_cli
   install_zsh_solarized
+  configure_ansible
   default_to_zsh
   setup_neovim
+}
+
+# Needed for USB mounting for the PI
+configure_ansible() {
+  ansible-galaxy collection install ansible.posix
 }
 
 install_all_things_docker() {
