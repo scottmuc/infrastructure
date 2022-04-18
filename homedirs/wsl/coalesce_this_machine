@@ -50,6 +50,7 @@ default_to_zsh() {
 install_os_packages() {
   sudo apt-get update
   sudo apt-get install -y \
+    ansible               \
     autojump              \
     git-crypt             \
     gnupg                 \
