@@ -10,6 +10,7 @@ main() {
   symlink_all_the_things
   install_os_packages
   install_all_things_docker
+  install_terraform
   install_1password_cli
   install_zsh_solarized
   default_to_zsh
@@ -26,6 +27,17 @@ install_all_things_docker() {
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io
   sudo service docker start
   sudo usermod -a -G docker wsl
+}
+
+install_terraform() {
+  curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+  sudo apt-add-repository \
+    "deb [arch=amd64] https://apt.releases.hashicorp.com \
+    $(lsb_release -cs) \
+    main"
+
+  sudo apt-get update
+  sudo apt-get install terraform
 }
 
 # depends on zsh being install of course
