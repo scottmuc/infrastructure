@@ -48,3 +48,9 @@
     ansible.builtin.service:
       name: nginx
       state: restarted
+
+
+  - name: Restart smbd
+    ansible.builtin.service:
+      name: smbd
+      state: restarted

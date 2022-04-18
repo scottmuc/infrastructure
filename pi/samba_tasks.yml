@@ -1,6 +1,16 @@
 
   - name: Install samba package
-    apt: pkg=samba
+    apt:
+      name: samba
+
+
+  - name: Creating Samba specific user
+    user:
+      name: smbrw
+      comment: Samba RW
+      create_home: False
+      shell: /usr/sbin/nologin
+
 
   - name: Add share information
     blockinfile:
@@ -11,7 +21,17 @@
           browseable = yes
           read only = no
           guest ok = no
-          valid users = pi
+          valid users = smbrw
       backup: yes
+    notify:
+    - Restart smbd
 
-# Manually create pi user `sudo smbpasswd -a pi`
+
+  - name: Ensure smbd is running
+    service:
+      name: smbd
+      state: started
+      enabled: true
+
+
+  # Manually create pi user `sudo smbpasswd -a smbrw`
