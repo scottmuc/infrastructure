@@ -38,7 +38,7 @@ default_to_zsh() {
 install_os_packages() {
   sudo apt-get update
   sudo apt-get install -y \
-    unzip jq zsh neovim terraform ansible autojump
+    unzip jq zsh neovim autojump gnupg
 }
 
 # https://developer.1password.com/docs/cli/install-server
