@@ -14,6 +14,20 @@
     # compatability. Mainly doing this for Windows drive mounted in WSL.
     autocrlf = input
 
+    pager = delta --light
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
 [color]
     ui = auto
 

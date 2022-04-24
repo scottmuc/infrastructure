@@ -9,6 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 main() {
   symlink_all_the_things
   install_os_packages
+  install_delta
   install_all_things_docker
   install_terraform
   install_1password_cli
@@ -21,6 +22,13 @@ main() {
 # Needed for USB mounting for the PI
 configure_ansible() {
   ansible-galaxy collection install ansible.posix
+}
+
+install_delta() {
+  local deb="git-delta_0.12.1_amd64.deb"
+  curl -LsS -o "/tmp/${deb}" \
+    "https://github.com/dandavison/delta/releases/download/0.12.1/${deb}"
+  sudo dpkg -i "/tmp/${deb}"
 }
 
 install_all_things_docker() {
