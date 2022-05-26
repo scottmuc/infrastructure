@@ -135,14 +135,6 @@ all the [previous repave issues][repave-history]. Have fun!
   * Disk 340
 </details>
 
-- [ ] Run WSL<details>
-  <summary>Instructions</summary>
-
-  * Install Ubuntu
-  * Clone this repository
-  * Run coalesce this machine script
-</details>
-
 - [ ] Make [this template][this-template] slightly better
 
 [this-template]: https://github.com/scottmuc/infrastructure/blob/master/.github/ISSUE_TEMPLATE/windows-repaving-template.md
