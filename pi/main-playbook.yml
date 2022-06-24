@@ -4,11 +4,12 @@
   become: yes
 
   tasks:
-  - name: Remove the 'pi' user
+  - name: Disable the 'pi' user
     user:
       name: pi
-      state: absent
-      remove: yes
+        #state: absent
+        #      remove: yes
+      shell: /sbin/nologin
 
   - name: Disable IPV6
     include_tasks: disable_ipv6_tasks.yml
