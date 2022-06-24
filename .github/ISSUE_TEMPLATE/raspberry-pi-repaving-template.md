@@ -50,16 +50,11 @@ all the [previous repave issues][repave-history]. Have fun!
 
   Using the SD card in the now powered down PI.
 
+  The new installer has [options][installer-options] to enable SSH and create a user.
+
   [installer download](https://www.raspberrypi.org/downloads/)
-</details>
 
-- [ ] Touch `ssh` on the boot volume of the SD Card<details>
-  <summary>Instructions</summary>
-
-  See this [handy post][ssh-enable] for details. This requires disconnecting the SD card and
-  plugging it back in so it gets mounted in Windows.
-
-  [ssh-enable]: https://kenfallon.com/safely-enabling-ssh-in-the-default-raspbian-image/
+  [advanced-options]: https://www.raspberrypi.com/documentation/computers/getting-started.html#advanced-options
 </details>
 
 
@@ -72,7 +67,7 @@ all the [previous repave issues][repave-history]. Have fun!
   my macbook might be my controller, or my windows WSL host will be.
 </details>
 
-- [ ] Turn on the IP and note the IP obtained from the Router
+- [ ] Turn on the PI and note the IP obtained from the Router
 
 - [ ] Transfer local public ssh key to PI<details>
   <summary>Instructions</summary>
@@ -117,7 +112,7 @@ all the [previous repave issues][repave-history]. Have fun!
   <summary>Instructions</summary>
 
   Run the following on the PI
-  `sudo smbpasswd -a pi`
+  `sudo smbpasswd -a smbrw`
 </details>
 
 - [ ] Deploy navidrome<details>
