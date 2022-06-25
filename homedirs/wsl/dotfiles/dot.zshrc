@@ -45,5 +45,26 @@ fi
 # GREP_OPTIONS env variable is deprecated
 alias grep='grep --color'
 alias op_auth='eval $(op signin)'
-alias start_agent='eval $(ssh-agent -s)'
 alias keys="ssh_op_agent load -n machine.air -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
+
+
+# https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
+start_ssh_agent() {
+  ( umask 077; ssh-agent > ~/.ssh/agent.env)
+  . ~/.ssh/agent.env >| /dev/null
+}
+
+load_ssh_agent_env() {
+  if [[ -f ~/.ssh/agent.env ]]; then
+    . ~/.ssh/agent.env >| /dev/null
+  fi
+}
+
+load_ssh_agent_env
+
+# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+
+if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
+  start_ssh_agent
+fi
