@@ -88,12 +88,20 @@ load() {
 
   local decoded_key="$(echo "${base64_key}" | $base64_decode_cmd)"
 
-  # The presence of DISPLAY will enable our setting of SSH_ASKPASS
+  # linux) Flags to assign to SSH_ASKPASS_REQUIRE below.
+  # Thanks to: https://unix.stackexchange.com/a/603217
+  # darwin) The presence of DISPLAY will enable our setting of SSH_ASKPASS
   # to be executed (as per the man page documentation. I would rather
   # embed this in the `env` command below but can't figure out how to
   # provide a condional env variable throug the `env` command
+  local askpass_require="never"
   if [[ -n "${password_field_name}" ]]; then
-    export DISPLAY=""
+    case $OSTYPE in
+      darwin*) export DISPLAY="" ;;
+      linux*) askpass_require="force" ;;
+      \?) print_usage_and_exit
+      ;;
+    esac
   fi
 
   echo "Adding \"${note_name}\".\"${field_name}\" to your ssh-agent for ${timeout} hour(s)"
@@ -114,14 +122,20 @@ load() {
   #           scopes to the child process rather thatn the whole script.
   #
   # SSH_OP_ASKPASS_NOTE
-  #           Where ssh_op_askpass will find the passphrase
+  #           Where ssh_op_askpass will find the passphrase.
   #
   # SSH_OP_ASKPASS_FILED
-  #           Which field in the note where the passphrase will be
+  #           Which field in the note where the passphrase will be.
+  #
+  # SSH_ASKPASS_REQUIRE
+  #           This is understood by `ssh-add` itself. It is new to openssh since
+  #           2020 and it will determine whether or not the executable assigned to
+  #           SSH_ASKPASS should be executed. Not sure this is supported on macOS.
   #
   # SSH_ASKPASS
-  #           This is understood by `ssh-add` itself. It'll execute the value
-  #           if this variable is set as well as DISPLAY
+  #           These are understood by `ssh-add` itself. The executable assigned
+  #           to SSH_ASKPASS will be executed to retrieve the key passphrase if
+  #           the need to execute logic passes.
   #
   # -
   #           Tells ssh-add to read the key from stdin.
@@ -132,6 +146,7 @@ load() {
   env \
     SSH_OP_ASKPASS_NOTE="${note_name}" \
     SSH_OP_ASKPASS_FIELD="${password_field_name}" \
+    SSH_ASKPASS_REQUIRE="${askpass_require}" \
     SSH_ASKPASS="ssh_op_askpass" \
     ssh-add -t "${timeout_in_seconds}" - <<< "$(echo -e "${decoded_key}")"
 }
