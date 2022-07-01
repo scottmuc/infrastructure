@@ -49,6 +49,8 @@ install_all_things_docker() {
      stable"
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+  # https://patrickwu.space/2021/03/09/wsl-solution-to-native-docker-daemon-not-starting/
+  sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
   sudo service docker start
   sudo usermod -a -G docker wsl
 }
