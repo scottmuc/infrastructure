@@ -28,4 +28,7 @@ while getopts ":i:" opt; do
   esac
 done
 
-ansible-playbook -i "${ip}," ${playbook}
+ansible-playbook \
+  -e "ansible_python_interpreter=/usr/bin/python3" \
+  -i "${ip}," \
+  ${playbook}
