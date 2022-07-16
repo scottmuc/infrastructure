@@ -1,0 +1,6 @@
+LogLevel = "INFO"
+BaseURL = "/music"
+ScanInterval = "60m"
+TranscodingCacheSize = "15MB"
+DataFolder = "/mnt/usb/navidrome"
+MusicFolder = "/mnt/usb/music"

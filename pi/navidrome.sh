@@ -8,15 +8,6 @@ navidrome_release_url="https://github.com/deluan/navidrome/releases/download/v${
 curl -L "${navidrome_release_url}" 2> /dev/null \
   | tar xzv -C /opt/navidrome
 
-cat > /opt/navidrome/navidrome.toml <<EOF
-LogLevel = "INFO"
-BaseURL = "/music"
-ScanInterval = "60m"
-TranscodingCacheSize = "15MB"
-DataFolder = "/mnt/usb/navidrome"
-MusicFolder = "/mnt/usb/music"
-EOF
-
 systemctl daemon-reload
 
 service navidrome start

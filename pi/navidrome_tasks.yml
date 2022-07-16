@@ -36,3 +36,9 @@
     copy:
       src: root/etc/systemd/system/navidrome.service
       dest: /etc/systemd/system/navidrome.service
+
+
+  - name: Install navidrome configuration
+    copy:
+      src: root/opt/navidrome/navidrome.toml
+      dest: /opt/navidrome/navidrome.toml
