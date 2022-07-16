@@ -1,0 +1,22 @@
+
+  - name: Navidrome user
+    user:
+      name: navidrome
+      comment: Service account for navidrome process
+      system: Yes
+
+
+  - name: Navidrome application directory
+    file:
+      path: /opt/navidrome
+      state: directory
+      owner: navidrome
+      group: root
+
+
+  - name: ffmpeg directory
+    file:
+      path: /opt/navidrome/ffmpeg
+      state: directory
+      owner: navidrome
+      group: root

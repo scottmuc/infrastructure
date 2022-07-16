@@ -2,9 +2,6 @@
 
 service navidrome stop
 
-rm -rf /opt/navidrome
-mkdir -p /opt/navidrome/ffmpeg
-
 navidrome_version="0.47.5"
 navidrome_release_url="https://github.com/deluan/navidrome/releases/download/v${navidrome_version}/navidrome_${navidrome_version}_Linux_armv7.tar.gz"
 ffmpeg_download_url="https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz"
@@ -63,9 +60,6 @@ ProtectSystem=strict
 ProtectHome=true
 EOF
 
-useradd --system navidrome --home-dir /opt/navidrome --shell /usr/sbin/nologin/
-
-chown -R navidrome:root /opt/navidrome
 
 systemctl daemon-reload
 
