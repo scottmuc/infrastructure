@@ -36,6 +36,15 @@
     include_tasks: navidrome_tasks.yml
 
   handlers:
+  # It's important that Systemd reload is defined first here
+  # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
+  #
+  # This might not be necessary though... still need to think this through
+  - name: Systemd reload
+    ansible.builtin.systemd:
+      daemon_reload: Yes
+
+
   - name: Restart unbound
     ansible.builtin.service:
       name: unbound
@@ -57,4 +66,10 @@
   - name: Restart smbd
     ansible.builtin.service:
       name: smbd
+      state: restarted
+
+
+  - name: Restart navidrome
+    ansible.builtin.service:
+      name: navidrome
       state: restarted

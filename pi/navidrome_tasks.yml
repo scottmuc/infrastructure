@@ -1,4 +1,9 @@
 
+  - name: Set Ansible facts for navidrome
+    set_fact:
+      navidrome_version: "0.47.5"
+
+
   - name: Navidrome user
     user:
       name: navidrome
@@ -14,6 +19,31 @@
       group: root
 
 
+  - name: Navidrome versioned directory
+    file:
+      path: "/opt/navidrome/{{ navidrome_version }}"
+      state: directory
+      owner: navidrome
+      group: root
+
+
+  - name: Download navidrome
+    unarchive:
+      src: "https://github.com/deluan/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_Linux_armv7.tar.gz"
+      remote_src: True
+      dest: "/opt/navidrome/{{ navidrome_version }}"
+      creates: "/opt/navidrome/{{ navidrome_version }}/navidrome"
+
+
+  - name: Symlink current navidrome version
+    file:
+      src: "/opt/navidrome/{{ navidrome_version }}"
+      dest: "/opt/navidrome/live"
+      state: link
+    notify:
+    - Restart navidrome
+
+
   - name: ffmpeg directory
     file:
       path: /opt/navidrome/ffmpeg
@@ -22,7 +52,7 @@
       group: root
 
 
-  - name: Install ffmpeg
+  - name: Download ffmpeg
     unarchive:
       src: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz
       remote_src: True
@@ -32,13 +62,25 @@
       - --strip-components=1
 
 
-  - name: Install navidrome service
-    copy:
-      src: root/etc/systemd/system/navidrome.service
-      dest: /etc/systemd/system/navidrome.service
-
-
   - name: Install navidrome configuration
     copy:
       src: root/opt/navidrome/navidrome.toml
       dest: /opt/navidrome/navidrome.toml
+    notify:
+    - Restart navidrome
+
+
+  - name: Install navidrome service
+    copy:
+      src: root/etc/systemd/system/navidrome.service
+      dest: /etc/systemd/system/navidrome.service
+    notify:
+    - Restart navidrome
+    - Systemd reload
+
+
+  - name: Ensure navidrome is running
+    service:
+      name: navidrome
+      state: started
+      enabled: true
