@@ -20,3 +20,9 @@
       state: directory
       owner: navidrome
       group: root
+
+
+  - name: Install navidrome service
+    copy:
+      src: root/etc/systemd/system/navidrome.service
+      dest: /etc/systemd/system/navidrome.service
