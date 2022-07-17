@@ -28,7 +28,8 @@ while getopts ":i:" opt; do
   esac
 done
 
+# --start-at-task="Install prometheus" \
 ansible-playbook \
-  -e "ansible_python_interpreter=/usr/bin/python3" \
-  -i "${ip}," \
+  --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
+  --inventory "${ip}," \
   ${playbook}
