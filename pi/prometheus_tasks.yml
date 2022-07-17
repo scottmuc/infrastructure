@@ -1,0 +1,62 @@
+
+  - name: Set Ansible facts for prometheus
+    set_fact:
+      prometheus_version: "2.19.1"
+
+
+  - name: Prometheus user
+    user:
+      name: prometheus
+      comment: Service account for prometheus process
+      system: Yes
+
+
+  - name: Prometheus application directory
+    file:
+      path: /opt/prometheus
+      state: directory
+      owner: prometheus
+      group: root
+
+
+  - name: Prometheus versioned directory
+    file:
+      path: "/opt/prometheus/{{ prometheus_version }}"
+      state: directory
+      owner: prometheus
+      group: root
+
+
+  - name: Download prometheus
+    unarchive:
+      src: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-armv7.tar.gz"
+      remote_src: True
+      dest: "/opt/prometheus/{{ prometheus_version }}"
+      creates: "/opt/prometheus/{{ prometheus_version }}/prometheus"
+      extra_opts:
+      - "--strip-components=1"
+
+
+  - name: Symlink current prometheus version
+    file:
+      src: "/opt/prometheus/{{ prometheus_version }}"
+      dest: "/opt/prometheus/live"
+      state: link
+    notify:
+    - Restart prometheus
+
+
+  - name: Install prometheus service
+    copy:
+      src: root/etc/systemd/system/prometheus.service
+      dest: /etc/systemd/system/prometheus.service
+    notify:
+    - Restart prometheus
+    - Systemd reload
+
+
+  - name: Ensure prometheus is running
+    service:
+      name: prometheus
+      state: started
+      enabled: true

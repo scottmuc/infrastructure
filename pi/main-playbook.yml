@@ -35,6 +35,9 @@
   - name: Install navidrome
     include_tasks: navidrome_tasks.yml
 
+  - name: Install prometheus
+    include_tasks: prometheus_tasks.yml
+
   handlers:
   # It's important that Systemd reload is defined first here
   # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
@@ -72,4 +75,10 @@
   - name: Restart navidrome
     ansible.builtin.service:
       name: navidrome
+      state: restarted
+
+
+  - name: Restart prometheus
+    ansible.builtin.service:
+      name: prometheus
       state: restarted
