@@ -46,6 +46,14 @@
     - Restart prometheus
 
 
+  - name: Install prometheus configuration
+    copy:
+      src: root/opt/prometheus/prometheus.yml
+      dest: /opt/prometheus/prometheus.yml
+    notify:
+    - Restart prometheus
+
+
   - name: Install prometheus service
     copy:
       src: root/etc/systemd/system/prometheus.service
