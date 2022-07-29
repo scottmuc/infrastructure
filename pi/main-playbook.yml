@@ -4,6 +4,9 @@
   become: yes
 
   tasks:
+  - name: Configure log forwarding
+    include_tasks: rsyslog_tasks.yml
+
   - name: Disable the 'pi' user
     user:
       name: pi
@@ -81,4 +84,10 @@
   - name: Restart prometheus
     ansible.builtin.service:
       name: prometheus
+      state: restarted
+
+
+  - name: Restart rsyslog
+    ansible.builtin.service:
+      name: rsyslog
       state: restarted
