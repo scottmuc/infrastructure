@@ -41,6 +41,9 @@
   - name: Install prometheus
     include_tasks: prometheus_tasks.yml
 
+  - name: Install grafana
+    include_tasks: grafana_tasks.yml
+
   handlers:
   # It's important that Systemd reload is defined first here
   # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
