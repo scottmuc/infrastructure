@@ -5,9 +5,15 @@ server {
     ssl_certificate /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/home.scottmuc.com/privkey.pem;
 
-    # proxy requests to navidrome
+    # TODO
+    # Figure out how to place these location rules closer to the ansible code
+    # that defines the services running on these ports.
     location /music/ {
         proxy_pass http://pi.home.scottmuc.com:4533;
+    }
+
+    location /prometheus/ {
+        proxy_pass http://pi.home.scottmuc.com:9090;
     }
 }
 
