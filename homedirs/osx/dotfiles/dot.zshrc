@@ -13,6 +13,7 @@ fi
 export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/osx/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
 
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
@@ -55,3 +56,7 @@ fi
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+
+alias day="alacritty-colorscheme -V apply solarized_light.yaml"
+alias night="alacritty-colorscheme -V apply solarized_dark.yaml"

@@ -1,1 +1,4 @@
 .terraform
+
+# ignore the colors directory managed by alacritty-colorscheme
+homedirs/common/dotfiles/dot.config/alacritty/colors

@@ -15,7 +15,16 @@ main() {
   invoke_homebrew
   setup_neovim
   configure_tap_to_click
+  install_alacritty_colorscheme
   invoke_softewareupdate
+}
+
+install_alacritty_colorscheme() {
+  REPO=https://github.com/eendroroy/alacritty-theme.git
+  DEST="$HOME/.eendroroy-colorschemes"
+  git clone $REPO $DEST
+  ln -s "$DEST/themes" "$HOME/.config/alacritty/colors"
+  pip3 install --user alacritty-colorscheme
 }
 
 # I am getting the absolute path so that ls -la output goes from:
