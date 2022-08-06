@@ -1,0 +1,9 @@
+# Learning how to use https://editorconfig.org/
+
+# Tell readers of this file not search look at any further parent directories.
+root = true
+
+# Rules that apply to all files
+[*]
+indent_style = space
+indent_size  = 2

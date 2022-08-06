@@ -17,6 +17,11 @@ Plug 'https://github.com/ctrlpvim/ctrlp.vim'
 Plug 'https://github.com/scrooloose/nerdtree'
 Plug 'https://github.com/tpope/vim-sensible'
 
+" Sleuth integrates https://editorconfig.org/ config files so we can leave the
+" things like shiftwidth, expandtab, tabstop, textwidth, endofline, fileformat,
+" fileencoding, and bomb out of our nvim configuration.
+Plug 'https://github.com/tpope/vim-sleuth'
+
 Plug 'https://github.com/hashivim/vim-terraform'
 
 call plug#end()
@@ -33,13 +38,6 @@ syntax on
 "
 " :colorscheme <TAB>
 colorscheme slate
-
-" Everything that one would want to know about managing tabs can all be found:
-" https://stackoverflow.com/a/1878983/1894
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set expandtab
 
 " Enable line numbers. This is off by default
 set number
@@ -73,6 +71,7 @@ let mapleader=","
 let maplocalleader=","
 
 " set custom file types I've configured
+" TODO determine if vim-sleuth can make these disappear
 autocmd BufRead,BufNewFile *.md set wm=2 tw=120
 autocmd BufRead,BufNewFile *.markdown set wm=2 tw=120
 autocmd BufRead,BufNewFile *.go set tabstop=4 shiftwidth=4
@@ -85,6 +84,7 @@ imap jk <esc>
 nmap j gj
 nmap k gk
 
+" TODO determine if vim-sleuth can make this disappear
 scriptencoding utf-8
 
 "----------------------------------------------------------
