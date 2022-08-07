@@ -7,6 +7,9 @@ if grep dark <<<"${current_theme}" > /dev/null; then
 elif grep light <<<"${current_theme}" > /dev/null; then
   delta --light --syntax-theme='Solarized (light)' $@
 else
-  delta $@
+  # Default to light for WSL environment where Terminal is using a light theme
+  # and I haven't switched to Alacritty yet on Windows. Also not sure how the
+  # alacritty-colorscheme would work in Windows.
+  delta --light $@
 fi
 

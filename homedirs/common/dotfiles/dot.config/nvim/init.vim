@@ -42,6 +42,11 @@ syntax on
 "
 " :colorscheme <TAB>
 " colorscheme slate
+"
+" I am not managing ~/.vimrc_background in WSL so I need to specify a default
+if !filereadable(expand("~/.vimrc_background"))
+  colorscheme slate
+endif
 
 " Enable line numbers. This is off by default
 set number
