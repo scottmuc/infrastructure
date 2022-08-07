@@ -18,6 +18,9 @@ server {
 
     location /grafana/ {
         proxy_pass http://pi.home.scottmuc.com:3000;
+        # the following is necessary for origin checks to be consistent. Couldn't
+        # update the admin password without this setting.
+        proxy_set_header Host $host;
     }
 }
 
