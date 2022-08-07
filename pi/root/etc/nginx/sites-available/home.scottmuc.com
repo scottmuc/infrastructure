@@ -15,6 +15,10 @@ server {
     location /prometheus/ {
         proxy_pass http://pi.home.scottmuc.com:9090;
     }
+
+    location /grafana/ {
+        proxy_pass http://pi.home.scottmuc.com:3000;
+    }
 }
 
 server {

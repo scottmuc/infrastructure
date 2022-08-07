@@ -90,6 +90,12 @@
       state: restarted
 
 
+  - name: Restart grafana
+    ansible.builtin.service:
+      name: grafana-server
+      state: restarted
+
+
   - name: Restart rsyslog
     ansible.builtin.service:
       name: rsyslog

@@ -21,6 +21,14 @@
     - Systemd reload
 
 
+  - name: Install grafana configuration
+    copy:
+      src: root/etc/grafana/grafana.ini
+      dest: /etc/grafana/grafana.ini
+    notify:
+    - Restart grafana
+
+
   - name: Ensure grafana is running
     service:
       name: grafana-server
