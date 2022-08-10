@@ -16,7 +16,17 @@ main() {
   install_zsh_solarized
   configure_ansible
   default_to_zsh
+  install_alacritty_colorscheme
   setup_neovim
+}
+
+
+install_alacritty_colorscheme() {
+  REPO=https://github.com/eendroroy/alacritty-theme.git
+  DEST="$HOME/.eendroroy-colorschemes"
+  git clone $REPO $DEST
+  ln -s "$DEST/themes" "$HOME/.config/alacritty/colors"
+  pip3 install --user alacritty-colorscheme
 }
 
 # Needed for USB mounting for the PI
@@ -87,6 +97,9 @@ install_os_packages() {
     gnupg                 \
     jq                    \
     neovim                \
+    python3               \
+    python3-virtualenv    \
+    python3-pip           \
     unzip                 \
     zsh
 }
@@ -148,6 +161,7 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  ln -sTfv "${common_dotfiles_dir}/dot.config/alacritty.wsl" ~/.config/alacritty
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }

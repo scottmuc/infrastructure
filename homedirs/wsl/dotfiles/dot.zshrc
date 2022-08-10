@@ -1,4 +1,5 @@
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
@@ -68,3 +69,15 @@ agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
   start_ssh_agent
 fi
+
+function day() {
+  alacritty-colorscheme -V apply solarized_light.yaml
+  cp ~/.config/alacritty/alacritty.yml \
+     /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+}
+
+function night() {
+  alacritty-colorscheme -V apply solarized_dark.yaml
+  cp ~/.config/alacritty/alacritty.yml \
+     /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+}

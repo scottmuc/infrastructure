@@ -73,6 +73,7 @@ Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
 choco install git -y --source="'https://chocolatey.org/api/v2'" `
   --package-parameters='"/GitAndUnixToolsOnPath /WindowsTerminal"'
 
+choco install alacritty -y --source="'https://chocolatey.org/api/v2'"
 choco install brave -y --source="'https://chocolatey.org/api/v2'"
 choco install gnucash -y --source="'https://chocolatey.org/api/v2'"
 choco install steam -y --source="'https://chocolatey.org/api/v2'"
