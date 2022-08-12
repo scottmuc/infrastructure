@@ -24,6 +24,9 @@ Plug 'https://github.com/tpope/vim-sleuth'
 
 Plug 'https://github.com/hashivim/vim-terraform'
 
+" Hasn't changed in over a decade, but then again, I don't expect a color
+" scheme to require too much maintenance. It's also authored by the originator
+" of Solarized so it's probably the most canonical definition of the colors.
 Plug 'https://github.com/altercation/vim-colors-solarized'
 
 call plug#end()
@@ -45,8 +48,11 @@ syntax on
 " :colorscheme <TAB>
 " colorscheme slate
 "
-" I am not managing ~/.vimrc_background in WSL so I need to specify a default
-if !filereadable(expand("~/.vimrc_background"))
+" Not sure why this is needed because nvim is supposed to automatically read
+" this. That being said, it's nice to see this here explicitly.
+if filereadable(expand("~/.vimrc_background"))
+  source ~/.vimrc_background
+else
   colorscheme slate
 endif
 

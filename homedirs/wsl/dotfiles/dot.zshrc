@@ -4,10 +4,6 @@ export PATH="$HOME/.local/bin:$PATH"
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
 
-if [[ -f ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh ]]; then
-  source ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh
-fi
-
 # I want colorized ls by default
 alias ls="ls --color=always"
 
@@ -70,14 +66,29 @@ if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
   start_ssh_agent
 fi
 
+function write_vimrc_background() {
+  local theme="$1"
+  cat > ~/.vimrc_background <<EOF
+if !exists('g:colors_name') || g:colors_name != 'solarized'
+  set background=${theme}
+  colorscheme solarized
+else
+  colorscheme slate
+endif
+EOF
+
+}
+
 function day() {
-  alacritty-colorscheme -V apply solarized_light.yaml
+  alacritty-colorscheme apply solarized_light.yaml
+  write_vimrc_background "light"
   cp ~/.config/alacritty/alacritty.yml \
      /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
 }
 
 function night() {
-  alacritty-colorscheme -V apply solarized_dark.yaml
+  alacritty-colorscheme apply solarized_dark.yaml
+  write_vimrc_background "dark"
   cp ~/.config/alacritty/alacritty.yml \
      /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
 }
