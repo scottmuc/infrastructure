@@ -358,10 +358,8 @@ font:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: wsl.exe
-  args:
-    - -d
-    - Ubuntu-22.04
+  program: ubuntu2204.exe
+#  args:
 
 # Startup directory
 #
