@@ -24,6 +24,8 @@ Plug 'https://github.com/tpope/vim-sleuth'
 
 Plug 'https://github.com/hashivim/vim-terraform'
 
+Plug 'https://github.com/altercation/vim-colors-solarized'
+
 call plug#end()
 
 " don't need to be vi compatible. We're not in the 60's anymore
