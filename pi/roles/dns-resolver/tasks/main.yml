@@ -1,0 +1,59 @@
+---
+# https://blobfolio.com/2017/fix-linux-dns-issues-caused-by-systemd-resolved/
+# https://fedoramagazine.org/systemd-resolved-introduction-to-split-dns/
+- name: Disable resolved
+  become: true
+  service:
+    name: systemd-resolved
+    state: stopped
+    enabled: false
+
+- name: Use public DNS for installation
+  become: true
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      search home.scottmuc.com
+      nameserver 8.8.8.8
+      nameserver 1.1.1.1
+
+
+- name: Install unbound package
+  apt: pkg=unbound
+
+- name: Allow local LAN to connect to unbound
+  become: true
+  copy:
+    dest: /etc/unbound/unbound.conf.d/pi-hole-replacement.conf
+    content: |
+      server:
+        interface: 0.0.0.0
+        access-control: 192.168.2.0/24 allow
+        do-ip6: no
+        include: /etc/unbound/blocklist.conf
+  notify:
+  - Restart unbound
+
+
+- name: Add blocklist
+  become: true
+  get_url:
+    dest: /etc/unbound/blocklist.conf
+    url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/master/unbound/unbound.blocklist
+  notify:
+  - Restart unbound
+
+
+- name: Ensure unbound is running
+  service:
+    name: unbound
+    state: started
+    enabled: true
+
+- name: Use my home DNS servers
+  become: true
+  copy:
+    dest: /etc/resolv.conf
+    content: |
+      search home.scottmuc.com
+      nameserver 127.0.0.1

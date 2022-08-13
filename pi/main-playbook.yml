@@ -17,8 +17,9 @@
   - name: Disable IPV6
     include_tasks: disable_ipv6_tasks.yml
 
-  - name: Install DNS stuff
-    include_tasks: unbound_tasks.yml
+  - name: Setup DNS Resolver
+    ansible.builtin.import_role:
+      name: dns-resolver
 
   - name: Install nginx and configure websites
     include_tasks: nginx_tasks.yml
@@ -52,12 +53,6 @@
   - name: Systemd reload
     ansible.builtin.systemd:
       daemon_reload: Yes
-
-
-  - name: Restart unbound
-    ansible.builtin.service:
-      name: unbound
-      state: restarted
 
 
   - name: Restart kea-dhcp4-server

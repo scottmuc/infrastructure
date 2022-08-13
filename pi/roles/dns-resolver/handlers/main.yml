@@ -1,0 +1,6 @@
+---
+# handlers file for dns-resolver
+- name: Restart unbound
+  ansible.builtin.service:
+    name: unbound
+    state: restarted
