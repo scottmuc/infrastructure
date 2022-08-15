@@ -58,5 +58,25 @@ export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-alias day="alacritty-colorscheme -V apply solarized_light.yaml"
-alias night="alacritty-colorscheme -V apply solarized_dark.yaml"
+function write_vimrc_background() {
+  local theme="$1"
+  cat > ~/.vimrc_background <<EOF
+if !exists('g:colors_name') || g:colors_name != 'solarized'
+  set background=${theme}
+  colorscheme solarized
+else
+  colorscheme slate
+endif
+EOF
+
+}
+
+function day() {
+  alacritty-colorscheme apply solarized_light.yaml
+  write_vimrc_background "light"
+}
+
+function night() {
+  alacritty-colorscheme apply solarized_dark.yaml
+  write_vimrc_background "dark"
+}
