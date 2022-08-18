@@ -13,7 +13,6 @@ main() {
   install_all_things_docker
   install_terraform
   install_1password_cli
-  install_zsh_solarized
   configure_ansible
   default_to_zsh
   install_alacritty_colorscheme
@@ -119,19 +118,6 @@ install_1password_cli() {
     && rm op.zip
 }
 
-
-# https://github.com/joel-porquet/zsh-dircolors-solarized
-install_zsh_solarized() {
-  if [[ ! -d ~/.zsh/zsh-dircolors-solarized ]]; then
-    git clone --recursive \
-      https://github.com/joel-porquet/zsh-dircolors-solarized \
-      ~/.zsh/zsh-dircolors-solarized
-  fi
-
-  if [[ ! -f ~/.zsh-dircolors.config ]]; then
-    /usr/bin/zsh -c '. ~/.zsh/zsh-dircolors-solarized/zsh-dircolors-solarized.zsh || setupsolarized dircolors.ansi-light'
-  fi
-}
 
 # I am getting the absolute path so that ls -la output goes from:
 #
