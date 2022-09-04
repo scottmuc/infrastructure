@@ -13,10 +13,19 @@ main() {
   install_all_things_docker
   install_terraform
   install_1password_cli
+  install_golang
   configure_ansible
   default_to_zsh
   install_alacritty_colorscheme
   setup_neovim
+}
+
+
+install_golang() {
+  if [[ ! -d /usr/local/go ]]; then
+    curl -L https://go.dev/dl/go1.19.linux-amd64.tar.gz | \
+      sudo tar -C /usr/local -zxvf -
+  fi
 }
 
 

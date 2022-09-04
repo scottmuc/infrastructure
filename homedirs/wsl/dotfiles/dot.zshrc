@@ -1,5 +1,6 @@
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/usr/local/go/bin:$PATH"
 
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
