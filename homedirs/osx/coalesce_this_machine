@@ -16,7 +16,14 @@ main() {
   setup_neovim
   configure_tap_to_click
   install_alacritty_colorscheme
+  install_gum
   invoke_softewareupdate
+}
+
+install_gum() {
+  curl -L https://github.com/charmbracelet/gum/releases/download/v0.6.0/gum_0.6.0_Darwin_x86_64.tar.gz 2> /dev/null \
+    | tar -zxvf - -C ../../vendor/bin gum
+
 }
 
 install_alacritty_colorscheme() {
