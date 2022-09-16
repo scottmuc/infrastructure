@@ -7,9 +7,13 @@ set -u
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIB_DIR="${DIR}/../common/lib"
 
+# shellcheck disable=SC1091
 source "${LIB_DIR}/install_gum.bash"
+# shellcheck disable=SC1091
 source "${LIB_DIR}/install_git_duet.bash"
+# shellcheck disable=SC1091
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
+# shellcheck disable=SC1091
 source "${LIB_DIR}/setup_neovim.bash"
 
 main() {
@@ -175,10 +179,11 @@ install_1password_cli() {
 # to
 #   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
 symlink_all_the_things() {
-  local homedir_source=$(cd "${DIR}/"; pwd)
-  local common_source=$(cd "${DIR}/../common"; pwd)
-  local dotfiles_dir="${homedir_source}/dotfiles"
-  local common_dotfiles_dir="${common_source}/dotfiles"
+  local homedir_source common_source dotfiles_dir common_dotfiles_dir
+  homedir_source=$(cd "${DIR}/"; pwd)
+  common_source=$(cd "${DIR}/../common"; pwd)
+  dotfiles_dir="${homedir_source}/dotfiles"
+  common_dotfiles_dir="${common_source}/dotfiles"
 
   # I don't know how to do this command in a 1 line indempotent way. Repeated executions
   # but symlinks within the symlink.
