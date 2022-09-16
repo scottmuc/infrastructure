@@ -9,6 +9,7 @@ LIB_DIR="${DIR}/../common/lib"
 
 source "${LIB_DIR}/install_gum.bash"
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
+source "${LIB_DIR}/setup_neovim.bash"
 
 main() {
   symlink_all_the_things
@@ -156,13 +157,6 @@ symlink_all_the_things() {
   ln -sTfv "${common_dotfiles_dir}/dot.config/alacritty.wsl" ~/.config/alacritty
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
-}
-
-
-setup_neovim() {
-  nvim -c "PlugInstall" -c "qall" --headless
-  nvim -c "PlugUpdate" -c "qall" --headless
-  nvim -c "UpdateRemotePlugins" -c "qall" --headless
 }
 
 main

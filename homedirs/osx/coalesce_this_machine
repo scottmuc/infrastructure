@@ -9,6 +9,7 @@ LIB_DIR="${DIR}/../common/lib"
 
 source "${LIB_DIR}/install_gum.bash"
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
+source "${LIB_DIR}/setup_neovim.bash"
 
 main() {
   symlink_all_the_things
@@ -111,12 +112,6 @@ invoke_homebrew() {
   fi
 
   brew bundle --file=./Brewfile
-}
-
-setup_neovim() {
-  nvim -c "PlugInstall" -c "qall" --headless
-  nvim -c "PlugUpdate" -c "qall" --headless
-  nvim -c "UpdateRemotePlugins" -c "qall" --headless
 }
 
 run_softwareupdate() {
