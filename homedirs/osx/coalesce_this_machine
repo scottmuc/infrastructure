@@ -5,6 +5,9 @@ set -u
 
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+LIB_DIR="${DIR}/../common/lib"
+
+source "${LIB_DIR}/install_gum.bash"
 
 main() {
   symlink_all_the_things
@@ -18,12 +21,6 @@ main() {
   install_alacritty_colorscheme
   install_gum
   invoke_softewareupdate
-}
-
-install_gum() {
-  curl -L https://github.com/charmbracelet/gum/releases/download/v0.6.0/gum_0.6.0_Darwin_x86_64.tar.gz 2> /dev/null \
-    | tar -zxvf - -C ../../vendor/bin gum
-
 }
 
 install_alacritty_colorscheme() {

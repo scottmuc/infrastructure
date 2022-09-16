@@ -5,10 +5,14 @@ set -u
 
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+LIB_DIR="${DIR}/../common/lib"
+
+source "${LIB_DIR}/install_gum.bash"
 
 main() {
   symlink_all_the_things
   install_os_packages
+  install_gum
   install_delta
   install_all_things_docker
   install_terraform
