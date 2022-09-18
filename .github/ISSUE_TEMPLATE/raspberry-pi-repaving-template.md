@@ -50,9 +50,12 @@ all the [previous repave issues][repave-history]. Have fun!
 
   Using the SD card in the now powered down PI.
 
-  The new installer has [options][installer-options] to enable SSH and create a user.
+  The new installer has [options][advanced-options] to enable SSH and create a user.
 
   [installer download](https://www.raspberrypi.org/downloads/)
+
+  **note** check if the underlying Debian distribution is changing as this might result
+  in some issues in the playbook execution.
 
   [advanced-options]: https://www.raspberrypi.com/documentation/computers/getting-started.html#advanced-options
 </details>
@@ -87,7 +90,7 @@ all the [previous repave issues][repave-history]. Have fun!
   `./ansible.sh bootstrap -i <pi ip>`
 </details>
 
-- [ ] Add the PI port forwardi<details>
+- [ ] Add the PI port forwarding<details>
   <summary>Instructions</summary>
 
   Needed for the `certbot` ACME challenge in the next step.
@@ -115,12 +118,6 @@ all the [previous repave issues][repave-history]. Have fun!
   `sudo smbpasswd -a smbrw`
 </details>
 
-- [ ] Deploy navidrome<details>
-  <summary>Instructions</summary>
-
-  run `navidrome.sh` as `root` on the PI
-</details>
-
 - [ ] Make this template slightly better
 
 # How Do I Know I Am Done?
@@ -128,6 +125,10 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] https://www.goodenoughmoney.com/ displays stuff
 
 - [ ] https://home.scottmuc.com/music/ loads navidrome and the music is playable
+
+- [ ] https://home.scottmuc.com/prometheus/ loads and has data
+
+- [ ] https://home.scottmuc.com/grafana/ loads and has data
 
 - [ ] Z:\ on my Windows PC works
 
