@@ -1,4 +1,5 @@
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+export PATH="$HOME/workspace/infrastructure/vendor/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
 
