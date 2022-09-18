@@ -135,3 +135,10 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] `ipconfig /release` and then `ipconfig /renew` works
 
 - [ ] `nslookup analytics.google.com` is refused
+
+- [ ] Print out newly repaved machine details<details>
+  <summary>Instructions</summary>
+
+  `cat /etc/os-release && uname -a`
+</details>
+
