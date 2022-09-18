@@ -1,35 +1,17 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 set -e
 
-case "$1" in
-  bootstrap)
-    shift
-    playbook="./bootstrap-playbook.yml"
-    ;;
-  apply)
-    shift
-    playbook="./main-playbook.yml"
-    ;;
-  *)
-    echo "Invalid arguments"
-    echo ""
-    echo "e.g.: ./ansible.sh bootstrap -i 192.168.2.105"
-    echo "      ./ansible.sh apply # -i defaults to 192.168.2.10"
-    exit 1
-    ;;
-esac
+playbook=$(find . -name "*playbook.yml" | gum choose)
+ip=$(gum choose "192.168.2.10" "other")
 
-ip="192.168.2.10"
-while getopts ":i:" opt; do
-  case $opt in
-    i) ip="$OPTARG"
-    ;;
-  esac
-done
+if [ "${ip}" = "other" ]; then
+  ip=$(gum input --placeholder "192.168.2.x")
+fi
 
-# --start-at-task="Install prometheus" \
+gum confirm "Deploy ${playbook} to ${ip}?" || exit 1
+
 ansible-playbook \
   --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
   --inventory "${ip}," \
-  ${playbook}
+  "${playbook}"
