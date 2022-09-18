@@ -33,8 +33,10 @@
   - name: Configure static IP
     include_tasks: networking_tasks.yml
 
-  - name: Setup kea dhcpd
-    include_tasks: dhcpd_tasks.yml
+  # Excluding due to the following repository issues:
+  # https://github.com/scottmuc/infrastructure/issues/41#issuecomment-1250210829
+  # - name: Setup kea dhcpd
+  # include_tasks: dhcpd_tasks.yml
 
   - name: Install navidrome
     include_tasks: navidrome_tasks.yml
