@@ -1,27 +1,18 @@
 
-  - name: Install kea package
-    apt: pkg=kea-dhcp4-server
+  - name: Install dnsmasq package
+    apt: pkg=dnsmasq
 
 
-  - name: Create missing directory for lockfile
-    file:
-      path: /var/run/kea
-      state: directory
-      owner: root
-      group: root
-      mode: '0775'
-
-
-  - name: Kea configuration
+  - name: Configure dnsmasq
     copy:
-      src: root/etc/kea/kea-dhcp4.conf
-      dest: /etc/kea/kea-dhcp4.conf
+      src: root/etc/dnsmasq.conf
+      dest: /etc/dnsmasq.conf
     notify:
-    - Restart kea-dhcp4-server
+    - Restart dnsmasq
 
 
-  - name: Ensure the DHCP service is started
+  - name: Ensure dnsmasq service is started
     service:
-      name: kea-dhcp4-server
+      name: dnsmasq
       state: started
       enabled: yes

@@ -33,10 +33,8 @@
   - name: Configure static IP
     include_tasks: networking_tasks.yml
 
-  # Excluding due to the following repository issues:
-  # https://github.com/scottmuc/infrastructure/issues/41#issuecomment-1250210829
-  # - name: Setup kea dhcpd
-  # include_tasks: dhcpd_tasks.yml
+  - name: Install dnsmasq
+    include_tasks: dhcpd_tasks.yml
 
   - name: Install navidrome
     include_tasks: navidrome_tasks.yml
@@ -57,9 +55,9 @@
       daemon_reload: Yes
 
 
-  - name: Restart kea-dhcp4-server
+  - name: Restart dnsmasq
     ansible.builtin.service:
-      name: kea-dhcp4-server
+      name: dnsmasq
       state: restarted
 
 
