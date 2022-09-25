@@ -15,6 +15,9 @@
   become: true
   copy:
     dest: /etc/network/interfaces.d/eth0
+    owner: root
+    group: admin
+    mode: '0664'
     content: |
       auto eth0
       allow-hotplug eth0

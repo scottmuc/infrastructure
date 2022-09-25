@@ -9,5 +9,8 @@
     dest: /etc/rsyslog.d/papertrail.conf
     content: |
       *.* action(type="omfwd" target="{{ secrets.rsyslog_forwarding_target }}" port="{{ secrets.rsyslog_forwarding_port }}" protocol="udp")
+    owner: root
+    group: admin
+    mode: '0640'
   notify:
     - Restart rsyslog

@@ -1,11 +1,14 @@
 - name: Install dnsmasq package
-  apt: pkg=dnsmasq
-
+  apt:
+    name: dnsmasq
 
 - name: Configure dnsmasq
   copy:
     src: root/etc/dnsmasq.conf
     dest: /etc/dnsmasq.conf
+    owner: root
+    group: admin
+    mode: '0664'
   notify:
     - Restart dnsmasq
 

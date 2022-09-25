@@ -12,6 +12,9 @@
   become: true
   copy:
     dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: '0664'
     content: |
       search home.scottmuc.com
       nameserver 8.8.8.8
@@ -19,12 +22,16 @@
 
 
 - name: Install unbound package
-  apt: pkg=unbound
+  apt:
+    name: unbound
 
 - name: Allow local LAN to connect to unbound
   become: true
   copy:
     dest: /etc/unbound/unbound.conf.d/pi-hole-replacement.conf
+    owner: root
+    group: root
+    mode: '0664'
     content: |
       server:
         interface: 0.0.0.0
@@ -39,6 +46,9 @@
   become: true
   get_url:
     dest: /etc/unbound/blocklist.conf
+    owner: root
+    group: root
+    mode: '0664'
     url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/master/unbound/unbound.blocklist
   notify:
     - Restart unbound
@@ -54,6 +64,9 @@
   become: true
   copy:
     dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: '0664'
     content: |
       search home.scottmuc.com
       nameserver 127.0.0.1

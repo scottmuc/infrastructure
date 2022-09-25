@@ -23,6 +23,9 @@
   copy:
     src: root/etc/grafana/grafana.ini
     dest: /etc/grafana/grafana.ini
+    owner: root
+    group: admin
+    mode: '0664'
   notify:
     - Restart grafana
 

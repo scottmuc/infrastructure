@@ -16,6 +16,7 @@
     state: directory
     owner: prometheus
     group: root
+    mode: '0775'
 
 
 - name: Prometheus versioned directory
@@ -24,6 +25,7 @@
     state: directory
     owner: prometheus
     group: root
+    mode: '0775'
 
 
 - name: Download prometheus
@@ -49,6 +51,9 @@
   copy:
     src: root/opt/prometheus/prometheus.yml
     dest: /opt/prometheus/prometheus.yml
+    owner: prometheus
+    group: root
+    mode: '0660'
   notify:
     - Restart prometheus
 
@@ -57,6 +62,9 @@
   copy:
     src: root/etc/systemd/system/prometheus.service
     dest: /etc/systemd/system/prometheus.service
+    owner: root
+    group: admin
+    mode: '0664'
   notify:
     - Restart prometheus
     - Systemd reload

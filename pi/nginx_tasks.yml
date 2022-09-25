@@ -49,6 +49,9 @@
   copy:
     src: root/etc/nginx/sites-available/goodenoughmoney.com
     dest: /etc/nginx/sites-available/goodenoughmoney.com
+    owner: root
+    group: admin
+    mode: '0664'
   notify:
     - Restart nginx
 
@@ -72,6 +75,9 @@
   copy:
     src: root/etc/nginx/sites-available/home.scottmuc.com
     dest: /etc/nginx/sites-available/home.scottmuc.com
+    owner: root
+    group: admin
+    mode: '0664'
   notify:
     - Restart nginx
 

@@ -16,6 +16,7 @@
     state: directory
     owner: navidrome
     group: root
+    mode: '0775'
 
 
 - name: Navidrome versioned directory
@@ -24,6 +25,7 @@
     state: directory
     owner: navidrome
     group: root
+    mode: '0664'
 
 
 - name: Download navidrome
@@ -39,6 +41,9 @@
     src: "/opt/navidrome/{{ navidrome_version }}"
     dest: "/opt/navidrome/live"
     state: link
+    owner: navidrome
+    group: root
+    mode: '0775'
   notify:
     - Restart navidrome
 
@@ -49,6 +54,7 @@
     state: directory
     owner: navidrome
     group: root
+    mode: '0775'
 
 
 - name: Download ffmpeg
@@ -65,6 +71,9 @@
   copy:
     src: root/opt/navidrome/navidrome.toml
     dest: /opt/navidrome/navidrome.toml
+    owner: navidrome
+    group: root
+    mode: '0444'
   notify:
     - Restart navidrome
 
@@ -73,6 +82,9 @@
   copy:
     src: root/etc/systemd/system/navidrome.service
     dest: /etc/systemd/system/navidrome.service
+    owner: root
+    group: admin
+    mode: '0644'
   notify:
     - Restart navidrome
     - Systemd reload
