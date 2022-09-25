@@ -1,86 +1,85 @@
-
-  - name: Set Ansible facts for navidrome
-    set_fact:
-      navidrome_version: "0.47.5"
-
-
-  - name: Navidrome user
-    user:
-      name: navidrome
-      comment: Service account for navidrome process
-      system: Yes
+- name: Set Ansible facts for navidrome
+  set_fact:
+    navidrome_version: "0.47.5"
 
 
-  - name: Navidrome application directory
-    file:
-      path: /opt/navidrome
-      state: directory
-      owner: navidrome
-      group: root
+- name: Navidrome user
+  user:
+    name: navidrome
+    comment: Service account for navidrome process
+    system: true
 
 
-  - name: Navidrome versioned directory
-    file:
-      path: "/opt/navidrome/{{ navidrome_version }}"
-      state: directory
-      owner: navidrome
-      group: root
+- name: Navidrome application directory
+  file:
+    path: /opt/navidrome
+    state: directory
+    owner: navidrome
+    group: root
 
 
-  - name: Download navidrome
-    unarchive:
-      src: "https://github.com/deluan/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_Linux_armv7.tar.gz"
-      remote_src: True
-      dest: "/opt/navidrome/{{ navidrome_version }}"
-      creates: "/opt/navidrome/{{ navidrome_version }}/navidrome"
+- name: Navidrome versioned directory
+  file:
+    path: "/opt/navidrome/{{ navidrome_version }}"
+    state: directory
+    owner: navidrome
+    group: root
 
 
-  - name: Symlink current navidrome version
-    file:
-      src: "/opt/navidrome/{{ navidrome_version }}"
-      dest: "/opt/navidrome/live"
-      state: link
-    notify:
+- name: Download navidrome
+  unarchive:
+    src: "https://github.com/deluan/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_Linux_armv7.tar.gz"
+    remote_src: true
+    dest: "/opt/navidrome/{{ navidrome_version }}"
+    creates: "/opt/navidrome/{{ navidrome_version }}/navidrome"
+
+
+- name: Symlink current navidrome version
+  file:
+    src: "/opt/navidrome/{{ navidrome_version }}"
+    dest: "/opt/navidrome/live"
+    state: link
+  notify:
     - Restart navidrome
 
 
-  - name: ffmpeg directory
-    file:
-      path: /opt/navidrome/ffmpeg
-      state: directory
-      owner: navidrome
-      group: root
+- name: ffmpeg directory
+  file:
+    path: /opt/navidrome/ffmpeg
+    state: directory
+    owner: navidrome
+    group: root
 
 
-  - name: Download ffmpeg
-    unarchive:
-      src: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz
-      remote_src: True
-      dest: /opt/navidrome/ffmpeg
-      creates: /opt/navidrome/ffmpeg/ffmpeg
-      extra_opts:
+- name: Download ffmpeg
+  unarchive:
+    src: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz
+    remote_src: true
+    dest: /opt/navidrome/ffmpeg
+    creates: /opt/navidrome/ffmpeg/ffmpeg
+    extra_opts:
       - --strip-components=1
 
 
-  - name: Install navidrome configuration
-    copy:
-      src: root/opt/navidrome/navidrome.toml
-      dest: /opt/navidrome/navidrome.toml
-    notify:
+- name: Install navidrome configuration
+  copy:
+    src: root/opt/navidrome/navidrome.toml
+    dest: /opt/navidrome/navidrome.toml
+  notify:
     - Restart navidrome
 
 
-  - name: Install navidrome service
-    copy:
-      src: root/etc/systemd/system/navidrome.service
-      dest: /etc/systemd/system/navidrome.service
-    notify:
+- name: Install navidrome service
+  copy:
+    src: root/etc/systemd/system/navidrome.service
+    dest: /etc/systemd/system/navidrome.service
+  notify:
     - Restart navidrome
     - Systemd reload
 
 
-  - name: Ensure navidrome is running
-    service:
-      name: navidrome
-      state: started
-      enabled: true
+- name: Ensure navidrome is running
+  service:
+    name: navidrome
+    state: started
+    enabled: true

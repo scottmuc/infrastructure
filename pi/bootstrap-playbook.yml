@@ -1,19 +1,19 @@
 ---
 - hosts: all
   remote_user: pi
-  gather_facts: no
-  become: yes
+  gather_facts: false
+  become: true
 
   pre_tasks:
   - name: attempt to update apt's cache
     raw: test -e /usr/bin/apt-get && apt-get update
-    ignore_errors: yes
+    ignore_errors: true
 
   tasks:
   - name: Create admin user group
     group:
       name: admin
-      system: yes
+      system: true
       state: present
 
   # The Raspberry PI OS image comes with sudo installed, but will leave this
@@ -29,13 +29,13 @@
       shell: /bin/bash
       comment: "Ansible management user"
       home: /home/ansible
-      createhome: yes
+      createhome: true
 
   - name: Add Ansible user to admin group
     user:
       name: ansible
       groups: admin
-      append: yes
+      append: true
 
   - name: Add authorized keys
     authorized_key:
@@ -50,7 +50,7 @@
     command: cp -f /etc/sudoers /etc/sudoers.bak
 
   - name: Ensure admin group can sudo
-    lineinfile: 
+    lineinfile:
       dest: /etc/sudoers.tmp
       state: present
       regexp: '^%admin'
@@ -61,4 +61,4 @@
 
   - name: Test Ansible user's access
     local_action: shell ssh ansible@{{ inventory_hostname }} "sudo echo success"
-    become: False
+    become: false

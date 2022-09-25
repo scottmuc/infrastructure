@@ -32,7 +32,7 @@
         do-ip6: no
         include: /etc/unbound/blocklist.conf
   notify:
-  - Restart unbound
+    - Restart unbound
 
 
 - name: Add blocklist
@@ -41,7 +41,7 @@
     dest: /etc/unbound/blocklist.conf
     url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/master/unbound/unbound.blocklist
   notify:
-  - Restart unbound
+    - Restart unbound
 
 
 - name: Ensure unbound is running

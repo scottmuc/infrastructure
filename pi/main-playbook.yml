@@ -1,7 +1,7 @@
 ---
 - hosts: all
   remote_user: ansible
-  become: yes
+  become: true
 
   tasks:
   - name: Configure log forwarding
@@ -10,8 +10,6 @@
   - name: Disable the 'pi' user
     user:
       name: pi
-        #state: absent
-        #      remove: yes
       shell: /sbin/nologin
 
   - name: Disable IPV6
@@ -46,52 +44,52 @@
     include_tasks: grafana_tasks.yml
 
   handlers:
-  # It's important that Systemd reload is defined first here
-  # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
-  #
-  # This might not be necessary though... still need to think this through
-  - name: Systemd reload
-    ansible.builtin.systemd:
-      daemon_reload: Yes
+    # It's important that Systemd reload is defined first here
+    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
+    #
+    # This might not be necessary though... still need to think this through
+    - name: Systemd reload
+      ansible.builtin.systemd:
+        daemon_reload: true
 
 
-  - name: Restart dnsmasq
-    ansible.builtin.service:
-      name: dnsmasq
-      state: restarted
+    - name: Restart dnsmasq
+      ansible.builtin.service:
+        name: dnsmasq
+        state: restarted
 
 
-  - name: Restart nginx
-    ansible.builtin.service:
-      name: nginx
-      state: restarted
+    - name: Restart nginx
+      ansible.builtin.service:
+        name: nginx
+        state: restarted
 
 
-  - name: Restart smbd
-    ansible.builtin.service:
-      name: smbd
-      state: restarted
+    - name: Restart smbd
+      ansible.builtin.service:
+        name: smbd
+        state: restarted
 
 
-  - name: Restart navidrome
-    ansible.builtin.service:
-      name: navidrome
-      state: restarted
+    - name: Restart navidrome
+      ansible.builtin.service:
+        name: navidrome
+        state: restarted
 
 
-  - name: Restart prometheus
-    ansible.builtin.service:
-      name: prometheus
-      state: restarted
+    - name: Restart prometheus
+      ansible.builtin.service:
+        name: prometheus
+        state: restarted
 
 
-  - name: Restart grafana
-    ansible.builtin.service:
-      name: grafana-server
-      state: restarted
+    - name: Restart grafana
+      ansible.builtin.service:
+        name: grafana-server
+        state: restarted
 
 
-  - name: Restart rsyslog
-    ansible.builtin.service:
-      name: rsyslog
-      state: restarted
+    - name: Restart rsyslog
+      ansible.builtin.service:
+        name: rsyslog
+        state: restarted

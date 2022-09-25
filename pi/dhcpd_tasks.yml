@@ -1,18 +1,17 @@
+- name: Install dnsmasq package
+  apt: pkg=dnsmasq
 
-  - name: Install dnsmasq package
-    apt: pkg=dnsmasq
 
-
-  - name: Configure dnsmasq
-    copy:
-      src: root/etc/dnsmasq.conf
-      dest: /etc/dnsmasq.conf
-    notify:
+- name: Configure dnsmasq
+  copy:
+    src: root/etc/dnsmasq.conf
+    dest: /etc/dnsmasq.conf
+  notify:
     - Restart dnsmasq
 
 
-  - name: Ensure dnsmasq service is started
-    service:
-      name: dnsmasq
-      state: started
-      enabled: yes
+- name: Ensure dnsmasq service is started
+  service:
+    name: dnsmasq
+    state: started
+    enabled: true

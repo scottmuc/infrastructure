@@ -1,17 +1,13 @@
+- name: Include vars
+  include_vars:
+    file: secret_vars.yml
+    name: secrets
 
-  - name: Include vars
-    include_vars:
-      file: secret_vars.yml
-      name: secrets
-
-
-  - name: Add Papertrail forwarding configuration
-    become: true
-    copy:
-      dest: /etc/rsyslog.d/papertrail.conf
-      content: |
-        *.* action(type="omfwd" target="{{ secrets.rsyslog_forwarding_target }}" port="{{ secrets.rsyslog_forwarding_port }}" protocol="udp")
-    notify:
+- name: Add Papertrail forwarding configuration
+  become: true
+  copy:
+    dest: /etc/rsyslog.d/papertrail.conf
+    content: |
+      *.* action(type="omfwd" target="{{ secrets.rsyslog_forwarding_target }}" port="{{ secrets.rsyslog_forwarding_port }}" protocol="udp")
+  notify:
     - Restart rsyslog
-
-

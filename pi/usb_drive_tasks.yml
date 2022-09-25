@@ -1,22 +1,21 @@
-  - name: Install fuse packages
-    apt:
-      pkg:
+- name: Install fuse packages
+  apt:
+    pkg:
       - exfat-fuse
       - exfat-utils
 
 
-  - name: Create USB mount point
-    file:
-      path: /mnt/usb
-      state: directory
+- name: Create USB mount point
+  file:
+    path: /mnt/usb
+    state: directory
 
 
-  # UUID=5A47-F8E2 /mnt/usb exfat defaults,auto,users,rw,nofail,umask=000 0 0
-  - name: Mount Disk
-    ansible.posix.mount:
-      state: mounted
-      path: /mnt/usb
-      src: UUID=5A47-F8E2
-      fstype: exfat
-      opts: defaults,auto,users,rw,nofail,umask=000
-
+# UUID=5A47-F8E2 /mnt/usb exfat defaults,auto,users,rw,nofail,umask=000 0 0
+- name: Mount Disk
+  ansible.posix.mount:
+    state: mounted
+    path: /mnt/usb
+    src: UUID=5A47-F8E2
+    fstype: exfat
+    opts: defaults,auto,users,rw,nofail,umask=000

@@ -1,27 +1,26 @@
-
-  - name: Ensure dhcpcd is stopped
-    service:
-      name: dhcpcd
-      state: stopped
-      enabled: false
-
-
-  - name: Uninstall dhcpcd5
-    apt:
-      name: dpcpcd5
-      state: absent
+- name: Ensure dhcpcd is stopped
+  service:
+    name: dhcpcd
+    state: stopped
+    enabled: false
 
 
-  - name: Setup static IP
-    become: true
-    copy:
-      dest: /etc/network/interfaces.d/eth0
-      content: |
-        auto eth0
-        allow-hotplug eth0
-        iface eth0 inet static
-        address 192.168.2.10
-        netmask 255.255.255.0
-        gateway 192.168.2.1
-        dns-nameservers 127.0.0.1
-        dns-search home.scottmuc.com
+- name: Uninstall dhcpcd5
+  apt:
+    name: dpcpcd5
+    state: absent
+
+
+- name: Setup static IP
+  become: true
+  copy:
+    dest: /etc/network/interfaces.d/eth0
+    content: |
+      auto eth0
+      allow-hotplug eth0
+      iface eth0 inet static
+      address 192.168.2.10
+      netmask 255.255.255.0
+      gateway 192.168.2.1
+      dns-nameservers 127.0.0.1
+      dns-search home.scottmuc.com

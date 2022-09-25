@@ -1,36 +1,34 @@
+- name: Install Grafana Apt Keys
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
 
 
-  - name: Install Grafana Apt Keys
-    apt_key:
-      url:  https://packages.grafana.com/gpg.key
-      state: present
+- name: Add Grafana Apt Repository
+  apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: present
 
 
-  - name: Add Grafana Apt Repository
-    apt_repository:
-      repo: deb https://packages.grafana.com/oss/deb stable main
-      state: present
-
-
-  - name: Install grafana package
-    apt:
-      name: grafana
-      state: present
-      update_cache: yes
-    notify:
+- name: Install grafana package
+  apt:
+    name: grafana
+    state: present
+    update_cache: true
+  notify:
     - Systemd reload
 
 
-  - name: Install grafana configuration
-    copy:
-      src: root/etc/grafana/grafana.ini
-      dest: /etc/grafana/grafana.ini
-    notify:
+- name: Install grafana configuration
+  copy:
+    src: root/etc/grafana/grafana.ini
+    dest: /etc/grafana/grafana.ini
+  notify:
     - Restart grafana
 
 
-  - name: Ensure grafana is running
-    service:
-      name: grafana-server
-      state: started
-      enabled: true
+- name: Ensure grafana is running
+  service:
+    name: grafana-server
+    state: started
+    enabled: true

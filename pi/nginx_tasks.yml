@@ -1,92 +1,90 @@
+- name: Install nginx package
+  apt: pkg=nginx
 
-  - name: Install nginx package
-    apt: pkg=nginx
-
-  - name: Install certbot package
-    apt: pkg=certbot
-
-
-  # Make this happen only if neither certificates exist
-  - name: Ensure nginx is stopped before certbot interactions
-    service:
-      name: nginx
-      state: stopped
+- name: Install certbot package
+  apt: pkg=certbot
 
 
-  - name: Increase server_names_hash_bucket_size in nginx.conf
-    lineinfile:
-      path: /etc/nginx/nginx.conf
-      insertafter: "^http {"
-      line: "server_names_hash_bucket_size 64;"
-    notify:
+# Make this happen only if neither certificates exist
+- name: Ensure nginx is stopped before certbot interactions
+  service:
+    name: nginx
+    state: stopped
+
+
+- name: Increase server_names_hash_bucket_size in nginx.conf
+  lineinfile:
+    path: /etc/nginx/nginx.conf
+    insertafter: "^http {"
+    line: "server_names_hash_bucket_size 64;"
+  notify:
     - Restart nginx
 
 
-  - name: Disable certbot.timer
-    service:
-      name: certbot.timer
-      enabled: no
-      state: stopped
+- name: Disable certbot.timer
+  service:
+    name: certbot.timer
+    enabled: false
+    state: stopped
 
 
-  - name: Acquire certificate for www.goodenoughmoney.com
-    command: |
-      certbot certonly --standalone -d www.goodenoughmoney.com \
-      --non-interactive --agree-tos -m "scottmuc@gmail.com"
-    args:
-      creates: /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem
+- name: Acquire certificate for www.goodenoughmoney.com
+  command: |
+    certbot certonly --standalone -d www.goodenoughmoney.com \
+    --non-interactive --agree-tos -m "scottmuc@gmail.com"
+  args:
+    creates: /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem
 
 
-  - name: Setup www.goodenoughmoney.com home
-    file:
-      path: /opt/goodenoughmoney
-      state: directory
-      owner: root
-      group: admin
-      mode: '0775'
+- name: Setup www.goodenoughmoney.com home
+  file:
+    path: /opt/goodenoughmoney
+    state: directory
+    owner: root
+    group: admin
+    mode: '0775'
 
 
-  - name: Install www.goodenoughmoney.com config
-    copy:
-      src: root/etc/nginx/sites-available/goodenoughmoney.com
-      dest: /etc/nginx/sites-available/goodenoughmoney.com
-    notify:
+- name: Install www.goodenoughmoney.com config
+  copy:
+    src: root/etc/nginx/sites-available/goodenoughmoney.com
+    dest: /etc/nginx/sites-available/goodenoughmoney.com
+  notify:
     - Restart nginx
 
 
-  - name: Enable www.goodenoughmoney.com
-    file:
-      src: /etc/nginx/sites-available/goodenoughmoney.com
-      dest: /etc/nginx/sites-enabled/goodenoughmoney.com
-      state: link
+- name: Enable www.goodenoughmoney.com
+  file:
+    src: /etc/nginx/sites-available/goodenoughmoney.com
+    dest: /etc/nginx/sites-enabled/goodenoughmoney.com
+    state: link
 
 
-  - name: Acquire certificate for home.scottmuc.com
-    command: |
-      certbot certonly --standalone -d home.scottmuc.com \
-      --non-interactive --agree-tos -m "scottmuc@gmail.com"
-    args:
-      creates: /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem
+- name: Acquire certificate for home.scottmuc.com
+  command: |
+    certbot certonly --standalone -d home.scottmuc.com \
+    --non-interactive --agree-tos -m "scottmuc@gmail.com"
+  args:
+    creates: /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem
 
 
-
-  - name: Install home.scottmuc.com config
-    copy:
-      src: root/etc/nginx/sites-available/home.scottmuc.com
-      dest: /etc/nginx/sites-available/home.scottmuc.com
-    notify:
+- name: Install home.scottmuc.com config
+  copy:
+    src: root/etc/nginx/sites-available/home.scottmuc.com
+    dest: /etc/nginx/sites-available/home.scottmuc.com
+  notify:
     - Restart nginx
 
 
-  - name: Enable home.scottmuc.com
-    file:
-      src: /etc/nginx/sites-available/home.scottmuc.com
-      dest: /etc/nginx/sites-enabled/home.scottmuc.com
-      state: link
+- name: Enable home.scottmuc.com
+  file:
+    src: /etc/nginx/sites-available/home.scottmuc.com
+    dest: /etc/nginx/sites-enabled/home.scottmuc.com
+    state: link
 
 
-  - name: Start nginx
-    service:
-      name: nginx
-      state: started
-      enabled: yes
+- name: Start nginx
+  service:
+    name: nginx
+    state: started
+    enabled: true
