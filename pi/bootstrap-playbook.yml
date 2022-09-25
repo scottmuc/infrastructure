@@ -5,60 +5,51 @@
   become: true
 
   pre_tasks:
-  - name: attempt to update apt's cache
-    raw: test -e /usr/bin/apt-get && apt-get update
-    ignore_errors: true
+    - name: attempt to update apt's cache
+      apt:
+        update_cache: true
 
   tasks:
-  - name: Create admin user group
-    group:
-      name: admin
-      system: true
-      state: present
+    - name: Create admin user group
+      group:
+        name: admin
+        system: true
+        state: present
 
-  # The Raspberry PI OS image comes with sudo installed, but will leave this
-  # check here just in case that assumption changes.
-  - name: Ensure sudo is installed
-    package:
-      name: sudo
-      state: present
+    # The Raspberry PI OS image comes with sudo installed, but will leave this
+    # check here just in case that assumption changes.
+    - name: Ensure sudo is installed
+      package:
+        name: sudo
+        state: present
 
-  - name: Create Ansible user
-    user:
-      name: ansible
-      shell: /bin/bash
-      comment: "Ansible management user"
-      home: /home/ansible
-      createhome: true
+    - name: Create Ansible user
+      user:
+        name: ansible
+        shell: /bin/bash
+        comment: "Ansible management user"
+        home: /home/ansible
+        createhome: true
 
-  - name: Add Ansible user to admin group
-    user:
-      name: ansible
-      groups: admin
-      append: true
+    - name: Add Ansible user to admin group
+      user:
+        name: ansible
+        groups: admin
+        append: true
 
-  - name: Add authorized keys
-    authorized_key:
-      user: ansible
-      state: present
-      key: https://github.com/scottmuc.keys
+    # https://stackoverflow.com/a/62459797
+    - name: Ensure admin group can sudo
+      copy:
+        state: present
+        dest: /etc/sudoers.d/admin-group-nopasswd
+        owner: root
+        group: root
+        mode: '0440'
+        content: |
+          '%admin ALL=(ALL) NOPASSWD: ALL'
 
-  - name: Copy sudoers file
-    command: cp -f /etc/sudoers /etc/sudoers.tmp
-
-  - name: Backup sudoers file
-    command: cp -f /etc/sudoers /etc/sudoers.bak
-
-  - name: Ensure admin group can sudo
-    lineinfile:
-      dest: /etc/sudoers.tmp
-      state: present
-      regexp: '^%admin'
-      line: '%admin ALL=(ALL) NOPASSWD: ALL'
-
-  - name: Replace sudoers file
-    shell: visudo -q -c -f /etc/sudoers.tmp && cp -f /etc/sudoers.tmp /etc/sudoers
-
-  - name: Test Ansible user's access
-    local_action: shell ssh ansible@{{ inventory_hostname }} "sudo echo success"
-    become: false
+    - name: Add authorized keys
+      authorized_key:
+        user: ansible
+        state: present
+        key: https://github.com/scottmuc.keys
