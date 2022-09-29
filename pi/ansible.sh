@@ -2,7 +2,7 @@
 
 set -e
 
-playbook=$(find . -name "*playbook.yml" | gum choose)
+playbook=$(find . -name "*playbook.yml" | sort -r | gum choose)
 ip=$(gum choose "192.168.2.10" "other")
 
 if [ "${ip}" = "other" ]; then
