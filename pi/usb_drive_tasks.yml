@@ -10,8 +10,8 @@
     path: /mnt/usb
     state: directory
     owner: root
-    group: admin
-    mode: '0755'
+    group: root
+    mode: '0777'
 
 
 # UUID=5A47-F8E2 /mnt/usb exfat defaults,auto,users,rw,nofail,umask=000 0 0
