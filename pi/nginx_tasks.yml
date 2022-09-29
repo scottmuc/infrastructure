@@ -89,6 +89,19 @@
     state: link
 
 
+- name: Enable stub_status
+  copy:
+    src: root/etc/nginx/conf.d/status.conf
+    dest: /etc/nginx/conf.d/status.conf
+    owner: root
+    group: admin
+    mode: '0664'
+  tags:
+    - wip
+  notify:
+    - Restart nginx
+
+
 - name: Start nginx
   service:
     name: nginx
