@@ -1,0 +1,59 @@
+- name: Set Ansible facts for node_exporter
+  set_fact:
+    node_exporter_version: "1.4.0"
+
+
+- name: Node exporter application directory
+  file:
+    path: /opt/node_exporter
+    state: directory
+    owner: prometheus
+    group: root
+    mode: '0775'
+
+
+- name: Node exporter versioned directory
+  file:
+    path: "/opt/node_exporter/{{ node_exporter_version }}"
+    state: directory
+    owner: prometheus
+    group: root
+    mode: '0775'
+
+
+- name: Download node exporter
+  unarchive:
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version}}/node_exporter-{{ node_exporter_version }}.linux-armv7.tar.gz"
+    remote_src: true
+    dest: "/opt/node_exporter/{{ node_exporter_version }}"
+    creates: "/opt/node_exporter/{{ node_exporter_version }}/node_exporter"
+    extra_opts:
+      - "--strip-components=1"
+
+
+- name: Symlink current node exporter version
+  file:
+    src: "/opt/node_exporter/{{ node_exporter_version }}"
+    dest: "/opt/node_exporter/live"
+    state: link
+  notify:
+    - Restart node_exporter
+
+
+- name: Install node exporter service
+  copy:
+    src: root/etc/systemd/system/node_exporter.service
+    dest: /etc/systemd/system/node_exporter.service
+    owner: root
+    group: admin
+    mode: '0664'
+  notify:
+    - Restart node_exporter
+    - Systemd reload
+
+
+- name: Ensure node exporter is running
+  service:
+    name: node_exporter
+    state: started
+    enabled: true

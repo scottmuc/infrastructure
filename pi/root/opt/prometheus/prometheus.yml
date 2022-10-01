@@ -18,7 +18,8 @@ scrape_configs:
       - targets:
           - localhost:9090
 
-  - job_name: windows pc
+  - job_name: node_exporter
     static_configs:
       - targets:
-          - 192.168.2.159:9182
+          - 192.168.2.197:9182
+          - localhost:9100

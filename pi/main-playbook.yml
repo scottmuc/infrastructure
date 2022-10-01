@@ -40,6 +40,9 @@
   - name: Install prometheus
     include_tasks: prometheus_tasks.yml
 
+  - name: Install node exporter
+    include_tasks: node_exporter_tasks.yml
+
   - name: Install grafana
     include_tasks: grafana_tasks.yml
 
@@ -80,6 +83,12 @@
     - name: Restart prometheus
       ansible.builtin.service:
         name: prometheus
+        state: restarted
+
+
+    - name: Restart node_exporter
+      ansible.builtin.service:
+        name: node_exporter
         state: restarted
 
 
