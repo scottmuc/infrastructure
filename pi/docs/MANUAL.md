@@ -1,4 +1,4 @@
-# Raspberry Pi
+# Manual Raspberry Pi Setup
 
 I now have a raspberry pi and this is how I set it up. The setup has been
 informed by the [research](RESEARCH.md) I've done.
