@@ -1,6 +1,6 @@
 - name: Set Ansible facts for prometheus
   set_fact:
-    prometheus_version: "2.37.0"
+    prometheus_version: "2.37.1"
 
 
 - name: Prometheus user
