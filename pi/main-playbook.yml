@@ -3,6 +3,9 @@
   remote_user: ansible
   become: true
 
+  roles:
+  - logging
+  - dnsresolver
 
 
   tasks:
