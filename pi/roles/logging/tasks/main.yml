@@ -1,4 +1,5 @@
 ---
+# TODO: revisit how variables get defined here
 - name: Include vars
   include_vars:
     file: secret_vars.yml

@@ -1,6 +1,8 @@
 ---
+# TODO: use well defined inventory file and specify host
 - hosts: all
   remote_user: ansible
+  # TODO: eliminate the global priv elevation
   become: true
 
   roles:
@@ -9,6 +11,7 @@
 
 
   tasks:
+    # TODO: delete user (need to sort out systemd stuff)
   - name: Disable the 'pi' user
     user:
       name: pi
@@ -94,10 +97,4 @@
     - name: Restart grafana
       ansible.builtin.service:
         name: grafana-server
-        state: restarted
-
-
-    - name: Restart rsyslog
-      ansible.builtin.service:
-        name: rsyslog
         state: restarted
