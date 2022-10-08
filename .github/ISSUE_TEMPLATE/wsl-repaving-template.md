@@ -22,15 +22,42 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Steps
 
-- [ ] Delete previous WSL instance if applicable
+- [ ] Run repave script from windows host<details>
+  <summary>Instructions</summary>
 
-- [ ] Ensure WSL2 is being used
+  As an admin, run:
 
-- [ ] Install latest Ubuntu
+  `Set-ExecutionPolicy -ExectionPolicy RemoteSigned`
 
-- [ ] Clone and run coalesce script
+  Then run:
 
-- [ ] Initalize 1Password
+ `~/workspace/infrastructure/homedirs/windows/Repave-WSLInstance.ps`
+</details>
+
+- [ ] Clone and run coalesce script<details>
+  <summary>Instructions</summary>
+
+  ```
+  mkdir ~/workspace && cd ~/workspace
+  git clone https://github.com/scottmuc/infrastructure.git
+  cd infrastructure/homedirs/wsl
+  ./coalesce_this_machine
+  ```
+</details>
+
+- [ ] Initalize 1Password<details>
+  <summary>Instructions</summary>
+
+  As an admin, run:
+
+  `Set-ExecutionPolicy -ExectionPolicy RemoteSigned`
+
+  Then run:
+
+ `~/workspace/infrastructure/homedirs/windows/Repave-WSLInstance.ps`
+</details>
+
+# Verification Steps
 
 - [ ] Attempt DNS Change
 

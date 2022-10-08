@@ -358,7 +358,7 @@ font:
 #   - (Linux/BSD) user login shell
 #   - (Windows) powershell
 shell:
-  program: ubuntu2204.exe
+  program: ubuntu.exe
 #  args:
 
 # Startup directory
