@@ -98,7 +98,11 @@ load() {
   if [[ -n "${password_field_name}" ]]; then
     case $OSTYPE in
       darwin*) export DISPLAY="" ;;
-      linux*) askpass_require="force" ;;
+      linux*)
+        # delete the redundant export when using Ubuntu-22.04 for WSL
+        export DISPLAY=""
+        askpass_require="force"
+        ;;
       \?) print_usage_and_exit
       ;;
     esac
