@@ -43,7 +43,11 @@
     include_tasks: dhcpd_tasks.yml
 
   - name: Install navidrome
-    include_tasks: navidrome_tasks.yml
+    tags: navidrome
+    include_tasks:
+      file: navidrome_tasks.yml
+      apply:
+        tags: navidrome
 
   - name: Install prometheus
     include_tasks: prometheus_tasks.yml
