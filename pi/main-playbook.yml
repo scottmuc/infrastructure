@@ -6,7 +6,7 @@
   become: true
   # Are these global? Yes, they are.
   vars:
-    prometheus_version: "2.37.1"
+    prometheus_version: "2.39.1"
 
 
   roles:
