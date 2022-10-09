@@ -3,6 +3,7 @@
 set -e
 
 playbook=$(find . -name "*playbook.yml" | sort -r | gum choose)
+tags=$(gum choose "all" "navidrome")
 ip=$(gum choose "192.168.2.10" "other")
 
 if [ "${ip}" = "other" ]; then
@@ -11,7 +12,9 @@ fi
 
 gum confirm "Deploy ${playbook} to ${ip}?" || exit 1
 
+
 ansible-playbook \
   --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
   --inventory "${ip}," \
+  --tags "${tags}" \
   "${playbook}"

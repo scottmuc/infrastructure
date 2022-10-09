@@ -17,6 +17,13 @@
       name: pi
       shell: /sbin/nologin
 
+    # https://linuxhint.com/understanding_vm_swappiness/
+  - name: Configure swappiness to a minimum
+    ansible.posix.sysctl:
+      name: vm.swappiness
+      value: '1'
+      state: present
+
   - name: Disable IPV6
     include_tasks: disable_ipv6_tasks.yml
 
@@ -36,7 +43,11 @@
     include_tasks: dhcpd_tasks.yml
 
   - name: Install navidrome
-    include_tasks: navidrome_tasks.yml
+    tags: navidrome
+    include_tasks:
+      file: navidrome_tasks.yml
+      apply:
+        tags: navidrome
 
   - name: Install prometheus
     include_tasks: prometheus_tasks.yml
