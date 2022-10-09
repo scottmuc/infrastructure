@@ -31,8 +31,8 @@ $applicationList = @(
     "Microsoft.MicrosoftStickyNotes"
     "Microsoft.Office.Sway"
 
-#    "Microsoft.XboxApp"
-#    "Microsoft.XboxIdentityProvider"
+    "Microsoft.XboxApp"
+    "Microsoft.XboxIdentityProvider"
 
     "Microsoft.NetworkSpeedTest"
     "Microsoft.Print3D"
