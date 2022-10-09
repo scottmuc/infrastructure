@@ -4,6 +4,10 @@
   remote_user: ansible
   # TODO: eliminate the global priv elevation
   become: true
+  # Are these global? Yes, they are.
+  vars:
+    prometheus_version: "2.37.1"
+
 
   roles:
   - logging
