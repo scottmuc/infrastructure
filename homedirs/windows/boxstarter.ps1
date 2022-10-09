@@ -58,10 +58,18 @@ foreach ($app in $applicationList) {
     Remove-App $app
 }
 
+# https://boxstarter.org/winconfig#set-windowsexploreroptions
 Set-WindowsExplorerOptions `
-  -EnableShowFileExtensions
+  -EnableShowHiddenFilesFoldersDrives `
+  -EnableShowFileExtensions `
+  -EnableShowFullPathInTitleBar
 
-Set-BoxstarterTaskbarOptions -Size Small -Dock Top
+
+#  https://boxstarter.org/winconfig#set-boxstartertaskbaroptions
+Set-BoxstarterTaskbarOptions `
+  -Size Small `
+  -Dock Top `
+  -DisableSearchBox
 
 # Switchings CAPSLOCK to CTRL
 $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | % { "0x$_"}
