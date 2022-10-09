@@ -64,7 +64,8 @@
     - Restart prometheus
     - Systemd reload
 
-
+# We can triger restart handlers that fail to start the service
+# https://stackoverflow.com/questions/37843998/how-to-stop-ansible-from-starting-then-restarting-a-service
 - name: Ensure prometheus is running
   service:
     name: prometheus
