@@ -92,5 +92,19 @@ choco install vscode.install -y --source="'https://chocolatey.org/api/v2'"
 
 choco install autohotkey.install -y --source="'https://chocolatey.org/api/v2'"
 
+# Create shortcuts to the ahk files so they are setup on startup
+# https://stackoverflow.com/questions/9701840/how-to-create-a-shortcut-using-powershell
+$WshShell = New-Object -comObject WScript.Shell
+# Need to figure out how to read shell:startup
+# https://www.devdungeon.com/content/windows-run-script-startup
+$StartupFolder = Join-Path -Path $env:AppData -ChildPath "Microsoft\Windows\Start Menu\Programs\Startup"
+$CouchGamingShortcut = Join-Path -Path $StartupFolder -ChildPath "couch_gaming.ahk.lnk"
+$Shortcut = $WshShell.CreateShortcut($CouchGamingShortcut)
+# https://www.autoitconsulting.com/site/scripting/get-current-script-directory-powershell-vbscript-batch/
+$ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
+$CouchGamingAhk = Join-Path -Path $ScriptDir -ChildPath .\couch_gaming.ahk
+$Shortcut.TargetPath = $CouchGamingAhk
+$Shortcut.Save()
+
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
