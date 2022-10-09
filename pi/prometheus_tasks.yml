@@ -1,9 +1,3 @@
-# TODO check that prometheus_version is set
-#- name: Set Ansible facts for prometheus
-#  set_fact:
-#    prometheus_version: "2.37.1"
-
-
 - name: Prometheus user
   user:
     name: prometheus
