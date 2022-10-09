@@ -50,7 +50,11 @@
         tags: navidrome
 
   - name: Install prometheus
-    include_tasks: prometheus_tasks.yml
+    tags: prometheus
+    include_tasks:
+      file: prometheus_tasks.yml
+      apply:
+        tags: prometheus
 
   - name: Install node exporter
     include_tasks: node_exporter_tasks.yml
