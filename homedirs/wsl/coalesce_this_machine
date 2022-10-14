@@ -16,6 +16,7 @@ main() {
   configure_dns
   symlink_all_the_things
   install_os_packages
+  install_os_pip_packages
   install_gum
   install_delta
   install_all_things_docker
@@ -127,6 +128,7 @@ install_os_packages() {
     autojump              \
     git-crypt             \
     gnupg                 \
+    graphviz              \
     jq                    \
     neovim                \
     python3               \
@@ -134,6 +136,10 @@ install_os_packages() {
     python3-pip           \
     unzip                 \
     zsh
+}
+
+install_os_pip_packages() {
+  pip install diagrams
 }
 
 # https://developer.1password.com/docs/cli/install-server

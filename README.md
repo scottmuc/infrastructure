@@ -14,6 +14,8 @@
 
 All configuration and research of my Raspberry Pi is recorded [here](pi/README.md)
 
+![Home Network](./home_network.png)
+
 ### Homedirs
 
 The old [osx-homedir](https://github.com/scottmuc/osx-homedir) repository is retired
