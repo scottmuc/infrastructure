@@ -1,0 +1,37 @@
+- name: Install certbot package
+  apt:
+    name: certbot
+
+
+- name: Disable certbot.timer
+  service:
+    name: certbot.timer
+    enabled: false
+    state: stopped
+
+
+# The logic for when this needs to happen is the following:
+# - when the complete set of certificates aren't fetched
+# - and when nginx is actually installed (ordering problem)
+#
+# The starting of nginx is left to the nginx_tasks.yml
+- name: Ensure nginx is stopped before certbot interactions
+  service:
+    name: nginx
+    state: stopped
+
+
+- name: Acquire certificate for www.goodenoughmoney.com
+  command: |
+    certbot certonly --standalone -d www.goodenoughmoney.com \
+    --non-interactive --agree-tos -m "scottmuc@gmail.com"
+  args:
+    creates: /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem
+
+
+- name: Acquire certificate for home.scottmuc.com
+  command: |
+    certbot certonly --standalone -d home.scottmuc.com \
+    --non-interactive --agree-tos -m "scottmuc@gmail.com"
+  args:
+    creates: /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem

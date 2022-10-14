@@ -33,6 +33,9 @@
   - name: Disable IPV6
     include_tasks: disable_ipv6_tasks.yml
 
+  - name: Fetch letsencrypt certificates
+    include_tasks: certbot_tasks.yml
+
   - name: Install nginx and configure websites
     include_tasks: nginx_tasks.yml
 

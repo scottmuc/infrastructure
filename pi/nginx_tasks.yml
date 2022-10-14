@@ -1,17 +1,10 @@
 - name: Install nginx package
-  apt: pkg=nginx
-
-- name: Install certbot package
-  apt: pkg=certbot
-
-
-# Make this happen only if neither certificates exist
-- name: Ensure nginx is stopped before certbot interactions
-  service:
+  apt:
     name: nginx
-    state: stopped
 
 
+# Look at replacing this with adding a file to
+# /etc/nginx/conf.d
 - name: Increase server_names_hash_bucket_size in nginx.conf
   lineinfile:
     path: /etc/nginx/nginx.conf
@@ -19,21 +12,6 @@
     line: "server_names_hash_bucket_size 64;"
   notify:
     - Restart nginx
-
-
-- name: Disable certbot.timer
-  service:
-    name: certbot.timer
-    enabled: false
-    state: stopped
-
-
-- name: Acquire certificate for www.goodenoughmoney.com
-  command: |
-    certbot certonly --standalone -d www.goodenoughmoney.com \
-    --non-interactive --agree-tos -m "scottmuc@gmail.com"
-  args:
-    creates: /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem
 
 
 - name: Setup www.goodenoughmoney.com home
@@ -61,14 +39,6 @@
     src: /etc/nginx/sites-available/goodenoughmoney.com
     dest: /etc/nginx/sites-enabled/goodenoughmoney.com
     state: link
-
-
-- name: Acquire certificate for home.scottmuc.com
-  command: |
-    certbot certonly --standalone -d home.scottmuc.com \
-    --non-interactive --agree-tos -m "scottmuc@gmail.com"
-  args:
-    creates: /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem
 
 
 - name: Install home.scottmuc.com config
@@ -102,6 +72,8 @@
     - Restart nginx
 
 
+# Are there trade-offs when ensuring a started and enabled state
+# in the same task?
 - name: Start nginx
   service:
     name: nginx
