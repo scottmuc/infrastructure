@@ -2,7 +2,13 @@
   apt:
     name: certbot
 
-
+# I've elected to disable automated renewals. This requires different
+# logic for renewing a certificate than creating new a new one. Rather
+# than renew certificates, I use the e-mail notification from letsencrypt
+# as cue to repave the PI. This ensures that the bootstrapping process
+# just works.
+#
+# ref: https://eff-certbot.readthedocs.io/en/stable/using.html#automated-renewals
 - name: Disable certbot.timer
   service:
     name: certbot.timer
@@ -15,12 +21,16 @@
 # - and when nginx is actually installed (ordering problem)
 #
 # The starting of nginx is left to the nginx_tasks.yml
+#
+# An alternative is to setup nginx so that the ACME challenge known pathes are
+# configured correctly so that the --standalone argument isn't used with certbot.
 - name: Ensure nginx is stopped before certbot interactions
   service:
     name: nginx
     state: stopped
 
 
+# TODO: convert these to 1 task using with_items
 - name: Acquire certificate for www.goodenoughmoney.com
   command: |
     certbot certonly --standalone -d www.goodenoughmoney.com \
