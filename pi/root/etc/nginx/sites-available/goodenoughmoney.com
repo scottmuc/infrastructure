@@ -6,7 +6,7 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/www.goodenoughmoney.com/privkey.pem;
 
     index index.html index.htm;
-    root /opt/goodenoughmoney;
+    root /opt/goodenoughmoney.com;
 }
 
 server {

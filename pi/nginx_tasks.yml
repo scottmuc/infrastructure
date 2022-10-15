@@ -14,13 +14,16 @@
     - Restart nginx
 
 
-- name: Setup www.goodenoughmoney.com home
+- name: Setup vhost directories
   file:
-    path: /opt/goodenoughmoney
+    path: /opt/{{ item.vhost }}
     state: directory
     owner: root
     group: admin
     mode: '0775'
+  loop:
+    - vhost: goodenoughmoney.com
+    - vhost: home.scottmuc.com
 
 
 - name: Install vhost configs
