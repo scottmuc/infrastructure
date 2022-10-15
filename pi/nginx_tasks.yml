@@ -14,42 +14,6 @@
     - Restart nginx
 
 
-- name: Setup vhost directories
-  file:
-    path: /opt/{{ item.vhost }}
-    state: directory
-    owner: root
-    group: admin
-    mode: '0775'
-  loop:
-    - vhost: goodenoughmoney.com
-    - vhost: home.scottmuc.com
-
-
-- name: Install vhost configs
-  copy:
-    src: root/etc/nginx/sites-available/{{ item.vhost }}
-    dest: /etc/nginx/sites-available/{{ item.vhost }}
-    owner: root
-    group: admin
-    mode: '0664'
-  notify:
-    - Restart nginx
-  loop:
-    - vhost: goodenoughmoney.com
-    - vhost: home.scottmuc.com
-
-
-- name: Enable vhosts
-  file:
-    src: /etc/nginx/sites-available/{{ item.vhost }}
-    dest: /etc/nginx/sites-enabled/{{ item.vhost }}
-    state: link
-  loop:
-    - vhost: goodenoughmoney.com
-    - vhost: home.scottmuc.com
-
-
 - name: Enable stub_status
   copy:
     src: root/etc/nginx/conf.d/status.conf

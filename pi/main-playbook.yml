@@ -36,8 +36,11 @@
   - name: Fetch letsencrypt certificates
     include_tasks: certbot_tasks.yml
 
-  - name: Install nginx and configure websites
+  - name: Install and configure nginx
     include_tasks: nginx_tasks.yml
+
+  - name: Setup nginx vhosts
+    include_tasks: vhost_tasks.yml
 
   - name: Setup USB Drive
     include_tasks: usb_drive_tasks.yml
