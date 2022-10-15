@@ -30,18 +30,15 @@
     state: stopped
 
 
-# TODO: convert these to 1 task using with_items
-- name: Acquire certificate for www.goodenoughmoney.com
+# TODO: use full names of certbot args
+#       inject fqdns from the playbook
+- name: Acquire certificates
   command: |
-    certbot certonly --standalone -d www.goodenoughmoney.com \
-    --non-interactive --agree-tos -m "scottmuc@gmail.com"
+    certbot certonly --standalone --non-interactive --agree-tos
+    -d {{ item.fqdn }} \
+    -m "scottmuc@gmail.com"
   args:
-    creates: /etc/letsencrypt/live/www.goodenoughmoney.com/fullchain.pem
-
-
-- name: Acquire certificate for home.scottmuc.com
-  command: |
-    certbot certonly --standalone -d home.scottmuc.com \
-    --non-interactive --agree-tos -m "scottmuc@gmail.com"
-  args:
-    creates: /etc/letsencrypt/live/home.scottmuc.com/fullchain.pem
+    creates: /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem
+  loop:
+    - fqdn: www.goodenoughmoney.com
+    - fqdn: home.scottmuc.com
