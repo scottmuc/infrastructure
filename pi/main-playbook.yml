@@ -9,6 +9,17 @@
     prometheus_version: "2.39.1"
     navidrome_version: "0.47.5"
     node_exporter_version: "1.4.0"
+    sysctls:
+      # https://linuxhint.com/understanding_vm_swappiness/
+      - name: vm.swappiness
+        value: '1'
+      # Disable IPv6
+      - name: net.ipv6.conf.all.disable_ipv6
+        value: '1'
+      - name: net.ipv6.conf.default.disable_ipv6
+        value: '1'
+      - name: net.ipv6.conf.lo.disable_ipv6
+        value: '1'
 
 
   roles:
@@ -23,15 +34,16 @@
       name: pi
       shell: /sbin/nologin
 
-    # https://linuxhint.com/understanding_vm_swappiness/
-  - name: Configure swappiness to a minimum
+  - name: Configure sysctls
     ansible.posix.sysctl:
-      name: vm.swappiness
-      value: '1'
+      name: "{{ item.name }}"
+      value: "{{ item.value }}"
       state: present
+    tags: [ sysctls ]
+    loop: "{{ sysctls }}"
 
-  - name: Disable IPV6
-    include_tasks: disable_ipv6_tasks.yml
+    #- name: Disable IPV6
+    #include_tasks: disable_ipv6_tasks.yml
 
   - name: Fetch letsencrypt certificates
     include_tasks: certbot_tasks.yml
