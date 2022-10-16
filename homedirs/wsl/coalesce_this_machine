@@ -8,6 +8,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIB_DIR="${DIR}/../common/lib"
 
 source "${LIB_DIR}/install_gum.bash"
+source "${LIB_DIR}/install_git_duet.bash"
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
 source "${LIB_DIR}/setup_neovim.bash"
 
@@ -18,6 +19,7 @@ main() {
   install_os_packages
   install_os_pip_packages
   install_gum
+  install_git_duet
   install_delta
   install_all_things_docker
   install_terraform
