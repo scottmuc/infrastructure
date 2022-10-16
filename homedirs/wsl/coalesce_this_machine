@@ -184,6 +184,7 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
+  ln -sfv "${common_dotfiles_dir}/dot.git-authors" ~/.git-authors
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
 
   # https://unix.stackexchange.com/a/355220
