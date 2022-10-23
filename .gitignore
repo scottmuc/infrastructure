@@ -3,3 +3,6 @@
 # ignore the colors directory managed by alacritty-colorscheme
 homedirs/common/dotfiles/dot.config/alacritty/colors
 homedirs/common/dotfiles/dot.config/alacritty.wsl/colors
+
+# this is where golang get's downloaded
+vendor/go
