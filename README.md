@@ -1,25 +1,23 @@
 # Mucrastructure
 
-### Prerequisites
-
-* Have `terraform`, and `git-crypt` installed
-
-### DNS
-
-* Follow prerequisites
-* Ensure the repository is unlocked (TODO, add a helper script to manage this)
-* `cd dns && terraform init && ./terraform_apply`
-
-### Pi
-
-All configuration and research of my Raspberry Pi is recorded [here](pi/README.md)
-
 ![Home Network](./home_network.png)
 
-### Homedirs
+## This Repository Contains
 
-The old [osx-homedir](https://github.com/scottmuc/osx-homedir) repository is retired
-and I am not storing configuration for all OS homedirs in [homedirs](homedirs)
+* [DNS](dns/) automation for all my domains
+* [Raspberry Pi Configuration Management](pi/) which performs the following: dhcpd, ad blocking dns, samba, music
+  service, monitoring
+* [Homedir configuration](homedirs) for WSL, Windows, and macOS
+* [tldr](tldr-pages/) custom pages
+
+### Coding Conventions
+
+* `bash` - I'm trying to follow the [Google][google-bash] styleguide as much as I can. The [Chromium][chrome-bash] and
+  [Apple][apple-bash] styleguides are also useful.
+
+[google-bash]: https://google.github.io/styleguide/shellguide.html
+[chrome-bash]: https://chromium.googlesource.com/chromiumos/docs/+/HEAD/styleguide/shell.md
+[apple-bash]: https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html
 
 ### Decision Log
 
