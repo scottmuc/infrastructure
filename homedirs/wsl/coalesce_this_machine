@@ -23,7 +23,7 @@ main() {
   install_delta
   install_all_things_docker
   install_terraform
-  install_1password_cli
+  install_1password_cli "2.7.2"
   install_golang
   configure_ansible
   default_to_zsh
@@ -146,13 +146,16 @@ install_os_pip_packages() {
 
 # https://developer.1password.com/docs/cli/install-server
 install_1password_cli() {
+  local version
+  # bash shenanigans... use specified version, if none specified, default to 2.0.0
+  version="${1:-2.0.0}"
   if command -v op &> /dev/null; then
     echo "op exists: $(op --version)"
     return
   fi
 
   curl -sSfo op.zip \
-    https://cache.agilebits.com/dist/1P/op2/pkg/v2.0.0/op_linux_amd64_v2.0.0.zip \
+    "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_linux_amd64_v${version}.zip" \
     && unzip -od ../../vendor/bin op.zip \
     && rm op.zip
 }
