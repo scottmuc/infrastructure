@@ -21,5 +21,5 @@ scrape_configs:
   - job_name: node_exporter
     static_configs:
       - targets:
-          - 192.168.2.197:9182
+          - 192.168.2.12:9182
           - localhost:9100
