@@ -12,9 +12,10 @@
 
 ### Coding Conventions
 
-* `bash` - I'm trying to follow the [Google][google-bash] styleguide as much as I can. The [Chromium][chrome-bash] and
-  [Apple][apple-bash] styleguides are also useful.
+* `bash` - Following the [Google][google-bash] styleguide as much as I can. The [Chromium][chrome-bash] and [Apple][apple-bash] styleguides are also useful.
+* `ansible`  Really like [this post][ansible-standards] on some basic standards.
 
+[ansible-standards]: https://www.ansiblejunky.com/blog/ansible-101-standards/
 [google-bash]: https://google.github.io/styleguide/shellguide.html
 [chrome-bash]: https://chromium.googlesource.com/chromiumos/docs/+/HEAD/styleguide/shell.md
 [apple-bash]: https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html
