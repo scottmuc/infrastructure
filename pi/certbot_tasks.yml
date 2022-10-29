@@ -16,30 +16,30 @@
     state: stopped
 
 
-# The logic for when this needs to happen is the following:
-# - when the complete set of certificates aren't fetched
-# - and when nginx is actually installed (ordering problem)
-#
-# The starting of nginx is left to the nginx_tasks.yml
-#
-# An alternative is to setup nginx so that the ACME challenge known pathes are
-# configured correctly so that the --standalone argument isn't used with certbot.
+# Nginx needs to be stopped so certbot --standalone can bind to port 80 to
+# fulfill the ACME challenges. This only needs to happen when the required
+# certificates don't exist, but haven't implemented logic for that yet.
+# The nginx_tasks.yml will ensure that the service is started eventually.
 - name: Ensure nginx is stopped before certbot interactions
   ansible.builtin.service:
     name: nginx
     state: stopped
+  # Ignoring errors handles the first exeuction problem where these tasks
+  # run before nginx is installed.
+  ignore_errors: true
 
 
-# TODO: use full names of certbot args
-#       inject fqdns from the playbook
+# TODO: inject fqdns from the playbook
 - name: Acquire certificates
   # This breaks when making it a fulle qualified module name
   command: |
     certbot certonly --standalone --non-interactive --agree-tos
     -d {{ item.fqdn }} \
-    -m "scottmuc@gmail.com"
+    -m {{ item.email }}
   args:
     creates: /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem
   loop:
     - fqdn: www.goodenoughmoney.com
+      email: "scottmuc@gmail.com"
     - fqdn: home.scottmuc.com
+      email: "scottmuc@gmail.com"
