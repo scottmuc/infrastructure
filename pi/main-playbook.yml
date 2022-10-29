@@ -28,11 +28,13 @@
 
 
   tasks:
-    # TODO: delete user (need to sort out systemd stuff)
-  - name: Disable the 'pi' user
+  # If this fails, it's likely due to user level systemd services running. A
+  # reboot will resolve it... will look into more elegant ways later.
+  - name: Delete the 'pi' bootstrap user
     ansible.builtin.user:
       name: pi
-      shell: /sbin/nologin
+      state: absent
+      remove: true
 
   - name: Configure sysctls
     ansible.posix.sysctl:
