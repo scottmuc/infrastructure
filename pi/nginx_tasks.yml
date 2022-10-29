@@ -21,8 +21,6 @@
     owner: root
     group: admin
     mode: '0664'
-  tags:
-    - wip
   notify:
     - Restart nginx
 

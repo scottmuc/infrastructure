@@ -49,7 +49,11 @@
     include_tasks: certbot_tasks.yml
 
   - name: Install and configure nginx
-    include_tasks: nginx_tasks.yml
+    tags: nginx
+    include_tasks:
+      file: nginx_tasks.yml
+      apply:
+        tags: nginx
 
   - name: Setup nginx vhosts
     include_tasks: vhost_tasks.yml
