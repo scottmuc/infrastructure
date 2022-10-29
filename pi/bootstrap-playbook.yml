@@ -6,12 +6,12 @@
 
   pre_tasks:
     - name: attempt to update apt's cache
-      apt:
+      ansible.builtin.apt:
         update_cache: true
 
   tasks:
     - name: Create admin user group
-      group:
+      ansible.builtin.group:
         name: admin
         system: true
         state: present
@@ -19,12 +19,12 @@
     # The Raspberry PI OS image comes with sudo installed, but will leave this
     # check here just in case that assumption changes.
     - name: Ensure sudo is installed
-      package:
+      ansible.builtin.package:
         name: sudo
         state: present
 
     - name: Create Ansible user
-      user:
+      ansible.builtin.user:
         name: ansible
         shell: /bin/bash
         comment: "Ansible management user"
@@ -32,14 +32,14 @@
         createhome: true
 
     - name: Add Ansible user to admin group
-      user:
+      ansible.builtin.user:
         name: ansible
         groups: admin
         append: true
 
     # https://stackoverflow.com/a/62459797
     - name: Ensure admin group can sudo
-      copy:
+      ansible.builtin.copy:
         state: present
         dest: /etc/sudoers.d/admin-group-nopasswd
         owner: root
@@ -49,7 +49,7 @@
           '%admin ALL=(ALL) NOPASSWD: ALL'
 
     - name: Add authorized keys
-      authorized_key:
+      ansible.builtin.authorized_key:
         user: ansible
         state: present
         key: https://github.com/scottmuc.keys

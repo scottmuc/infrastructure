@@ -1,5 +1,5 @@
 - name: Node exporter application directory
-  file:
+  ansible.builtin.file:
     path: /opt/node_exporter
     state: directory
     owner: prometheus
@@ -8,7 +8,7 @@
 
 
 - name: Node exporter versioned directory
-  file:
+  ansible.builtin.file:
     path: "/opt/node_exporter/{{ node_exporter_version }}"
     state: directory
     owner: prometheus
@@ -17,7 +17,7 @@
 
 
 - name: Download node exporter
-  unarchive:
+  ansible.builtin.unarchive:
     src: "https://github.com/prometheus/node_exporter/releases/download/v{{ node_exporter_version}}/node_exporter-{{ node_exporter_version }}.linux-armv7.tar.gz"
     remote_src: true
     dest: "/opt/node_exporter/{{ node_exporter_version }}"
@@ -27,7 +27,7 @@
 
 
 - name: Symlink current node exporter version
-  file:
+  ansible.builtin.file:
     src: "/opt/node_exporter/{{ node_exporter_version }}"
     dest: "/opt/node_exporter/live"
     state: link
@@ -36,7 +36,7 @@
 
 
 - name: Install node exporter service
-  copy:
+  ansible.builtin.copy:
     src: root/etc/systemd/system/node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
     owner: root
@@ -48,7 +48,7 @@
 
 
 - name: Ensure node exporter is running
-  service:
+  ansible.builtin.service:
     name: node_exporter
     state: started
     enabled: true

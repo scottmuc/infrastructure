@@ -1,12 +1,12 @@
 - name: Prometheus user
-  user:
+  ansible.builtin.user:
     name: prometheus
     comment: Service account for prometheus process
     system: true
 
 
 - name: Prometheus application directory
-  file:
+  ansible.builtin.file:
     path: /opt/prometheus
     state: directory
     owner: prometheus
@@ -15,7 +15,7 @@
 
 
 - name: Prometheus versioned directory
-  file:
+  ansible.builtin.file:
     path: "/opt/prometheus/{{ prometheus_version }}"
     state: directory
     owner: prometheus
@@ -24,7 +24,7 @@
 
 
 - name: Download prometheus
-  unarchive:
+  ansible.builtin.unarchive:
     src: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-armv7.tar.gz"
     remote_src: true
     dest: "/opt/prometheus/{{ prometheus_version }}"
@@ -34,7 +34,7 @@
 
 
 - name: Symlink current prometheus version
-  file:
+  ansible.builtin.file:
     src: "/opt/prometheus/{{ prometheus_version }}"
     dest: "/opt/prometheus/live"
     state: link
@@ -43,7 +43,7 @@
 
 
 - name: Install prometheus configuration
-  copy:
+  ansible.builtin.copy:
     src: root/opt/prometheus/prometheus.yml
     dest: /opt/prometheus/prometheus.yml
     owner: prometheus
@@ -54,7 +54,7 @@
 
 
 - name: Install prometheus service
-  copy:
+  ansible.builtin.copy:
     src: root/etc/systemd/system/prometheus.service
     dest: /etc/systemd/system/prometheus.service
     owner: root
@@ -67,7 +67,7 @@
 # We can triger restart handlers that fail to start the service
 # https://stackoverflow.com/questions/37843998/how-to-stop-ansible-from-starting-then-restarting-a-service
 - name: Ensure prometheus is running
-  service:
+  ansible.builtin.service:
     name: prometheus
     state: started
     enabled: true

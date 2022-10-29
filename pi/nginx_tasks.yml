@@ -1,12 +1,12 @@
 - name: Install nginx package
-  apt:
+  ansible.builtin.apt:
     name: nginx
 
 
 # Look at replacing this with adding a file to
 # /etc/nginx/conf.d
 - name: Increase server_names_hash_bucket_size in nginx.conf
-  lineinfile:
+  ansible.builtin.lineinfile:
     path: /etc/nginx/nginx.conf
     insertafter: "^http {"
     line: "server_names_hash_bucket_size 64;"
@@ -15,7 +15,7 @@
 
 
 - name: Enable stub_status
-  copy:
+  ansible.builtin.copy:
     src: root/etc/nginx/conf.d/status.conf
     dest: /etc/nginx/conf.d/status.conf
     owner: root
@@ -30,7 +30,7 @@
 # Are there trade-offs when ensuring a started and enabled state
 # in the same task?
 - name: Start nginx
-  service:
+  ansible.builtin.service:
     name: nginx
     state: started
     enabled: true

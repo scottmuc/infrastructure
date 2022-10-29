@@ -1,12 +1,12 @@
 - name: Navidrome user
-  user:
+  ansible.builtin.user:
     name: navidrome
     comment: Service account for navidrome process
     system: true
 
 
 - name: Navidrome application directory
-  file:
+  ansible.builtin.file:
     path: /opt/navidrome
     state: directory
     owner: navidrome
@@ -15,7 +15,7 @@
 
 
 - name: Navidrome versioned directory
-  file:
+  ansible.builtin.file:
     path: "/opt/navidrome/{{ navidrome_version }}"
     state: directory
     owner: navidrome
@@ -24,7 +24,7 @@
 
 
 - name: Download navidrome
-  unarchive:
+  ansible.builtin.unarchive:
     src: "https://github.com/deluan/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_Linux_armv7.tar.gz"
     remote_src: true
     dest: "/opt/navidrome/{{ navidrome_version }}"
@@ -32,7 +32,7 @@
 
 
 - name: Symlink current navidrome version
-  file:
+  ansible.builtin.file:
     src: "/opt/navidrome/{{ navidrome_version }}"
     dest: "/opt/navidrome/live"
     state: link
@@ -44,7 +44,7 @@
 
 
 - name: ffmpeg directory
-  file:
+  ansible.builtin.file:
     path: /opt/navidrome/ffmpeg
     state: directory
     owner: navidrome
@@ -53,7 +53,7 @@
 
 
 - name: Download ffmpeg
-  unarchive:
+  ansible.builtin.unarchive:
     src: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-armhf-static.tar.xz
     remote_src: true
     dest: /opt/navidrome/ffmpeg
@@ -63,7 +63,7 @@
 
 
 - name: Install navidrome configuration
-  copy:
+  ansible.builtin.copy:
     src: root/opt/navidrome/navidrome.toml
     dest: /opt/navidrome/navidrome.toml
     owner: navidrome
@@ -74,7 +74,7 @@
 
 
 - name: Install navidrome service
-  copy:
+  ansible.builtin.copy:
     src: root/etc/systemd/system/navidrome.service
     dest: /etc/systemd/system/navidrome.service
     owner: root
@@ -86,7 +86,7 @@
 
 
 - name: Ensure navidrome is running
-  service:
+  ansible.builtin.service:
     name: navidrome
     state: started
     enabled: true

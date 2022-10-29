@@ -30,7 +30,7 @@
   tasks:
     # TODO: delete user (need to sort out systemd stuff)
   - name: Disable the 'pi' user
-    user:
+    ansible.builtin.user:
       name: pi
       shell: /sbin/nologin
 

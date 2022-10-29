@@ -1,12 +1,12 @@
 - name: Install fuse packages
-  apt:
+  ansible.builtin.apt:
     pkg:
       - exfat-fuse
       - exfat-utils
 
 
 - name: Create USB mount point
-  file:
+  ansible.builtin.file:
     path: /mnt/usb
     state: directory
     owner: root

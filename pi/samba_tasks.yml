@@ -1,10 +1,10 @@
 - name: Install samba package
-  apt:
+  ansible.builtin.apt:
     name: samba
 
 
 - name: Creating Samba specific user
-  user:
+  ansible.builtin.user:
     name: smbrw
     comment: Samba RW
     create_home: true
@@ -12,7 +12,7 @@
 
 
 - name: Add share information
-  blockinfile:
+  ansible.builtin.blockinfile:
     dest: /etc/samba/smb.conf
     block: |
       [fileserver]
@@ -27,7 +27,7 @@
 
 
 - name: Ensure smbd is running
-  service:
+  ansible.builtin.service:
     name: smbd
     state: started
     enabled: true

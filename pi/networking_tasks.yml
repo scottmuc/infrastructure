@@ -1,19 +1,19 @@
 - name: Ensure dhcpcd is stopped
-  service:
+  ansible.builtin.service:
     name: dhcpcd
     state: stopped
     enabled: false
 
 
 - name: Uninstall dhcpcd5
-  apt:
+  ansible.builtin.apt:
     name: dpcpcd5
     state: absent
 
 
 - name: Setup static IP
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: /etc/network/interfaces.d/eth0
     owner: root
     group: admin

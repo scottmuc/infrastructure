@@ -1,9 +1,9 @@
 - name: Install dnsmasq package
-  apt:
+  ansible.builtin.apt:
     name: dnsmasq
 
 - name: Configure dnsmasq
-  copy:
+  ansible.builtin.copy:
     src: root/etc/dnsmasq.conf
     dest: /etc/dnsmasq.conf
     owner: root
@@ -14,7 +14,7 @@
 
 
 - name: Ensure dnsmasq service is started
-  service:
+  ansible.builtin.service:
     name: dnsmasq
     state: started
     enabled: true
