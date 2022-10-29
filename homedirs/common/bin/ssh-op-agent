@@ -151,7 +151,7 @@ load() {
     SSH_OP_ASKPASS_NOTE="${note_name}" \
     SSH_OP_ASKPASS_FIELD="${password_field_name}" \
     SSH_ASKPASS_REQUIRE="${askpass_require}" \
-    SSH_ASKPASS="ssh_op_askpass" \
+    SSH_ASKPASS="ssh-op-askpass" \
     ssh-add -t "${timeout_in_seconds}" - <<< "$(echo -e "${decoded_key}")"
 }
 

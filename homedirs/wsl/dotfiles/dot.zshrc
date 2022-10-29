@@ -43,8 +43,8 @@ fi
 
 # GREP_OPTIONS env variable is deprecated
 alias grep='grep --color'
-alias op_auth='eval $(op signin)'
-alias keys="ssh_op_agent load -n machine.air -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
+alias opauth='eval $(op signin)'
+alias keys="ssh-op-agent load -n machine.air -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
 
 
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
