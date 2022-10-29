@@ -3,13 +3,16 @@
     name: nginx
 
 
-# Look at replacing this with adding a file to
-# /etc/nginx/conf.d
-- name: Increase server_names_hash_bucket_size in nginx.conf
-  ansible.builtin.lineinfile:
-    path: /etc/nginx/nginx.conf
-    insertafter: "^http {"
-    line: "server_names_hash_bucket_size 64;"
+# Favouring complete overwrite of the configuration file coming from the
+# package manager due to reasons identified here:
+# https://serverfault.com/questions/825363/override-default-nginx-http-configuration-without-changing-default-nginx-conf
+- name: Nginx configuration
+  ansible.builtin.copy:
+    src: root/etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: admin
+    mode: '0664'
   notify:
     - Restart nginx
 
