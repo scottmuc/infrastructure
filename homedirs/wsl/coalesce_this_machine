@@ -139,6 +139,7 @@ install_os_packages() {
     gnupg                 \
     graphviz              \
     jq                    \
+    myrepos               \
     neovim                \
     python3               \
     python3-virtualenv    \
