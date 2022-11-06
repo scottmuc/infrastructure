@@ -23,3 +23,10 @@ scrape_configs:
       - targets:
           - 192.168.2.12:9182
           - localhost:9100
+
+  - job_name: navidrome
+    metrics_path: /music/metrics
+    scheme: https
+    static_configs:
+      - targets:
+          - home.scottmuc.com:443

@@ -16,6 +16,7 @@ TimeoutStopSec=20
 KillMode=process
 Restart=on-failure
 Environment="PATH=/opt/navidrome/ffmpeg"
+Environment="ND_PROMETHEUS_ENABLED=true"
 
 # See https://www.freedesktop.org/software/systemd/man/systemd.exec.html
 DevicePolicy=closed
