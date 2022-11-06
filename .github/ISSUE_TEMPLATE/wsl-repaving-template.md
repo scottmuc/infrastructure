@@ -31,7 +31,7 @@ all the [previous repave issues][repave-history]. Have fun!
 
   Then run:
 
- `~/workspace/infrastructure/homedirs/windows/Repave-WSLInstance.ps`
+  `~/workspace/infrastructure/homedirs/windows/Repave-WSLInstance.ps`
 </details>
 
 - [ ] Clone and run coalesce script<details>
@@ -45,21 +45,54 @@ all the [previous repave issues][repave-history]. Have fun!
   ```
 </details>
 
+- [ ] Reboot WSL Instance<details>
+  <summary>Instructions</summary>
+
+  In order for `/etc/wsl.conf` to take effect we need to restart the
+  WSL instance.
+
+  `wsl --shutdown Ubuntu`
+
+</details>
+
 - [ ] Initalize 1Password<details>
   <summary>Instructions</summary>
 
-  As an admin, run:
+  `inialized-1password`
 
-  `Set-ExecutionPolicy -ExectionPolicy RemoteSigned`
+</details>
 
-  Then run:
+- [ ] Load GPG Keys<details>
+  <summary>Instructions</summary>
 
- `~/workspace/infrastructure/homedirs/windows/Repave-WSLInstance.ps`
+  ```
+  opauth
+  keys
+  gpg-op restore -e scottATscottmuc.com
+  ```
+
 </details>
 
 # Verification Steps
 
-- [ ] Attempt DNS Change
+- [ ] Decrypt Repository<details>
+  <summary>Instructions</summary>
+
+  ```
+  ./scripts/locksmith unlock
+  ```
+</details>
+
+- [ ] Attempt DNS Change<details>
+  <summary>Instructions</summary>
+
+  ```
+  cd dns
+  terraform init
+  # add TXT record to graffiti.scottmuc.com
+  ./terraform_apply
+  ```
+</details>
 
 - [ ] Configure PI (tests ansible)
 
