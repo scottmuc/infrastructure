@@ -42,7 +42,7 @@ main() {
       "id": "base64 encoded ssh private key",
       "type": "concealed",
       "label": "base64 encoded ssh private key",
-      "value": "$(echo "${private_key}" | base64)"
+      "value": "$(echo "${private_key}" | base64 | xargs | sed 's/ //g' )"
     },
     {
       "id": "ssh key passphrase",
@@ -69,7 +69,7 @@ JSON
     --category="Secure Note" \
     --vault="Automation" \
     --title="${secret_title}" \
-    --template=<(echo ${credential_json}) 2>/dev/null
+    --template=<(echo ${credential_json})
 }
 
 print_usage_and_exit() {
