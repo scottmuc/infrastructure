@@ -7,7 +7,6 @@ set -o pipefail
 
 main() {
   local secret_title
-  local encoded_json
   local ssh_key_passphrase
   local private_key
   local public_key
@@ -23,10 +22,12 @@ main() {
 
   ssh_key_passphrase="$(xkcd-password-generator)"
   temp_dir=$(mktemp -d -t tmp.XXXXXXXXXX)
+  # we want to the value of temp_dir
+  # shellcheck disable=SC2064
   trap "cleanup ${temp_dir}" EXIT
   ssh-keygen -t rsa -b 2048 -C "${secret_title}" -f "${temp_dir}/id_rsa" -N "${ssh_key_passphrase}"
-  private_key=$(jq -n --arg key "$(cat ${temp_dir}/id_rsa)" '{ test: $key }' | jq .test | tr  -d '"')
-  public_key=$(cat ${temp_dir}/id_rsa.pub)
+  private_key=$(jq -n --arg key "$(cat "${temp_dir}/id_rsa")" '{ test: $key }' | jq .test | tr  -d '"')
+  public_key=$(cat "${temp_dir}/id_rsa.pub")
 
   github_token=$(op read op://Automation/github-ssh-key-rotator/token)
 
@@ -65,6 +66,8 @@ source: https://github.com/scottmuc/infrastructure/blob/main/homedirs/common/bin
 JSON
   true
 
+  # purposefully not quoting a variable to prevent linebreaks from rendering
+  # shellcheck disable=SC2086
   op item create \
     --category="Secure Note" \
     --vault="Automation" \
@@ -90,7 +93,7 @@ HELP
 }
 
 log_into_1password() {
-  eval $(op signin)
+  eval "$(op signin)"
 }
 
 cleanup() {
