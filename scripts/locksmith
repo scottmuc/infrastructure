@@ -3,12 +3,19 @@
 set -e
 set -o pipefail
 
+# from https://stackoverflow.com/a/246128
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
 main() {
   local sub_command
   sub_command="$1"
   case "$sub_command" in
     unlock)
-      base64_key="$(op read op://Automation/infrastructure-git-crypt-key/git-crypt-key)"
+      local locksmith_file
+      locksmith_file=$(find_locksmith_file "${DIR}")
+      # because of the following line, this script shouldn't be copy
+      # pasted blindly!
+      base64_key="$(eval $(cat "${locksmith_file}"))"
       git-crypt unlock <(echo "${base64_key}" | base64 --decode -)
       ;;
     lock)
@@ -28,6 +35,21 @@ main() {
   esac
 }
 
+find_locksmith_file() {
+  local search_dir
+  search_dir="${1:-/}"
+
+  if [[ "${search_dir}" = "/" ]]; then
+    exit 1
+  fi
+
+  if [[ -f "${search_dir}/.locksmith" ]]; then
+    echo "${search_dir}/.locksmith"
+  else
+    find_locksmith_file "$(realpath ${search_dir}/..)"
+  fi
+}
+
 print_usage_and_exit() {
   cat <<HELP
 usage: $0 <command>
@@ -36,13 +58,18 @@ Manages the locking of this repository
 
 Commands:
  - unlock
-     decrypts the contents defined in .gitattributes
+     Decrypts the contents defined in .gitattributes
+
+     Recursively looks for a .locksmith file. Once find,
+     the contents are evaluated and the output is assumed
+     to be the git-crypt key
+
 
  - lock
-     encrypts the contents defined in .gitattributes
+     Encrypts the contents defined in .gitattributes
 
  - status
-     prints locked/unlocked
+     Prints locked/unlocked
 
 HELP
 
