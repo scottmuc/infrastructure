@@ -25,9 +25,9 @@ main() {
   # we want to the value of temp_dir
   # shellcheck disable=SC2064
   trap "cleanup ${temp_dir}" EXIT
-  ssh-keygen -t rsa -b 2048 -C "${secret_title}" -f "${temp_dir}/id_rsa" -N "${ssh_key_passphrase}"
-  private_key=$(jq -n --arg key "$(cat "${temp_dir}/id_rsa")" '{ test: $key }' | jq .test | tr  -d '"')
-  public_key=$(cat "${temp_dir}/id_rsa.pub")
+  ssh-keygen -t ed25519 -C "${secret_title}" -f "${temp_dir}/id_ed25519" -N "${ssh_key_passphrase}"
+  private_key=$(jq -n --arg key "$(cat "${temp_dir}/id_ed25519")" '{ test: $key }' | jq .test | tr  -d '"')
+  public_key=$(cat "${temp_dir}/id_ed25519.pub")
 
   github_token=$(op read op://Automation/github-ssh-key-rotator/token)
 
@@ -81,7 +81,7 @@ usage: $0 <name of credential>
 
 Generates the following:
 
-  - 2048 bit RSA key protected with a passphrase
+  - ed25519 key protected with a passphrase
   - Public key reference in GitHub
 
 The private key, and all the passphrases will be stored in a 1Password
