@@ -3,7 +3,15 @@
 set -e
 
 playbook=$(find . -name "*playbook.yml" | sort -r | gum choose)
-tags=$(gum choose "all" "sysctls" "prometheus" "navidrome" "nginx")
+tags=$(gum choose \
+  "all"           \
+  "certbot"       \
+  "sysctls"       \
+  "prometheus"    \
+  "navidrome"     \
+  "nginx"         \
+)
+
 ip=$(gum choose "192.168.2.10" "other")
 
 if [ "${ip}" = "other" ]; then

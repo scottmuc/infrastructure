@@ -25,6 +25,7 @@
   roles:
   - logging
   - dnsresolver
+  - certificates
 
 
   tasks:
@@ -43,12 +44,6 @@
       state: present
     tags: [ sysctls ]
     loop: "{{ sysctls }}"
-
-    #- name: Disable IPV6
-    #include_tasks: disable_ipv6_tasks.yml
-
-  - name: Fetch letsencrypt certificates
-    include_tasks: certbot_tasks.yml
 
   - name: Install and configure nginx
     tags: nginx

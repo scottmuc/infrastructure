@@ -1,0 +1,19 @@
+galaxy_info:
+  author: Scott Muc
+  description: installs certificates from letsencrypt
+  license: Unlicense
+
+  # I've been running this from WSL so calling it the "min"
+  min_ansible_version: 2.10
+
+  platforms:
+    - name: Debian
+      versions:
+        - 11
+
+  galaxy_tags:
+    - private
+
+dependencies: []
+  # List your role dependencies here, one per line. Be sure to remove the '[]' above,
+  # if you add dependencies to this list.
