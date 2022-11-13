@@ -25,6 +25,7 @@
   roles:
   - logging
   - dnsresolver
+  - staticip
   - certificates
 
 
@@ -60,9 +61,6 @@
 
   - name: Setup Samba
     include_tasks: samba_tasks.yml
-
-  - name: Configure static IP
-    include_tasks: networking_tasks.yml
 
   - name: Install dnsmasq
     include_tasks: dhcpd_tasks.yml
