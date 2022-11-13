@@ -33,7 +33,7 @@
 
 [alias]
     st = status
-    ci = commit
+    ci = duet-commit
     co = checkout
 
     # custom log that is a copy of Gary Bernhardt's
