@@ -8,6 +8,7 @@ tags=$(gum choose \
   "certbot"       \
   "sysctls"       \
   "prometheus"    \
+  "grafana"       \
   "navidrome"     \
   "nginx"         \
 )

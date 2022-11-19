@@ -83,7 +83,11 @@
     include_tasks: node_exporter_tasks.yml
 
   - name: Install grafana
-    include_tasks: grafana_tasks.yml
+    tags: grafana
+    include_tasks:
+      file: grafana_tasks.yml
+      apply:
+        tags: grafana
 
 
   handlers:

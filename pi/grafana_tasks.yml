@@ -1,12 +1,19 @@
+- name: Delete old Grafana Apt Repository
+  ansible.builtin.apt_repository:
+    repo: deb https://packages.grafana.com/oss/deb stable main
+    state: absent
+
+# Introduce the new repository
+# https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#repository-migration-november-8th-2022
 - name: Install Grafana Apt Keys
   ansible.builtin.apt_key:
-    url: https://packages.grafana.com/gpg.key
+    url: https://apt.grafana.com/gpg.key
     state: present
 
 
 - name: Add Grafana Apt Repository
   ansible.builtin.apt_repository:
-    repo: deb https://packages.grafana.com/oss/deb stable main
+    repo: deb https://apt.grafana.com stable main
     state: present
 
 
