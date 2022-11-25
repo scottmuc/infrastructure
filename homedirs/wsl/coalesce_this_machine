@@ -28,6 +28,7 @@ main() {
   install_all_things_docker
   install_terraform
   install_flyctl
+  install_nvm
   install_gum "0.8.0"
   install_git_duet "0.9.0"
   install_delta "0.14.0"
@@ -36,9 +37,17 @@ main() {
   install_alacritty_colorscheme "1.0.1"
 }
 
+install_nvm() {
+  if command -v nvm >/dev/null; then
+    echo "nvm exists: $(nvm --version)"
+    return
+  fi
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
+}
+
 install_flyctl() {
   if command -v flyctl >/dev/null; then
-    echo "flyctl exists: $(flyctl --version)"
+    echo "flyctl exists: $(flyctl version)"
     return
   fi
   export FLYCTL_INSTALL="${HOME}/workspace/infrastructure/vendor"
