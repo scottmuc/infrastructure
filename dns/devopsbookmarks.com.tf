@@ -31,7 +31,7 @@ resource "gandi_livedns_record" "www_devopsbookmarks_com" {
   type = "CNAME"
   ttl = "3600"
   values = [
-    "devopsbookmarks.fly.dev"
+    "devopsbookmarks.fly.dev."
   ]
 }
 
