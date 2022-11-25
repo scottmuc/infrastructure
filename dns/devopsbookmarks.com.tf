@@ -9,7 +9,7 @@ resource "gandi_livedns_record" "at_devopsbookmarks_com" {
   type = "A"
   ttl = "3600"
   values = [
-    "217.70.184.38"
+    "149.248.210.13"
   ]
 }
 
@@ -20,6 +20,6 @@ resource "gandi_livedns_record" "www_devopsbookmarks_com" {
   type = "CNAME"
   ttl = "3600"
   values = [
-    "devops-bookmarks.herokuapp.com."
+    "devopsbookmarks.fly.dev"
   ]
 }
