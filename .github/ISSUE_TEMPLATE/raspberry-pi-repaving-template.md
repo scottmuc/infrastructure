@@ -27,7 +27,7 @@ all the [previous repave issues][repave-history]. Have fun!
 
   Ensure that when we renew our DCHP lease, it comes from our router.
 
-  `sudo systemctl stop kea-dhcp4-server`
+  `sudo systemctl stop dnsmasq`
 </details>
 
 - [ ] Enable DHCP on the router and remove port mapping and release/renew IP address<details>
@@ -56,6 +56,8 @@ all the [previous repave issues][repave-history]. Have fun!
 
   **note** check if the underlying Debian distribution is changing as this might result
   in some issues in the playbook execution.
+
+  The Bullseye 64-bit lite image seems to work for now.
 
   [advanced-options]: https://www.raspberrypi.com/documentation/computers/getting-started.html#advanced-options
 </details>
