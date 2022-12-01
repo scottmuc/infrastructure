@@ -40,13 +40,12 @@
     # https://stackoverflow.com/a/62459797
     - name: Ensure admin group can sudo
       ansible.builtin.copy:
-        state: present
         dest: /etc/sudoers.d/admin-group-nopasswd
         owner: root
         group: root
         mode: '0440'
         content: |
-          '%admin ALL=(ALL) NOPASSWD: ALL'
+          %admin ALL=(ALL) NOPASSWD: ALL
 
     - name: Add authorized keys
       ansible.builtin.authorized_key:
