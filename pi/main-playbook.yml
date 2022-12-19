@@ -25,8 +25,6 @@
   roles:
   - logging
   - dnsresolver
-  - certificates
-
 
   tasks:
   # If this fails, it's likely due to user level systemd services running. A
@@ -44,6 +42,9 @@
       state: present
     tags: [ sysctls ]
     loop: "{{ sysctls }}"
+
+  - name: Setup certbot and install certificates
+    include_tasks: tasks/certificates.yml
 
   - name: Install and configure nginx
     tags: nginx
