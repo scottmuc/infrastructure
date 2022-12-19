@@ -25,7 +25,6 @@
   roles:
   - logging
   - dnsresolver
-  - staticip
   - certificates
 
 
@@ -89,6 +88,8 @@
       apply:
         tags: grafana
 
+  - name: Configure a static IP address
+    include_tasks: tasks/staticip.yml
 
   handlers:
     # It's important that Systemd reload is defined first here
