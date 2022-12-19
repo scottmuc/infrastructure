@@ -8,19 +8,6 @@
     state: stopped
     enabled: false
 
-- name: Use public DNS for installation
-  become: true
-  copy:
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: '0664'
-    content: |
-      search home.scottmuc.com
-      nameserver 8.8.8.8
-      nameserver 1.1.1.1
-
-
 - name: Install unbound package
   apt:
     name: unbound
@@ -59,14 +46,3 @@
     name: unbound
     state: started
     enabled: true
-
-- name: Use my home DNS servers
-  become: true
-  copy:
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: '0664'
-    content: |
-      search home.scottmuc.com
-      nameserver 127.0.0.1
