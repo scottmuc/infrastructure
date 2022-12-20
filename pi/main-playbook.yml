@@ -22,10 +22,6 @@
         value: '1'
 
 
-  roles:
-  - logging
-  - dnsresolver
-
   tasks:
   # If this fails, it's likely due to user level systemd services running. A
   # reboot will resolve it... will look into more elegant ways later.
@@ -42,6 +38,13 @@
       state: present
     tags: [ sysctls ]
     loop: "{{ sysctls }}"
+
+
+  - name: Configure syslog forwarding
+    include_tasks: tasks/logging.yml
+
+  - name: Setup ad blocking DNS resolver
+    include_tasks: tasks/dnsresolver.yml
 
   - name: Setup certbot and install certificates
     include_tasks: tasks/certificates.yml
@@ -141,4 +144,16 @@
     - name: Restart grafana
       ansible.builtin.service:
         name: grafana-server
+        state: restarted
+
+
+    - name: Restart unbound
+      ansible.builtin.service:
+        name: unbound
+        state: restarted
+
+
+    - name: Restart rsyslog
+      ansible.builtin.service:
+        name: rsyslog
         state: restarted
