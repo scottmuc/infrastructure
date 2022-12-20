@@ -11,6 +11,7 @@ tags=$(gum choose \
   "grafana"       \
   "navidrome"     \
   "nginx"         \
+  "logging"       \
 )
 
 ip=$(gum choose "192.168.2.10" "other")

@@ -39,9 +39,12 @@
     tags: [ sysctls ]
     loop: "{{ sysctls }}"
 
-
   - name: Configure syslog forwarding
-    include_tasks: tasks/logging.yml
+    tags: logging
+    include_tasks:
+      file: tasks/logging.yml
+      apply:
+        tags: logging
 
   - name: Setup ad blocking DNS resolver
     include_tasks: tasks/dnsresolver.yml
