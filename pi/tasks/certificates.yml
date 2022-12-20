@@ -17,21 +17,21 @@
 
 
 # Nginx needs to be stopped so certbot --standalone can bind to port 80 to
-# fulfill the ACME challenges. This only needs to happen when the required
-# certificates don't exist, but haven't implemented logic for that yet.
-# The nginx_tasks.yml will ensure that the service is started eventually.
-- name: Ensure nginx is stopped before certbot interactions
-  ansible.builtin.service:
-    name: nginx
-    state: stopped
-  # Ignoring errors handles the first exeuction problem where these tasks
-  # run before nginx is installed.
-  ignore_errors: true
+# fulfill the ACME challenges. This code only needs to be uncommented when
+# adding a new FQDN. It can be left commented out for the initial run.
+# TODO: uncomment this and run it based on a configuration flag
+# - name: Ensure nginx is stopped before certbot interactions
+#   ansible.builtin.service:
+#     name: nginx
+#     state: stopped
 
 
+# In order for this task to work, the FQDNs need to have dns records set
+# to my home IP address, and port 80 needs to be forwarded to the PI from
+# the router.
 # TODO: inject fqdns from the playbook
 - name: Acquire certificates
-  # This breaks when making it a fulle qualified module name
+  # This breaks when making it a full qualified module name
   command: |
     certbot certonly --standalone --non-interactive --agree-tos
     -d {{ item.fqdn }} \
