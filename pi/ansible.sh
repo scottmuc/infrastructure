@@ -17,16 +17,19 @@ tags=$(gum choose \
 )
 
 gum style --bold "Select inventory"
-ip=$(gum choose "192.168.2.10" "other")
+inventory_choice=$(gum choose "inventory file" "specific ip")
 
-if [ "${ip}" = "other" ]; then
-  ip=$(gum input --placeholder "192.168.2.x")
+if [ "${inventory_choice}" = "specific ip" ]; then
+  inventory_arg="$(gum input --placeholder "192.168.2.x"),"
+else
+  inventory_arg="inventory.ini"
 fi
 
-gum confirm "Deploy ${playbook} to ${ip}?" || exit 1
+gum confirm "Deploy ${playbook} using ${inventory_choice}?" || exit 1
 
+set -x
 ansible-playbook \
   --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
-  --inventory "${ip}," \
+  --inventory "${inventory_arg}" \
   --tags "${tags}" \
   "${playbook}"
