@@ -6,7 +6,7 @@
   become: true
   # Are these global? Yes, they are.
   vars:
-    prometheus_version: "2.39.1"
+    prometheus_version: "2.41.0"
     navidrome_version: "0.48.0"
     node_exporter_version: "1.4.0"
     sysctls:
