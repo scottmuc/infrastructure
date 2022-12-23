@@ -1,11 +1,5 @@
 # TLS info came from:
 # https://www.papertrail.com/help/encrypting-remote-syslog-with-tls-ssl/
-# TODO: revisit how variables get defined here
-- name: Include vars
-  include_vars:
-    file: secret_vars.yml
-    name: secrets
-
 - name: Ensure required packages are installed
   apt:
     name: rsyslog-gnutls

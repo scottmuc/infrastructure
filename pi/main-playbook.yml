@@ -39,6 +39,13 @@
     tags: [ sysctls ]
     loop: "{{ sysctls }}"
 
+  # TODO: revisit how variables get defined here
+  - name: Include vars
+    include_vars:
+      file: secret_vars.yml
+      name: secrets
+    tags: [ logging ]
+
   - name: Configure syslog forwarding
     tags: logging
     include_tasks:
