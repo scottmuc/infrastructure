@@ -19,15 +19,15 @@
   copy:
     dest: /etc/rsyslog.d/papertrail.conf
     content: |
-      $DefaultNetstreamDriverCAFile /etc/papertrail-bundle.pem
-      $ActionSendStreamDriver gtls
-      $ActionSendStreamDriverMode 1
-      $ActionSendStreamDriverAuthMode x509/name
+      global(DefaultNetstreamDriverCAFile="/etc/papertrail-bundle.pem")
       $ActionSendStreamDriverPermittedPeer *.papertrailapp.com
 
       *.* action(type="omfwd"
                  target="{{ secrets.rsyslog_forwarding_target }}"
                  port="{{ secrets.rsyslog_forwarding_port }}"
+                 StreamDriver="gtls"
+                 StreamDriverMode="1"
+                 StreamDriverAuthMode="x509/name"
                  protocol="tcp")
     owner: root
     group: admin
