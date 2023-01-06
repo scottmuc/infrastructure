@@ -27,7 +27,7 @@
                  port="{{ secrets.rsyslog_forwarding_port }}"
                  StreamDriver="gtls"
                  StreamDriverMode="1"
-                 StreamDriverAuthMode="x509/name"
+                 StreamDriverAuthMode="anon"
                  protocol="tcp")
     owner: root
     group: admin
