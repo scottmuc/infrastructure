@@ -79,7 +79,7 @@ all the [previous repave issues][repave-history]. Have fun!
   * `choco install Boxstarter`
 </details>
 
-- [ ] Install my Box Starter Package <details>
+- [ ] Install Boostrap BoxStarter Package <details>
   <summary>Instructions</summary>
 
   Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
@@ -89,11 +89,25 @@ all the [previous repave issues][repave-history]. Have fun!
   Launch Powershell with elevated privileges:
 
   ```
-  Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/master/homedirs/windows/boxstarter.ps1
+  Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/main/homedirs/windows/boxstarter.bootstrap.ps1
   ```
 </details>
 
 - [ ] Windows update
+
+- [ ] Install Main BoxStarter Package <details>
+  <summary>Instructions</summary>
+
+  Thanks [Rich Turner][rich-turner-boxstarter] for your excellent example!
+
+  [rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
+
+  Launch Powershell with elevated privileges:
+
+  ```
+  Install-BoxstarterPackage -DisableReboots -PackageName $(Join-Path -Path $Env:USERPROFILE -ChildPath "workspace/infrastructure/main/homedirs/windows/boxstarter.ps1")
+  ```
+</details>
 
 - [ ] Configure Brave<details>
   <summary>Instructions</summary>
