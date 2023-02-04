@@ -104,3 +104,6 @@ $Shortcut.Save()
 
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
+$TargetGitConfigPath = Join-Path -Path $Env:USERPROFILE -Child ".gitconfig"
+$SourceGitConfigPath = Join-Path $ScriptDir -Child "dot.gitconfig"
+New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
