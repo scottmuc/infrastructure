@@ -86,7 +86,7 @@ all the [previous repave issues][repave-history]. Have fun!
 
   [rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
 
-  Launch Powershell with elevated privileges:
+  Launch Boxstarter Shell with elevated privileges:
 
   ```
   Install-BoxstarterPackage -DisableReboots -PackageName https://raw.githubusercontent.com/scottmuc/infrastructure/main/homedirs/windows/boxstarter.bootstrap.ps1
@@ -102,10 +102,10 @@ all the [previous repave issues][repave-history]. Have fun!
 
   [rich-turner-boxstarter]: https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
 
-  Launch Powershell with elevated privileges:
+  Launch Boxstarter Shell with elevated privileges:
 
   ```
-  Install-BoxstarterPackage -DisableReboots -PackageName $(Join-Path -Path $Env:USERPROFILE -ChildPath "workspace/infrastructure/main/homedirs/windows/boxstarter.ps1")
+  Install-BoxstarterPackage -DisableReboots -PackageName $(Join-Path -Path $Env:USERPROFILE -ChildPath "workspace/infrastructure/homedirs/windows/boxstarter.ps1")
   ```
 </details>
 
@@ -152,3 +152,4 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Make [this template][this-template] slightly better
 
 [this-template]: https://github.com/scottmuc/infrastructure/blob/master/.github/ISSUE_TEMPLATE/windows-repaving-template.md
+ 
