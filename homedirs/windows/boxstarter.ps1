@@ -97,7 +97,7 @@ $StartupFolder = Join-Path -Path $env:AppData -ChildPath "Microsoft\Windows\Star
 $CouchGamingShortcut = Join-Path -Path $StartupFolder -ChildPath "couch_gaming.ahk.lnk"
 $Shortcut = $WshShell.CreateShortcut($CouchGamingShortcut)
 # https://www.autoitconsulting.com/site/scripting/get-current-script-directory-powershell-vbscript-batch/
-$ScriptDir = Split-Path $script:MyInvocation.MyCommand.Path
+$ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
 $CouchGamingAhk = Join-Path -Path $ScriptDir -ChildPath .\couch_gaming.ahk
 $Shortcut.TargetPath = $CouchGamingAhk
 $Shortcut.Save()
