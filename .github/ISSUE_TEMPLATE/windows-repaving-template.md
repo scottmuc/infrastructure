@@ -109,6 +109,8 @@ all the [previous repave issues][repave-history]. Have fun!
   ```
 </details>
 
+- [ ] Install 1 Password
+
 - [ ] Configure Brave<details>
   <summary>Instructions</summary>
 
@@ -148,6 +150,14 @@ all the [previous repave issues][repave-history]. Have fun!
   * GPU 1000
   * Disk 340
 </details>
+
+- [ ] Disable Windows sounds
+
+- [ ] Unpin items for TaskBar
+
+- [ ] Pair speakers and XBox controller
+
+- [ ] Configure 2nd monitor (TV)
 
 - [ ] Make [this template][this-template] slightly better
 
