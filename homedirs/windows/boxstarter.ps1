@@ -1,4 +1,9 @@
 
+function Invoke-Main {
+    Enable-CouchGamingOnStartup
+    Enable-GitConfig
+}
+
 # Taken from https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
 #--- Used to uninstall unwanted default apps ---
 
@@ -88,22 +93,29 @@ choco install vscode.install -y --source="'https://chocolatey.org/api/v2'"
 
 choco install autohotkey.install -y --source="'https://chocolatey.org/api/v2'"
 
-# Create shortcuts to the ahk files so they are setup on startup
-# https://stackoverflow.com/questions/9701840/how-to-create-a-shortcut-using-powershell
-$WshShell = New-Object -comObject WScript.Shell
-# Need to figure out how to read shell:startup
-# https://www.devdungeon.com/content/windows-run-script-startup
-$StartupFolder = Join-Path -Path $env:AppData -ChildPath "Microsoft\Windows\Start Menu\Programs\Startup"
-$CouchGamingShortcut = Join-Path -Path $StartupFolder -ChildPath "couch_gaming.ahk.lnk"
-$Shortcut = $WshShell.CreateShortcut($CouchGamingShortcut)
-# https://www.autoitconsulting.com/site/scripting/get-current-script-directory-powershell-vbscript-batch/
-$ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
-$CouchGamingAhk = Join-Path -Path $ScriptDir -ChildPath .\couch_gaming.ahk
-$Shortcut.TargetPath = $CouchGamingAhk
-$Shortcut.Save()
+function Enable-CouchGamingOnStartup {
+    # Create shortcuts to the ahk files so they are setup on startup
+    # https://stackoverflow.com/questions/9701840/how-to-create-a-shortcut-using-powershell
+    $WshShell = New-Object -comObject WScript.Shell
+    # Need to figure out how to read shell:startup
+    # https://www.devdungeon.com/content/windows-run-script-startup
+    $StartupFolder = Join-Path -Path $env:AppData -ChildPath "Microsoft\Windows\Start Menu\Programs\Startup"
+    $CouchGamingShortcut = Join-Path -Path $StartupFolder -ChildPath "couch_gaming.ahk.lnk"
+    $Shortcut = $WshShell.CreateShortcut($CouchGamingShortcut)
+    # https://www.autoitconsulting.com/site/scripting/get-current-script-directory-powershell-vbscript-batch/
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $CouchGamingAhk = Join-Path -Path $ScriptDir -ChildPath .\couch_gaming.ahk
+    $Shortcut.TargetPath = $CouchGamingAhk
+    $Shortcut.Save()
+}
 
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
-$TargetGitConfigPath = Join-Path -Path $Env:USERPROFILE -Child ".gitconfig"
-$SourceGitConfigPath = Join-Path $ScriptDir -Child "dot.gitconfig"
-New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
+function Enable-GitConfig {
+    $TargetGitConfigPath = Join-Path -Path $Env:USERPROFILE -Child ".gitconfig"
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $SourceGitConfigPath = Join-Path $ScriptDir -Child "dot.gitconfig"
+    New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
+}
+
+Invoke-Main
