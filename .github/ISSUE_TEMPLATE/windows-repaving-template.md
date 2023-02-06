@@ -122,7 +122,6 @@ all the [previous repave issues][repave-history]. Have fun!
 </details>
 
 - [ ] Install and configure Google Drive
-- [ ] Turn off all Windows notification sounds
 
 - [ ] Setup Radeon Software<details>
   <summary>Instructions</summary>
@@ -150,8 +149,6 @@ all the [previous repave issues][repave-history]. Have fun!
   * GPU 1000
   * Disk 340
 </details>
-
-- [ ] Disable Windows sounds
 
 - [ ] Unpin items for TaskBar
 

@@ -2,6 +2,7 @@
 function Invoke-Main {
     Enable-CouchGamingOnStartup
     Enable-GitConfig
+    Disable-WindowsSounds
 }
 
 # Taken from https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
@@ -88,7 +89,7 @@ choco install brave -y --source="'https://chocolatey.org/api/v2'"
 choco install gnucash -y --source="'https://chocolatey.org/api/v2'"
 choco install steam -y --source="'https://chocolatey.org/api/v2'"
 choco install zoom -y --source="'https://chocolatey.org/api/v2'"
-
+choco install op -y --source="'https://chocolatey.org/api/v2'"
 choco install vscode.install -y --source="'https://chocolatey.org/api/v2'"
 
 choco install autohotkey.install -y --source="'https://chocolatey.org/api/v2'"
@@ -116,6 +117,13 @@ function Enable-GitConfig {
     $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
     $SourceGitConfigPath = Join-Path $ScriptDir -Child "dot.gitconfig"
     New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
+}
+
+# Thanks to the following this week, this wasn't too tough!
+# https://superuser.com/questions/1300539/change-sound-scheme-in-windows-via-windows-registry
+function Disable-WindowsSounds {
+    Get-ChildItem -Path "HKCU:\AppEvents\Schemes\Apps\*\*\.current" `
+        | Set-ItemProperty -Name "(Default)" -Value ""
 }
 
 Invoke-Main
