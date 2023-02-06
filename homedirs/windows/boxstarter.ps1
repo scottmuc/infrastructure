@@ -92,7 +92,7 @@ choco install steam -y --source="'https://chocolatey.org/api/v2'"
 choco install zoom -y --source="'https://chocolatey.org/api/v2'"
 choco install op -y --source="'https://chocolatey.org/api/v2'"
 choco install vscode.install -y --source="'https://chocolatey.org/api/v2'"
-
+choco install obs-studio -y --source="'https://chocolatey.org/api/v2'"
 choco install autohotkey.install -y --source="'https://chocolatey.org/api/v2'"
 
 function Enable-CouchGamingOnStartup {
