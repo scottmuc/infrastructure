@@ -231,7 +231,11 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
-  ln -sTfv "${common_dotfiles_dir}/dot.config/alacritty.wsl" ~/.config/alacritty
+
+  if [[ ! -d ~/.config/alacritty ]]; then
+    mkdir ~/.config/alacritty
+  fi
+  ln -sTfv "${homedir_source}/../windows/alacritty.yml" ~/.config/alacritty/alacritty.yml
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
