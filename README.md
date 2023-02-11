@@ -9,16 +9,23 @@
   service, monitoring
 * [Homedir configuration](homedirs) for WSL, Windows, and macOS
 * [tldr](tldr-pages/) custom pages
+* [Repaving instructions](.github/ISSUE_TEMPLATE) for all platforms
 
 ### Coding Conventions
 
 * `bash` - Following the [Google][google-bash] styleguide as much as I can. The [Chromium][chrome-bash] and [Apple][apple-bash] styleguides are also useful.
-* `ansible`  Really like [this post][ansible-standards] on some basic standards.
+* `ansible` - I Really like [this post][ansible-standards] on some basic standards.
+* `powershell` - [PoshCode][poshcode] seems like a pretty good baseline.
 
 [ansible-standards]: https://www.ansiblejunky.com/blog/ansible-101-standards/
 [google-bash]: https://google.github.io/styleguide/shellguide.html
 [chrome-bash]: https://chromium.googlesource.com/chromiumos/docs/+/HEAD/styleguide/shell.md
 [apple-bash]: https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html
+[poshcode]: https://github.com/PoshCode/PowerShellPracticeAndStyle
+
+### Influences and Inspiration
+
+* The DNS automation is heavily inspired by how the [US Government manages DNS][18f-dns].
 
 ### Decision Log
 
@@ -33,6 +40,7 @@
   works just fine.
 * Moved to storing infrastructure related secrets in this repository and securing them
   using `git-crypt`.
+* Abandoned the decision log since I don't maintain or update it.
 
 [18f-dns]: https://18f.gsa.gov/2018/08/15/shared-infrastructure-as-code/
 [tf-bootstrap]: https://github.com/18F/dns/blob/master/terraform/bootstrap/init.tf
