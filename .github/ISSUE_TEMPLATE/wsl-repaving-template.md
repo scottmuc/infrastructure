@@ -96,6 +96,12 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Configure PI (tests ansible)
 
+- [ ] Clone all the repos (`mr checkout`)
+
+- [ ] Ensure `tldr` works
+
+- [ ] Ensure `deploy.sh` of goodenoughmoney.com works
+
 - [ ] Make [this template][this-template] slightly better
 
 [this-template]: https://github.com/scottmuc/infrastructure/blob/master/.github/ISSUE_TEMPLATE/wsl-repaving-template.md
