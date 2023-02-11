@@ -4,7 +4,7 @@ set -e
 
 tldr=~/workspace/tldr-python-client/tldr.py
 
-central_tldr_pages=https://raw.githubusercontent.com/tldr-pages/tldr/master/pages
+central_tldr_pages=https://raw.githubusercontent.com/tldr-pages/tldr/main/pages
 my_tldr_pages=https://raw.githubusercontent.com/scottmuc/infrastructure/main/tldr-pages
 
 env \
