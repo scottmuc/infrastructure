@@ -25,6 +25,7 @@ main() {
   configure_ansible
   setup_neovim
   setup_ssh_dir
+  install_asdf
   install_os_pip_packages
   install_all_things_docker
   install_terraform
@@ -36,6 +37,15 @@ main() {
   install_1password_cli "2.12.0"
   install_golang "1.19.5"
   install_alacritty_colorscheme "1.0.1"
+}
+
+install_asdf() {
+  if command -v asdf >/dev/null; then
+    echo "asdf exists: $(asdf --version)"
+    return
+  fi
+
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
 }
 
 setup_ssh_dir() {
