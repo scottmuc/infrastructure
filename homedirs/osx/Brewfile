@@ -1,6 +1,8 @@
 tap 'neovim/neovim'
 brew 'neovim'
 
+brew 'asdf'
+
 brew 'autojump'
 
 # This is used to managed the encryption of this repo

@@ -23,10 +23,22 @@ main() {
   invoke_homebrew
   setup_neovim
   configure_tap_to_click
+  install_asdf
   install_alacritty_colorscheme
   install_gum
   invoke_softewareupdate
 }
+
+
+install_asdf() {
+  if command -v asdf >/dev/null; then
+    echo "asdf exists: $(asdf --version)"
+    return
+  fi
+
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
+}
+
 
 # I am getting the absolute path so that ls -la output goes from:
 #

@@ -83,3 +83,5 @@ function night() {
   alacritty-colorscheme apply solarized_dark.yaml
   write_vimrc_background "dark"
 }
+
+[ -s "$HOME/.asdf/asdf.sh" ] && \. "$HOME/.asdf/asdf.sh"
