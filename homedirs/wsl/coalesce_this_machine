@@ -25,7 +25,6 @@ main() {
   setup_neovim
   setup_ssh_dir
   install_asdf
-  install_os_pip_packages
   install_all_things_docker
   install_flyctl
   install_nvm
@@ -161,9 +160,6 @@ install_os_packages() {
     zsh
 }
 
-install_os_pip_packages() {
-  pip install diagrams
-}
 
 # https://developer.1password.com/docs/cli/install-server
 install_1password_cli() {
