@@ -8,8 +8,6 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIB_DIR="${DIR}/../common/lib"
 
 # shellcheck disable=SC1091
-source "${LIB_DIR}/install_gum.bash"
-# shellcheck disable=SC1091
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/setup_neovim.bash"
@@ -25,7 +23,6 @@ main() {
   configure_tap_to_click
   install_asdf
   install_alacritty_colorscheme
-  install_gum
   invoke_softewareupdate
 }
 
