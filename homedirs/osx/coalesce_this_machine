@@ -8,6 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIB_DIR="${DIR}/../common/lib"
 
 # shellcheck disable=SC1091
+source "${LIB_DIR}/install_asdf.bash"
+# shellcheck disable=SC1091
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/setup_neovim.bash"
@@ -24,16 +26,6 @@ main() {
   install_asdf
   install_alacritty_colorscheme
   invoke_softewareupdate
-}
-
-
-install_asdf() {
-  if command -v asdf >/dev/null; then
-    echo "asdf exists: $(asdf --version)"
-    return
-  fi
-
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
 }
 
 

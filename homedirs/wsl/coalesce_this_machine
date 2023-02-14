@@ -8,6 +8,8 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIB_DIR="${DIR}/../common/lib"
 
 # shellcheck disable=SC1091
+source "${LIB_DIR}/install_asdf.bash"
+# shellcheck disable=SC1091
 source "${LIB_DIR}/install_git_duet.bash"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/install_alacritty_colorscheme.bash"
@@ -30,14 +32,6 @@ main() {
   install_alacritty_colorscheme "1.0.1"
 }
 
-install_asdf() {
-  if command -v asdf >/dev/null; then
-    echo "asdf exists: $(asdf --version)"
-    return
-  fi
-
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
-}
 
 setup_ssh_dir() {
   mkdir -p ~/.ssh
