@@ -105,11 +105,6 @@ install_golang() {
 }
 
 
-# Needed for USB mounting for the PI
-configure_ansible() {
-  ansible-galaxy collection install ansible.posix
-}
-
 install_delta() {
   local version
 
@@ -155,7 +150,6 @@ default_to_zsh() {
 install_os_packages() {
   sudo apt-get update
   sudo apt-get install -y \
-    ansible               \
     autojump              \
     bc                    \
     git-crypt             \
@@ -164,9 +158,6 @@ install_os_packages() {
     jq                    \
     myrepos               \
     neovim                \
-    python3               \
-    python3-virtualenv    \
-    python3-pip           \
     unzip                 \
     zsh
 }
