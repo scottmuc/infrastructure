@@ -9,9 +9,6 @@ brew 'git-crypt'
 # Trying out a different diff tool
 brew 'git-delta'
 
-# Needed for some coding exercises and also for the terraform-gandi provider
-brew 'golang'
-
 # Trying to sign my commits now
 brew 'gpg'
 

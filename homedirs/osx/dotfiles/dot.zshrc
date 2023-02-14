@@ -10,7 +10,6 @@ if type -p brew > /dev/null; then
   eval "$(brew shellenv)"
 fi
 
-export PATH="$HOME/go/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/vendor/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/osx/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
