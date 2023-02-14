@@ -22,7 +22,6 @@ main() {
   symlink_all_the_things
   install_os_packages
   default_to_zsh
-  configure_ansible
   setup_neovim
   setup_ssh_dir
   install_asdf
