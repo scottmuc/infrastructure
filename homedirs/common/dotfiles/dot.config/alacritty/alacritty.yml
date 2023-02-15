@@ -1,8 +1,13 @@
 # Reference: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 font:
   normal:
+    # JetBrainsMono NF on Windows
     family: JetBrainsMono Nerd Font
   size: 16.0
+
+shell:
+  # ubuntu.exe on Windows
+  program: /bin/zsh
 
 key_bindings:
   # Thanks https://github.com/alacritty/alacritty/issues/93#issuecomment-334790547
