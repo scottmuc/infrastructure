@@ -21,11 +21,25 @@ main() {
   set_clock_format
   set_dock_preferences
   invoke_homebrew
+  setup_alacritty
   setup_neovim
   configure_tap_to_click
   install_asdf
   install_alacritty_colorscheme
   invoke_softewareupdate
+}
+
+
+setup_alacritty() {
+  local homedir_source
+  common_source=$(cd "${DIR}/../common"; pwd)
+  common_dotfiles_dir="${common_source}/dotfiles"
+
+  if [[ ! -d ~/.config/alacritty ]]; then
+    mkdir ~/.config/alacritty
+  fi
+  cp "${common_dotfiles_dir}/dot.config/alacritty/alacritty.yml" \
+      ~/.config/alacritty/alacritty.yml
 }
 
 
@@ -59,7 +73,6 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
 
   # https://ss64.com/osx/ln.html the -h is important to not put a symlink in a dir symlink
-  ln -shfv "${common_dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
   ln -shfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
