@@ -2,7 +2,6 @@
 function Invoke-Main {
     Enable-CouchGamingOnStartup
     Enable-GitConfig
-    Enable-AlacrittyConfig
     Disable-WindowsSounds
 }
 
@@ -125,15 +124,6 @@ function Enable-GitConfig {
     New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
 }
 
-function Enable-AlacrittyConfig {
-    $ConfigPath =  Join-Path -Path $Env:APPDATA -Child "alacritty"
-    New-Item -ItemType Directory -Path $ConfigPath -Force
-
-    $TargetPath = Join-Path -Path $ConfigPath -Child "alacritty.yml"
-    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
-    $SourcePath = Join-Path $ScriptDir -Child "alacritty.yml"
-    New-Item -Path $TargetPath -ItemType SymbolicLink -Value $SourcePath -Force
-}
 
 # Thanks to the following this week, this wasn't too tough!
 # https://superuser.com/questions/1300539/change-sound-scheme-in-windows-via-windows-registry
