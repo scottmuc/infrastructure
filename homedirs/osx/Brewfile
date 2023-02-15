@@ -1,6 +1,11 @@
 tap 'neovim/neovim'
 brew 'neovim'
 
+tap 'homebrew/cask-fonts'
+cask 'font-jetbrains-mono-nerd-font'
+cask 'font-roboto-mono-nerd-font'
+cask 'font-inconsolata-nerd-font'
+
 brew 'autojump'
 
 # This is used to managed the encryption of this repo
