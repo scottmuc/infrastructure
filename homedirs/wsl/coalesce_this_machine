@@ -22,6 +22,7 @@ main() {
   symlink_all_the_things
   install_os_packages
   default_to_zsh
+  setup_alacritty
   setup_neovim
   setup_ssh_dir
   install_asdf
@@ -32,6 +33,15 @@ main() {
   install_alacritty_colorscheme "1.0.1"
 }
 
+setup_alacritty() {
+  local homedir_source
+  homedir_source=$(cd "${DIR}/"; pwd)
+
+  if [[ ! -d ~/.config/alacritty ]]; then
+    mkdir ~/.config/alacritty
+  fi
+  cp "${homedir_source}/../windows/alacritty.yml" ~/.config/alacritty/alacritty.yml
+}
 
 setup_ssh_dir() {
   mkdir -p ~/.ssh
@@ -171,11 +181,6 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
-
-  if [[ ! -d ~/.config/alacritty ]]; then
-    mkdir ~/.config/alacritty
-  fi
-  ln -sTfv "${homedir_source}/../windows/alacritty.yml" ~/.config/alacritty/alacritty.yml
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }

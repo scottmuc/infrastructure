@@ -83,6 +83,7 @@ EOF
 function day() {
   alacritty-colorscheme apply solarized_light.yaml
   write_vimrc_background "light"
+  mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
   cp ~/.config/alacritty/alacritty.yml \
      /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
 }
@@ -90,6 +91,7 @@ function day() {
 function night() {
   alacritty-colorscheme apply solarized_dark.yaml
   write_vimrc_background "dark"
+  mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
   cp ~/.config/alacritty/alacritty.yml \
      /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
 }
