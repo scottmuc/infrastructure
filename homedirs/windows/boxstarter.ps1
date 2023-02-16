@@ -14,7 +14,9 @@ function Remove-App
     Param ([string]$appName)
     Write-Output "Trying to remove $appName"
     Get-AppxPackage $appName -AllUsers | Remove-AppxPackage
-    Get-AppXProvisionedPackage -Online | Where DisplayName -like $appName | Remove-AppxProvisionedPackage -Online
+    Get-AppXProvisionedPackage -Online `
+        | Where-Object DisplayName -like $appName `
+        | Remove-AppxProvisionedPackage -Online
 }
 
 #--- Uninstall unwanted default apps ---
@@ -79,7 +81,7 @@ Set-BoxstarterTaskbarOptions `
   -DisableSearchBox
 
 # Switchings CAPSLOCK to CTRL
-$hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | % { "0x$_"}
+$hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | ForEach-Object { "0x$_"}
 $kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout'
 New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Value ([byte[]]$hexified)
 
