@@ -2,6 +2,7 @@
 function Invoke-Main {
     Enable-CouchGamingOnStartup
     Enable-GitConfig
+    Enable-VsCodeSettings
     Disable-WindowsSounds
 }
 
@@ -124,6 +125,12 @@ function Enable-GitConfig {
     New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
 }
 
+function Enable-VsCodeSettings {
+    # Not sure how this will go on a fresh install because I'm not sure if the app will exist
+    $TargetConfigPath = Join-Path -Path $Env:USERPROFILE -Child "AppData\Roaming\Code\User\settings.json"
+    $SourceConfigPath = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows\vscode\settings.json"
+    New-Item -Path $TargetConfigPath -ItemType SymbolicLink -Value $SourceConfigPath  
+}
 
 # Thanks to the following this week, this wasn't too tough!
 # https://superuser.com/questions/1300539/change-sound-scheme-in-windows-via-windows-registry
