@@ -178,6 +178,7 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.git-authors" ~/.git-authors
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
+  ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
