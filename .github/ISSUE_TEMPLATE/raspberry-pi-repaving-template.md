@@ -68,11 +68,23 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Ensure a working ansible enviroment <details>
   <summary>Instructions</summary>
 
-  Not much to say except use `virtualenv`. I don't have a consistent way to set this up because
-  my macbook might be my controller, or my windows WSL host will be.
+  This will exercise the `asdf` setup.
 </details>
 
 - [ ] Turn on the PI and note the IP obtained from the Router
+
+- [ ] Clean up old host keys<details>
+  <summary>Instructions</summary>
+
+  The new instance will have new host keys so to ensure host key warning messages don't
+  distract us from the repaving, run the following:
+
+  ```
+  ssh-keygen -R 192.168.2.10
+  ssh-keygen -R pi
+  ssh-keygen -R <pi ip>
+  ```
+</details>
 
 - [ ] Transfer local public ssh key to PI<details>
   <summary>Instructions</summary>
@@ -89,20 +101,19 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
-  `./ansible.sh bootstrap -i <pi ip>`
+  `./ansible.sh` and select the `bootstrap-playbook.yml`
 </details>
 
 - [ ] Add the PI port forwarding<details>
   <summary>Instructions</summary>
 
   Needed for the `certbot` ACME challenge in the next step.
-
 </details>
 
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
-  `./ansible.sh apply -i <pi ip>`
+  `./ansible.sh` and select the `main-playbook.yml`
 </details>
 
 - [ ] Reboot PI
