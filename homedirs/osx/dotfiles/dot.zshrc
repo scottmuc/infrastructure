@@ -6,8 +6,8 @@
 #   PATH
 #   MANPATH
 #   INFOPATH
-if type -p brew > /dev/null; then
-  eval "$(brew shellenv)"
+if [[ -x /usr/local/bin/brew ]]; then
+  eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 export PATH="$HOME/workspace/infrastructure/vendor/bin:$PATH"
