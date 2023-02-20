@@ -22,8 +22,10 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Things to do with the existing build
 
-- [ ] Create USB stick with latest macOS <details>
+- [ ] Create USB stick with macOS Big Sur<details>
   <summary>Instructions</summary>
+  **Big Sur** is the latest version supported by my Macbook Air hardware ([compatibility][compatibility-matrix],
+  [macos history][macos-history]). I have an early 2014 13" model.
 
   * Format a USB (> 16GB) stick and name it UNTITLED
   * Fetch the latest version of macos from the App Store
@@ -39,13 +41,8 @@ all the [previous repave issues][repave-history]. Have fun!
     ```
 </details>
 
-- [ ] Create credentials for the rebuild <details>
-  <summary>Instructions</summary>
-
-  Run `create-repave-secrets` with an argument that follows the naming convention of:
-
-  `machine.<month name>.air`
-</details>
+[compatibility-matrix]: https://niwtech.com/guides/apple/macbook-air/mac-os-compatibility/
+[macos-history]: https://en.wikipedia.org/wiki/MacOS_version_history
 
 - [ ] Backup anything worth keeping <details>
   <summary>Instructions</summary>
@@ -97,10 +94,10 @@ all the [previous repave issues][repave-history]. Have fun!
     ```
     # Initialize and log into the 1 Password CLI
     initialize-1password
-    eval $(op signin)
+    opauth
     # Unlock the repo in order to access values in ./secrets dir
     cd ~/workspace/infrastructure
-    ./scripts/locksmith unlock
+    locksmith unlock
     # Initialize Terraform and apply
     cd dns
     terraform init
@@ -108,19 +105,19 @@ all the [previous repave issues][repave-history]. Have fun!
     ```
 </details>
 
-- [ ] Make a signed commit mentioning this issue (exercises `gpg_op`)<details>
+- [ ] Make a signed commit mentioning this issue (exercises `gpg-op`)<details>
   <summary>Instructions</summary>
 
 
     ```
     # Initialize and log into the 1 Password CLI
     initialize-1password
-    eval $(op signin)
-    gpg_op restore -e "scott@scottmuc.com"
+    opauth
+    gpg_op restore -e "scottATscottmuc.com"
     ```
 </details>
 
-- [ ] Be able to push the commit (exercises `ssh_op_agent`)
+- [ ] Be able to push the commit (exercises `ssh-op-agent`)
 - [ ] Log into GitHub in Brave (exercises 1 Password browser extension)
 - [ ] Old keys and credentials are deleted (GitHub and 1Password)
 - [ ] Make this template slightly better
