@@ -26,6 +26,8 @@ main() {
   setup_neovim
   setup_ssh_dir
   install_asdf
+  install_python_dependencies
+  install_python
   install_all_things_docker
   install_git_duet "0.9.0"
   install_delta "0.14.0"
@@ -131,6 +133,23 @@ install_os_packages() {
     zsh
 }
 
+install_python_dependencies() {
+  sudo apt-get update
+  sudo apt-get install -y \
+    build-essential       \
+    libffi-dev            \
+    liblzma-dev           \
+    libreadline-dev       \
+    libssl-dev            \
+    zlib1g-dev
+}
+
+install_python() {
+  (cd ~ && \
+     asdf plugin add python || true && \
+     asdf install python || true       \
+  )
+}
 
 # https://developer.1password.com/docs/cli/install-server
 install_1password_cli() {

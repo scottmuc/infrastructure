@@ -10,6 +10,6 @@ install_alacritty_colorscheme() {
     git clone "${REPO}" "${DEST}"
   fi
   ln -sfv "${DEST}/themes" "${HOME}/.config/alacritty/colors"
-  pip3 install --user alacritty-colorscheme
+  (cd ~ && pip3 install --user alacritty-colorscheme)
 }
 
