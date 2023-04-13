@@ -98,16 +98,20 @@ install_all_things_docker() {
     return
   fi
 
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+
+  sudo chmod a+r /usr/share/keyring/docker-archive-keyring.gpg
+
   sudo add-apt-repository \
-     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+     "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] \
+     https://download.docker.com/linux/ubuntu \
      $(lsb_release -cs) \
      stable"
   sudo apt-get update
   sudo apt-get install -y docker-ce docker-ce-cli containerd.io
   # https://patrickwu.space/2021/03/09/wsl-solution-to-native-docker-daemon-not-starting/
   sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
-  sudo service docker start
   sudo usermod -a -G docker wsl
 }
 
