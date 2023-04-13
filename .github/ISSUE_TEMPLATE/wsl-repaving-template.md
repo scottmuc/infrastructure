@@ -43,6 +43,8 @@ all the [previous repave issues][repave-history]. Have fun!
   cd infrastructure/homedirs/wsl
   ./coalesce_this_machine
   ```
+
+  **note** this will need to be run twice for the python stuff to work
 </details>
 
 - [ ] Reboot WSL Instance<details>
@@ -73,13 +75,26 @@ all the [previous repave issues][repave-history]. Have fun!
 
 </details>
 
+- [ ] Bootstrap repository tools<details>
+  <summary>Instructions</summary>
+
+  ```
+  asdf plugin add python
+  asdf plugin add terraform
+  asdf plugin add gum
+  asdf install
+  pip install ansible
+  ansible-galaxy collection install ansible.posix
+  ```
+
+</details>
 # Verification Steps
 
 - [ ] Decrypt Repository<details>
   <summary>Instructions</summary>
 
   ```
-  ./scripts/locksmith unlock
+  locksmith unlock
   ```
 </details>
 
@@ -101,6 +116,16 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Ensure `tldr` works
 
 - [ ] Ensure `deploy.sh` of goodenoughmoney.com works
+
+- [ ] Log OS release and kernel version
+  <summary>Instructions</summary>
+
+  ```
+  cat /etc/os-release
+  uname -a
+  ```
+
+</details>
 
 - [ ] Make [this template][this-template] slightly better
 
