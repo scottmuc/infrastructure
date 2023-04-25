@@ -1,6 +1,7 @@
 
 function Invoke-Main {
     Enable-CouchGamingOnStartup
+    Enable-DarkThemeToggler
     Enable-GitConfig
     Enable-VsCodeSettings
     Disable-WindowsSounds
@@ -122,6 +123,18 @@ function Enable-CouchGamingOnStartup {
     $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
     $CouchGamingAhk = Join-Path -Path $ScriptDir -ChildPath .\couch_gaming.ahk
     $Shortcut.TargetPath = $CouchGamingAhk
+    $Shortcut.Save()
+}
+
+function Enable-DarkThemeToggler {
+    # Copy+Paste of Enable-CouchGamingOnStartup
+    $WshShell = New-Object -comObject WScript.Shell
+    $StartupFolder = Join-Path -Path $env:AppData -ChildPath "Microsoft\Windows\Start Menu\Programs\Startup"
+    $ShortcutPath = Join-Path -Path $StartupFolder -ChildPath "toggle_windows_dark_theme.ahk.lnk"
+    $Shortcut = $WshShell.CreateShortcut($ShortcutPath)
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $ShortcutSource = Join-Path -Path $ScriptDir -ChildPath .\toggle_windows_dark_theme.ahk
+    $Shortcut.TargetPath = $ShortcutSource
     $Shortcut.Save()
 }
 
