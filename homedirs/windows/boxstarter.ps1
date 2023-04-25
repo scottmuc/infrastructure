@@ -4,6 +4,7 @@ function Invoke-Main {
     Enable-GitConfig
     Enable-VsCodeSettings
     Disable-WindowsSounds
+    Set-ThisDirectoryToQuickAccess
 }
 
 # Taken from https://gist.github.com/bitcrazed/c788f9dcf1d630340a19
@@ -101,6 +102,12 @@ choco install autohotkey.install -y
 choco install jetbrainsmononf -y
 choco install nerd-fonts-robotomono -y
 choco install nerd-fonts-inconsolata -y
+
+function Set-ThisDirectoryToQuickAccess {
+    $Shell = New-Object -ComObject shell.application -Verbose
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $Shell.Namespace($ScriptDir).Self.InvokeVerb("pintohome")
+}
 
 function Enable-CouchGamingOnStartup {
     # Create shortcuts to the ahk files so they are setup on startup
