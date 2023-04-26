@@ -24,10 +24,11 @@ Plug 'https://github.com/tpope/vim-sleuth'
 
 Plug 'https://github.com/hashivim/vim-terraform'
 
-" Hasn't changed in over a decade, but then again, I don't expect a color
-" scheme to require too much maintenance. It's also authored by the originator
-" of Solarized so it's probably the most canonical definition of the colors.
-Plug 'https://github.com/altercation/vim-colors-solarized'
+" https://github.com/scottmuc/infrastructure/issues/55#issuecomment-1522968698
+" The above comment showed that vim colorscheme switching somehow got borked.
+" I honestly don't know why. Switching to NeoSolarized along with some
+" configuration adjustments led to a working colorscheme switcher.
+Plug 'https://github.com/overcache/NeoSolarized'
 
 call plug#end()
 
@@ -37,23 +38,15 @@ set nocompatible
 " not sure why I wouldn't ever want syntax on
 syntax on
 
-" https://github.com/toggle-corp/alacritty-colorscheme#sync-with-vimneo-vim
-" The above tool makes the configuration below unnecessary. Keeping it here
-" and commented out for reference.
-"
-" Settling with a built in color scheme. Most of the time the default does a
-" fine job of highlighting the appropriate things. To list available color
-" schemes run:
-"
-" :colorscheme <TAB>
-" colorscheme slate
-"
+set termguicolors
+colorscheme NeoSolarized
+
 " Not sure why this is needed because nvim is supposed to automatically read
 " this. That being said, it's nice to see this here explicitly.
 if filereadable(expand("~/.vimrc_background"))
   source ~/.vimrc_background
 else
-  colorscheme slate
+  set background=light
 endif
 
 " Enable line numbers. This is off by default

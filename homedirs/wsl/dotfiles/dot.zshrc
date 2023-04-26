@@ -70,12 +70,7 @@ fi
 function write_vimrc_background() {
   local theme="$1"
   cat > ~/.vimrc_background <<EOF
-if !exists('g:colors_name') || g:colors_name != 'solarized'
-  set background=${theme}
-  colorscheme solarized
-else
-  colorscheme slate
-endif
+set background=${theme}
 EOF
 
 }
