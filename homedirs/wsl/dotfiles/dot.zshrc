@@ -83,7 +83,7 @@ EOF
 function day() {
   write_vimrc_background "light"
   mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
-  cp ~/.config/alacritty/alacritty.yml \
+  cp ~/workspace/infrastructure/homedirs/windows/alacritty.yml \
      /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
   sed -i 's/^colors:.*$/colors:\ \*light/g' \
     /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
@@ -92,7 +92,7 @@ function day() {
 function night() {
   write_vimrc_background "dark"
   mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
-  cp ~/.config/alacritty/alacritty.yml \
+  cp ~/workspace/infrastructure/homedirs/windows/alacritty.yml \
      /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
   sed -i 's/^colors:.*$/colors:\ \*dark/g' \
     /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml

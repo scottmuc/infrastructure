@@ -20,7 +20,6 @@ main() {
   symlink_all_the_things
   install_os_packages
   default_to_zsh
-  setup_alacritty
   setup_neovim
   setup_ssh_dir
   install_asdf
@@ -32,15 +31,6 @@ main() {
   install_1password_cli "2.12.0"
 }
 
-setup_alacritty() {
-  local homedir_source
-  homedir_source=$(cd "${DIR}/"; pwd)
-
-  if [[ ! -d ~/.config/alacritty ]]; then
-    mkdir ~/.config/alacritty
-  fi
-  cp "${homedir_source}/../windows/alacritty.yml" ~/.config/alacritty/alacritty.yml
-}
 
 setup_ssh_dir() {
   mkdir -p ~/.ssh
