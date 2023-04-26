@@ -12,8 +12,6 @@ source "${LIB_DIR}/install_asdf.bash"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/install_git_duet.bash"
 # shellcheck disable=SC1091
-source "${LIB_DIR}/install_alacritty_colorscheme.bash"
-# shellcheck disable=SC1091
 source "${LIB_DIR}/setup_neovim.bash"
 
 main() {
@@ -32,7 +30,6 @@ main() {
   install_git_duet "0.9.0"
   install_delta "0.14.0"
   install_1password_cli "2.12.0"
-  install_alacritty_colorscheme "1.0.1"
 }
 
 setup_alacritty() {
