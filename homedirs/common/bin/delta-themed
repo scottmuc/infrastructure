@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 
-current_theme="$(alacritty-colorscheme status)"
+current_theme="$(cat ~/.vimrc_background)"
 
 if grep dark <<<"${current_theme}" > /dev/null; then
   delta --dark --syntax-theme='Solarized (dark)' $@
 elif grep light <<<"${current_theme}" > /dev/null; then
   delta --light --syntax-theme='Solarized (light)' $@
 else
-  # Default to light for WSL environment where Terminal is using a light theme
-  # and I haven't switched to Alacritty yet on Windows. Also not sure how the
-  # alacritty-colorscheme would work in Windows.
   delta --light $@
 fi
 
