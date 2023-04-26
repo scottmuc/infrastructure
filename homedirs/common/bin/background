@@ -1,0 +1,14 @@
+#!/bin/env bash
+
+set -e
+theme="${1:-light}"
+
+cat > ~/.vimrc_background <<EOF
+set background=${theme}
+EOF
+
+mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
+cp ~/workspace/infrastructure/homedirs/windows/alacritty.yml \
+   /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+sed -i 's/^colors:.*$/colors:\ \*'${theme}'/g' \
+  /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
