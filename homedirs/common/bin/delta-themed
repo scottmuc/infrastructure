@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-current_theme="$(cat ~/.vimrc_background)"
+set -x
+current_theme="$(background)"
 
 if grep dark <<<"${current_theme}" > /dev/null; then
   delta --dark --syntax-theme='Solarized (dark)' $@

@@ -1,14 +1,18 @@
 #!/bin/env bash
 
-set -e
-theme="${1:-light}"
+theme="${1:-none}"
 
-cat > ~/.vimrc_background <<EOF
-set background=${theme}
-EOF
-
-mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
-cp ~/workspace/infrastructure/homedirs/windows/alacritty.yml \
-   /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
-sed -i 's/^colors:.*$/colors:\ \*'${theme}'/g' \
-  /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+# Output the current background if no arguments are given
+if [[ "${theme}" = "none" ]]; then
+  cat /tmp/background
+else
+  mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
+  cp ~/workspace/infrastructure/homedirs/windows/alacritty.yml \
+     /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+  sed -i 's/^colors:.*$/colors:\ \*'${theme}'/g' \
+    /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+  # Writing to a state file because shelling out to Powershell to read the
+  # registry breaks the pipes that delta needs for diffing (at least that's
+  # my current guess as to what's happening)
+  echo "${theme}" > /tmp/background
+fi

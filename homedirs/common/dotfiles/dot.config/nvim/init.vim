@@ -41,13 +41,10 @@ syntax on
 set termguicolors
 colorscheme NeoSolarized
 
-" Not sure why this is needed because nvim is supposed to automatically read
-" this. That being said, it's nice to see this here explicitly.
-if filereadable(expand("~/.vimrc_background"))
-  source ~/.vimrc_background
-else
-  set background=light
-endif
+" Adds a bit of complexity, but the `background` tool reads the OS level theme
+" and returns "light" or "dark" accordingly.
+let output=system("background")
+execute "set background=".escape(output, ' ')
 
 " Enable line numbers. This is off by default
 set number
