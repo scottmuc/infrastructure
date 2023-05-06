@@ -82,6 +82,7 @@ all the [previous repave issues][repave-history]. Have fun!
   ```
   ssh-keygen -R 192.168.2.10
   ssh-keygen -R pi
+  ssh-keygen -R pi.home.scottmuc.com
   ssh-keygen -R <pi ip>
   ```
 </details>
