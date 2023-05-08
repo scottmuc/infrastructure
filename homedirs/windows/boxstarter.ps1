@@ -104,6 +104,10 @@ choco install jetbrainsmononf -y
 choco install nerd-fonts-robotomono -y
 choco install nerd-fonts-inconsolata -y
 
+# Collectors list: https://github.com/prometheus-community/windows_exporter#collectors
+choco install prometheus-windows-exporter.install --confirm `
+    --package-parameters='"/EnabledCollectors:cpu,cs,logical_disk,memory,net,os,service,system,process,thermalzone"'
+
 function Set-ThisDirectoryToQuickAccess {
     $Shell = New-Object -ComObject shell.application -Verbose
     $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
