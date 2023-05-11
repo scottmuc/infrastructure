@@ -117,7 +117,20 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
   ```
 </details>
 
-- [ ] Install 1 Password
+- [ ] Install Gigabyte App Center <details>
+  <summary>Instructions</summary>
+
+  For now, [this tool][gigabyteutils] might be the most convenient way to install
+  supported drivers for this mainboard.
+</details>
+
+[gigabyteutils]: https://www.gigabyte.com/Motherboard/X570-UD-rev-10/support#support-dl-utility
+
+- [ ] Install 1 Password<details>
+  <summary>Instructions</summary>
+
+  This was failing to install correctly using `choco`, test if this has improved.
+</details>
 
 - [ ] Configure Brave<details>
   <summary>Instructions</summary>
