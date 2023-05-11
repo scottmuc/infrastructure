@@ -26,7 +26,8 @@ function Remove-App
 # Get a list of existing applications by running:
 #
 # Get-AppxPackage | % { $_.Name }
-
+# 
+# and https://github.com/W4RH4WK/Debloat-Windows-10/blob/master/scripts/remove-default-apps.ps1
 $applicationList = @(
     "Microsoft.BingFinance"
     "Microsoft.3DBuilder"

@@ -88,6 +88,7 @@ all the [previous repave issues][repave-history]. Have fun!
   ```
 
 </details>
+
 # Verification Steps
 
 - [ ] Decrypt Repository<details>
