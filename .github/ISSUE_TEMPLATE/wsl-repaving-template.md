@@ -117,13 +117,23 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Ensure `deploy.sh` of goodenoughmoney.com works
 
-- [ ] Log OS release and kernel version
+- [ ] Ensure `docker` works<details>
+  <summary>Instructions</summary>
+
+  ```
+  sudo service docker start
+  docker ps
+  ```
+</details>
+
+- [ ] Log OS release and kernel version<details>
   <summary>Instructions</summary>
 
   ```
   cat /etc/os-release
   uname -a
   ```
+</details>
 
 </details>
 

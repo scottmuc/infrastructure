@@ -144,6 +144,7 @@ function Enable-DarkThemeToggler {
 }
 
 Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+Enable-WindowsOptionalFeature -Online -FeatureName Virtual-Machine-Platform
 
 function Enable-GitConfig {
     $TargetGitConfigPath = Join-Path -Path $Env:USERPROFILE -Child ".gitconfig"
