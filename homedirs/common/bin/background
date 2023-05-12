@@ -2,15 +2,23 @@
 
 theme="${1:-none}"
 
+# from https://stackoverflow.com/a/246128
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+
+common_config_file="${DIR}/../dotfiles/dot.config/alacritty/alacritty.yml"
+win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
+win_config_file="${win_config_dir}/alacritty.yml"
+
 # Output the current background if no arguments are given
 if [[ "${theme}" = "none" ]]; then
   cat /tmp/background
 else
-  mkdir -p /mnt/c/Users/micro/AppData/Roaming/alacritty
-  cp ~/workspace/infrastructure/homedirs/windows/alacritty.yml \
-     /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
-  sed -i 's/^colors:.*$/colors:\ \*'${theme}'/g' \
-    /mnt/c/Users/micro/AppData/Roaming/alacritty/alacritty.yml
+  mkdir -p "${win_config_dir}"
+  cp "${common_config_file}" "${win_config_file}"
+  sed --in-place \
+    -e 's/^colors:.*$/colors:\ \*'${theme}'/g' \
+    -e 's/^program:.*$/program:\ \*'$(uname)'/g' \
+    "${win_config_file}"
   # Writing to a state file because shelling out to Powershell to read the
   # registry breaks the pipes that delta needs for diffing (at least that's
   # my current guess as to what's happening)
