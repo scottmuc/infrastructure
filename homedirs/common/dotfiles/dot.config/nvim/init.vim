@@ -39,7 +39,7 @@ set nocompatible
 syntax on
 
 set termguicolors
-colorscheme NeoSolarized
+:silent! colorscheme NeoSolarized
 
 " Adds a bit of complexity, but the `background` tool reads the OS level theme
 " and returns "light" or "dark" accordingly.

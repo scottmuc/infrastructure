@@ -42,9 +42,8 @@ all the [previous repave issues][repave-history]. Have fun!
   git clone https://github.com/scottmuc/infrastructure.git
   cd infrastructure/homedirs/wsl
   ./coalesce_this_machine
+  background light
   ```
-
-  **note** this will need to be run twice for the python stuff to work
 </details>
 
 - [ ] Reboot WSL Instance<details>
