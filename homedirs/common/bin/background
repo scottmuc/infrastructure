@@ -8,17 +8,32 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 common_config_file="${DIR}/../dotfiles/dot.config/alacritty/alacritty.yml"
 win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
 win_config_file="${win_config_dir}/alacritty.yml"
+mac_config_file="~/.config/alacritty/alacritty.yml"
+
+copy_config() {
+  local theme="$1"
+  local program_ref="$2"
+  local config_path="$3"
+
+  cp "${common_config_file}" "${config_path}"
+  sed --in-place \
+    -e 's/^colors:.*$/colors:\ \*'${theme}'/g' \
+    -e 's/^program:.*$/program:\ \*'${program_ref}'/g' \
+    "${config_path}"
+}
 
 # Output the current background if no arguments are given
 if [[ "${theme}" = "none" ]]; then
   cat /tmp/background
 else
-  mkdir -p "${win_config_dir}"
-  cp "${common_config_file}" "${win_config_file}"
-  sed --in-place \
-    -e 's/^colors:.*$/colors:\ \*'${theme}'/g' \
-    -e 's/^program:.*$/program:\ \*'$(uname)'/g' \
-    "${win_config_file}"
+  if [[ "Darwin" = "$(uname)" ]]; then
+    copy_config "${theme}" "$(uname)" "${mac_config_file}"
+  fi
+
+  if [[ "Linux" = "$(uname)" ]]; then
+    mkdir -p "${win_config_dir}"
+    copy_config "${theme}" "$(uname)" "${win_config_file}"
+  fi
   # Writing to a state file because shelling out to Powershell to read the
   # registry breaks the pipes that delta needs for diffing (at least that's
   # my current guess as to what's happening)
