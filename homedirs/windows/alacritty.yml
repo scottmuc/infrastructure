@@ -54,7 +54,7 @@ color-schemes:
 # Reference: https://github.com/alacritty/alacritty/blob/master/alacritty.yml
 font:
   normal:
-    family: JetBrainsMono NF
+    family: JetBrainsMono Nerd Font
   size: 16.0
 
 shell:
