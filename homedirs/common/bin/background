@@ -18,7 +18,7 @@ copy_config() {
   cp "${common_config_file}" "${config_path}"
   sed --in-place \
     -e 's/^colors:.*$/colors:\ \*'${theme}'/g' \
-    -e 's/^program:.*$/program:\ \*'${program_ref}'/g' \
+    -e 's/  program:.*$/  program:\ \*'${program_ref}'/g' \
     "${config_path}"
 }
 
