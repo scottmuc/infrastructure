@@ -7,7 +7,7 @@
   # Are these global? Yes, they are.
   vars:
     prometheus_version: "2.42.0"
-    navidrome_version: "0.48.0"
+    navidrome_version: "0.49.3"
     node_exporter_version: "1.5.0"
     sysctls:
       # https://linuxhint.com/understanding_vm_swappiness/
