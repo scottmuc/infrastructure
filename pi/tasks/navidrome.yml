@@ -25,7 +25,7 @@
 
 - name: Download navidrome
   ansible.builtin.unarchive:
-    src: "https://github.com/deluan/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_Linux_armv7.tar.gz"
+    src: "https://github.com/navidrome/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_Linux_armv7.tar.gz"
     remote_src: true
     dest: "/opt/navidrome/{{ navidrome_version }}"
     creates: "/opt/navidrome/{{ navidrome_version }}/navidrome"

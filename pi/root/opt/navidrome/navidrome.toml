@@ -1,7 +1,14 @@
+# https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
+# Basic Configuration
 LogLevel = "INFO"
 BaseURL = "/music"
-ScanSchedule = "@every 1h0m0s"
-TranscodingCacheSize = "15MB"
+ScanSchedule = "0"
 DataFolder = "/mnt/usb/navidrome"
 MusicFolder = "/mnt/usb/music"
+
+# Advanced Configuration
+FFmpegPath = "/opt/navidrome/ffmpeg/ffmpeg"
+TranscodingCacheSize = "15MB"
 EnableSharing = "true"
+Prometheus.Enabled = "true"
