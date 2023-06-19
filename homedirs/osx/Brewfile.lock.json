@@ -559,7 +559,7 @@
         "Homebrew/homebrew-core": "api",
         "CLT": "13.2.0.0.1.1638488800",
         "Xcode": "13.2.1",
-        "macOS": "11.7.4"
+        "macOS": "11.7.7"
       }
     }
   }
