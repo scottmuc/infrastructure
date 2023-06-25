@@ -47,7 +47,7 @@
                  StreamDriver="gtls"
                  StreamDriverMode="1"
                  StreamDriverAuthMode="anon"
-                 StreamDriverCAFile="/etc/papertrail-bundle.pem"
+                 StreamDriver.CAFile="/etc/papertrail-bundle.pem"
                  queue.spoolDirectory="/var/spool/rsyslog"
                  queue.filename="papertrail"
                  queue.maxdiskspace="75m"
@@ -66,6 +66,8 @@
   copy:
     dest: /etc/rsyslog.d/betterstack.conf
     content: |
+      global(DefaultNetstreamDriverCAFile="/etc/ssl/certs/ca-certificates.crt")
+
       template(name="LogtailFormat" type="list") {
        constant(value="<")
        property(name="pri")
@@ -99,7 +101,6 @@
        StreamDriverMode="1"
        StreamDriverAuthMode="x509/name"
        StreamDriverPermittedPeers="*.logs.betterstack.com"
-       StreamDriverCAFile="/etc/ssl/certs/ca-certificates.crt"
        queue.spoolDirectory="/var/spool/rsyslog"
        queue.filename="betterstack"
        queue.maxdiskspace="75m"
