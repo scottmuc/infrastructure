@@ -65,8 +65,6 @@
   copy:
     dest: /etc/rsyslog.d/betterstack.conf
     content: |
-      global(DefaultNetstreamDriverCAFile="/etc/ssl/certs/ca-certificates.crt")
-
       template(name="LogtailFormat" type="list") {
        constant(value="<")
        property(name="pri")
@@ -98,6 +96,7 @@
        TCP_Framing="octet-counted"
        StreamDriver="gtls"
        StreamDriverMode="1"
+       StreamDriver.CAFile="/etc/ssl/certs/ca-certificates.crt"
        StreamDriverAuthMode="x509/name"
        StreamDriverPermittedPeers="*.logs.betterstack.com"
        queue.spoolDirectory="/var/spool/rsyslog"
