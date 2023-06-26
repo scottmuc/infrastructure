@@ -39,14 +39,13 @@
   copy:
     dest: /etc/rsyslog.d/papertrail.conf
     content: |
-      $ActionSendStreamDriverPermittedPeer *.papertrailapp.com
-
       *.* action(type="omfwd"
                  target="{{ secrets.rsyslog_forwarding_target }}"
                  port="{{ secrets.rsyslog_forwarding_port }}"
                  StreamDriver="gtls"
                  StreamDriverMode="1"
-                 StreamDriverAuthMode="anon"
+                 StreamDriverAuthMode="x509/name"
+                 StreamDriverPermittedPeers="*.papertrailapp.com"
                  StreamDriver.CAFile="/etc/papertrail-bundle.pem"
                  queue.spoolDirectory="/var/spool/rsyslog"
                  queue.filename="papertrail"
