@@ -60,12 +60,25 @@
   notify:
     - Restart rsyslog
 
+- name: Install logging keep alive script
+  ansible.builtin.copy:
+    src: root/tmp/logkeepalive.sh
+    dest: /tmp/logkeepalive.sh
+    owner: root
+    group: admin
+    mode: '0755'
+  notify:
+    - Restart rsyslog
 
 - name: Add Betterstack forwarding configuration
   become: true
   copy:
     dest: /etc/rsyslog.d/betterstack.conf
     content: |
+      module(load="omprog")
+
+      *.* action(type="omprog" binary="/tmp/logkeepalive.sh" template="RSYSLOG_TraditionalFileFormat")
+
       template(name="LogtailFormat" type="list") {
        constant(value="<")
        property(name="pri")
