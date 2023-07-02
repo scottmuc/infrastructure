@@ -18,6 +18,7 @@
     pkg:
     - rsyslog
     - rsyslog-gnutls
+    - rsyslog-openssl
     state: latest
     default_release: bullseye-backports
   notify:
@@ -94,11 +95,11 @@
        port="6514"
        template="LogtailFormat"
        TCP_Framing="octet-counted"
-       StreamDriver="gtls"
+       StreamDriver="ossl"
        StreamDriverMode="1"
        StreamDriver.CAFile="/etc/ssl/certs/ca-certificates.crt"
        StreamDriverAuthMode="x509/name"
-       StreamDriverPermittedPeers="*.logs.betterstack.com"
+       StreamDriverPermittedPeers="*.logtail.com,*.logs.betterstack.com"
        queue.spoolDirectory="/var/spool/rsyslog"
        queue.filename="betterstack"
        queue.maxdiskspace="75m"
