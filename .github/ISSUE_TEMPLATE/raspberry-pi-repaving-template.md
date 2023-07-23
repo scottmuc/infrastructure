@@ -22,18 +22,10 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Things to do with the existing build
 
-- [ ] Disable DHCP on the PI<details>
+- [ ] Enable DHCP on the router, remove port mapping and statically assign network to PC<details>
   <summary>Instructions</summary>
 
-  Ensure that when we renew our DCHP lease, it comes from our router.
-
-  `sudo systemctl stop dnsmasq`
-</details>
-
-- [ ] Enable DHCP on the router and remove port mapping and release/renew IP address<details>
-  <summary>Instructions</summary>
-
-  Windows: `ipconfig /release` and then `ipconfig /renew`
+  **Insert screenshots here** ;-)
 </details>
 
 
@@ -118,6 +110,14 @@ all the [previous repave issues][repave-history]. Have fun!
 </details>
 
 - [ ] Reboot PI
+
+- [ ] Return `ansible.sh` and select the `logging` tag <details>
+  <summary>Instructions</summary>
+
+  This is because the keep alive script is created in `/tmp`. If this
+  instruction is still relevant for the next couple repaves, either move
+  to a stable location or drop log forwarding to BetterStack.
+</details>
 
 - [ ] Re-add port mapping to the static IP
 
