@@ -15,7 +15,7 @@
 
 - name: Install grafana package
   ansible.builtin.apt:
-    name: grafana=9.5.6
+    name: grafana
     state: present
     update_cache: true
   notify:
