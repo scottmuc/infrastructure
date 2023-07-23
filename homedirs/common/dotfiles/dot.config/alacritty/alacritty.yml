@@ -69,4 +69,7 @@ key_bindings:
   - {key: F, mods: Alt, chars: "\ef"}
   - {key: B, mods: Alt, chars: "\eb"}
 
+selection:
+  save_to_clipboard: true
+
 colors: *light
