@@ -21,10 +21,6 @@ server {
         proxy_pass http://pi.home.scottmuc.com:4533;
     }
 
-    location /prometheus/ {
-        proxy_pass http://pi.home.scottmuc.com:9090;
-    }
-
     location /grafana/ {
         proxy_set_header Host $http_host;
         proxy_pass http://grafana;

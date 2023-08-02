@@ -140,7 +140,7 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] https://home.scottmuc.com/music/ loads navidrome and the music is playable
 
-- [ ] https://home.scottmuc.com/prometheus/ loads and has data
+- [ ] http://prometheus.home.scottmuc.com:9090/ loads and has data
 
 - [ ] https://home.scottmuc.com/grafana/ loads and has data
 
