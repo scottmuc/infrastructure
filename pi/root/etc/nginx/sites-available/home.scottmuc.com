@@ -8,6 +8,9 @@ server {
     location /music/ {
         proxy_pass http://pi.home.scottmuc.com:4533;
     }
+
+    index index.html;
+    root /opt/home.scottmuc.com;
 }
 
 server {
