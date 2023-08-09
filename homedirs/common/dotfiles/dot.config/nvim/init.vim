@@ -32,33 +32,4 @@ Plug 'https://github.com/overcache/NeoSolarized'
 
 call plug#end()
 
-:silent! colorscheme NeoSolarized
-
-" Adds a bit of complexity, but the `background` tool reads the OS level theme
-" and returns "light" or "dark" accordingly.
-let output=system("background")
-execute "set background=".escape(output, ' ')
-
-"----------------------------------------------------------
-" status line stuff
-"----------------------------------------------------------
-
-if has("statusline")
-  set statusline=%<%f\ %h%m%r%=%k[%{(&fenc\ ==\ \"\"?&enc:&fenc).(&bomb?\",BOM\":\"\")}]\ %-12.(%l,%c%V%)\ %P
-endif
-
-"""""""""""
-" Multi purpose tab key stolen from ghb
-""""""""""
-function! InsertTabWrapper()
-  let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
-    return "\<tab>"
-  else
-    return "\<c-p>"
-  endif
-endfunction
-inoremap <tab> <c-r>=InsertTabWrapper()<cr>
-inoremap <s-tab> <c-n>
-
 source $HOME/.config/nvim/future.init.lua
