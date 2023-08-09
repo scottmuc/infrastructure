@@ -11,8 +11,6 @@ LIB_DIR="${DIR}/../common/lib"
 source "${LIB_DIR}/install_asdf.bash"
 # shellcheck disable=SC1091
 source "${LIB_DIR}/install_git_duet.bash"
-# shellcheck disable=SC1091
-source "${LIB_DIR}/setup_neovim.bash"
 
 main() {
   configure_wsl
@@ -20,7 +18,6 @@ main() {
   symlink_all_the_things
   install_os_packages
   default_to_zsh
-  setup_neovim
   setup_ssh_dir
   install_asdf
   install_python_dependencies
