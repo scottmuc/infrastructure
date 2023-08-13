@@ -19,7 +19,6 @@ main() {
   invoke_homebrew
   configure_tap_to_click
   install_asdf
-  invoke_softewareupdate
 }
 
 
@@ -112,41 +111,6 @@ invoke_homebrew() {
   brew bundle --file=./Brewfile
 }
 
-run_softwareupdate() {
-  local softwareupdate_indicator
-  softwareupdate_indicator="$1"
-  sudo softwareupdate -i -a && touch "${softwareupdate_indicator}"
-}
-
-last_softwareupdate_was_over_7_days_ago() {
-  local softwareupdate_indicator
-  softwareupdate_indicator="$1"
-  last_run=$(echo $(($(date +%s) - $(stat -t %s -f %m -- "${softwareupdate_indicator}"))))
-  last_run_days=$(( $last_run / (24 * 60 * 60) ))
-  echo Last software update was $last_run_days days ago
-  [ "${last_run_days}" -gt "7" ]
-}
-
-
-invoke_softewareupdate() {
-  local softwareupdate_indicator
-  softwareupdate_indicator=~/.softwareupdate_indicator
-
-  if [ ! -f "${softwareupdate_indicator}" ]
-  then
-    echo Indicator of previous softwareupdate execution does not appearr to exist.
-    run_softwareupdate "${softwareupdate_indicator}"
-  else
-    if last_softwareupdate_was_over_7_days_ago "${softwareupdate_indicator}"
-    then
-      echo Going to run a softwareupdate since it has been a while
-      run_softwareupdate "${softwareupdate_indicator}"
-    else
-      echo Since softwareupdate ran recently, not going to do anything
-      echo remove ${softwareupdate_indicator} to force an update
-    fi
-  fi
-}
 
 # copied from:
 # - https://github.com/mathiasbynens/dotfiles/blob/master/.macos#L147-L150
