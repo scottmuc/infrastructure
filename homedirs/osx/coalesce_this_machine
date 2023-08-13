@@ -9,8 +9,6 @@ LIB_DIR="${DIR}/../common/lib"
 
 # shellcheck disable=SC1091
 source "${LIB_DIR}/install_asdf.bash"
-# shellcheck disable=SC1091
-source "${LIB_DIR}/setup_neovim.bash"
 
 main() {
   symlink_all_the_things
@@ -19,7 +17,6 @@ main() {
   set_clock_format
   set_dock_preferences
   invoke_homebrew
-  setup_neovim
   configure_tap_to_click
   install_asdf
   invoke_softewareupdate
