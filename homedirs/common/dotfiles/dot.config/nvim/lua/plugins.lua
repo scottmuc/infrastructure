@@ -1,27 +1,27 @@
-vim.cmd [[packadd packer.nvim]]
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-
-  use 'overcache/NeoSolarized'
-
-  use {
+require("lazy").setup({
+  "overcache/NeoSolarized",
+  {
     'nvim-telescope/telescope.nvim', branch = '0.1.x',
-    requires = { {'nvim-lua/plenary.nvim'} }
-  }
-
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
-  }
-
-  use {
+    dependencies = { {'nvim-lua/plenary.nvim'} }
+  },
+  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
+  {
     'VonHeikemen/lsp-zero.nvim',
     branch = 'v2.x',
-    requires = {
+    dependencies = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},             -- Required
       {'williamboman/mason.nvim'},           -- Optional
@@ -39,5 +39,5 @@ return require('packer').startup(function(use)
       {'L3MON4D3/LuaSnip'},             -- Required
       {'rafamadriz/friendly-snippets'}, -- Optional
     }
-  }
-end)
+  },
+})

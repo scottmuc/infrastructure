@@ -1,8 +1,8 @@
-require('plugins')
-
 -- some inspiration for these settings are comming from:
 -- https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
 vim.g.mapleader = " "
+
+require('plugins')
 
 -- use netrw as a NerdTree replacement
 vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
