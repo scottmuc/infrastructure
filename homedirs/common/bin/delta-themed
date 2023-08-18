@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-set -x
 current_theme="$(background)"
 
 if grep dark <<<"${current_theme}" > /dev/null; then
