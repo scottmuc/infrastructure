@@ -2,10 +2,11 @@
 
 set -e
 
-gum style --bold "Select a playbook"
-playbook=$(find . -name "*playbook.yml" | sort -r | gum choose)
-gum style --bold "Select tag to apply"
-tags=$(gum choose \
+playbook=$(find . -name "*playbook.yml" \
+  | sort -r \
+  | gum choose --header "Select a playbook")
+
+tags=$(gum choose --header "Select tag to apply" \
   "all"           \
   "certbot"       \
   "grafana"       \
@@ -16,8 +17,7 @@ tags=$(gum choose \
   "sysctls"       \
 )
 
-gum style --bold "Select inventory"
-inventory_choice=$(gum choose "inventory file" "specific ip")
+inventory_choice=$(gum choose --header "Select inventory" "inventory file" "specific ip")
 
 if [ "${inventory_choice}" = "specific ip" ]; then
   inventory_arg="$(gum input --placeholder "192.168.2.x"),"
