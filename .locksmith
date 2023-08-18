@@ -1,1 +1,1 @@
-op read op://Automation/infrastructure-git-crypt-key/git-crypt-key
+op read op://Automation/repo.infrastructure/git-crypt-key
