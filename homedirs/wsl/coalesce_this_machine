@@ -19,6 +19,7 @@ main() {
   install_os_packages
   default_to_zsh
   setup_ssh_dir
+  install_nvim
   install_asdf
   install_python_dependencies
   install_python
@@ -115,6 +116,12 @@ default_to_zsh() {
   fi
 }
 
+install_nvim() {
+  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo apt update
+  sudo apt install neovim
+}
+
 install_os_packages() {
   sudo apt-get update
   sudo apt-get install -y \
@@ -127,7 +134,6 @@ install_os_packages() {
     graphviz              \
     jq                    \
     myrepos               \
-    neovim                \
     unzip                 \
     zsh
 }

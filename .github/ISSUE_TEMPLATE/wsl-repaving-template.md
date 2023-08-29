@@ -22,6 +22,12 @@ all the [previous repave issues][repave-history]. Have fun!
 
 # Steps
 
+- [ ] Check repos for uncommited stuff<details>
+  <summary>Instructions</summary>
+
+  `cd && mr status`
+</details>
+
 - [ ] Run repave script from windows host<details>
   <summary>Instructions</summary>
 
@@ -81,6 +87,8 @@ all the [previous repave issues][repave-history]. Have fun!
   asdf plugin add python
   asdf plugin add terraform
   asdf plugin add gum
+  asdf plugin add shellcheck
+  asdf plugin add nodejs
   asdf install
   pip install ansible
   ansible-galaxy collection install ansible.posix
@@ -113,7 +121,13 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Clone all the repos (`mr checkout`)
 
-- [ ] Ensure `tldr` works
+- [ ] Ensure `tldr` works<details>
+  <summary>Instructions</summary>
+
+  * Ensure `python` works from `~`
+  * Ensure `feature/enable_multiple_sources`
+  * `pip install -r requirements.txt`
+</details>
 
 - [ ] Ensure `deploy.sh` of goodenoughmoney.com works
 
