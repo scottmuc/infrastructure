@@ -22,3 +22,6 @@ checkout = git clone 'git@github.com:scottmuc/goodenoughmoney.git' 'goodenoughmo
 
 [workspace/tldr-python-client]
 checkout = git clone 'git@github.com:scottmuc/tldr-python-client.git' 'tldr-python-client'
+
+[workspace/tabularasa]
+checkout = git clone 'git@github.com:scottmuc/tabularasa.git' 'tabularasa'
