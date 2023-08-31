@@ -22,7 +22,6 @@ main() {
   install_nvim
   install_asdf
   install_python_dependencies
-  install_python
   install_all_things_docker
   install_git_duet "0.9.0"
   install_delta "0.14.0"
@@ -147,13 +146,6 @@ install_python_dependencies() {
     libreadline-dev       \
     libssl-dev            \
     zlib1g-dev
-}
-
-install_python() {
-  (cd ~ && \
-     asdf plugin add python || true && \
-     asdf install python || true       \
-  )
 }
 
 # https://developer.1password.com/docs/cli/install-server

@@ -48,7 +48,7 @@ all the [previous repave issues][repave-history]. Have fun!
   git clone https://github.com/scottmuc/infrastructure.git
   cd infrastructure/homedirs/wsl
   ./coalesce_this_machine
-  background light
+  background light # or dark if that's the current windows setting
   ```
 </details>
 
@@ -92,7 +92,9 @@ all the [previous repave issues][repave-history]. Have fun!
   asdf install
   pip install ansible
   ansible-galaxy collection install ansible.posix
+  (cd ~/ && asdf install)
   ```
+
 
 </details>
 
