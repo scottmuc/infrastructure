@@ -180,6 +180,7 @@ resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
+    "\"WSL repaved on Sep 4 2023.\"",
     "\"WSL repaved on Aug 29 2023.\"",
     "\"WSL repaved on May 12 2023. Cleaned up the historic graffiti\"",
   ]
