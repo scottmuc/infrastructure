@@ -1,23 +1,22 @@
-# This file is maintained automatically by "terraform init".
+# This file is maintained automatically by "tofu init".
 # Manual edits may be lost in future updates.
 
-provider "registry.terraform.io/go-gandi/gandi" {
-  version     = "2.2.2"
+provider "registry.opentofu.org/go-gandi/gandi" {
+  version     = "2.2.4"
   constraints = "~> 2.2.2"
   hashes = [
-    "h1:SJWLVx8zKdcer19mnOvJpSY2Wkl0bQ0AVrhdPdw7gmU=",
-    "h1:U6dUEAmxHfdK6Y1sQsWIHkvDpIGpHs8regmVCwF3/sI=",
-    "zh:08a1b24fc5674d130e7d8fe10ec194c08e745a3ec979ca18bebe130db77fcd21",
-    "zh:1c451b2b82e009c7719e59fd00ff7fefbde920c710854baf45e031828f468ef3",
-    "zh:33b85b52552dae4e89069d07e16e53fa4b1834ae35e0c0b4cc8b5b4f2dac0049",
-    "zh:350fcf52dc9a64b87367af2cec9c38114501e3db3ae1d1ad31d91bb8e2ab6916",
-    "zh:55dccee40a00edf0eae56a127fcc5683c8d3e4284e58daaac0a088f43776bafc",
-    "zh:5722d5e9bf6b72c8e52b561e72eb7e32a98124caebe996caf21e0fffbdcb4e66",
-    "zh:742287e2d35ddcb514ab238b513049d2d19b7459a2c64b0899a14b404c6b2b08",
-    "zh:83178cc108db05c127c2a6d89c365caa3dc4e873a69833bcdbdf04588d7b8ed9",
-    "zh:8611335a225fed5ef69a49e70fdd0612b19052c5498c87b5f7b961befa2baff8",
-    "zh:8e31fee9c1a0135b279eeac1b997f38392f9db5ff19fbb91abbcc2a8c6276c9e",
-    "zh:a1cd61555d3ab66500c29ab9373b95a251969c24b659f7521328a5b4dc1ffc62",
-    "zh:b36db5799f84848619190aa7865cdf9c26dc979d418563eea634ac371896e5b4",
+    "h1:RGuiw3OX5f+sCOHofYeWYD2HMJxw8V0Ug4VtRzHS9w4=",
+    "zh:00757767c7937c1e69bd5469c35c252745500e31afc9d797d6651a0bd343708c",
+    "zh:108c9270d9d9875413009644a3600e5831d55f52ec35f125004e0509f5060d27",
+    "zh:382cf49780bd603e4961ef1b4a5cd1297890dc556c1f5418e26b7b2127e021e0",
+    "zh:4741bc0fa17bf72dc52cdd163d677086aa7cee0e89f0362b9c2c60be726e7d00",
+    "zh:52d6567865c9e019d3263a7d525d8246fd0b9f9c907d312112b1c1591ecd5b8b",
+    "zh:54be4075a892351a251de77f740e46ae46cfe8fab8898f4cdbaa3a49f55754c1",
+    "zh:60d5c6a34cec2facf7c1eddb4dbf62be3301b1859380ec1d8ebaf9e2454e0510",
+    "zh:6a5fe35bdeb163c3f5bf8ae98130bde1bc21016332b54de22705ef02d85f5a48",
+    "zh:75026b377518711d5a5e2aa04e087e743adcb163c528c57ad8f3803c8831a52f",
+    "zh:9178a088e99d1d590b6b41d0e98711da41abda396cc6a46c5408debb8ddadeeb",
+    "zh:939939fb7dd57d845eaea0b9b68ebd302a6aed790818faf74fc328532b27de0d",
+    "zh:c6fee34bb9b9445f54ea0d20283451861e54d43fc77dbaefe92a0973e7a0ec61",
   ]
 }

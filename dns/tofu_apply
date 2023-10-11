@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-terraform \
+opentofu/tofu \
   apply \
   -state ../secrets/dns.terraform.tfstate \
   -backup - \
