@@ -1,25 +1,9 @@
-# TLS info came from:
-# https://www.papertrail.com/help/encrypting-remote-syslog-with-tls-ssl/
-- name: Add Bullseye Backports repository
-  ansible.builtin.copy:
-    dest: /etc/apt/sources.list.d/bullsey-backports.list
-    content: |
-      deb http://deb.debian.org/debian bullseye-backports main contrib non-free
-      deb-src http://deb.debian.org/debian bullseye-backports main contrib non-free
-
-
-- name: Update Apt cache
-  ansible.builtin.apt:
-    update_cache: true
-
-
 - name: Ensure required packages are installed
   apt:
     pkg:
     - rsyslog
     - rsyslog-gnutls
     state: latest
-    default_release: bullseye-backports
   notify:
     - Restart rsyslog
 
