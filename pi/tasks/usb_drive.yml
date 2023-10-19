@@ -2,7 +2,6 @@
   ansible.builtin.apt:
     pkg:
       - exfat-fuse
-      - exfat-utils
 
 
 - name: Create USB mount point
