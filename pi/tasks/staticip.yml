@@ -1,13 +1,6 @@
-- name: Ensure dhcpcd is stopped
-  ansible.builtin.service:
-    name: dhcpcd
-    state: stopped
-    enabled: false
-
-
-- name: Uninstall dhcpcd5
+- name: Uninstall isc-dhcp-client
   ansible.builtin.apt:
-    name: dpcpcd5
+    name: isc-dhcp-client
     state: absent
 
 
