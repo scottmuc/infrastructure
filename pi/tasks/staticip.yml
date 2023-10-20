@@ -20,3 +20,15 @@
       gateway 192.168.2.1
       dns-nameservers 127.0.0.1
       dns-search home.scottmuc.com
+
+
+- name: Install resolv.conf
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/resolv.conf
+    owner: root
+    group: admin
+    mode: '0664'
+    content: |
+      search home.scottmuc.com
+      nameserver 127.0.0.1
