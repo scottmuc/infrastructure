@@ -75,7 +75,7 @@ all the [previous repave issues][repave-history]. Have fun!
   ssh-keygen -R 192.168.2.10
   ssh-keygen -R pi
   ssh-keygen -R pi.home.scottmuc.com
-  ssh-keygen -R <pi ip>
+  ssh-keygen -R 192.168.2.102
   ```
 </details>
 
@@ -110,14 +110,6 @@ all the [previous repave issues][repave-history]. Have fun!
 </details>
 
 - [ ] Reboot PI
-
-- [ ] Return `ansible.sh` and select the `logging` tag <details>
-  <summary>Instructions</summary>
-
-  This is because the keep alive script is created in `/tmp`. If this
-  instruction is still relevant for the next couple repaves, either move
-  to a stable location or drop log forwarding to BetterStack.
-</details>
 
 - [ ] Re-add port mapping to the static IP
 
