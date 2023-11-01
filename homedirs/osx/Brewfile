@@ -1,5 +1,5 @@
 tap 'neovim/neovim'
-brew 'neovim'
+#brew 'neovim'
 
 tap 'homebrew/cask-fonts'
 cask 'font-jetbrains-mono-nerd-font'
@@ -22,9 +22,6 @@ brew 'coreutils'
 
 brew 'jq'
 brew 'mr'
-
-# Why do I need python3? I think it's related to neovim
-brew 'python3'
 
 # alacritty is a single pane terminal so need to use tmux for tabs and panes
 brew 'tmux'
