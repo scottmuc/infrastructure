@@ -167,7 +167,6 @@ Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
 
 # Assume default source of https://chocolatey.org/api/v2
 choco install alacritty -y
-choco install brave -y
 choco install gnucash -y
 choco install steam -y
 choco install zoom -y
@@ -175,6 +174,8 @@ choco install op -y
 choco install vscode.install -y
 choco install obs-studio -y
 choco install autohotkey.install -y
+choco install vivaldi.install -y
+choco install obsidian -y
 
 choco install jetbrainsmononf -y
 choco install nerd-fonts-robotomono -y
