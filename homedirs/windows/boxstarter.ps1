@@ -1,12 +1,35 @@
 
 function Invoke-Main {
     Remove-DefaultApplications
+
+    # https://boxstarter.org/winconfig#set-windowsexploreroptions
+    Set-WindowsExplorerOptions `
+    -EnableShowHiddenFilesFoldersDrives `
+    -EnableShowFileExtensions `
+    -EnableShowFullPathInTitleBar
+
+
+    #  https://boxstarter.org/winconfig#set-boxstartertaskbaroptions
+    Set-BoxstarterTaskbarOptions `
+    -Size Small `
+    -Dock Top `
+    -DisableSearchBox
+
+    Set-CapslockAsControlKey
+    Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
+
+    Install-ChocolateyPackages
+
     Enable-CouchGamingOnStartup
     Enable-DarkThemeToggler
     Enable-GitConfig
     Enable-VsCodeSettings
+    
     Disable-WindowsSounds
     Set-ThisDirectoryToQuickAccess
+
+    Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+    Enable-WindowsOptionalFeature -Online -FeatureName Virtual-Machine-Platform
 }
 
 
@@ -145,45 +168,34 @@ function Remove-DefaultApplications {
     }
 }
 
-# https://boxstarter.org/winconfig#set-windowsexploreroptions
-Set-WindowsExplorerOptions `
-  -EnableShowHiddenFilesFoldersDrives `
-  -EnableShowFileExtensions `
-  -EnableShowFullPathInTitleBar
 
+function Set-CapslockAsControlKey {
+    $hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | ForEach-Object { "0x$_"}
+    $kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout'
+    New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Value ([byte[]]$hexified)
+}
 
-#  https://boxstarter.org/winconfig#set-boxstartertaskbaroptions
-Set-BoxstarterTaskbarOptions `
-  -Size Small `
-  -Dock Top `
-  -DisableSearchBox
+function Install-ChocolateyPackages {
+    # Assume default source of https://chocolatey.org/api/v2
+    choco install alacritty -y
+    choco install gnucash -y
+    choco install steam -y
+    choco install zoom -y
+    choco install op -y
+    choco install vscode.install -y
+    choco install obs-studio -y
+    choco install autohotkey.install -y
+    choco install vivaldi.install -y
+    choco install obsidian -y
 
-# Switchings CAPSLOCK to CTRL
-$hexified = "00,00,00,00,00,00,00,00,02,00,00,00,1d,00,3a,00,00,00,00,00".Split(',') | ForEach-Object { "0x$_"}
-$kbLayout = 'HKLM:\System\CurrentControlSet\Control\Keyboard Layout'
-New-ItemProperty -Path $kbLayout -Name "Scancode Map" -PropertyType Binary -Value ([byte[]]$hexified)
+    choco install jetbrainsmononf -y
+    choco install nerd-fonts-robotomono -y
+    choco install nerd-fonts-inconsolata -y
 
-Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
-
-# Assume default source of https://chocolatey.org/api/v2
-choco install alacritty -y
-choco install gnucash -y
-choco install steam -y
-choco install zoom -y
-choco install op -y
-choco install vscode.install -y
-choco install obs-studio -y
-choco install autohotkey.install -y
-choco install vivaldi.install -y
-choco install obsidian -y
-
-choco install jetbrainsmononf -y
-choco install nerd-fonts-robotomono -y
-choco install nerd-fonts-inconsolata -y
-
-# Collectors list: https://github.com/prometheus-community/windows_exporter#collectors
-choco install prometheus-windows-exporter.install --confirm `
-    --package-parameters='"/EnabledCollectors:cpu,cs,logical_disk,memory,net,os,service,system,process,thermalzone"'
+    # Collectors list: https://github.com/prometheus-community/windows_exporter#collectors
+    choco install prometheus-windows-exporter.install --confirm `
+        --package-parameters='"/EnabledCollectors:cpu,cs,logical_disk,memory,net,os,service,system,process,thermalzone"'
+}
 
 function Set-ThisDirectoryToQuickAccess {
     $Shell = New-Object -ComObject shell.application -Verbose
@@ -219,8 +231,6 @@ function Enable-DarkThemeToggler {
     $Shortcut.Save()
 }
 
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-Enable-WindowsOptionalFeature -Online -FeatureName Virtual-Machine-Platform
 
 function Enable-GitConfig {
     $TargetGitConfigPath = Join-Path -Path $Env:USERPROFILE -Child ".gitconfig"
