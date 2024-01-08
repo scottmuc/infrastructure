@@ -1,0 +1,162 @@
+#!/usr/bin/env bash
+
+set -e
+set -u
+
+# from https://stackoverflow.com/a/246128
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+LIB_DIR="${DIR}/../common/lib"
+
+# shellcheck disable=SC1091
+source "${LIB_DIR}/install_asdf.bash"
+# shellcheck disable=SC1091
+source "${LIB_DIR}/install_git_duet.bash"
+
+main() {
+  symlink_all_the_things
+  install_os_packages
+  default_to_zsh
+  setup_ssh_dir
+  install_nvim
+  install_asdf
+  install_golang "1.21.1"
+  install_python_dependencies
+  install_git_duet "0.9.0"
+  install_delta "0.14.0"
+  install_1password_cli "2.12.0"
+}
+
+install_golang() {
+  local version
+
+  version="${1:-1.21.1}"
+
+  if command -v go &> /dev/null; then
+    echo "go exists: $(go version)"
+    return
+  fi
+
+  local tarball="go${version}.linux-amd64.tar.gz"
+  curl -LsS -o "/tmp/${tarball}" \
+    "https://go.dev/dl/go${version}.linux-amd64.tar.gz"
+
+  sudo tar -C /usr/local -zxf "/tmp/${tarball}"
+}
+
+setup_ssh_dir() {
+  mkdir -p ~/.ssh
+  chmod 0700 ~/.ssh
+}
+
+
+install_delta() {
+  local version
+
+  version="${1:-0.12.1}"
+
+  if command -v delta &> /dev/null; then
+    echo "git-delta exists: $(delta --version)"
+    return
+  fi
+
+  local deb="git-delta_${version}_amd64.deb"
+  curl -LsS -o "/tmp/${deb}" \
+    "https://github.com/dandavison/delta/releases/download/${version}/${deb}"
+  sudo dpkg -i "/tmp/${deb}"
+}
+
+# depends on zsh being install of course
+default_to_zsh() {
+  if ! echo $SHELL | grep zsh > /dev/null; then
+    chsh -s $(which zsh)
+  fi
+}
+
+install_nvim() {
+  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo apt update
+  sudo apt install neovim
+}
+
+install_os_packages() {
+  sudo apt-get update
+  sudo apt-get install -y \
+    autojump              \
+    bc                    \
+    ca-certificates       \
+    curl                  \
+    git-crypt             \
+    gnupg                 \
+    graphviz              \
+    jq                    \
+    myrepos               \
+    unzip                 \
+    zsh
+}
+
+install_python_dependencies() {
+  sudo apt-get update
+  sudo apt-get install -y \
+    build-essential       \
+    libffi-dev            \
+    liblzma-dev           \
+    libreadline-dev       \
+    libssl-dev            \
+    zlib1g-dev
+}
+
+# https://developer.1password.com/docs/cli/install-server
+install_1password_cli() {
+  local version
+  # bash shenanigans... use specified version, if none specified, default to 2.0.0
+  version="${1:-2.0.0}"
+  if command -v op &> /dev/null; then
+    echo "op exists: $(op --version)"
+    return
+  fi
+
+  curl -sSfo op.zip \
+    "https://cache.agilebits.com/dist/1P/op2/pkg/v${version}/op_linux_amd64_v${version}.zip" \
+    && unzip -od ../../vendor/bin op.zip \
+    && rm op.zip
+}
+
+
+# I am getting the absolute path so that ls -la output goes from:
+#
+#   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/bin/../dotfiles/dot.config
+# to
+#   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
+symlink_all_the_things() {
+  local homedir_source common_source dotfiles_dir common_dotfiles_dir
+  homedir_source=$(cd "${DIR}/"; pwd)
+  common_source=$(cd "${DIR}/../common"; pwd)
+  dotfiles_dir="${homedir_source}/dotfiles"
+  common_dotfiles_dir="${common_source}/dotfiles"
+
+  # I don't know how to do this command in a 1 line indempotent way. Repeated executions
+  # but symlinks within the symlink.
+  if [[ ! -d ~/.config ]]; then
+    mkdir ~/.config
+  fi
+
+  if [[ ! -d ~/.gnupg ]]; then
+    mkdir ~/.gnupg
+    chmod 700 ~/.gnupg
+  fi
+  ln -sfv "${common_dotfiles_dir}/dot.gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
+
+  ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
+  ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
+  ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
+  ln -sfv "${common_dotfiles_dir}/dot.git-authors" ~/.git-authors
+  ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
+  ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
+
+  # https://unix.stackexchange.com/a/355220
+  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+
+  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+}
+
+main
