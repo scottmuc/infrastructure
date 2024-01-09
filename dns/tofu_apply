@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
-opentofu/tofu \
+tofu \
   apply \
   -state ../secrets/dns.terraform.tfstate \
   -backup - \
-  -var "home_ip=$(curl ifconfig.me/ip)" \
+  -var "home_ip=$(curl -4 ifconfig.me/ip)" \
   -var "gandi_api_key=$(cat ../secrets/GANDI_API_KEY)" \
 
