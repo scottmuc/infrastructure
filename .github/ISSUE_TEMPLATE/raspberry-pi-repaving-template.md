@@ -49,7 +49,9 @@ all the [previous repave issues][repave-history]. Have fun!
   **note** check if the underlying Debian distribution is changing as this might result
   in some issues in the playbook execution.
 
-  The Bullseye 64-bit lite image seems to work for now.
+  The Bookworm 64-bit lite image seems to work for now. **note** as of `v1.8.4` of
+  the Imager software, ensure to not select `no filtering` in the *Raspberry Pi Device*
+  filter.
 
   [advanced-options]: https://www.raspberrypi.com/documentation/computers/getting-started.html#advanced-options
 </details>
