@@ -5,7 +5,12 @@ vim.g.mapleader = " "
 require('plugins')
 
 -- use netrw as a NerdTree replacement
-vim.keymap.set("n", "<leader>e", vim.cmd.Ex)
+vim.keymap.set("n", "<C-n>", vim.cmd.Ex)
+
+-- shorcuts for editing and loading NeoVim configuration
+vim.keymap.set("n", "<leader>ec", ":edit ~/.config/nvim/<CR>")
+vim.keymap.set("n", "<leader>sc", ":source $MYVIMRC<CR>")
+vim.keymap.set("n", "<leader>cs", ":vs ~/GlobalShare/Obsidian/Scott's World/NeoVim Cheat Sheet.md<CR>")
 
 -- move blocks of text visually
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
