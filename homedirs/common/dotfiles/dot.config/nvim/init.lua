@@ -59,7 +59,18 @@ vim.keymap.set('n', '<leader>fh', telescope.help_tags, {})
 
 require'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "vimdoc", "javascript", "lua", "terraform", "bash", "html" },
+  ensure_installed = {
+    "vimdoc",
+    "javascript",
+    "lua",
+    "terraform",
+    "bash",
+    "html",
+    "go",
+    "gomod",
+    "gowork",
+    "gosum",
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
