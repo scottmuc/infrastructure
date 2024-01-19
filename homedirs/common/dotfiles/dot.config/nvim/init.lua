@@ -2,6 +2,11 @@
 -- https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
 vim.g.mapleader = " "
 
+-- use netrw as a NerdTree replacement
+-- https://shapeshed.com/vim-netrw/
+vim.keymap.set("n", "<C-n>", vim.cmd.Vexplore)
+vim.g.netrw_banner = 0
+
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -132,9 +137,6 @@ lsp.setup()
 vim.diagnostic.config({
     virtual_text = false
 })
-
--- use netrw as a NerdTree replacement
-vim.keymap.set("n", "<C-n>", vim.cmd.Ex)
 
 -- shorcuts for editing and loading NeoVim configuration
 vim.keymap.set("n", "<leader>ec", ":edit ~/.config/nvim/init.lua<CR>")
