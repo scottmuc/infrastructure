@@ -1,3 +1,20 @@
+--[[
+This neovim configuration a scattering of influences and I'll attempt to over
+explain like my previous .vimrc:
+
+  https://github.com/scottmuc/infrastructure/blob/cb3bb16cf30e2b431af2ff13b90e382e58f47260/homedirs/common/dotfiles/dot.config/nvim/init.vim
+
+This configuration was bootstrapped from the 0 to LSP stuff and was documented
+via this video: https://www.youtube.com/watch?v=UPyNOw1_z-U
+
+Now it's pretty far from that configuration.
+
+I'm going to stick with a single file for as long as I can. Until I can recite
+the order of operations in a clear and understandable way, I don't feel like
+separating things into separate files makes sense for me at the moment.
+
+--]]
+
 -- some inspiration for these settings are comming from:
 -- https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
 vim.g.mapleader = " "
