@@ -24,6 +24,7 @@ vim.g.mapleader = " "
 vim.keymap.set("n", "<C-n>", vim.cmd.Vexplore)
 vim.g.netrw_banner = 0
 
+-- usually ends up being ~/.local/share/nvim/lazy/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -35,6 +36,8 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
+-- https://neovim.io/doc/user/options.html#'rtp'
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
