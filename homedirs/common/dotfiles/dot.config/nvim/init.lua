@@ -13,6 +13,10 @@ I'm going to stick with a single file for as long as I can. Until I can recite
 the order of operations in a clear and understandable way, I don't feel like
 separating things into separate files makes sense for me at the moment.
 
+Other resources:
+* https://medium.com/@finnala/a-beginners-guide-to-neovim-configuration-9e7dac182de5
+* https://dev.to/vonheikemen/make-lsp-zeronvim-coexists-with-other-plugins-instead-of-controlling-them-2i80
+* https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
 --]]
 
 -- some inspiration for these settings are comming from:
