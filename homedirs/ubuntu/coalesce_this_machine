@@ -24,7 +24,41 @@ main() {
   install_git_duet "0.9.0"
   install_delta "0.14.0"
   install_1password_cli "2.12.0"
+  install_all_things_docker
 }
+
+# Based on https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
+install_all_things_docker() {
+  if command -v docker &> /dev/null; then
+    echo "docker exists: $(docker -v)"
+    return
+  fi
+
+  local docker_keyring_path="/usr/share/keyrings/docker.gpg"
+
+  curl -fsSL https://download.docker.com/linux/ubuntu/gpg \
+    | sudo gpg --dearmor -o "${docker_keyring_path}"
+  sudo chmod a+r "${docker_keyring_path}"
+
+  echo \
+      "deb [arch="$(dpkg --print-architecture)" signed-by="${docker_keyring_path}"] \
+https://download.docker.com/linux/ubuntu \
+"$(. /etc/os-release && echo "$VERSION_CODENAME")" \
+stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+  sudo apt-get update
+  sudo apt-get install -y \
+    docker-ce             \
+    docker-ce-cli         \
+    containerd.io         \
+    docker-buildx-plugin  \
+    docker-compose-plugin
+
+  # https://patrickwu.space/2021/03/09/wsl-solution-to-native-docker-daemon-not-starting/
+  sudo update-alternatives --set iptables /usr/sbin/iptables-legacy
+  sudo usermod -a -G docker scott
+}
+
 
 install_golang() {
   local version
