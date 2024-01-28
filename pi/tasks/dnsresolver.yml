@@ -26,7 +26,7 @@
     owner: root
     group: root
     mode: '0664'
-    url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/master/unbound/unbound.blocklist
+    url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/main/unbound/unbound.blocklist
   notify:
     - Restart unbound
 
