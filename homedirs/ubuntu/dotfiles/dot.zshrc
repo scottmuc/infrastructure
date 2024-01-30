@@ -69,3 +69,33 @@ if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
 fi
 
 [ -s "$HOME/.asdf/asdf.sh" ] && \. "$HOME/.asdf/asdf.sh"
+
+heigh-ho() {
+  gum style \
+    --foreground 212 --border-foreground 212 --border double \
+    --align center --width 50 --margin "1 2" --padding "2 4" \
+    "Heigh ho, heigh ho," "it's off to work we go!"
+
+  if ! op-auth-status; then
+    eval "$(op signin)"
+  fi
+
+  if ssh-add -l | grep 20221110.keys; then
+    ssh-op-agent load -n 20221110.keys \
+      -f "base64 encoded ssh private key" \
+      -p "ssh key passphrase" \
+      -t 9
+  fi
+
+  op read op://Automation/gpg.scottATscottmuc.com/passphrase \
+    | wl-copy --trim-newline
+
+  touch /tmp/gpg_agent_priming
+  gpg --sign /tmp/gpg_agent_priming
+  rm /tmp/gpg_agent_priming*
+
+  if [[ -z "${OPENAI_API_KEY}" ]]; then
+    OPENAI_API_KEY="$(op read "op://Personal/OpenAI/api key")"
+    export OPENAI_API_KEY
+  fi
+}
