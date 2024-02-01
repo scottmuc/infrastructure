@@ -20,8 +20,5 @@ checkout = git clone 'git@github.com:devopsbookmarks/devopsbookmarks.com.git' 'd
 [workspace/goodenoughmoney]
 checkout = git clone 'git@github.com:scottmuc/goodenoughmoney.git' 'goodenoughmoney'
 
-[workspace/tldr-python-client]
-checkout = git clone 'git@github.com:scottmuc/tldr-python-client.git' 'tldr-python-client'
-
 [workspace/tabularasa]
 checkout = git clone 'git@github.com:scottmuc/tabularasa.git' 'tabularasa'

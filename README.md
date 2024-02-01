@@ -8,7 +8,6 @@
 * [Raspberry Pi Configuration Management](pi/) which performs the following: dhcpd, ad blocking dns, samba, music
   service, monitoring
 * [Homedir configuration](homedirs) for WSL, Windows, and macOS
-* [tldr](tldr-pages/) custom pages
 * [Repaving instructions](.github/ISSUE_TEMPLATE) for all platforms
 
 ### Coding Conventions

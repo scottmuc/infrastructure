@@ -123,14 +123,6 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Clone all the repos (`mr checkout`)
 
-- [ ] Ensure `tldr` works<details>
-  <summary>Instructions</summary>
-
-  * Ensure `python` works from `~`
-  * Ensure `feature/enable_multiple_sources`
-  * `pip install -r requirements.txt`
-</details>
-
 - [ ] Ensure `deploy.sh` of goodenoughmoney.com works
 
 - [ ] Ensure `docker` works<details>
