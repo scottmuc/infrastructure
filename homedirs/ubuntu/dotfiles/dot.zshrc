@@ -76,11 +76,15 @@ heigh-ho() {
     --align center --width 50 --margin "1 2" --padding "2 4" \
     "Heigh ho, heigh ho," "it's off to work we go!"
 
-  if ! op-auth-status; then
+  if op-auth-status; then
+    echo "already logged into 1 Password"
+  else
     eval "$(op signin)"
   fi
 
   if ssh-add -l | grep 20221110.keys; then
+    echo "ssh 20221110.keys already loaded"
+  else
     ssh-op-agent load -n 20221110.keys \
       -f "base64 encoded ssh private key" \
       -p "ssh key passphrase" \
@@ -91,7 +95,7 @@ heigh-ho() {
     | wl-copy --trim-newline
 
   touch /tmp/gpg_agent_priming
-  gpg --sign /tmp/gpg_agent_priming
+  gpg --sign --local-user "scott@scottmuc.com" /tmp/gpg_agent_priming
   rm /tmp/gpg_agent_priming*
 
   if [[ -z "${OPENAI_API_KEY}" ]]; then
