@@ -31,6 +31,9 @@ export EDITOR="nvim"
 # develop the muscle memory to type nvim.
 alias vim="echo woopsy, you probably meant nvim, right?"
 
+# Try out kickstart configuration
+alias kvim='NVIM_APPNAME="nvim-kickstart" nvim'
+
 export GPG_TTY=$(tty)
 
 autoload colors && colors
