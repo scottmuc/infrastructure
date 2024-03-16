@@ -29,7 +29,10 @@ export EDITOR="nvim"
 
 # Why not `alias vim=nvim`? Rather that having the redirection, I would rather
 # develop the muscle memory to type nvim.
-alias vim="echo woopsy, you probably meant nvim, right?"
+alias vim="echo woopsy, you probably meant nvim or kvim, right?"
+
+# Try out kickstart configuration
+alias kvim='NVIM_APPNAME="nvim-kickstart" nvim'
 
 export GPG_TTY=$(tty)
 
