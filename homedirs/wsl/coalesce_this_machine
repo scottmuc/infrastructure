@@ -20,7 +20,6 @@ main() {
   default_to_zsh
   setup_ssh_dir
   install_nvim
-  install_neovim_kickstart
   install_asdf
   install_golang "1.21.1"
   install_python_dependencies
@@ -28,12 +27,6 @@ main() {
   install_git_duet "0.9.0"
   install_delta "0.14.0"
   install_1password_cli "2.12.0"
-}
-
-install_neovim_kickstart() {
-  if [[ ! -d ~/.config/nvim-kickstart ]]; then
-    git clone https://github.com/nvim-lua/kickstart.nvim.git ~/.config/nvim-kickstart
-  fi
 }
 
 install_golang() {
@@ -223,6 +216,7 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim-kickstart" ~/.config/nvim-kickstart
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
