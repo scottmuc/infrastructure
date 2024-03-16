@@ -157,6 +157,7 @@ install_os_packages() {
     graphviz              \
     jq                    \
     myrepos               \
+    ripgrep               \
     unzip                 \
     zsh
 }
