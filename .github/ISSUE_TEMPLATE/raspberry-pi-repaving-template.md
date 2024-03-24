@@ -77,7 +77,6 @@ all the [previous repave issues][repave-history]. Have fun!
   ssh-keygen -R 192.168.2.10
   ssh-keygen -R pi
   ssh-keygen -R pi.home.scottmuc.com
-  ssh-keygen -R 192.168.2.102
   ```
 </details>
 
@@ -124,6 +123,18 @@ all the [previous repave issues][repave-history]. Have fun!
 
   Run the following on the PI
   `sudo smbpasswd -a smbrw`
+</details>
+
+- [ ] Clean up host key for ephemeral IP<details>
+  <summary>Instructions</summary>
+
+  Remove host key reference to the temporary IP that was used to bootstrap the
+  device. This cleanup will ensure that an error won't occur in the next refresh
+  if the same IP is used again.
+
+  ```
+  ssh-keygen -R <ephemeral IP>
+  ```
 </details>
 
 - [ ] Make this template slightly better
