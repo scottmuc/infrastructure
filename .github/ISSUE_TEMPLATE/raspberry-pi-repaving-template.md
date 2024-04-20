@@ -118,13 +118,6 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Deploy goodenoughmoney.com
 
-- [ ] Create `pi` Samba user<details>
-  <summary>Instructions</summary>
-
-  Run the following on the PI
-  `sudo smbpasswd -a smbrw`
-</details>
-
 - [ ] Clean up host key for ephemeral IP<details>
   <summary>Instructions</summary>
 
@@ -148,8 +141,6 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] http://prometheus.home.scottmuc.com:9090/ loads and has data
 
 - [ ] http://grafana.home.scottmuc.com:3000/ loads and has data
-
-- [ ] Z:\ on my Windows PC works
 
 - [ ] `ipconfig /release` and then `ipconfig /renew` works
 

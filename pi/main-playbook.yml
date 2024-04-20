@@ -76,9 +76,6 @@
       apply:
         tags: mounts
 
-  - name: Setup Samba
-    include_tasks: tasks/samba.yml
-
   - name: Install dnsmasq
     include_tasks: tasks/dhcpd.yml
 
@@ -128,12 +125,6 @@
     - name: Restart nginx
       ansible.builtin.service:
         name: nginx
-        state: restarted
-
-
-    - name: Restart smbd
-      ansible.builtin.service:
-        name: smbd
         state: restarted
 
 
