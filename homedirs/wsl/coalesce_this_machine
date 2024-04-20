@@ -215,8 +215,7 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
 
   # https://unix.stackexchange.com/a/355220
-  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
-  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim-kickstart" ~/.config/nvim-kickstart
+  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim-kickstart" ~/.config/nvim
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
