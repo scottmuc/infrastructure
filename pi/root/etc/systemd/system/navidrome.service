@@ -28,6 +28,6 @@ RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
 RestrictNamespaces=yes
 RestrictRealtime=yes
 SystemCallFilter=~@clock @debug @module @mount @obsolete @privileged @reboot @setuid @swap
-ReadWritePaths=/mnt/usb/navidrome
+ReadWritePaths=/mnt/vcapstore/navidrome
 ProtectSystem=strict
 ProtectHome=true
