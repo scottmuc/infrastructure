@@ -14,10 +14,27 @@
 
 
 # UUID=5A47-F8E2 /mnt/usb exfat defaults,auto,users,rw,nofail,umask=000 0 0
-- name: Mount Disk
+- name: Mount 2TB disk
   ansible.posix.mount:
     state: mounted
     path: /mnt/usb
     src: UUID=5A47-F8E2
     fstype: exfat
     opts: defaults,auto,users,rw,nofail,umask=000
+
+
+- name: Create USB mount for persistent storage for services
+  ansible.builtin.file:
+    path: /mnt/vcapstore
+    state: directory
+    owner: root
+    group: root
+    mode: '0777'
+
+
+- name: Mount 32GB disk
+  ansible.posix.mount:
+    state: mounted
+    path: /mnt/vcapstore
+    src: UUID=e15af423-34a5-445c-978b-c85288f3a90b
+    fstype: ext4

@@ -70,7 +70,11 @@
     include_tasks: tasks/vhosts.yml
 
   - name: Setup USB Drive
-    include_tasks: tasks/usb_drive.yml
+    tags: mounts
+    include_tasks:
+      file: tasks/usb_drive.yml
+      apply:
+        tags: mounts
 
   - name: Setup Samba
     include_tasks: tasks/samba.yml

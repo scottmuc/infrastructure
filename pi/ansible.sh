@@ -11,6 +11,7 @@ tags=$(gum choose --header "Select tag to apply" \
   "certbot"       \
   "grafana"       \
   "logging"       \
+  "mounts"        \
   "navidrome"     \
   "nginx"         \
   "prometheus"    \
