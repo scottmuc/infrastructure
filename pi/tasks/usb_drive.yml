@@ -1,9 +1,3 @@
-- name: Install fuse packages
-  ansible.builtin.apt:
-    pkg:
-      - cifs-utils
-
-
 - name: Create USB mount for persistent storage for services
   ansible.builtin.file:
     path: /mnt/vcapstore
@@ -19,21 +13,3 @@
     path: /mnt/vcapstore
     src: UUID=e15af423-34a5-445c-978b-c85288f3a90b
     fstype: ext4
-
-
-- name: Create mount for music share
-  ansible.builtin.file:
-    path: /mnt/music
-    state: directory
-    owner: root
-    group: root
-    mode: '0777'
-
-
-- name: Mount music share from Windows PC
-  ansible.posix.mount:
-    src: //192.168.2.12/music
-    path: /mnt/music
-    fstype: cifs
-    state: mounted
-    opts: ro,pass=

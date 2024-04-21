@@ -1,0 +1,22 @@
+- name: Install cifs mount dependencies
+  ansible.builtin.apt:
+    pkg:
+      - cifs-utils
+
+
+- name: Create mount for music share
+  ansible.builtin.file:
+    path: /mnt/music
+    state: directory
+    owner: root
+    group: root
+    mode: '0555'
+
+
+- name: Mount music share from Windows PC
+  ansible.posix.mount:
+    src: //192.168.2.12/music
+    path: /mnt/music
+    fstype: cifs
+    state: mounted
+    opts: ro,pass=,file_mode=0444,dir_mode=0555

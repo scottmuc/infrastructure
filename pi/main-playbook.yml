@@ -76,6 +76,13 @@
       apply:
         tags: mounts
 
+  - name: Mount music windows share
+    tags: mounts
+    include_tasks:
+      file: tasks/music_cifs_mount.yml
+      apply:
+        tags: mounts
+
   - name: Install dnsmasq
     include_tasks: tasks/dhcpd.yml
 
