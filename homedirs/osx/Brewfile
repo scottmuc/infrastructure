@@ -11,9 +11,6 @@ brew 'autojump'
 # This is used to managed the encryption of this repo
 brew 'git-crypt'
 
-# Trying out a different diff tool
-brew 'git-delta'
-
 # Trying to sign my commits now
 brew 'gpg'
 

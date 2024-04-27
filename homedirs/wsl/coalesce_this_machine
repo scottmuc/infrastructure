@@ -25,7 +25,6 @@ main() {
   install_python_dependencies
   install_all_things_docker
   install_git_duet "0.9.0"
-  install_delta "0.14.0"
   install_1password_cli "2.12.0"
 }
 
@@ -76,22 +75,6 @@ search home.scottmuc.com
 EOF
 }
 
-
-install_delta() {
-  local version
-
-  version="${1:-0.12.1}"
-
-  if command -v delta &> /dev/null; then
-    echo "git-delta exists: $(delta --version)"
-    return
-  fi
-
-  local deb="git-delta_${version}_amd64.deb"
-  curl -LsS -o "/tmp/${deb}" \
-    "https://github.com/dandavison/delta/releases/download/${version}/${deb}"
-  sudo dpkg -i "/tmp/${deb}"
-}
 
 # Based on https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository
 install_all_things_docker() {
