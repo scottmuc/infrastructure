@@ -33,7 +33,6 @@ homedirs/windows/vscode/settings.json
   * dock
   * clock format
 * runs **homebrew** things.
-* installs **neovim** plugins
 * runs OSX softwareupdates
 
 ## Windows
@@ -56,8 +55,17 @@ homedirs/windows/vscode/settings.json
   * extending `PATH` with more fun
   * **neovim** configuration
   * **alacritty** and **tmux** configuration
-* runs **homebrew** things.
-* installs **neovim** plugins
+* installs all applications
+
+## Ubuntu
+
+* symlinks a few things to `$HOME`
+  * **zsh** configuration
+  * **git** configuration
+  * extending `PATH` with more fun
+  * **neovim** configuration
+  * **alacritty** and **tmux** configuration
+* installs all applications
 
 ## Inspiration
 

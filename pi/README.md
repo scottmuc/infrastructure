@@ -6,7 +6,6 @@ A jack of all trades network appliance for my home network.
 
 * Ad blocking DNS for all networked devices
 * Personal music streaming service
-* Apartment network storage
 * Metrics hub with prometheus/grafana
 * Hosts goodenoughmoney.com website
 
