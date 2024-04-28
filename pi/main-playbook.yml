@@ -110,6 +110,14 @@
       apply:
         tags: grafana
 
+
+  - name: Setup git host
+    tags: git
+    include_tasks:
+      file: tasks/githost.yml
+      apply:
+        tags: git
+
   - name: Configure a static IP address
     include_tasks: tasks/staticip.yml
 

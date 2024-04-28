@@ -1,0 +1,33 @@
+- name: Ensure git is installed
+  ansible.builtin.package:
+    name: git
+    state: present
+
+
+- name: Create a git user for remote access
+  ansible.builtin.user:
+    comment: "Low priv git repo access user"
+    system: true
+    name: git
+    shell: /usr/bin/git-shell
+    home: /mnt/vcapstore/repos
+    createhome: true
+
+
+- name: Add my keys to git user
+  ansible.builtin.authorized_key:
+    user: git
+    state: present
+    key: https://github.com/scottmuc.keys
+
+
+- name: Create repo directories
+  ansible.builtin.command:
+    cmd: sudo -u git git init --bare "/mnt/vcapstore/repos/scottmuc/{{ item.name }}.git"
+    creates: "/mnt/vcapstore/repos/{{ item.name }}.git/HEAD"
+  loop:
+    - name: infrastructure
+    - name: presentations
+    - name: tabularasa
+    - name: scottmuc.com
+    - name: dns-zone-blocklist

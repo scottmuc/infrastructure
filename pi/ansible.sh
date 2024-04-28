@@ -9,6 +9,7 @@ playbook=$(find . -name "*playbook.yml" \
 tags=$(gum choose --header "Select tag to apply" \
   "all"           \
   "certbot"       \
+  "git"           \
   "grafana"       \
   "logging"       \
   "mounts"        \
