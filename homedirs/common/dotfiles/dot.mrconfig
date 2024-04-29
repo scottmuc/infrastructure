@@ -8,8 +8,8 @@ checkout = git clone 'git@github.com:scottmuc/presentations.git' 'presentations'
 [workspace/infrastructure]
 checkout = git clone 'git@github.com:scottmuc/infrastructure.git' 'infrastructure'
 
-[workspace/devopsbookmarks.com]
-checkout = git clone 'git@github.com:devopsbookmarks/devopsbookmarks.com.git' 'devopsbookmarks.com'
-
 [workspace/tabularasa]
 checkout = git clone 'git@github.com:scottmuc/tabularasa.git' 'tabularasa'
+
+[workspace/dns-zone-blocklist]
+checkout = git clone 'git@github.com:scottmuc/dns-zone-blocklist.git' 'dns-zone-blocklist'
