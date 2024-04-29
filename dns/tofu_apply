@@ -5,5 +5,5 @@ tofu \
   -state ../secrets/dns.terraform.tfstate \
   -backup - \
   -var "home_ip=$(curl -4 ifconfig.me/ip)" \
-  -var "gandi_api_key=$(cat ../secrets/GANDI_API_KEY)" \
+  -var "gandi_pat=$(cat ../secrets/GANDI_PAT)" \
 

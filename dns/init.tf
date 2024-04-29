@@ -7,12 +7,12 @@ terraform {
   }
 }
 
-variable "gandi_api_key" {
+variable "gandi_pat" {
 }
 
 variable "home_ip" {
 }
 
 provider "gandi" {
-  key = var.gandi_api_key
+  personal_access_token = var.gandi_pat
 }
