@@ -1,12 +1,9 @@
 # Mucrastructure
 
-![Home Network](./home_network.png)
-
 ## This Repository Contains
 
 * [DNS](dns/) automation for all my domains
-* [Raspberry Pi Configuration Management](pi/) which performs the following: dhcpd, ad blocking dns, samba, music
-  service, monitoring
+* [Raspberry Pi Configuration Management](pi/) which performs the following: dhcpd, ad blocking dns, music service, monitoring
 * [Homedir configuration](homedirs) for WSL, Windows, Ubuntu, and macOS
 * [Repaving instructions](.github/ISSUE_TEMPLATE) for all platforms
 
