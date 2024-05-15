@@ -1,179 +1,67 @@
---[[
-This neovim configuration a scattering of influences and I'll attempt to over
-explain like my previous .vimrc:
+-- original commented code is in kickstart/init.lua
+-- NOTE: Can I write comments to explain this config?
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+vim.g.have_nerd_font = false
+vim.opt.number = true
+vim.opt.relativenumber = true
+vim.opt.mouse = 'a'
+vim.opt.showmode = false
+vim.opt.clipboard = 'unnamedplus'
+vim.opt.breakindent = true
+vim.opt.undofile = true
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.signcolumn = 'yes'
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+vim.opt.inccommand = 'split'
+vim.opt.cursorline = true
+vim.opt.scrolloff = 10
 
-  https://github.com/scottmuc/infrastructure/blob/cb3bb16cf30e2b431af2ff13b90e382e58f47260/homedirs/common/dotfiles/dot.config/nvim/init.vim
+vim.opt.hlsearch = true
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
-This configuration was bootstrapped from the 0 to LSP stuff and was documented
-via this video: https://www.youtube.com/watch?v=UPyNOw1_z-U
+-- Diagnostic keymaps
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
+vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
+vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
-Now it's pretty far from that configuration.
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
-I'm going to stick with a single file for as long as I can. Until I can recite
-the order of operations in a clear and understandable way, I don't feel like
-separating things into separate files makes sense for me at the moment.
+vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
+vim.keymap.set('n', '<C-l>', '<C-w><C-l>', { desc = 'Move focus to the right window' })
+vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower window' })
+vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
-Other resources:
-* https://medium.com/@finnala/a-beginners-guide-to-neovim-configuration-9e7dac182de5
-* https://dev.to/vonheikemen/make-lsp-zeronvim-coexists-with-other-plugins-instead-of-controlling-them-2i80
-* https://dev.to/vonheikemen/lazynvim-plugin-configuration-3opi
---]]
+vim.api.nvim_create_autocmd('TextYankPost', {
+  desc = 'Highlight when yanking (copying) text',
+  group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+})
 
--- some inspiration for these settings are comming from:
--- https://github.com/ThePrimeagen/init.lua/blob/master/lua/theprimeagen/remap.lua
-vim.g.mapleader = " "
-
--- use netrw as a NerdTree replacement
--- https://shapeshed.com/vim-netrw/
-vim.keymap.set("n", "<C-n>", vim.cmd.Vexplore)
-vim.g.netrw_banner = 0
-
--- usually ends up being ~/.local/share/nvim/lazy/lazy.nvim
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+local lazypath = vim.fn.stdpath 'data' .. '/lazy/lazy.nvim'
 if not vim.loop.fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-
--- https://neovim.io/doc/user/options.html#'rtp'
+  local lazyrepo = 'https://github.com/folke/lazy.nvim.git'
+  vim.fn.system { 'git', 'clone', '--filter=blob:none', '--branch=stable', lazyrepo, lazypath }
+end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({
-  "overcache/NeoSolarized",
-  {
-    'nvim-telescope/telescope.nvim', branch = '0.1.x',
-    dependencies = { {'nvim-lua/plenary.nvim'} }
-  },
-  {"nvim-treesitter/nvim-treesitter", build = ":TSUpdate"},
-  {'neovim/nvim-lspconfig'},
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
-  {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'v3.x',
-    dependencies = {
-      -- Autocompletion
-      {'hrsh7th/nvim-cmp'},         -- Required
-      {'hrsh7th/cmp-nvim-lsp'},     -- Required
-      {'hrsh7th/cmp-buffer'},       -- Optional
-      {'hrsh7th/cmp-path'},         -- Optional
-      {'saadparwaiz1/cmp_luasnip'}, -- Optional
-      {'hrsh7th/cmp-nvim-lua'},     -- Optional
+require 'smootz.lazy'
 
-      -- Snippets
-      {'L3MON4D3/LuaSnip'},             -- Required
-      {'rafamadriz/friendly-snippets'}, -- Optional
-    }
-  },
-})
-
-local telescope = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', telescope.find_files, {})
-vim.keymap.set('n', '<leader>fg', telescope.live_grep, {})
-vim.keymap.set('n', '<leader>fb', telescope.buffers, {})
-vim.keymap.set('n', '<leader>fh', telescope.help_tags, {})
-
-require'nvim-treesitter.configs'.setup {
-  -- A list of parser names, or "all"
-  ensure_installed = {
-    "vimdoc",
-    "javascript",
-    "lua",
-    "terraform",
-    "bash",
-    "html",
-    "go",
-    "gomod",
-    "gowork",
-    "gosum",
-  },
-
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
-
-  -- Automatically install missing parsers when entering buffer
-  -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
-  auto_install = true,
-
-  highlight = {
-    -- `false` will disable the whole extension
-    enable = true,
-
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
-}
-
-local lsp = require("lsp-zero")
-
-lsp.on_attach(function(client, bufnr)
-  -- see :help lsp-zero-keybindings
-  -- to learn the available actions
-  lsp.default_keymaps({buffer = bufnr})
-end)
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-  ensure_installed = {
-    'ansiblels',
-    'bashls',
-    'gopls',
-  },
-  handlers = {
-    lsp.default_setup,
-  }
-})
-
-vim.diagnostic.config({
-    virtual_text = false
-})
-
--- shorcuts for editing and loading NeoVim configuration
-vim.keymap.set("n", "<leader>ec", ":edit ~/.config/nvim/init.lua<CR>")
-vim.keymap.set("n", "<leader>sc", ":source $MYVIMRC<CR>")
-vim.keymap.set("n", "<leader>cs", ":vs ~/GlobalShare/Obsidian/Scott's World/NeoVim Cheat Sheet.md<CR>")
-
--- move blocks of text visually
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-
--- when joining, don't change where the cursor sits
-vim.keymap.set("n", "J", "mzJ`z")
-
--- replace without entering the replaced text in the default register
-vim.keymap.set("x", "<leader>p", [["_dP]])
-
-vim.opt.number = true -- Enable line numbers. This is off by default
-vim.opt.relativenumber = true
-vim.opt.hidden = true -- allows modified buffers to be hidden
-
-vim.opt.swapfile = false
-vim.opt.backup = false
-
-vim.opt.hlsearch = false
-vim.opt.incsearch = true
-
-vim.opt.termguicolors = true
-
-vim.opt.scrolloff = 8
-
-vim.opt.colorcolumn = "80"
-
-vim.cmd([[
-:silent! colorscheme NeoSolarized
-
+vim.cmd [[
 " Adds a bit of complexity, but the `background` tool reads the OS level theme
 " and returns "light" or "dark" accordingly.
 let output=system("background")
 execute "set background=".escape(output, ' ')
+]]
 
-]])
+-- The line beneath this is called `modeline`. See `:help modeline`
+-- vim: ts=2 sts=2 sw=2 et
