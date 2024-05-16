@@ -54,7 +54,7 @@ if not vim.loop.fs_stat(lazypath) then
 end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
-require 'smootz.lazy'
+require 'lazy-plugins'
 
 vim.cmd [[
 " Adds a bit of complexity, but the `background` tool reads the OS level theme
