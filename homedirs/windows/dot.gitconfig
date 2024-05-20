@@ -20,7 +20,7 @@
 
 [alias]
     st = status
-    ci = duet-commit
+    ci = commit
     co = checkout
 
     # I used this one to have a coloured graph and for repositories that have

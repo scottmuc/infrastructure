@@ -25,7 +25,7 @@
 
 [alias]
     st = status
-    ci = duet-commit
+    ci = commit
     co = checkout
 
     # custom log that is a copy of Gary Bernhardt's
