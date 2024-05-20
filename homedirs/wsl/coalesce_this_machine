@@ -19,20 +19,25 @@ main() {
   setup_ssh_dir
   install_nvim
   install_asdf
-  install_golang "1.21.1"
+  install_golang "1.22.3"
   install_python_dependencies
   install_all_things_docker
-  install_1password_cli "2.12.0"
+  install_1password_cli "2.28.0"
 }
 
 install_golang() {
   local version
-
-  version="${1:-1.21.1}"
+  version="${1:?Must specifiy a desired go lang version}"
 
   if command -v go &> /dev/null; then
-    echo "go exists: $(go version)"
-    return
+    local current_version
+    current_version="$(go version)"
+    echo "go exists: ${current_version}"
+    if [[ "${current_version}" == *"${version}"* ]]; then
+      return
+    else
+      echo "go is not requested version (${version}). Reinstalling..."
+    fi
   fi
 
   local tarball="go${version}.linux-amd64.tar.gz"
@@ -113,7 +118,7 @@ default_to_zsh() {
 }
 
 install_nvim() {
-  sudo add-apt-repository ppa:neovim-ppa/unstable
+  sudo add-apt-repository ppa:neovim-ppa/unstable -y
   sudo apt update
   sudo apt install neovim
 }
@@ -149,8 +154,7 @@ install_python_dependencies() {
 # https://developer.1password.com/docs/cli/install-server
 install_1password_cli() {
   local version
-  # bash shenanigans... use specified version, if none specified, default to 2.0.0
-  version="${1:-2.0.0}"
+  version="${1:?Must specify a desired 1Password CLI version}"
   if command -v op &> /dev/null; then
     echo "op exists: $(op --version)"
     return
