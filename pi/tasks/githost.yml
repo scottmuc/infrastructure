@@ -10,7 +10,6 @@
     system: true
     name: git
     shell: /usr/bin/git-shell
-    home: /mnt/vcapstore/repos
     createhome: true
 
 
@@ -23,11 +22,26 @@
 
 - name: Create repo directories
   ansible.builtin.command:
-    cmd: sudo -u git git init --bare "/mnt/vcapstore/repos/scottmuc/{{ item.name }}.git"
+    cmd: sudo -u git git init --bare "/mnt/vcapstore/repos/{{ item.name }}.git"
     creates: "/mnt/vcapstore/repos/{{ item.name }}.git/HEAD"
   loop:
     - name: infrastructure
     - name: presentations
     - name: tabularasa
-    - name: scottmuc.com
+    - name: website
+    - name: dns-zone-blocklist
+
+
+- name: Symlink repo directories
+  ansible.builtin.file:
+    src: /mnt/vcapstore/repos/{{ item.name }}.git
+    dest: /home/git/{{ item.name }}.git
+    owner: git
+    group: git
+    state: link
+  loop:
+    - name: infrastructure
+    - name: presentations
+    - name: tabularasa
+    - name: website
     - name: dns-zone-blocklist
