@@ -31,6 +31,24 @@
       state: absent
       remove: true
 
+
+  # https://linuxhandbook.com/ssh-hardening-tips/
+  - name: Harden the sshd Configuration
+    become: true
+    copy:
+      dest: /etc/ssh/sshd_config.d/ssh_hardening.conf
+      owner: root
+      group: root
+      mode: '0664'
+      content: |
+        PermitEmptyPasswords no
+        PasswordAuthentication no
+        PermitRootLogin no
+        Protocol 2
+        X11Forwarding no
+    notify:
+    - Reload sshd
+
   - name: Configure sysctls
     ansible.posix.sysctl:
       name: "{{ item.name }}"
@@ -177,3 +195,10 @@
       ansible.builtin.service:
         name: rsyslog
         state: restarted
+
+
+    - name: Reload sshd
+      ansible.builtin.service:
+        name: sshd
+        state: reloaded
+
