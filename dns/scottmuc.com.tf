@@ -119,9 +119,9 @@ resource "gandi_livedns_record" "home_scottmuc_com" {
 }
 
 
-resource "gandi_livedns_record" "concourse_scottmuc_com" {
+resource "gandi_livedns_record" "git_scottmuc_com" {
   zone = data.gandi_domain.scottmuc_com.id
-  name = "concourse"
+  name = "git"
   type = "A"
   ttl = "3600"
   values = [
@@ -180,9 +180,6 @@ resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
-    "\"This was made my opentofu.\"",
-    "\"WSL repaved on Sep 4 2023.\"",
-    "\"WSL repaved on Aug 29 2023.\"",
-    "\"WSL repaved on May 12 2023. Cleaned up the historic graffiti\"",
+    "\"Cleaned up the historic graffiti\"",
   ]
 }
