@@ -1,15 +1,20 @@
 
-[workspace/scottmuc.github.com]
-checkout = git clone 'git@github.com:scottmuc/scottmuc.github.com.git' 'scottmuc.github.com'
+[workspace/website]
+checkout = git clone 'git@git.scottmuc.com:website.git' 'website'
+add_github = git remote add github 'git@github.com:scottmuc/git.scottmuc.com.git'
 
 [workspace/presentations]
-checkout = git clone 'git@github.com:scottmuc/presentations.git' 'presentations'
+checkout = git clone 'git@git.scottmuc.com:presentations.git' 'presentations'
+add_github = git remote add github 'git@github.com:scottmuc/presentations.git'
 
 [workspace/infrastructure]
-checkout = git clone 'git@github.com:scottmuc/infrastructure.git' 'infrastructure'
+checkout = git clone 'git@git.scottmuc.com:infrastructure.git' 'infrastructure'
+add_github = git remote add github 'git@github.com:scottmuc/infrastructure.git'
 
 [workspace/tabularasa]
-checkout = git clone 'git@github.com:scottmuc/tabularasa.git' 'tabularasa'
+checkout = git clone 'git@git.scottmuc.com:tabularasa.git' 'tabularasa'
+add_github = git remote add github 'git@github.com:scottmuc/tabularasa.git'
 
 [workspace/dns-zone-blocklist]
-checkout = git clone 'git@github.com:scottmuc/dns-zone-blocklist.git' 'dns-zone-blocklist'
+checkout = git clone 'git@git.scottmuc.com:dns-zone-blocklist.git' 'dns-zone-blocklist'
+add_github = git remote add github 'git@github.com:scottmuc/dns-zone-blocklist.git'
