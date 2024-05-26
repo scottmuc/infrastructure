@@ -22,7 +22,7 @@
 
 - name: Create repo directories
   ansible.builtin.command:
-    cmd: sudo -u git git init --bare "/mnt/vcapstore/repos/{{ item.name }}.git"
+    cmd: sudo -u git git init --initial-branch main --bare "/mnt/vcapstore/repos/{{ item.name }}.git"
     creates: "/mnt/vcapstore/repos/{{ item.name }}.git/HEAD"
   loop:
     - name: infrastructure
