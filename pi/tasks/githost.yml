@@ -45,3 +45,17 @@
     - name: tabularasa
     - name: website
     - name: dns-zone-blocklist
+
+
+- name: Serve private IP for git.scottmuc.com
+  become: true
+  copy:
+    dest: /etc/unbound/unbound.conf.d/git.scottmuc.com.conf
+    owner: root
+    group: root
+    mode: '0664'
+    content: |
+      server:
+        local-data: "git.scottmuc.com.   IN    A   192.168.2.10"
+  notify:
+    - Restart unbound
