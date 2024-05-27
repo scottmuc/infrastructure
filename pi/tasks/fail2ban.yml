@@ -1,0 +1,10 @@
+- name: Install fail2ban package
+  ansible.builtin.apt:
+    name: fail2ban
+
+
+- name: Ensure fail2ban is running
+  service:
+    name: fail2ban
+    state: started
+    enabled: true

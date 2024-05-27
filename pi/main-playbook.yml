@@ -49,6 +49,14 @@
     notify:
     - Reload sshd
 
+
+  - name: Configure Fail 2 Ban
+    tags: fail2ban
+    include_tasks:
+      file: tasks/fail2ban.yml
+      apply:
+        tags: fail2ban
+
   - name: Configure sysctls
     ansible.posix.sysctl:
       name: "{{ item.name }}"
@@ -202,3 +210,8 @@
         name: sshd
         state: reloaded
 
+
+    - name: Restart fail2ban
+      ansible.builtin.service:
+        name: fail2ban
+        state: restarted
