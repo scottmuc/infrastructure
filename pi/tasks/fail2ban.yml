@@ -3,6 +3,11 @@
     name: fail2ban
 
 
+- name: Install iptables package
+  ansible.builtin.apt:
+    name: iptables
+
+
 - name: Ensure fail2ban is running
   service:
     name: fail2ban
