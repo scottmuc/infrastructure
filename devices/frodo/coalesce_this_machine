@@ -23,7 +23,25 @@ main() {
   install_1password_cli "2.12.0"
   install_all_things_docker
   install_mods
+  install_obsidian
   install_vivaldi
+}
+
+install_obsidian() {
+  local arch
+  arch="$(dpkg --print-architecture)"
+  local version="1.5.12"
+  local filename="obsidian_${version}_${arch}.snap"
+
+  if command -v obsidian &> /dev/null; then
+    echo "obsidian exists"
+    return
+  fi
+
+  #https://github.com/obsidianmd/obsidian-releases/releases/download/v1.5.12/obsidian_1.5.12_amd64.snap
+  curl -sSL -o "/tmp/${filename}" \
+    "https://github.com/obsidianmd/obsidian-releases/releases/download/v${version}/${filename}"
+  snap install "/tmp/${filename}" --dangerous --classic
 }
 
 install_vivaldi() {
