@@ -180,6 +180,7 @@ resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   type = "TXT"
   ttl = "3600"
   values = [
+    "\"Repaved Frodo, the Framework laptop\"",
     "\"Cleaned up the historic graffiti\"",
   ]
 }
