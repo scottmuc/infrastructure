@@ -34,7 +34,7 @@ install_obsidian() {
   local filename="obsidian_${version}_${arch}.snap"
 
   if command -v obsidian &> /dev/null; then
-    echo "obsidian exists"
+    echo "obsidian exists: $(snap list obsidian | tail -n 1)"
     return
   fi
 
@@ -45,6 +45,11 @@ install_obsidian() {
 }
 
 install_vivaldi() {
+  if command -v vivaldi &> /dev/null; then
+    echo "vivaldi exists: $(vivaldi --version)"
+    return
+  fi
+
   local keyring_path="/usr/share/keyrings/vivaldi.gpg"
   set -x
   curl -fsSL https://repo.vivaldi.com/archive/linux_signing_key.pub \
@@ -167,6 +172,7 @@ install_os_packages() {
     graphviz              \
     jq                    \
     myrepos               \
+    syncthing             \
     unzip                 \
     zsh
 }
