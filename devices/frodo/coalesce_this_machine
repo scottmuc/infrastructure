@@ -23,6 +23,22 @@ main() {
   install_1password_cli "2.12.0"
   install_all_things_docker
   install_mods
+  install_vivaldi
+}
+
+install_vivaldi() {
+  local keyring_path="/usr/share/keyrings/vivaldi.gpg"
+  set -x
+  curl -fsSL https://repo.vivaldi.com/archive/linux_signing_key.pub \
+    | sudo gpg --dearmor -o "${keyring_path}"
+  sudo chmod a+r "${keyring_path}"
+
+  echo \
+      deb [arch="$(dpkg --print-architecture)" signed-by="${keyring_path}"] \
+https://repo.vivaldi.com/archive/deb/ stable main | sudo tee /etc/apt/sources.list.d/vivaldi.list > /dev/null
+
+  sudo apt update
+  sudo apt install vivaldi-stable -y
 }
 
 install_mods() {
@@ -123,10 +139,12 @@ install_os_packages() {
   sudo apt-get update
   sudo apt-get install -y \
     autojump              \
+    alacritty             \
     bc                    \
     ca-certificates       \
     curl                  \
     git-crypt             \
+    gnome-tweak-tool      \
     gnupg                 \
     graphviz              \
     jq                    \

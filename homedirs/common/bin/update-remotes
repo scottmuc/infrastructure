@@ -2,4 +2,5 @@
 
 set -e
 
-(cd ~/workspace/infrastructure && git remote set-url origin git@github.com:scottmuc/infrastructure.git)
+(cd ~/workspace/infrastructure && git remote set-url origin git@git.scottmuc.com:infrastructure.git)
+(cd ~/workspace/infrastructure && git remote add github git@github.com:scottmuc/infrastructure.git)
