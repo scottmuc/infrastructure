@@ -33,7 +33,11 @@ copy_config() {
 
 # Output the current background if no arguments are given
 if [[ "${theme}" = "none" ]]; then
-  cat /tmp/background
+  if [[ -f /tmp/background ]]; then
+    cat /tmp/background
+  else
+    echo "dark"
+  fi
 else
   if [[ "Darwin" = "$(uname)" ]]; then
     copy_config "${theme}" "$(uname)" ${mac_config_file}
