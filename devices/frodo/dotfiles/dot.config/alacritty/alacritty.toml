@@ -1,3 +1,11 @@
+# https://alacritty.org/config-alacritty.html
+[window]
+decorations = "None"
+startup_mode = "Maximized"
+
+[selection]
+save_to_clipboard = true
+
 [font]
 size = 10.0
 
