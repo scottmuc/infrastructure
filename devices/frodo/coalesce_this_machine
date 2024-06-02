@@ -6,7 +6,8 @@ set -u
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 REPO_DIR="$( cd "${DIR}/../../" >/dev/null 2>&1 && pwd )"
-LIB_DIR="${REPO_DIR}/homedirs/common/lib"
+COMMON_DIR="${REPO_DIR}/homedirs/common"
+LIB_DIR="${COMMON_DIR}/lib"
 
 # shellcheck disable=SC1091
 source "${LIB_DIR}/install_asdf.bash"
@@ -212,17 +213,11 @@ install_1password_cli() {
 }
 
 
-# I am getting the absolute path so that ls -la output goes from:
-#
-#   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/bin/../dotfiles/dot.config
-# to
-#   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
 symlink_all_the_things() {
-  local homedir_source common_source dotfiles_dir common_dotfiles_dir
+  local homedir_source dotfiles_dir common_dotfiles_dir
   homedir_source=$(cd "${DIR}/"; pwd)
-  common_source="${REPO_DIR}/homedirs/common"
   dotfiles_dir="${homedir_source}/dotfiles"
-  common_dotfiles_dir="${common_source}/dotfiles"
+  common_dotfiles_dir="${COMMON_DIR}/dotfiles"
 
   # I don't know how to do this command in a 1 line indempotent way. Repeated executions
   # but symlinks within the symlink.
