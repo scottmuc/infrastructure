@@ -245,6 +245,7 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  ln -sTfv "${dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
 
   ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
