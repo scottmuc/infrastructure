@@ -130,50 +130,6 @@ resource "gandi_livedns_record" "git_scottmuc_com" {
 }
 
 
-resource "gandi_livedns_record" "concourse_home_scottmuc_com" {
-  zone = data.gandi_domain.scottmuc_com.id
-  name = "concourse.home"
-  type = "A"
-  ttl = "3600"
-  values = [
-    "192.168.2.11"
-  ]
-}
-
-
-resource "gandi_livedns_record" "pi_home_scottmuc_com" {
-  zone = data.gandi_domain.scottmuc_com.id
-  name = "pi.home"
-  type = "A"
-  ttl = "3600"
-  values = [
-    "192.168.2.10"
-  ]
-}
-
-
-resource "gandi_livedns_record" "prometheus_home_scottmuc_com" {
-  zone = data.gandi_domain.scottmuc_com.id
-  name = "prometheus.home"
-  type = "A"
-  ttl = "3600"
-  values = [
-    "192.168.2.10"
-  ]
-}
-
-
-resource "gandi_livedns_record" "grafana_home_scottmuc_com" {
-  zone = data.gandi_domain.scottmuc_com.id
-  name = "grafana.home"
-  type = "A"
-  ttl = "3600"
-  values = [
-    "192.168.2.10"
-  ]
-}
-
-
 resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   zone = data.gandi_domain.scottmuc_com.id
   name = "graffiti"
