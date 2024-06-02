@@ -76,8 +76,8 @@ install_mods() {
   sudo chmod a+r "${keyring_path}"
 
   echo \
-      "deb [arch="$(dpkg --print-architecture)" signed-by="${keyring_path}"] \
-https://repo.charm.sh/apt/ * *" | sudo tee /etc/apt/sources.list.d/charm.list > /dev/null
+      deb [arch="$(dpkg --print-architecture)" signed-by="${keyring_path}"] \
+https://repo.charm.sh/apt/ * * | sudo tee /etc/apt/sources.list.d/charm.list > /dev/null
 
   sudo apt update
   sudo apt install mods -y
@@ -96,10 +96,11 @@ install_all_things_docker() {
     | sudo gpg --dearmor -o "${docker_keyring_path}"
   sudo chmod a+r "${docker_keyring_path}"
 
+# shellcheck disable=SC1091
   echo \
-      "deb [arch="$(dpkg --print-architecture)" signed-by="${docker_keyring_path}"] \
+      deb [arch="$(dpkg --print-architecture)" signed-by="${docker_keyring_path}"] \
 https://download.docker.com/linux/ubuntu \
-"$(. /etc/os-release && echo "$VERSION_CODENAME")" \
+"$(. /etc/os-release && echo "$VERSION_CODENAME") \
 stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
   sudo apt-get update
@@ -147,8 +148,8 @@ setup_ssh_dir() {
 
 # depends on zsh being install of course
 default_to_zsh() {
-  if ! echo $SHELL | grep zsh > /dev/null; then
-    chsh -s $(which zsh)
+  if ! echo "${SHELL}" | grep zsh > /dev/null; then
+    chsh -s "$(which zsh)"
   fi
 }
 
