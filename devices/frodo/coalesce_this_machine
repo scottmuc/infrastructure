@@ -153,6 +153,10 @@ default_to_zsh() {
 }
 
 install_nvim() {
+  if command -v nvim &> /dev/null; then
+    echo "nvim exists: $(nvim --version | head -n 1)"
+    return
+  fi
   sudo add-apt-repository ppa:neovim-ppa/unstable -y
   sudo apt update
   sudo apt install neovim -y
@@ -174,6 +178,7 @@ install_os_packages() {
     myrepos               \
     syncthing             \
     unzip                 \
+    wl-clipboard          \
     zsh
 }
 
