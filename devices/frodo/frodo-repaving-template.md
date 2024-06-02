@@ -1,1 +1,1 @@
-.github/ISSUE_TEMPLATE/frodo-repaving-template.md
+../../.github/ISSUE_TEMPLATE/frodo-repaving-template.md

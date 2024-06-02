@@ -2,7 +2,7 @@
 name: Frodo Repaving Template
 about: Checklist for repaving my Framework laptop
 title: Rebuild Frodo - EXTRA DESCRIPTION
-labels: frodo, repave, framework
+labels: frodo, repave, framework, ubuntu
 assignees: 'scottmuc'
 ---
 <!--
@@ -24,7 +24,8 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Create USB stick with Ubuntu<details>
   <summary>Instructions</summary>
-  TODO Add some notes
+
+  * Download an image from: https://ubuntu.com/download/desktop
 </details>
 
 - [ ] Backup anything worth keeping <details>
@@ -43,19 +44,22 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
 - [ ] Reboot to load installer <details>
   <summary>Instructions</summary>
 
-  Hold down the **Option** key to trigger the boot selection menu.
+  Hold down **F10** to trigger the boot selection menu.
 </details>
 
-- [ ] Use Disk Utility to wipe existing partition and make a new one (new name, new encryption key)
-- [ ] Install the OS
+- [ ] Install the OS.
 
 # Post OS install steps
 
-- [ ] Launch and configure 1 Password
-- [ ] Initialise 1 Password CLI
+- [ ] Clone repo and run `coalesce_this_machine`
+- [ ] Launch and log into Vivaldi
 - [ ] Map capslock to control
+- [ ] Open the 1 Password browser extension and log into it.
+- [ ] Initialise 1 Password CLI<details>
 
-**note** to speed things up, some of the steps above can be done while `coalese_this_machine` is running.
+  * `initialize-1password`
+</details>
+
 
 # Done When
 
@@ -64,8 +68,6 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
 
 
     ```
-    # Initialize and log into the 1 Password CLI
-    initialize-1password
     opauth
     # Unlock the repo in order to access values in ./secrets dir
     cd ~/workspace/infrastructure
@@ -82,13 +84,11 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
 
     ```
     # Initialize and log into the 1 Password CLI
-    initialize-1password
     opauth
     gpg_op restore -e "scottATscottmuc.com"
     ```
 </details>
 
 - [ ] Be able to push the commit (exercises `ssh-op-agent`)
-- [ ] Log into GitHub in Vivaldi (exercises 1 Password browser extension)
 - [ ] Old keys and credentials are deleted (GitHub and 1Password)
 - [ ] Make this template slightly better
