@@ -3,19 +3,21 @@
 ## This Repository Contains
 
 * [DNS](dns/) automation for all my domains
-* [Raspberry Pi Configuration Management](pi/) which performs the following: dhcpd, ad blocking dns, music service, monitoring
+* [Raspberry Pi Configuration Management](pi/) which performs the following: dhcpd, ad blocking dns, music service,
+  monitoring
 * [Homedir configuration](homedirs) for WSL, Windows, Ubuntu, and macOS
 * [Repaving instructions](.github/ISSUE_TEMPLATE) for all platforms
 
 ### Coding Conventions
 
-* `bash` - Following the [Google][google-bash] styleguide as much as I can. The [Chromium][chrome-bash] and [Apple][apple-bash] styleguides are also useful.
+* `bash` - Following the [Google][google-bash] styleguide as much as I can. The [Chromium][chromium-bash] and
+  [Apple][apple-bash] styleguides are also useful.
 * `ansible` - I Really like [this post][ansible-standards] on some basic standards.
 * `powershell` - [PoshCode][poshcode] seems like a pretty good baseline.
 
 [ansible-standards]: https://www.ansiblejunky.com/blog/ansible-101-standards/
 [google-bash]: https://google.github.io/styleguide/shellguide.html
-[chrome-bash]: https://chromium.googlesource.com/chromiumos/docs/+/HEAD/styleguide/shell.md
+[chormium-bash]: https://www.chromium.org/chromium-os/developer-library/reference/style-guides/shell/
 [apple-bash]: https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html
 [poshcode]: https://github.com/PoshCode/PowerShellPracticeAndStyle
 
