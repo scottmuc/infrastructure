@@ -138,9 +138,9 @@ all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] https://home.scottmuc.com/music/ loads navidrome and the music is playable
 
-- [ ] http://prometheus.home.scottmuc.com:9090/ loads and has data
+- [ ] http://192.168.2.10:9090/ loads and has data
 
-- [ ] http://grafana.home.scottmuc.com:3000/ loads and has data
+- [ ] http://192.168.2.10:3000/ loads and has data
 
 - [ ] `ipconfig /release` and then `ipconfig /renew` works
 
