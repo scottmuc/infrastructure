@@ -90,3 +90,4 @@
     name: navidrome
     state: started
     enabled: true
+# vim: ft=yaml.ansible

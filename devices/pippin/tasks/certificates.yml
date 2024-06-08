@@ -43,3 +43,5 @@
       email: "scottmuc@gmail.com"
     - fqdn: home.scottmuc.com
       email: "scottmuc@gmail.com"
+
+# vim: ft=yaml.ansible

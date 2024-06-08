@@ -13,3 +13,4 @@
     path: /mnt/vcapstore
     src: UUID=e15af423-34a5-445c-978b-c85288f3a90b
     fstype: ext4
+# vim: ft=yaml.ansible

@@ -52,3 +52,5 @@
         user: ansible
         state: present
         key: https://github.com/scottmuc.keys
+
+# vim: ft=yaml.ansible

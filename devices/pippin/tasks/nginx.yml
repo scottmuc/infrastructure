@@ -35,3 +35,4 @@
     name: nginx
     state: started
     enabled: true
+# vim: ft=yaml.ansible

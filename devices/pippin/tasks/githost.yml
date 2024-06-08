@@ -59,3 +59,4 @@
         local-data: "git.scottmuc.com.   IN    A   192.168.2.10"
   notify:
     - Restart unbound
+# vim: ft=yaml.ansible

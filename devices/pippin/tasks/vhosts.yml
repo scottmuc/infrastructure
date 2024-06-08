@@ -33,4 +33,4 @@
     - vhost: goodenoughmoney.com
     - vhost: home.scottmuc.com
 
-
+# vim: ft=yaml.ansible

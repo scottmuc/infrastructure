@@ -20,3 +20,4 @@
     fstype: cifs
     state: mounted
     opts: ro,pass=,file_mode=0444,dir_mode=0555
+# vim: ft=yaml.ansible

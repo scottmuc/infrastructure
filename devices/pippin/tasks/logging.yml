@@ -43,3 +43,4 @@
   notify:
     - Restart rsyslog
 
+# vim: ft=yaml.ansible

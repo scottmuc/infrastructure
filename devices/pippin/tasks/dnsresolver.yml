@@ -36,3 +36,4 @@
     name: unbound
     state: started
     enabled: true
+# vim: ft=yaml.ansible

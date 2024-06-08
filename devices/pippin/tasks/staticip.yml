@@ -32,3 +32,4 @@
     content: |
       search home.scottmuc.com
       nameserver 127.0.0.1
+# vim: ft=yaml.ansible
