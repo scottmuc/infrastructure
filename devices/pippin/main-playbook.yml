@@ -24,6 +24,15 @@
 
 
   tasks:
+    # I am uncertain if this belongs in the bootstrap, or in some overarching
+    # task file pertaining to networking among other things. I don't know if it
+    # really matters that much, but might as well start pondering it now.
+    - name: Set hostname
+      become: true
+      ansible.builtin.hostname:
+        name: pippin
+
+
     # If this fails, it's likely due to user level systemd services running. A
     # reboot will resolve it... will look into more elegant ways later.
     - name: Delete the 'pi' bootstrap user
@@ -68,7 +77,7 @@
 
     # TODO: revisit how variables get defined here
     - name: Include vars
-      ansible.builtin.include_tasks:
+      ansible.builtin.include_vars:
         file: secret_vars.yml
         name: secrets
       tags: [logging]
