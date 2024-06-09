@@ -22,7 +22,7 @@ export TERM='xterm-256color'
 export LSCOLORS="GxFxCxDxBxEgEdabagacad"
 alias ls='ls -G'
 alias opauth='eval $(op signin)'
-alias keys="ssh-op-agent load -n 20221110.keys -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
+alias keys="ssh-op-agent load -n 20240609.keys -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
 
 export GREP_OPTIONS="--color"
 

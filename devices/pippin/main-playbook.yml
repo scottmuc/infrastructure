@@ -27,6 +27,9 @@
     # I am uncertain if this belongs in the bootstrap, or in some overarching
     # task file pertaining to networking among other things. I don't know if it
     # really matters that much, but might as well start pondering it now.
+    #
+    # Turns out this is set when I created the installer image. So this resource
+    # might be redundant.
     - name: Set hostname
       become: true
       ansible.builtin.hostname:
@@ -156,6 +159,16 @@
 
     - name: Configure a static IP address
       include_tasks: tasks/staticip.yml
+
+    - name: Refresh authorized keys for all relevant users
+      ansible.posix.authorized_key:
+        user: "{{ item.user }}"
+        state: present
+        key: https://github.com/scottmuc.keys
+      tags: [keys]
+      loop:
+        - user: ansible
+        - user: git
 
   handlers:
     # It's important that Systemd reload is defined first here

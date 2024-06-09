@@ -44,7 +44,7 @@ fi
 # GREP_OPTIONS env variable is deprecated
 alias grep='grep --color'
 alias opauth='eval $(op signin)'
-alias keys="ssh-op-agent load -n 20221110.keys -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
+alias keys="ssh-op-agent load -n 20240609.keys -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
 
 
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
@@ -82,10 +82,10 @@ heigh-ho() {
     eval "$(op signin)"
   fi
 
-  if ssh-add -l | grep 20221110.keys; then
-    echo "ssh 20221110.keys already loaded"
+  if ssh-add -l | grep 20240609.keys; then
+    echo "ssh 20240609.keys already loaded"
   else
-    ssh-op-agent load -n 20221110.keys \
+    ssh-op-agent load -n 20240609.keys \
       -f "base64 encoded ssh private key" \
       -p "ssh key passphrase" \
       -t 9
