@@ -94,18 +94,12 @@
     - name: Setup ad blocking DNS resolver
       ansible.builtin.include_tasks: tasks/dnsresolver.yml
 
-    - name: Setup certbot and install certificates
-      ansible.builtin.include_tasks: tasks/certificates.yml
-
-    - name: Install and configure nginx
-      tags: nginx
+    - name: Install and configure the webserver
+      tags: webserver
       ansible.builtin.include_tasks:
-        file: tasks/nginx.yml
+        file: tasks/webserver.yml
         apply:
-          tags: nginx
-
-    - name: Setup nginx vhosts
-      ansible.builtin.include_tasks: tasks/vhosts.yml
+          tags: webserver
 
     - name: Setup USB Drive
       tags: mounts

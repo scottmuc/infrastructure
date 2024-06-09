@@ -8,7 +8,6 @@ playbook=$(find . -name "*playbook.yml" \
 
 tags=$(gum choose --header "Select tag to apply" \
   "all"           \
-  "certbot"       \
   "fail2ban"      \
   "git"           \
   "grafana"       \
@@ -16,9 +15,9 @@ tags=$(gum choose --header "Select tag to apply" \
   "logging"       \
   "mounts"        \
   "navidrome"     \
-  "nginx"         \
   "prometheus"    \
   "sysctls"       \
+  "webserver"     \
 )
 
 inventory_choice=$(gum choose --header "Select inventory" \

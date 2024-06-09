@@ -1,0 +1,25 @@
+# This requires that nginx isn't up and running and listening on port 80 so it
+# must run before the nginx tasks. Subsequent runs will be idempotent as long
+# as the certificates have been provisioned.
+- name: Setup certbot and install certificates
+  ansible.builtin.include_tasks: certificates.yml
+
+# This might be inline-able now in this file.
+- name: Install and configure nginx
+  ansible.builtin.include_tasks: nginx.yml
+
+# Depends on certificates being placed as well as the filesystem layout by
+# by the nginx tasks, so this must be after those two sets of tasks.
+- name: Setup nginx vhosts
+  ansible.builtin.include_tasks: vhosts.yml
+
+# Only ensure nginx is started after all the webserver related configuration
+# has been applied. See the following comment as for the context:
+# https://github.com/scottmuc/infrastructure/issues/74#issuecomment-2156133447
+- name: Start nginx
+  ansible.builtin.service:
+    name: nginx
+    state: started
+    enabled: true
+
+# vim: ft=yaml.ansible

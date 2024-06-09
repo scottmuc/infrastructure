@@ -28,11 +28,4 @@
     - Restart nginx
 
 
-# Are there trade-offs when ensuring a started and enabled state
-# in the same task?
-- name: Start nginx
-  ansible.builtin.service:
-    name: nginx
-    state: started
-    enabled: true
 # vim: ft=yaml.ansible
