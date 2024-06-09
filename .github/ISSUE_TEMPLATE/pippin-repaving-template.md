@@ -1,8 +1,8 @@
 ---
-name: Raspberry PI Repaving Template
-about: Checklist for repaving my Rapberry PI
-title: Rebuild Raspbery PI - EXTRA DESCRIPTION
-labels: raspberry-pi, repave
+name: Pippin Repaving Template
+about: Checklist for repaving my Rapberry PI (aka Pippin)
+title: Rebuild Pippin - EXTRA DESCRIPTION
+labels: raspberry-pi, repave, pippin
 assignees: 'scottmuc'
 ---
 <!--
@@ -15,8 +15,8 @@ From: https://gist.github.com/pierrejoubert73/902cc94d79424356a8d20be2b382e1ab
 -->
 # Yay for Repaving!
 
-As much as possible is documented inline in this issue template. In case of problems you may find help by viewing
-all the [previous repave issues][repave-history]. Have fun!
+As much as possible is documented inline in this issue template. In case of problems you may find help by viewing all
+the [previous repave issues][repave-history]. Have fun!
 
 [repave-history]: https://github.com/scottmuc/infrastructure/issues?q=is%3Aissue+is%3Aclosed+label%3Araspberry-pi+label%3Arepave
 
@@ -25,7 +25,8 @@ all the [previous repave issues][repave-history]. Have fun!
 - [ ] Enable DHCP on the router, remove port mapping and statically assign network to PC<details>
   <summary>Instructions</summary>
 
-  **Insert screenshots here** ;-)
+  This is very important if repaving from the Windows PC. It being bound to 192.168.2.12 is necessary for the the
+  automation to work. Changing the DNS should be sufficient.
 </details>
 
 
