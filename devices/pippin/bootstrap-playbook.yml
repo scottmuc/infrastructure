@@ -1,11 +1,11 @@
----
-- hosts: all
+- name: Bootstrap raspberry pi device to enable ansible automation runs.
+  hosts: all
   remote_user: pi
   gather_facts: false
   become: true
 
   pre_tasks:
-    - name: attempt to update apt's cache
+    - name: Attempt to update apt's cache
       ansible.builtin.apt:
         update_cache: true
 
@@ -47,8 +47,9 @@
         content: |
           %admin ALL=(ALL) NOPASSWD: ALL
 
+     # TODO: decouple this from GitHub
     - name: Add authorized keys
-      ansible.builtin.authorized_key:
+      ansible.posix.authorized_key:
         user: ansible
         state: present
         key: https://github.com/scottmuc.keys
