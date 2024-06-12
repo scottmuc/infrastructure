@@ -30,7 +30,7 @@ main() {
 }
 
 install_jetbrains_mono_nerdfont() {
-  local version font_dir
+  local font_dir
 
   if fc-list | grep JetBrains > /dev/null; then
     echo "JetBrainsMono exists"
@@ -40,10 +40,10 @@ install_jetbrains_mono_nerdfont() {
   font_dir=~/.local/share/fonts/jetbrains-mono
   mkdir -p "${font_dir}"
 
-  version=$(curl -s "https://api.github.com/repos/JetBrains/JetBrainsMono/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
-  curl -sSLo /tmp/jetbrains-mono.zip "https://download.jetbrains.com/fonts/JetBrainsMono-${version}.zip"
-  unzip -qq /tmp/jetbrains-mono.zip -d ${font_dir}
+  curl -sSLo /tmp/jetbrains-mono.zip https://github.com/ryanoasis/nerd-fonts/releases/download/v3.2.1/JetBrainsMono.zip
+  unzip -qq /tmp/jetbrains-mono.zip -d "${font_dir}"
   rm /tmp/jetbrains-mono.zip
+  fc-cache -fv
 }
 
 install_obsidian() {
