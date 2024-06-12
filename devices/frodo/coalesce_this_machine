@@ -17,6 +17,7 @@ main() {
   install_os_packages
   default_to_zsh
   setup_ssh_dir
+  install_jetbrains_mono_nerdfont
   install_nvim
   install_asdf
   install_golang "1.22.3"
@@ -26,6 +27,23 @@ main() {
   install_mods
   install_obsidian
   install_vivaldi
+}
+
+install_jetbrains_mono_nerdfont() {
+  local version font_dir
+
+  if fc-list | grep JetBrains > /dev/null; then
+    echo "JetBrainsMono exists"
+    return
+  fi
+
+  font_dir=~/.local/share/fonts/jetbrains-mono
+  mkdir -p "${font_dir}"
+
+  version=$(curl -s "https://api.github.com/repos/JetBrains/JetBrainsMono/releases/latest" | grep -Po '"tag_name": "v\K[0-9.]+')
+  curl -sSLo /tmp/jetbrains-mono.zip "https://download.jetbrains.com/fonts/JetBrainsMono-${version}.zip"
+  unzip -qq /tmp/jetbrains-mono.zip -d ${font_dir}
+  rm /tmp/jetbrains-mono.zip
 }
 
 install_obsidian() {

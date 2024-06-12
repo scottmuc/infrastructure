@@ -1,6 +1,6 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-vim.g.have_nerd_font = false
+vim.g.have_nerd_font = true
 
 vim.opt.hlsearch = true
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')

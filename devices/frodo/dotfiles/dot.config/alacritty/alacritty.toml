@@ -8,6 +8,7 @@ save_to_clipboard = true
 
 [font]
 size = 10.0
+normal = { family = "JetBrains Mono" }
 
 [shell]
 program = "/usr/bin/tmux"
