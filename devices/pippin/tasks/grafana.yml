@@ -38,3 +38,5 @@
     name: grafana-server
     state: started
     enabled: true
+
+# vim: ft=yaml.ansible

@@ -1,10 +1,10 @@
 - name: Install unbound package
-  apt:
+  ansible.builtin.apt:
     name: unbound
 
 - name: Allow local LAN to connect to unbound
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: /etc/unbound/unbound.conf.d/pi-hole-replacement.conf
     owner: root
     group: root
@@ -21,7 +21,7 @@
 
 - name: Add blocklist
   become: true
-  get_url:
+  ansible.builtin.get_url:
     dest: /etc/unbound/blocklist.conf
     owner: root
     group: root
@@ -32,8 +32,9 @@
 
 
 - name: Ensure unbound is running
-  service:
+  ansible.builtin.service:
     name: unbound
     state: started
     enabled: true
+
 # vim: ft=yaml.ansible

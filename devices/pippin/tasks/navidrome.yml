@@ -43,7 +43,7 @@
     - Restart navidrome
 
 
-- name: ffmpeg directory
+- name: Create ffmpeg directory
   ansible.builtin.file:
     path: /opt/navidrome/ffmpeg
     state: directory
@@ -90,4 +90,5 @@
     name: navidrome
     state: started
     enabled: true
+
 # vim: ft=yaml.ansible

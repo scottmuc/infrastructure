@@ -1,16 +1,15 @@
 - name: Ensure required packages are installed
-  apt:
+  ansible.builtin.apt:
     pkg:
-    - rsyslog
-    - rsyslog-gnutls
-    state: latest
+      - rsyslog
+      - rsyslog-gnutls
   notify:
     - Restart rsyslog
 
 
 - name: Add papertrail CA
   become: true
-  get_url:
+  ansible.builtin.get_url:
     dest: /etc/papertrail-bundle.pem
     owner: root
     group: admin
@@ -20,7 +19,7 @@
 
 - name: Add Papertrail forwarding configuration
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: /etc/rsyslog.d/papertrail.conf
     content: |
       *.* action(type="omfwd"

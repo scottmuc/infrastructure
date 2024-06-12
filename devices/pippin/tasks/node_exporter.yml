@@ -52,4 +52,5 @@
     name: node_exporter
     state: started
     enabled: true
+
 # vim: ft=yaml.ansible

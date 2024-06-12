@@ -27,5 +27,4 @@
   notify:
     - Restart nginx
 
-
 # vim: ft=yaml.ansible

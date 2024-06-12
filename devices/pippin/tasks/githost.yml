@@ -14,7 +14,7 @@
 
 
 - name: Add my keys to git user
-  ansible.builtin.authorized_key:
+  ansible.posix.authorized_key:
     user: git
     state: present
     key: https://github.com/scottmuc.keys
@@ -49,7 +49,7 @@
 
 - name: Serve private IP for git.scottmuc.com
   become: true
-  copy:
+  ansible.builtin.copy:
     dest: /etc/unbound/unbound.conf.d/git.scottmuc.com.conf
     owner: root
     group: root
@@ -59,4 +59,5 @@
         local-data: "git.scottmuc.com.   IN    A   192.168.2.10"
   notify:
     - Restart unbound
+
 # vim: ft=yaml.ansible
