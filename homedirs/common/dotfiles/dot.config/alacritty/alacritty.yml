@@ -59,7 +59,7 @@ shell-programs:
 font:
   normal:
     family: JetBrainsMono Nerd Font
-  size: 16.0
+  size: 12.0
 
 shell:
   program: *Darwin
