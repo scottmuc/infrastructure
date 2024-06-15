@@ -1,4 +1,5 @@
 - name: Uninstall isc-dhcp-client
+  become: true
   ansible.builtin.apt:
     name: isc-dhcp-client
     state: absent
@@ -19,7 +20,7 @@
       netmask 255.255.255.0
       gateway 192.168.2.1
       dns-nameservers 127.0.0.1
-      dns-search home.scottmuc.com
+      dns-search middle-earth.internal
 
 
 - name: Install resolv.conf
@@ -30,7 +31,7 @@
     group: admin
     mode: '0664'
     content: |
-      search home.scottmuc.com
+      search middle-earth.internal
       nameserver 127.0.0.1
 
 # vim: ft=yaml.ansible

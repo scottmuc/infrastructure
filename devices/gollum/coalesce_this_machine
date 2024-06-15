@@ -75,7 +75,7 @@ write_or_check_machine_birthdate() {
 }
 
 # With IPv6 enabled my /etc/resolv.conf looks like the following:
-# search home.scottmuc.com
+# search middle-earth.internal
 # nameserver fe80::1
 # nameserver 192.168.2.10
 #
