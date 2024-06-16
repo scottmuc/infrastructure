@@ -116,7 +116,11 @@
           tags: mounts
 
     - name: Install dnsmasq
-      ansible.builtin.include_tasks: tasks/dhcpd.yml
+      tags: dhcpd
+      ansible.builtin.include_tasks:
+        file: tasks/dhcpd.yml
+        apply:
+          tags: dhcpd
 
     - name: Install navidrome
       tags: navidrome
