@@ -17,18 +17,22 @@ Search Domain     : middle-earth.internal
 
 #### Inventory
 
-| Device                  | Hostname  | IP Discover Method | IP Address   |
-|-------------------------|-----------|--------------------|--------------|
-| Telekom Speednet Router |           | Static             | 192.168.2.1  |
-| Raspberry PI            | pippin    | Static             | 192.168.2.10 |
-| Windows PC              | gandalf   | DHCP               | 192.168.2.12 |
-| Brother Printer         | denethor  | DHCP               | 192.168.2.13 |
-| Samsung Galaxy S7       | sam       | DHCP               | 192.168.2.14 |
-| Framework 13" Laptop    | frodo     | DHCP               | 192.168.2.15 |
-| Netgear Switch 1        | kili      | DHCP               | 192.168.2.16 |
-| Netgear Switch 2        | fili      | DHCP               | 192.168.2.17 |
-| Samsung TV              | sauron    | DHCP               | 192.168.2.18 |
-| M3 Macbook Pro          | treebear  | DHCP               | 192.168.2.19 |
-| RIPE Atlas Node         | palantir  | DHCP               | 192.168.2.20 |
-| Miele Washing Machine   | elrond    | DHCP               | 192.168.2.21 |
-| 2014 Macbook Air        | gollum    | DHCP               | random       |
+| Device                  | Hostname  | IP Discovery Method | IP Address   | Open Ports                    |
+|-------------------------|-----------|---------------------|--------------|-------------------------------|
+| Telekom Speednet Router |           | Static              | 192.168.2.1  | 80                            |
+| Raspberry PI            | pippin    | Static              | 192.168.2.10 | 22, 53, 67, 80, 443           |
+|                         |           |                     |              | 3000 (grafana web ui)         |
+|                         |           |                     |              | 4533 (navidrome metrics)      |
+|                         |           |                     |              | 9090 (prometheus)             |
+|                         |           |                     |              | 9100 (node_exporter metrics)  |
+| Windows PC              | gandalf   | DHCP                | 192.168.2.12 | 9182 (node_exporter metrics)  |
+| Brother Printer         | denethor  | DHCP                | 192.168.2.13 | 80                            |
+| Samsung Galaxy S7       | sam       | DHCP                | 192.168.2.14 |                               |
+| Framework 13" Laptop    | frodo     | DHCP                | 192.168.2.15 |                               |
+| Netgear Switch 1        | kili      | DHCP                | 192.168.2.16 | 80                            |
+| Netgear Switch 2        | fili      | DHCP                | 192.168.2.17 | 80                            |
+| Samsung TV              | sauron    | DHCP                | 192.168.2.18 |                               |
+| M3 Macbook Pro          | treebeard | DHCP                | 192.168.2.19 |                               |
+| RIPE Atlas Node         | palantir  | DHCP                | 192.168.2.20 |                               |
+| Miele Washing Machine   | elrond    | DHCP                | 192.168.2.21 |                               |
+| 2014 Macbook Air        | gollum    | DHCP                | random       |                               |
