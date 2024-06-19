@@ -77,12 +77,6 @@
       tags: [sysctls]
       loop: "{{ sysctls }}"
 
-    # TODO: revisit how variables get defined here
-    - name: Include vars
-      ansible.builtin.include_vars:
-        file: secret_vars.yml
-        name: secrets
-      tags: [logging]
 
     - name: Configure syslog forwarding
       tags: logging
@@ -91,19 +85,13 @@
         apply:
           tags: logging
 
-    - name: Setup ad blocking DNS resolver
-      tags: dns
-      ansible.builtin.include_tasks:
-        file: tasks/dnsresolver.yml
-        apply:
-          tags: dns
 
-    - name: Install and configure the webserver
-      tags: webserver
+    - name: Install and dhcpd, dns, and network configuration
+      tags: lanmanager
       ansible.builtin.include_tasks:
-        file: tasks/webserver.yml
+        file: tasks/lanmanager.yml
         apply:
-          tags: webserver
+          tags: lanmanager
 
 
     - name: Configure mounts
@@ -113,13 +101,6 @@
         apply:
           tags: mounts
 
-
-    - name: Install dnsmasq
-      tags: [dhcpd, dns]
-      ansible.builtin.include_tasks:
-        file: tasks/dhcpd.yml
-        apply:
-          tags: [dhcpd, dns]
 
     - name: Install navidrome
       tags: navidrome
@@ -155,11 +136,6 @@
         file: tasks/githost.yml
         apply:
           tags: git
-
-    - name: Configure a static IP address
-      ansible.builtin.include_tasks:
-        file: tasks/staticip.yml
-
 
   handlers:
     # It's important that Systemd reload is defined first here

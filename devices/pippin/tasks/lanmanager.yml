@@ -1,0 +1,112 @@
+- name: Install dnsmasq and unbound
+  ansible.builtin.apt:
+    pkg:
+      - dnsmasq
+      - unbound
+
+
+- name: Configure dnsmasq
+  ansible.builtin.copy:
+    src: root/etc/dnsmasq.conf
+    dest: /etc/dnsmasq.conf
+    owner: root
+    group: admin
+    mode: '0664'
+  notify:
+    - Restart dnsmasq
+
+
+- name: Configure unbound
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/unbound/unbound.conf.d/pi-hole-replacement.conf
+    owner: root
+    group: root
+    mode: '0664'
+    content: |
+      server:
+        interface: 127.0.0.1
+        access-control: 127.0.0.1 allow
+        do-ip6: no
+        include: /etc/unbound/blocklist.conf
+        log-queries: yes
+        verbosity: 1
+  notify:
+    - Restart unbound
+
+
+- name: Add blocklist
+  become: true
+  ansible.builtin.get_url:
+    dest: /etc/unbound/blocklist.conf
+    owner: root
+    group: root
+    mode: '0664'
+    url: https://raw.githubusercontent.com/scottmuc/dns-zone-blocklist/main/unbound/unbound.blocklist
+  notify:
+    - Restart unbound
+
+
+- name: Ensure unbound is running
+  ansible.builtin.service:
+    name: unbound
+    state: started
+    enabled: true
+
+
+- name: Ensure dnsmasq service is started
+  ansible.builtin.service:
+    name: dnsmasq
+    state: started
+    enabled: true
+
+
+- name: Uninstall isc-dhcp-client
+  become: true
+  ansible.builtin.apt:
+    name: isc-dhcp-client
+    state: absent
+
+
+- name: Setup static IP
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/network/interfaces.d/eth0
+    owner: root
+    group: admin
+    mode: '0664'
+    content: |
+      auto eth0
+      allow-hotplug eth0
+      iface eth0 inet static
+      address 192.168.2.10
+      netmask 255.255.255.0
+      gateway 192.168.2.1
+      dns-nameservers 127.0.0.1
+      dns-search middle-earth.internal
+
+
+- name: Install /etc/resolv.conf
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      search middle-earth.internal
+      nameserver 192.168.2.10
+
+
+- name: Install /etc/hosts
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/hosts
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      127.0.0.1     localhost
+      192.168.2.10  pippin.middle-earth.internal  pippin
+
+# vim: ft=yaml.ansible

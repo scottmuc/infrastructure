@@ -17,6 +17,12 @@
     url: https://papertrailapp.com/tools/papertrail-bundle.pem
 
 
+- name: Include vars
+  ansible.builtin.include_vars:
+    file: secret_vars.yml
+    name: secrets
+
+
 - name: Add Papertrail forwarding configuration
   become: true
   ansible.builtin.copy:
