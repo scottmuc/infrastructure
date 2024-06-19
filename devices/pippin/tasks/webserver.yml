@@ -1,17 +1,80 @@
-# This requires that nginx isn't up and running and listening on port 80 so it
-# must run before the nginx tasks. Subsequent runs will be idempotent as long
-# as the certificates have been provisioned.
-- name: Setup certbot and install certificates
-  ansible.builtin.include_tasks: certificates.yml
+- name: Install certbot package
+  ansible.builtin.apt:
+    name: certbot
+
+# I've elected to disable automated renewals. This requires different
+# logic for renewing a certificate than creating new a new one. Rather
+# than renew certificates, I use the e-mail notification from letsencrypt
+# as cue to repave the PI. This ensures that the bootstrapping process
+# just works.
+#
+# ref: https://eff-certbot.readthedocs.io/en/stable/using.html#automated-renewals
+- name: Disable certbot.timer
+  ansible.builtin.service:
+    name: certbot.timer
+    enabled: false
+    state: stopped
+
+
+# In order for this task to work, the FQDNs need to have dns records set
+# to my home IP address, and port 80 needs to be forwarded to the PI from
+# the router.
+# TODO: inject fqdns from the playbook
+- name: Acquire certificates
+  # This breaks when making it a full qualified module name
+  command: |
+    certbot certonly --standalone --non-interactive --agree-tos
+    -d {{ item.fqdn }} \
+    -m {{ item.email }}
+  args:
+    creates: /etc/letsencrypt/live/{{ item.fqdn }}/fullchain.pem
+  loop:
+    - fqdn: www.goodenoughmoney.com
+      email: "scottmuc@gmail.com"
+    - fqdn: home.scottmuc.com
+      email: "scottmuc@gmail.com"
+
+# vim: ft=yaml.ansible
 
 - name: Install nginx package
   ansible.builtin.apt:
     name: nginx
 
-# Depends on certificates being placed as well as the filesystem layout by
-# by the nginx tasks, so this must be after those two sets of tasks.
-- name: Setup nginx vhosts
-  ansible.builtin.include_tasks: vhosts.yml
+
+- name: Setup vhost directories
+  ansible.builtin.file:
+    path: /opt/{{ item.vhost }}
+    state: directory
+    owner: root
+    group: admin
+    mode: '0775'
+  loop:
+    - vhost: goodenoughmoney.com
+    - vhost: home.scottmuc.com
+
+
+- name: Install vhost configs
+  ansible.builtin.copy:
+    src: root/etc/nginx/sites-available/{{ item.vhost }}
+    dest: /etc/nginx/sites-available/{{ item.vhost }}
+    owner: root
+    group: admin
+    mode: '0664'
+  notify:
+    - Restart nginx
+  loop:
+    - vhost: goodenoughmoney.com
+    - vhost: home.scottmuc.com
+
+
+- name: Enable vhosts
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/{{ item.vhost }}
+    dest: /etc/nginx/sites-enabled/{{ item.vhost }}
+    state: link
+  loop:
+    - vhost: goodenoughmoney.com
+    - vhost: home.scottmuc.com
 
 
 # Favouring complete overwrite of the configuration file coming from the
