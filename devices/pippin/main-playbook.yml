@@ -81,32 +81,20 @@
           tags: navidrome
 
 
-    - name: Install prometheus
-      tags: prometheus
-      ansible.builtin.include_tasks:
-        file: tasks/prometheus.yml
-        apply:
-          tags: prometheus
-
-
-    - name: Install node exporter
-      ansible.builtin.include_tasks: tasks/node_exporter.yml
-
-
-    - name: Install grafana
-      tags: grafana
-      ansible.builtin.include_tasks:
-        file: tasks/grafana.yml
-        apply:
-          tags: grafana
-
-
     - name: Setup git host
       tags: git
       ansible.builtin.include_tasks:
         file: tasks/githost.yml
         apply:
           tags: git
+
+
+    - name: Install monitoring
+      tags: monitoring
+      ansible.builtin.include_tasks:
+        file: tasks/monitoring.yml
+        apply:
+          tags: monitoring
 
   handlers:
     # It's important that Systemd reload is defined first here

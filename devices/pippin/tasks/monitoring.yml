@@ -1,0 +1,15 @@
+- name: Install prometheus
+  ansible.builtin.include_tasks:
+    file: tasks/prometheus.yml
+
+
+- name: Install node exporter
+  ansible.builtin.include_tasks:
+    file: tasks/node_exporter.yml
+
+
+- name: Install grafana
+  ansible.builtin.include_tasks:
+    file: tasks/grafana.yml
+
+# vim: ft=yaml.ansible
