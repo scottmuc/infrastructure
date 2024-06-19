@@ -1,0 +1,41 @@
+# If this fails, it's likely due to user level systemd services running. A
+# reboot will resolve it... will look into more elegant ways later.
+- name: Delete the 'pi' bootstrap user
+  ansible.builtin.user:
+    name: pi
+    state: absent
+    remove: true
+
+
+# https://linuxhandbook.com/ssh-hardening-tips/
+- name: Harden the sshd Configuration
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/ssh/sshd_config.d/ssh_hardening.conf
+    owner: root
+    group: root
+    mode: '0664'
+    content: |
+      PermitEmptyPasswords no
+      PasswordAuthentication no
+      PermitRootLogin no
+      Protocol 2
+      X11Forwarding no
+  notify:
+    - Reload sshd
+
+
+- name: Install fail2ban and its dependencies
+  ansible.builtin.apt:
+    pkg:
+      - fail2ban
+      - iptables
+
+
+- name: Ensure fail2ban is running
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true
+
+# vim: ft=yaml.ansible
