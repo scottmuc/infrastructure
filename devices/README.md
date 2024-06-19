@@ -27,16 +27,16 @@ Search Domain     : middle-earth.internal
 |                         |                     |                     |              | 4533 (navidrome metrics)      |
 |                         |                     |                     |              | 9090 (prometheus)             |
 |                         |                     |                     |              | 9100 (node_exporter metrics)  |
-| Windows PC              | gandalf             | DHCP                | 192.168.2.12 | 9182 (node_exporter metrics)  |
-| Brother Printer         | denethor            | DHCP                | 192.168.2.13 | 80                            |
-| Samsung Galaxy S7       | sam                 | DHCP                | 192.168.2.14 |                               |
-| Framework 13" Laptop    | [frodo][frodo]      | DHCP                | 192.168.2.15 |                               |
-| Netgear Switch 1        | kili                | DHCP                | 192.168.2.16 | 80                            |
-| Netgear Switch 2        | fili                | DHCP                | 192.168.2.17 | 80                            |
-| Samsung TV              | sauron              | DHCP                | 192.168.2.18 |                               |
-| M3 Macbook Pro          | treebeard           | DHCP                | 192.168.2.19 |                               |
-| RIPE Atlas Node         | palantir            | DHCP                | 192.168.2.20 |                               |
-| Miele Washing Machine   | elrond              | DHCP                | 192.168.2.21 |                               |
+| Windows PC              | gandalf             | DHCP                | random       | 9182 (node_exporter metrics)  |
+| Brother Printer         | denethor            | DHCP                | random       | 80                            |
+| Samsung Galaxy S7       | sam                 | DHCP                | random       |                               |
+| Framework 13" Laptop    | [frodo][frodo]      | DHCP                | random       |                               |
+| Netgear Switch 1        | kili                | DHCP                | random       | 80                            |
+| Netgear Switch 2        | fili                | DHCP                | random       | 80                            |
+| Samsung TV              | sauron              | DHCP                | random       |                               |
+| M3 Macbook Pro          | treebeard           | DHCP                | random       |                               |
+| RIPE Atlas Node         | palantir            | DHCP                | random       |                               |
+| Miele Washing Machine   | elrond              | DHCP                | random       |                               |
 | 2014 Macbook Air        | [gollum][gollum]    | DHCP                | random       |                               |
 
 
