@@ -105,19 +105,14 @@
         apply:
           tags: webserver
 
-    - name: Setup USB Drive
+
+    - name: Configure mounts
       tags: mounts
       ansible.builtin.include_tasks:
-        file: tasks/usb_drive.yml
+        file: tasks/mounts.yml
         apply:
           tags: mounts
 
-    - name: Mount music windows share
-      tags: mounts
-      ansible.builtin.include_tasks:
-        file: tasks/music_cifs_mount.yml
-        apply:
-          tags: mounts
 
     - name: Install dnsmasq
       tags: [dhcpd, dns]
@@ -133,6 +128,7 @@
         apply:
           tags: navidrome
 
+
     - name: Install prometheus
       tags: prometheus
       ansible.builtin.include_tasks:
@@ -140,8 +136,10 @@
         apply:
           tags: prometheus
 
+
     - name: Install node exporter
       ansible.builtin.include_tasks: tasks/node_exporter.yml
+
 
     - name: Install grafana
       tags: grafana
@@ -162,15 +160,6 @@
       ansible.builtin.include_tasks:
         file: tasks/staticip.yml
 
-    - name: Refresh authorized keys for all relevant users
-      ansible.posix.authorized_key:
-        user: "{{ item.user }}"
-        state: present
-        key: https://github.com/scottmuc.keys
-      tags: [keys]
-      loop:
-        - user: ansible
-        - user: git
 
   handlers:
     # It's important that Systemd reload is defined first here

@@ -13,7 +13,6 @@ tags=$(gum choose --header "Select tag to apply" \
   "fail2ban"      \
   "git"           \
   "grafana"       \
-  "keys"          \
   "logging"       \
   "mounts"        \
   "navidrome"     \

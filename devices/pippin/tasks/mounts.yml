@@ -1,3 +1,20 @@
+- name: Create USB mount for persistent storage for services
+  ansible.builtin.file:
+    path: /mnt/vcapstore
+    state: directory
+    owner: root
+    group: root
+    mode: '0777'
+
+
+- name: Mount 32GB disk
+  ansible.posix.mount:
+    state: mounted
+    path: /mnt/vcapstore
+    src: UUID=e15af423-34a5-445c-978b-c85288f3a90b
+    fstype: ext4
+
+
 - name: Install cifs mount dependencies
   ansible.builtin.apt:
     pkg:

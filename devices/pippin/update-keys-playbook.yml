@@ -1,0 +1,16 @@
+- name: Update Authorized Keys
+  hosts: all
+  remote_user: ansible
+
+  tasks:
+    - name: Refresh authorized keys for all relevant users
+      become: true
+      ansible.posix.authorized_key:
+        user: "{{ item.user }}"
+        state: present
+        key: https://github.com/scottmuc.keys
+      tags: [keys]
+      loop:
+        - user: ansible
+        - user: git
+
