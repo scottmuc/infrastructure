@@ -92,7 +92,11 @@
           tags: logging
 
     - name: Setup ad blocking DNS resolver
-      ansible.builtin.include_tasks: tasks/dnsresolver.yml
+      tags: dns
+      ansible.builtin.include_tasks:
+        file: tasks/dnsresolver.yml
+        apply:
+          tags: dns
 
     - name: Install and configure the webserver
       tags: webserver
@@ -116,11 +120,11 @@
           tags: mounts
 
     - name: Install dnsmasq
-      tags: dhcpd
+      tags: [dhcpd, dns]
       ansible.builtin.include_tasks:
         file: tasks/dhcpd.yml
         apply:
-          tags: dhcpd
+          tags: [dhcpd, dns]
 
     - name: Install navidrome
       tags: navidrome
