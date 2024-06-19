@@ -159,7 +159,8 @@
           tags: git
 
     - name: Configure a static IP address
-      ansible.builtin.include_tasks: tasks/staticip.yml
+      ansible.builtin.include_tasks:
+        file: tasks/staticip.yml
 
     - name: Refresh authorized keys for all relevant users
       ansible.posix.authorized_key:
