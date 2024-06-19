@@ -15,7 +15,7 @@
 
 - name: Mount music share from Windows PC
   ansible.posix.mount:
-    src: //192.168.2.12/music
+    src: //gandalf.middle-earth.internal/music
     path: /mnt/music
     fstype: cifs
     state: mounted
