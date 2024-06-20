@@ -29,8 +29,8 @@
         access-control: 127.0.0.1 allow
         do-ip6: no
         include: /etc/unbound/blocklist.conf
-        log-queries: yes
-        verbosity: 1
+        # log-queries: yes
+        # verbosity: 1
   notify:
     - Restart unbound
 
