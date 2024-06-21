@@ -1,9 +1,13 @@
 - name: Install prometheus
+  vars:
+    version: "{{ prometheus_version }}"
   ansible.builtin.include_tasks:
     file: tasks/prometheus.yml
 
 
 - name: Install node exporter
+  vars:
+    version: "{{ node_exporter_version }}"
   ansible.builtin.include_tasks:
     file: tasks/node_exporter.yml
 

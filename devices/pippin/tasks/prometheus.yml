@@ -16,7 +16,7 @@
 
 - name: Prometheus versioned directory
   ansible.builtin.file:
-    path: "/opt/prometheus/{{ prometheus_version }}"
+    path: "/opt/prometheus/{{ version }}"
     state: directory
     owner: prometheus
     group: root
@@ -25,17 +25,17 @@
 
 - name: Download prometheus
   ansible.builtin.unarchive:
-    src: "https://github.com/prometheus/prometheus/releases/download/v{{ prometheus_version }}/prometheus-{{ prometheus_version }}.linux-armv7.tar.gz"
+    src: "https://github.com/prometheus/prometheus/releases/download/v{{ version }}/prometheus-{{ version }}.linux-armv7.tar.gz"
     remote_src: true
-    dest: "/opt/prometheus/{{ prometheus_version }}"
-    creates: "/opt/prometheus/{{ prometheus_version }}/prometheus"
+    dest: "/opt/prometheus/{{ version }}"
+    creates: "/opt/prometheus/{{ version }}/prometheus"
     extra_opts:
       - "--strip-components=1"
 
 
 - name: Symlink current prometheus version
   ansible.builtin.file:
-    src: "/opt/prometheus/{{ prometheus_version }}"
+    src: "/opt/prometheus/{{ version }}"
     dest: "/opt/prometheus/live"
     state: link
   notify:
