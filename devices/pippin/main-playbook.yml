@@ -68,7 +68,7 @@
 
     - name: Install navidrome
       vars:
-        navidrome_version: "0.51.1"
+        navidrome_version: "0.52.5"
       tags: navidrome
       ansible.builtin.include_tasks:
         file: tasks/navidrome.yml
