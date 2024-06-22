@@ -1,4 +1,5 @@
 - name: Install certbot package
+  become: true
   ansible.builtin.apt:
     name: certbot
 
@@ -10,6 +11,7 @@
 #
 # ref: https://eff-certbot.readthedocs.io/en/stable/using.html#automated-renewals
 - name: Disable certbot.timer
+  become: true
   ansible.builtin.service:
     name: certbot.timer
     enabled: false
@@ -21,6 +23,7 @@
 # the router.
 # TODO: inject fqdns from the playbook
 - name: Acquire certificates
+  become: true
   # This breaks when making it a full qualified module name
   command: |
     certbot certonly --standalone --non-interactive --agree-tos
@@ -34,14 +37,15 @@
     - fqdn: home.scottmuc.com
       email: "scottmuc@gmail.com"
 
-# vim: ft=yaml.ansible
 
 - name: Install nginx package
+  become: true
   ansible.builtin.apt:
     name: nginx
 
 
 - name: Setup vhost directories
+  become: true
   ansible.builtin.file:
     path: /opt/{{ item.vhost }}
     state: directory
@@ -54,6 +58,7 @@
 
 
 - name: Install vhost configs
+  become: true
   ansible.builtin.copy:
     src: root/etc/nginx/sites-available/{{ item.vhost }}
     dest: /etc/nginx/sites-available/{{ item.vhost }}
@@ -68,6 +73,7 @@
 
 
 - name: Enable vhosts
+  become: true
   ansible.builtin.file:
     src: /etc/nginx/sites-available/{{ item.vhost }}
     dest: /etc/nginx/sites-enabled/{{ item.vhost }}
@@ -81,6 +87,7 @@
 # package manager due to reasons identified here:
 # https://serverfault.com/questions/825363/override-default-nginx-http-configuration-without-changing-default-nginx-conf
 - name: Nginx configuration
+  become: true
   ansible.builtin.copy:
     src: root/etc/nginx/nginx.conf
     dest: /etc/nginx/nginx.conf
@@ -92,6 +99,7 @@
 
 
 - name: Enable stub_status
+  become: true
   ansible.builtin.copy:
     src: root/etc/nginx/conf.d/status.conf
     dest: /etc/nginx/conf.d/status.conf
@@ -106,6 +114,7 @@
 # has been applied. See the following comment as for the context:
 # https://github.com/scottmuc/infrastructure/issues/74#issuecomment-2156133447
 - name: Start nginx
+  become: true
   ansible.builtin.service:
     name: nginx
     state: started

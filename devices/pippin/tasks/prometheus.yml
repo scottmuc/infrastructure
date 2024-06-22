@@ -1,4 +1,5 @@
 - name: Prometheus user
+  become: true
   ansible.builtin.user:
     name: prometheus
     comment: Service account for prometheus process
@@ -6,20 +7,22 @@
 
 
 - name: Prometheus application directory
+  become: true
   ansible.builtin.file:
     path: /opt/prometheus
     state: directory
     owner: prometheus
-    group: root
+    group: admin
     mode: '0775'
 
 
 - name: Prometheus versioned directory
+  become: true
   ansible.builtin.file:
     path: "/opt/prometheus/{{ version }}"
     state: directory
     owner: prometheus
-    group: root
+    group: admin
     mode: '0775'
 
 
@@ -43,17 +46,19 @@
 
 
 - name: Install prometheus configuration
+  become: true
   ansible.builtin.copy:
     src: root/opt/prometheus/prometheus.yml
     dest: /opt/prometheus/prometheus.yml
     owner: prometheus
-    group: root
+    group: admin
     mode: '0660'
   notify:
     - Restart prometheus
 
 
 - name: Install prometheus service
+  become: true
   ansible.builtin.copy:
     src: root/etc/systemd/system/prometheus.service
     dest: /etc/systemd/system/prometheus.service
@@ -67,6 +72,7 @@
 # We can triger restart handlers that fail to start the service
 # https://stackoverflow.com/questions/37843998/how-to-stop-ansible-from-starting-then-restarting-a-service
 - name: Ensure prometheus is running
+  become: true
   ansible.builtin.service:
     name: prometheus
     state: started

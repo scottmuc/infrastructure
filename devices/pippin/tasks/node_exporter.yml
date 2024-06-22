@@ -1,18 +1,20 @@
 - name: Node exporter application directory
+  become: true
   ansible.builtin.file:
     path: /opt/node_exporter
     state: directory
     owner: prometheus
-    group: root
+    group: admin
     mode: '0775'
 
 
 - name: Node exporter versioned directory
+  become: true
   ansible.builtin.file:
     path: "/opt/node_exporter/{{ version }}"
     state: directory
     owner: prometheus
-    group: root
+    group: admin
     mode: '0775'
 
 
@@ -36,6 +38,7 @@
 
 
 - name: Install node exporter service
+  become: true
   ansible.builtin.copy:
     src: root/etc/systemd/system/node_exporter.service
     dest: /etc/systemd/system/node_exporter.service
@@ -48,6 +51,7 @@
 
 
 - name: Ensure node exporter is running
+  become: true
   ansible.builtin.service:
     name: node_exporter
     state: started

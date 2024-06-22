@@ -1,4 +1,5 @@
 - name: Ensure required packages are installed
+  become: true
   ansible.builtin.apt:
     pkg:
       - rsyslog

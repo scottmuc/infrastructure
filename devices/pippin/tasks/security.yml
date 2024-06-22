@@ -1,6 +1,7 @@
 # If this fails, it's likely due to user level systemd services running. A
 # reboot will resolve it... will look into more elegant ways later.
 - name: Delete the 'pi' bootstrap user
+  become: true
   ansible.builtin.user:
     name: pi
     state: absent
@@ -26,6 +27,7 @@
 
 
 - name: Install fail2ban and its dependencies
+  become: true
   ansible.builtin.apt:
     pkg:
       - fail2ban

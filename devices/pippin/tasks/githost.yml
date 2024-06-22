@@ -1,10 +1,12 @@
 - name: Ensure git is installed
+  become: true
   ansible.builtin.package:
     name: git
     state: present
 
 
 - name: Create a git user for remote access
+  become: true
   ansible.builtin.user:
     comment: "Low priv git repo access user"
     system: true
@@ -14,6 +16,7 @@
 
 
 - name: Add my keys to git user
+  become: true
   ansible.posix.authorized_key:
     user: git
     state: present
@@ -21,6 +24,7 @@
 
 
 - name: Create repo directories
+  become: true
   ansible.builtin.command:
     cmd: sudo -u git git init --initial-branch main --bare "/mnt/vcapstore/repos/{{ item.name }}.git"
     creates: "/mnt/vcapstore/repos/{{ item.name }}.git/HEAD"
@@ -33,6 +37,7 @@
 
 
 - name: Symlink repo directories
+  become: true
   ansible.builtin.file:
     src: /mnt/vcapstore/repos/{{ item.name }}.git
     dest: /home/git/{{ item.name }}.git

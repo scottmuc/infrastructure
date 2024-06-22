@@ -1,4 +1,5 @@
 - name: Navidrome user
+  become: true
   ansible.builtin.user:
     name: navidrome
     comment: Service account for navidrome process
@@ -6,20 +7,22 @@
 
 
 - name: Navidrome application directory
+  become: true
   ansible.builtin.file:
     path: /opt/navidrome
     state: directory
     owner: navidrome
-    group: root
+    group: admin
     mode: '0775'
 
 
 - name: Navidrome versioned directory
+  become: true
   ansible.builtin.file:
     path: "/opt/navidrome/{{ navidrome_version }}"
     state: directory
     owner: navidrome
-    group: root
+    group: admin
     mode: '0775'
 
 
@@ -37,18 +40,19 @@
     dest: "/opt/navidrome/live"
     state: link
     owner: navidrome
-    group: root
+    group: admin
     mode: '0775'
   notify:
     - Restart navidrome
 
 
 - name: Create ffmpeg directory
+  become: true
   ansible.builtin.file:
     path: /opt/navidrome/ffmpeg
     state: directory
     owner: navidrome
-    group: root
+    group: admin
     mode: '0775'
 
 
@@ -63,17 +67,19 @@
 
 
 - name: Install navidrome configuration
+  become: true
   ansible.builtin.copy:
     src: root/opt/navidrome/navidrome.toml
     dest: /opt/navidrome/navidrome.toml
     owner: navidrome
-    group: root
+    group: admin
     mode: '0444'
   notify:
     - Restart navidrome
 
 
 - name: Install navidrome service
+  become: true
   ansible.builtin.copy:
     src: root/etc/systemd/system/navidrome.service
     dest: /etc/systemd/system/navidrome.service
@@ -86,6 +92,7 @@
 
 
 - name: Ensure navidrome is running
+  become: true
   ansible.builtin.service:
     name: navidrome
     state: started

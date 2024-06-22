@@ -1,4 +1,5 @@
 - name: Create USB mount for persistent storage for services
+  become: true
   ansible.builtin.file:
     path: /mnt/vcapstore
     state: directory
@@ -16,12 +17,14 @@
 
 
 - name: Install cifs mount dependencies
+  become: true
   ansible.builtin.apt:
     pkg:
       - cifs-utils
 
 
 - name: Create mount for music share
+  become: true
   ansible.builtin.file:
     path: /mnt/music
     state: directory

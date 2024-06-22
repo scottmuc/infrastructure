@@ -1,12 +1,14 @@
 # Introduce the new repository
 # https://grafana.com/docs/grafana/latest/setup-grafana/installation/debian/#repository-migration-november-8th-2022
 - name: Install Grafana Apt Keys
+  become: true
   ansible.builtin.get_url:
     url: https://apt.grafana.com/gpg.key
     dest: /usr/share/keyrings/grafana.asc
 
 
 - name: Add Grafana Apt Repository
+  become: true
   ansible.builtin.copy:
     dest: /etc/apt/sources.list.d/grafana.list
     content: |
@@ -14,6 +16,7 @@
 
 
 - name: Install grafana package
+  become: true
   ansible.builtin.apt:
     name: grafana
     state: present
@@ -23,6 +26,7 @@
 
 
 - name: Install grafana configuration
+  become: true
   ansible.builtin.copy:
     src: root/etc/grafana/grafana.ini
     dest: /etc/grafana/grafana.ini
@@ -34,6 +38,7 @@
 
 
 - name: Ensure grafana is running
+  become: true
   ansible.builtin.service:
     name: grafana-server
     state: started

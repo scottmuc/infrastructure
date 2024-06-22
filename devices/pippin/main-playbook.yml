@@ -1,9 +1,6 @@
-# TODO: use well defined inventory file and specify host
 - name: Completely setup Pippin
   hosts: all
   remote_user: ansible
-  # TODO: eliminate the global priv elevation
-  become: true
 
   tasks:
     # I am uncertain if this belongs in the bootstrap, or in some overarching
@@ -24,6 +21,7 @@
 
 
     - name: Configure sysctls
+      become: true
       ansible.posix.sysctl:
         name: "{{ item.name }}"
         value: "{{ item.value }}"
@@ -100,65 +98,76 @@
     #
     # This might not be necessary though... still need to think this through
     - name: Systemd reload
+      become: true
       ansible.builtin.systemd:
         daemon_reload: true
 
 
     - name: Restart dnsmasq
+      become: true
       ansible.builtin.service:
         name: dnsmasq
         state: restarted
 
 
     - name: Restart nginx
+      become: true
       ansible.builtin.service:
         name: nginx
         state: restarted
 
 
     - name: Restart navidrome
+      become: true
       ansible.builtin.service:
         name: navidrome
         state: restarted
 
 
     - name: Restart prometheus
+      become: true
       ansible.builtin.service:
         name: prometheus
         state: restarted
 
 
     - name: Restart node_exporter
+      become: true
       ansible.builtin.service:
         name: node_exporter
         state: restarted
 
 
     - name: Restart grafana
+      become: true
       ansible.builtin.service:
         name: grafana-server
         state: restarted
 
 
     - name: Restart unbound
+      become: true
       ansible.builtin.service:
         name: unbound
         state: restarted
 
 
     - name: Restart rsyslog
+      become: true
       ansible.builtin.service:
         name: rsyslog
         state: restarted
 
 
     - name: Reload sshd
+      become: true
       ansible.builtin.service:
         name: sshd
         state: reloaded
 
 
     - name: Restart fail2ban
+      become: true
       ansible.builtin.service:
         name: fail2ban
         state: restarted
