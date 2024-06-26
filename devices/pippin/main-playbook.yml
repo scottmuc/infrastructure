@@ -172,4 +172,10 @@
         name: fail2ban
         state: restarted
 
+    - name: Restart unbound_exporter
+      become: true
+      ansible.builtin.service:
+        name: unbound_exporter
+        state: restarted
+
 # vim: ft=yaml.ansible

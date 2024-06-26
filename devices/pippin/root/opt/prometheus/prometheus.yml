@@ -28,3 +28,8 @@ scrape_configs:
     static_configs:
       - targets:
         - pippin:4533
+
+  - job_name: unbound_exporter
+    static_configs:
+      - targets:
+          - pippin:9167
