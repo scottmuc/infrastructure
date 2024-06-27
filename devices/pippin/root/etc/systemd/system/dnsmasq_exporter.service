@@ -1,0 +1,14 @@
+[Unit]
+Description=dnsmasq exporter for Prometheus
+Documentation=https://prometheus.io/docs/introduction/overview/
+
+
+[Service]
+Restart=always
+User=prometheus
+ExecStart=/opt/dnsmasq_exporter/go/bin/dnsmasq_exporter \
+  -listen "192.168.2.10:9153" \
+  -dnsmasq "192.168.2.10:53"
+
+[Install]
+WantedBy=multi-user.target

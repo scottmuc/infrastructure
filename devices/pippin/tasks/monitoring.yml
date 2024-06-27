@@ -12,13 +12,19 @@
     file: tasks/node_exporter.yml
 
 
-- name: Install grafana
+- name: Install dnsmasq exporter
   ansible.builtin.include_tasks:
-    file: tasks/grafana.yml
+    file: tasks/dnsmasq_exporter.yml
 
 
 - name: Install unbound exporter
   ansible.builtin.include_tasks:
     file: tasks/unbound_exporter.yml
+
+
+- name: Install grafana
+  ansible.builtin.include_tasks:
+    file: tasks/grafana.yml
+
 
 # vim: ft=yaml.ansible

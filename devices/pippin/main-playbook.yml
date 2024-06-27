@@ -178,4 +178,11 @@
         name: unbound_exporter
         state: restarted
 
+
+    - name: Restart dnsmasq_exporter
+      become: true
+      ansible.builtin.service:
+        name: dnsmasq_exporter
+        state: restarted
+
 # vim: ft=yaml.ansible

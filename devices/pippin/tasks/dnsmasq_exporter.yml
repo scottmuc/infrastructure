@@ -1,0 +1,50 @@
+- name: Dnsmasq exporter application directory
+  become: true
+  ansible.builtin.file:
+    path: /opt/dnsmasq_exporter
+    state: directory
+    owner: root
+    group: admin
+    mode: '0775'
+
+
+- name: Download golang
+  ansible.builtin.unarchive:
+    src: "https://go.dev/dl/go1.22.4.linux-arm64.tar.gz"
+    remote_src: true
+    dest: "/opt/dnsmasq_exporter/"
+    creates: "/opt/dnsmasq_exporter/go/bin/go"
+
+
+- name: Compile dnsmasq_exporter
+  environment:
+    GOPATH: "/opt/dnsmasq_exporter/go"
+  ansible.builtin.command:
+    argv:
+      - /opt/dnsmasq_exporter/go/bin/go
+      - install
+      - github.com/google/dnsmasq_exporter@latest
+    creates: "/opt/dnsmasq_exporter/go/bin/dnsmasq_exporter"
+
+
+- name: Install exporter service
+  become: true
+  ansible.builtin.copy:
+    src: root/etc/systemd/system/dnsmasq_exporter.service
+    dest: /etc/systemd/system/dnsmasq_exporter.service
+    owner: root
+    group: admin
+    mode: '0664'
+  notify:
+    - Restart dnsmasq_exporter
+    - Systemd reload
+
+
+- name: Ensure exporter is running
+  become: true
+  ansible.builtin.service:
+    name: dnsmasq_exporter
+    state: started
+    enabled: true
+
+# vim: ft=yaml.ansible

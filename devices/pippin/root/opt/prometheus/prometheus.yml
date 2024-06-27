@@ -29,7 +29,12 @@ scrape_configs:
       - targets:
         - pippin:4533
 
-  - job_name: unbound_exporter
+  - job_name: unbound
     static_configs:
       - targets:
           - pippin:9167
+
+  - job_name: dnsmasq
+    static_configs:
+      - targets:
+          - pippin:9153

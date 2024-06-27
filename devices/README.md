@@ -27,6 +27,7 @@ Search Domain     : middle-earth.internal
 |                         |                     |                     |              | 4533 (navidrome metrics)         |
 |                         |                     |                     |              | 9090 (prometheus)                |
 |                         |                     |                     |              | 9100 (node_exporter metrics)     |
+|                         |                     |                     |              | 9153 (dnsmasq_exporter metrics)  |
 |                         |                     |                     |              | 9167 (unbound_exporter metrics)  |
 | Brother Printer         | denethor            | DHCP                | 192.168.2.12 | 80                               |
 | Netgear Switch 1        | kili                | DHCP                | 192.168.2.13 | 80                               |
