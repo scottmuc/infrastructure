@@ -38,6 +38,8 @@
       remote-control:
         control-enable: yes
         control-interface: /run/unbound.ctl
+      server:
+        extended-statistics: yes
   notify:
     - Restart unbound
 
