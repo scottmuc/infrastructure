@@ -9,6 +9,7 @@
 
 
 - name: Mount 32GB disk
+  become: true
   ansible.posix.mount:
     state: mounted
     path: /mnt/vcapstore
@@ -34,6 +35,7 @@
 
 
 - name: Mount music share from Windows PC
+  become: true
   ansible.posix.mount:
     src: //gandalf.middle-earth.internal/music
     path: /mnt/music
