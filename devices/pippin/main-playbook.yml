@@ -20,6 +20,13 @@
         file: tasks/security.yml
 
 
+    - name: Configure Loki
+      tags: loki
+      ansible.builtin.include_tasks:
+        file: tasks/loki.yml
+        apply:
+          tags: loki
+
     - name: Configure sysctls
       become: true
       ansible.posix.sysctl:
@@ -185,4 +192,17 @@
         name: dnsmasq_exporter
         state: restarted
 
+
+    - name: Restart loki
+      become: true
+      ansible.builtin.service:
+        name: loki
+        state: restarted
+
+
+    - name: Restart promtail
+      become: true
+      ansible.builtin.service:
+        name: promtail
+        state: restarted
 # vim: ft=yaml.ansible

@@ -10,6 +10,7 @@ tags=$(gum choose --header "Select tag to apply" \
   "all"           \
   "lanmanager"    \
   "logging"       \
+  "loki"          \
   "monitoring"    \
   "mounts"        \
   "navidrome"     \
