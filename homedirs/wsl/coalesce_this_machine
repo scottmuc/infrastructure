@@ -37,7 +37,7 @@ setup_ssh_for_stuart_az() {
 
   cat << EOF | sudo tee ~/.ssh/config
 Host ssh.stuartnelson.xyz
-        ProxyCommand /usr/local/bin/cloudflared access ssh -- hostname %h
+        ProxyCommand /usr/local/bin/cloudflared access ssh --hostname %h
 EOF
 
   chmod 0660 ~/.ssh/config
