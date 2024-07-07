@@ -14,6 +14,7 @@ main() {
   configure_wsl
   configure_dns
   symlink_all_the_things
+  setup_ssh_for_stuart_az
   install_os_packages
   default_to_zsh
   setup_ssh_dir
@@ -24,6 +25,25 @@ main() {
   install_all_things_docker
   install_1password_cli "2.28.0"
 }
+
+setup_ssh_for_stuart_az() {
+  if command -v cloudflared &> /dev/null; then
+    echo "cloudflared exists: $(cloudflared -v)"
+  else
+    sudo curl -o /usr/local/bin/cloudflared -L \
+      https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+    sudo chmod +x /usr/local/bin/cloudflared
+  fi
+
+  cat << EOF | sudo tee ~/.ssh/config
+Host ssh.stuartnelson.xyz
+        ProxyCommand /usr/local/bin/cloudflared access ssh -- hostname %h
+EOF
+
+  chmod 0660 ~/.ssh/config
+}
+
+
 
 install_golang() {
   local version
