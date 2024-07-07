@@ -17,6 +17,38 @@
   notify:
     - Restart dnsmasq
 
+- name: Setup unbound log directory
+  become: true
+  ansible.builtin.file:
+    path: /var/log/unbound
+    state: directory
+    owner: unbound
+    group: unbound
+    mode: '0775'
+
+
+- name: Configure logrotate for unbound
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/logrotate.d/unbound
+    owner: root
+    group: root
+    mode: '0644'
+    content: |
+      /var/log/unbound/*.log {
+        weekly
+        rotate 7
+        missingok
+        notifempty
+        compress
+        delaycompress
+        sharedscripts
+        create 644
+        postrotate
+          /usr/sbin/unbound-control log_reopen
+        endscript
+      }
+
 
 - name: Configure unbound
   become: true
@@ -26,13 +58,21 @@
     group: root
     mode: '0664'
     content: |
+      # https://unbound.docs.nlnetlabs.nl/en/latest/manpages/unbound.conf.html
       server:
         interface: 127.0.0.1
         access-control: 127.0.0.1 allow
         do-ip6: no
         include: /etc/unbound/blocklist.conf
-        # log-queries: yes
-        # verbosity: 1
+
+        # Disable syslog when logging queries to not use all my papertrail quota
+        use-syslog: no
+        verbosity: 0
+        log-queries: yes
+        log-replies: yes
+        log-tag-queryreply: yes
+        log-local-actions: yes
+        logfile: /var/log/unbound/unbound.log
   notify:
     - Restart unbound
 
