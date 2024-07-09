@@ -60,8 +60,8 @@
     content: |
       # https://unbound.docs.nlnetlabs.nl/en/latest/manpages/unbound.conf.html
       server:
-        interface: 127.0.0.1
-        access-control: 127.0.0.1 allow
+        interface: 192.168.2.10
+        access-control: 192.168.2.0/24 allow
         do-ip6: no
         include: /etc/unbound/blocklist.conf
 
@@ -73,6 +73,28 @@
         log-tag-queryreply: yes
         log-local-actions: yes
         logfile: /var/log/unbound/unbound.log
+
+        # https://blog.josefsson.org/2015/10/26/combining-dnsmasq-and-unbound/#comment-1399545
+        # ^^^ this comment from nearly 10 years ago really helped me figure all this out!
+
+        # The two lines below allow unbound to return private IPs and to ignore
+        # the DNSSEC chain of trust for middle-earth.internal.
+        private-domain: "middle-earth.internal."
+        domain-insecure: "middle-earth.internal."
+
+        private-domain: "2.168.192.in-addr.arpa."
+        domain-insecure: "2.168.192.in-addr.arpa."
+        local-zone: "2.168.192.in-addr.arpa." transparent
+
+        # All queries related to my LAN's private domain should be forwared
+        # to the dnsmasq resolver.
+        forward-zone:
+          name: "middle-earth.internal."
+          forward-addr: 192.168.2.10@5353
+
+        forward-zone:
+          name: "2.168.192.in-addr.arpa."
+          forward-addr: 192.168.2.10@5353
   notify:
     - Restart unbound
 
