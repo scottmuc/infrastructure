@@ -9,10 +9,26 @@ clients:
 - url: http://localhost:3100/loki/api/v1/push
 
 scrape_configs:
-- job_name: system
+- job_name: unbound
   static_configs:
   - targets:
       - localhost
     labels:
-      job: varlogs
-      __path__: /var/log/*.log
+      job: unbound
+      __path__: /var/log/unbound/unbound.log
+  pipeline_stages:
+    - labeldrop:
+        - filename
+    - match:
+        selector: '{job="unbound"} |~ " start | stopped |.*in-addr.arpa."'
+        action: drop
+    - match:
+        selector: '{job="unbound"} |= "reply:"'
+        stages:
+        - static_labels:
+            dns: reply
+    - match:
+        selector: '{job="unbound"} |~ "redirect |always_null|always_nxdomain"'
+        stages:
+        - static_labels:
+            dns: block
