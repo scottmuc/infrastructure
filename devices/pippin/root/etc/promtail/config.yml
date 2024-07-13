@@ -1,34 +1,44 @@
 server:
   http_listen_port: 9080
+  # 0 means choose a random port and I'm not sure what this is
+  # used for and why it's ok to be a random port.
   grpc_listen_port: 0
 
+# Storing the positions in /tmp works since after a repave, the log files
+# will be gone anyways.
 positions:
   filename: /tmp/positions.yaml
 
+# loki doesn't pull from exports, exports (like promtail) need to push the
+# scraped logs to loki.
 clients:
 - url: http://localhost:3100/loki/api/v1/push
 
 scrape_configs:
 - job_name: unbound
   static_configs:
-  - targets:
-      - localhost
-    labels:
+  - labels:
       job: unbound
       __path__: /var/log/unbound/unbound.log
   pipeline_stages:
     - labeldrop:
         - filename
+    # No need for lines that communicate that unbound is starting, stopping
+    # or for any PTR requests
     - match:
         selector: '{job="unbound"} |~ " start | stopped |.*in-addr.arpa."'
         action: drop
+    # All lines containing a reply are the ones we want to do all sortos of
+    # grouping by and aggregating.
     - match:
         selector: '{job="unbound"} |= "reply:"'
         stages:
         - static_labels:
             dns: reply
+    # The blocklist configuration I'm using always returns REFUSED for blocked
+    # domains. This may result in some fall positives for the label of "block"
     - match:
-        selector: '{job="unbound"} |~ "redirect |always_null|always_nxdomain"'
+        selector: '{job="unbound"} |= "REFUSED"'
         stages:
         - static_labels:
             dns: block
