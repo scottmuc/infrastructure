@@ -6,11 +6,11 @@ server:
 
 
 common:
-  path_prefix: /tmp/loki
+  path_prefix: /mnt/vcapstore
   storage:
     filesystem:
-      chunks_directory: /tmp/loki/chunks
-      rules_directory: /tmp/loki/rules
+      chunks_directory: /mnt/vcapstore/loki/chunks
+      rules_directory: /mnt/vcapstore/loki/rules
   replication_factor: 1
   ring:
     instance_addr: 127.0.0.1
