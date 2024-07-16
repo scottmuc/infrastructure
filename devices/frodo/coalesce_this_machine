@@ -7,10 +7,6 @@ set -u
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 REPO_DIR="$( cd "${DIR}/../../" >/dev/null 2>&1 && pwd )"
 COMMON_DIR="${REPO_DIR}/homedirs/common"
-LIB_DIR="${COMMON_DIR}/lib"
-
-# shellcheck disable=SC1091
-source "${LIB_DIR}/install_asdf.bash"
 
 main() {
   symlink_all_the_things
@@ -27,6 +23,46 @@ main() {
   install_mods
   install_obsidian
   install_vivaldi
+}
+
+# Many would argue that I should replace this function with the stow command, see:
+# https://www.gnu.org/software/stow/
+#
+# I don't see what a separate tool would provide with this, so I prefer fewer dependencies
+# and something that can run without a bootstrapping step.
+symlink_all_the_things() {
+  local homedir_source dotfiles_dir common_dotfiles_dir
+  homedir_source=$(cd "${DIR}/"; pwd)
+  dotfiles_dir="${homedir_source}/dotfiles"
+  common_dotfiles_dir="${COMMON_DIR}/dotfiles"
+
+  # shellcheck disable=SC2174
+  mkdir -p -m 700 ~/.gnupg
+  mkdir -p ~/.config
+
+  ln -sfv "${common_dotfiles_dir}/dot.gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
+  ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
+  ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
+  ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
+  ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
+  ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
+  ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
+
+  # https://unix.stackexchange.com/a/355220
+  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  ln -sTfv "${dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
+
+  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
+}
+
+
+install_asdf() {
+  if command -v asdf >/dev/null; then
+    echo "asdf exists: $(asdf --version)"
+    return
+  fi
+
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
 }
 
 # https://askubuntu.com/questions/907246/how-to-disable-systemd-resolved-in-ubuntu
@@ -275,37 +311,5 @@ install_1password_cli() {
     && rm op.zip
 }
 
-
-symlink_all_the_things() {
-  local homedir_source dotfiles_dir common_dotfiles_dir
-  homedir_source=$(cd "${DIR}/"; pwd)
-  dotfiles_dir="${homedir_source}/dotfiles"
-  common_dotfiles_dir="${COMMON_DIR}/dotfiles"
-
-  # I don't know how to do this command in a 1 line indempotent way. Repeated executions
-  # but symlinks within the symlink.
-  if [[ ! -d ~/.config ]]; then
-    mkdir ~/.config
-  fi
-
-  if [[ ! -d ~/.gnupg ]]; then
-    mkdir ~/.gnupg
-    chmod 700 ~/.gnupg
-  fi
-  ln -sfv "${common_dotfiles_dir}/dot.gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
-
-  ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
-  ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
-  ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
-  ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
-  ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
-  ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
-
-  # https://unix.stackexchange.com/a/355220
-  ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
-  ln -sTfv "${dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
-
-  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
-}
 
 main
