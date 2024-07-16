@@ -12,7 +12,6 @@ main() {
   symlink_all_the_things
   install_os_packages
   default_to_zsh
-  setup_ssh_dir
   install_jetbrains_mono_nerdfont
   install_nvim
   install_asdf
@@ -37,7 +36,9 @@ symlink_all_the_things() {
   common_dotfiles_dir="${COMMON_DIR}/dotfiles"
 
   # shellcheck disable=SC2174
-  mkdir -p -m 700 ~/.gnupg
+  mkdir -p -m 0700 ~/.gnupg
+  # shellcheck disable=SC2174
+  mkdir -p -m 0700 ~/.ssh
   mkdir -p ~/.config
 
   ln -sfv "${common_dotfiles_dir}/dot.gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
@@ -237,12 +238,6 @@ install_golang() {
     "https://go.dev/dl/go${version}.linux-amd64.tar.gz"
 
   sudo tar -C /usr/local -zxf "/tmp/${tarball}"
-}
-
-
-setup_ssh_dir() {
-  mkdir -p ~/.ssh
-  chmod 0700 ~/.ssh
 }
 
 
