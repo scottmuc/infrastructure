@@ -4,7 +4,10 @@
 Vagrant.configure("2") do |config|
   config.vm.box = "freebsd/FreeBSD-14.1-RELEASE"
   config.vm.box_version = "2024.05.31"
+  config.vm.hostname = "erebor"
+  config.vm.define "erebor"
   config.vm.provider "virtualbox" do |vb|
+    vb.name   = "erebor"
     vb.memory = "2048"
   end
 end
