@@ -6,6 +6,9 @@ Feature: A FreeBSD ZFS NAS
 
   Scenario: Replacing a failed drive
     Given a 3 disk raidz1 pool with data
-    When one of the disk fails
+    When one of the disks fail
     And I replace the failed drive
     Then my files are all still available
+
+  Scenario: Adding more disk space
+  Scenario: Restoring from a snapshot

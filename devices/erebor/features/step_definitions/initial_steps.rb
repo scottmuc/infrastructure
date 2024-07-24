@@ -4,7 +4,7 @@ Given('a 3 disk raidz1 pool with data') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('one of the disk fails') do
+When('one of the disks fail') do
   pending # Write code here that turns the phrase above into concrete actions
 end
 
