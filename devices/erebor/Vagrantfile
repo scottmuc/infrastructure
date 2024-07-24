@@ -1,0 +1,10 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "freebsd/FreeBSD-14.1-RELEASE"
+  config.vm.box_version = "2024.05.31"
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = "2048"
+  end
+end
