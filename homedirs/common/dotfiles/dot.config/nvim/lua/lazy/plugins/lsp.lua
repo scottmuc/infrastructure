@@ -112,6 +112,7 @@ return { -- LSP Configuration & Plugins
     local servers = {
       bashls = {},
       ansiblels = {},
+      ruby_lsp = {},
       -- clangd = {},
       -- gopls = {},
       -- pyright = {},
