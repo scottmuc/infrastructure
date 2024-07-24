@@ -1,13 +1,17 @@
 require "rspec"
 
-Given('that I am writing a test') do
-  @num = 1
+Given('a 3 disk raidz1 pool with data') do
+  pending # Write code here that turns the phrase above into concrete actions
 end
 
-When('I run my test') do
-  @expected = 1
+When('one of the disk fails') do
+  pending # Write code here that turns the phrase above into concrete actions
 end
 
-Then('I see green') do
-  expect( @num ).to eq @expected
+When('I replace the failed drive') do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then('my files are all still available') do
+  pending # Write code here that turns the phrase above into concrete actions
 end
