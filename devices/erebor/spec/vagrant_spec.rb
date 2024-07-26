@@ -1,6 +1,5 @@
 require "rspec"
 require "vagrant"
-require "vagrant_status"
 
 describe VagrantStatus do
   it "extracts state from machine readable output" do

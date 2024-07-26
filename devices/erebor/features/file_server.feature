@@ -4,10 +4,13 @@ Feature: A FreeBSD ZFS NAS
   disaster strikes, I want to document my understand of how failures can be
   recovered from so that when it actually happens, I'm not too stressed.
 
+  Background:
+    Given a 3 disk raidz1 pool
+    And it contains some data
+
   Scenario: Replacing a failed drive
-    Given a 3 disk raidz1 pool with data
-    When one of the disks fail
-    And I replace the failed drive
+    Given that one of the disks has failed
+    When the failed disk is replaced
     Then my files are all still available
 
   Scenario: Adding more disk space
