@@ -50,9 +50,10 @@ end
 # Thanks to this post as a great reference:
 # https://wiki.archlinux.org/title/ZFS/Virtual_disks
 And('it contains some data') do
-  # Vagrant.new.exec "sudo cp /vagrant/features/data/*.txt /testpool"
-  # output = Vagrant.new.exec "cat /testpool/Moby_Dick.txt | grep Melville"
-  # expect(output).to match(/Melville/)
+  Vagrant.new.exec "sudo mkdir -m 777 /testpool/data"
+  Vagrant.new.scp("features/data/*.txt", "/testpool/data/")
+  output = Vagrant.new.exec "cat /testpool/data/Moby_Dick.txt | grep Melville"
+  expect(output).to match(/Melville/)
 end
 
 Given('that one of the disks has failed') do
@@ -86,6 +87,6 @@ end
 Then('my files are all still available') do
   output = Vagrant.new.exec "zpool status testpool"
   expect(output).to match(/state: ONLINE/)
-  # output = Vagrant.new.exec "cat /testpool/Moby_Dick.txt | grep Melville"
-  # expect(output).to match(/Melville/)
+  output = Vagrant.new.exec "cat /testpool/data/Moby_Dick.txt | grep Melville"
+  expect(output).to match(/Melville/)
 end

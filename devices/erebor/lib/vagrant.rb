@@ -52,4 +52,15 @@ class Vagrant
       stdout.read.strip
     end
   end
+
+  def scp(src, dst)
+    cmd = "scp -F ./ssh_config #{src} erebor:#{dst}"
+    Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
+      exit_code = thread.value.exitstatus
+      if exit_code != 0
+        dump(cmd, exit_code, stdout, stderr)
+      end
+      stdout.read.strip
+    end
+  end
 end
