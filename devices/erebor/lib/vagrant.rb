@@ -43,7 +43,7 @@ class Vagrant
   end
 
   def exec(command_arg)
-    cmd = "vagrant ssh --no-tty -- #{command_arg}"
+    cmd = "ssh -F ./ssh_config erebor -- #{command_arg}"
     Open3.popen3(cmd) do |stdin, stdout, stderr, thread|
       exit_code = thread.value.exitstatus
       if exit_code != 0

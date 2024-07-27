@@ -2,5 +2,5 @@
 
 set -e
 
-#bundle exec rspec --fail-fast
+bundle exec rspec --fail-fast
 bundle exec cucumber --publish-quiet --no-source
