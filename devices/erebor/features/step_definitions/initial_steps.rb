@@ -43,8 +43,12 @@ Given('a 3 disk raidz1 pool') do
   expect(output).to match(/pool: testpool/)
 end
 
+# Thanks to this post as a great reference:
+# https://wiki.archlinux.org/title/ZFS/Virtual_disks
 And('it contains some data') do
-  pending # Write code here that turns the phrase above into concrete actions
+  Vagrant.new.exec "sudo fetch https://www.gutenberg.org/ebooks/2701.txt.utf-8 -o /testpool/Moby_Dick.txt"
+  output = Vagrant.new.exec "cat /testpool/Moby_Dick.txt | grep Melville"
+  expect(output).to match(/Melvill/)
 end
 
 Given('that one of the disks has failed') do
