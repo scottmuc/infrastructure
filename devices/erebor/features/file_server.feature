@@ -19,3 +19,7 @@ Feature: A FreeBSD ZFS NAS
     Then my zpool has more storage available
 
   Scenario: Restoring from a snapshot
+    Given that a snapshot has been made
+    When a file has been deleted
+    And I restore from the snapshot
+    Then my files are all still available

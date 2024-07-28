@@ -108,10 +108,26 @@ When('the drives are replaced one at a time') do
   @vagrant.exec "sudo zpool replace testpool /dev/md0 /dev/md4"
   @vagrant.exec "sudo zpool replace testpool /dev/md1 /dev/md5"
   @vagrant.exec "sudo zpool replace testpool /dev/md2 /dev/md6"
+  @vagrant.exec "sudo zpool online -e testpool /dev/md4"
+  @vagrant.exec "sudo zpool online -e testpool /dev/md5"
   @vagrant.exec "sudo zpool online -e testpool /dev/md6"
 end
 
 Then('my zpool has more storage available') do
   @new_size = @vagrant.exec "zpool list | grep testpool | awk '{ print $2 }'"
   expect(@new_size).not_to eq @start_size
+end
+
+Given('that a snapshot has been made') do
+  @vagrant.exec "sudo zfs snapshot testpool@test"
+end
+
+When('a file has been deleted') do
+  @vagrant.exec "sudo rm /testpool/data/Moby_Dick.txt"
+  output = @vagrant.exec "ls /testpool/data/"
+  expect(output).not_to match(/Moby_Dick\.txt/)
+end
+
+When('I restore from the snapshot') do
+  @vagrant.exec "sudo cp /testpool/.zfs/snapshot/test/data/Moby_Dick.txt /testpool/data/Moby_Dick.txt"
 end
