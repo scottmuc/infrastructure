@@ -14,4 +14,8 @@ Feature: A FreeBSD ZFS NAS
     Then my files are all still available
 
   Scenario: Adding more disk space
+    Given that new larger drives are connected
+    When the drives are replaced one at a time
+    Then my zpool has more storage available
+
   Scenario: Restoring from a snapshot

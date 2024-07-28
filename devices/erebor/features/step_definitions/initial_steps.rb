@@ -6,9 +6,9 @@ class ZfsFixture
     @vagrant = Vagrant.new
   end
 
-  def create_drive(name)
-    @vagrant.exec "truncate -s 1TB #{name}"
-    @vagrant.exec "sudo mdconfig -u #{name} -f #{name}"
+  def create_drive(name, size)
+    @vagrant.exec "truncate -s #{size} #{name}"
+    @vagrant.exec "sudo mdconfig -u #{name} -f #{name} || true"
   end
 
   def damage_drive(name)
@@ -16,8 +16,8 @@ class ZfsFixture
   end
 
   def delete_drive(name)
-    @vagrant.exec "sudo mdconfig -du #{name}"
-    @vagrant.exec "rm #{name}"
+    @vagrant.exec "sudo mdconfig -du #{name} || true"
+    @vagrant.exec "rm -f #{name}"
   end
 
   def create_zpool(name, drives)
@@ -32,9 +32,9 @@ end
 Given('a 3 disk raidz1 pool') do
   @vagrant = Vagrant.new
   @zfs = ZfsFixture.new
-  @zfs.create_drive "md0"
-  @zfs.create_drive "md1"
-  @zfs.create_drive "md2"
+  @zfs.create_drive("md0", "1TB")
+  @zfs.create_drive("md1", "1TB")
+  @zfs.create_drive("md2", "1TB")
   @zfs.create_zpool("testpool", "/dev/md0 /dev/md1 /dev/md2")
 
   output = @vagrant.exec "zpool status testpool"
@@ -86,7 +86,7 @@ Given('that one of the disks has failed') do
 end
 
 When('the failed disk is replaced') do
-  @zfs.create_drive "md3"
+  @zfs.create_drive("md3", "1TB")
   @vagrant.exec "sudo zpool replace testpool /dev/md0 /dev/md3"
 end
 
@@ -95,4 +95,23 @@ Then('my files are all still available') do
   expect(output).to match(/state: ONLINE/)
   output = @vagrant.exec "cat /testpool/data/Moby_Dick.txt | grep Melville"
   expect(output).to match(/Melville/)
+end
+
+Given('that new larger drives are connected') do
+  @start_size = @vagrant.exec "zpool list | grep testpool | awk '{ print $2 }'"
+  @zfs.create_drive("md4", "2TB")
+  @zfs.create_drive("md5", "2TB")
+  @zfs.create_drive("md6", "2TB")
+end
+
+When('the drives are replaced one at a time') do
+  @vagrant.exec "sudo zpool replace testpool /dev/md0 /dev/md4"
+  @vagrant.exec "sudo zpool replace testpool /dev/md1 /dev/md5"
+  @vagrant.exec "sudo zpool replace testpool /dev/md2 /dev/md6"
+  @vagrant.exec "sudo zpool online -e testpool /dev/md6"
+end
+
+Then('my zpool has more storage available') do
+  @new_size = @vagrant.exec "zpool list | grep testpool | awk '{ print $2 }'"
+  expect(@new_size).not_to eq @start_size
 end
