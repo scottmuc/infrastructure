@@ -18,14 +18,21 @@ describe Vagrant do
   # This needs to run before any other attempt to run commands against
   # the FreeBSD VM.
   before(:all) do
-    vagrant_status = Vagrant.new.status
+    @vagrant = Vagrant.new
+    vagrant_status = @vagrant.status
     expected_state = "running"
     expect(vagrant_status.state).to eq expected_state
   end
 
   it "can run commands inside the VM" do
-    exec_stdout = Vagrant.new.exec "whoami"
+    exec_stdout = @vagrant.exec "whoami"
     expected_stdout = "vagrant"
     expect(exec_stdout).to eq expected_stdout
+  end
+
+  it "can scp files to the VM" do
+    Vagrant.new.scp("features/data/Beowulf.txt", "/tmp")
+    exec_stdout = @vagrant.exec "ls /tmp"
+    expect(exec_stdout).to match(/Beowulf/)
   end
 end
