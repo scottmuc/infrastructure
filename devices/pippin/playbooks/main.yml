@@ -17,7 +17,7 @@
 
     - name: Securing the machine
       ansible.builtin.include_tasks:
-        file: tasks/security.yml
+        file: ../tasks/security.yml
 
 
     - name: Configure sysctls
@@ -43,7 +43,7 @@
     - name: Configure syslog forwarding
       tags: logging
       ansible.builtin.include_tasks:
-        file: tasks/logging.yml
+        file: ../tasks/logging.yml
         apply:
           tags: logging
 
@@ -51,7 +51,7 @@
     - name: Install and dhcpd, dns, and network configuration
       tags: lanmanager
       ansible.builtin.include_tasks:
-        file: tasks/lanmanager.yml
+        file: ../tasks/lanmanager.yml
         apply:
           tags: lanmanager
 
@@ -59,7 +59,7 @@
     - name: Configure mounts
       tags: mounts
       ansible.builtin.include_tasks:
-        file: tasks/mounts.yml
+        file: ../tasks/mounts.yml
         apply:
           tags: mounts
 
@@ -69,7 +69,7 @@
         navidrome_version: "0.52.5"
       tags: navidrome
       ansible.builtin.include_tasks:
-        file: tasks/navidrome.yml
+        file: ../tasks/navidrome.yml
         apply:
           tags: navidrome
 
@@ -77,7 +77,7 @@
     - name: Setup git host
       tags: git
       ansible.builtin.include_tasks:
-        file: tasks/githost.yml
+        file: ../tasks/githost.yml
         apply:
           tags: git
 
@@ -85,7 +85,7 @@
     - name: Install webserver things
       tags: webserver
       ansible.builtin.include_tasks:
-        file: tasks/webserver.yml
+        file: ../tasks/webserver.yml
         apply:
           tags: webserver
 
@@ -96,7 +96,7 @@
         prometheus_version: "2.53.0"
         node_exporter_version: "1.8.1"
       ansible.builtin.include_tasks:
-        file: tasks/monitoring.yml
+        file: ../tasks/monitoring.yml
         apply:
           tags: monitoring
 

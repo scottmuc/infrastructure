@@ -2,7 +2,7 @@
 
 set -e
 
-playbook=$(find . -name "*playbook.yml" \
+  playbook=$(find ./playbooks/ -name "*.yml" \
   | sort -r \
   | gum choose --header "Select a playbook")
 

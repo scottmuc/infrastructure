@@ -2,34 +2,34 @@
   vars:
     version: "{{ prometheus_version }}"
   ansible.builtin.include_tasks:
-    file: tasks/prometheus.yml
+    file: ../tasks/prometheus.yml
 
 
 - name: Install node exporter
   vars:
     version: "{{ node_exporter_version }}"
   ansible.builtin.include_tasks:
-    file: tasks/node_exporter.yml
+    file: ../tasks/node_exporter.yml
 
 
 - name: Install dnsmasq exporter
   ansible.builtin.include_tasks:
-    file: tasks/dnsmasq_exporter.yml
+    file: ../tasks/dnsmasq_exporter.yml
 
 
 - name: Install unbound exporter
   ansible.builtin.include_tasks:
-    file: tasks/unbound_exporter.yml
+    file: ../tasks/unbound_exporter.yml
 
 
 # - name: Install loki and promtail
 #   ansible.builtin.include_tasks:
-#     file: tasks/loki.yml
+#     file: ../tasks/loki.yml
 
 
 - name: Install grafana
   ansible.builtin.include_tasks:
-    file: tasks/grafana.yml
+    file: ../tasks/grafana.yml
 
 
 # vim: ft=yaml.ansible
