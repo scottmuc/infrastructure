@@ -150,6 +150,6 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Print out newly repaved machine details<details>
   <summary>Instructions</summary>
 
-  `cat /etc/os-release && uname -a`
+  `ssh ansible@192.168.2.10 -- "cat /etc/os-release; uname -a; dpkg -l" > state.txt`
 </details>
 
