@@ -1,53 +1,8 @@
-- name: Completely setup Pippin
+- name: Installs and configures applications and services
   hosts: all
   remote_user: ansible
 
   tasks:
-    # I am uncertain if this belongs in the bootstrap, or in some overarching
-    # task file pertaining to networking among other things. I don't know if it
-    # really matters that much, but might as well start pondering it now.
-    #
-    # Turns out this is set when I created the installer image. So this resource
-    # might be redundant.
-    - name: Set hostname
-      become: true
-      ansible.builtin.hostname:
-        name: pippin
-
-
-    - name: Securing the machine
-      ansible.builtin.include_tasks:
-        file: ../tasks/security.yml
-
-
-    - name: Configure sysctls
-      become: true
-      ansible.posix.sysctl:
-        name: "{{ item.name }}"
-        value: "{{ item.value }}"
-        state: present
-      tags: [sysctls]
-      loop:
-        # https://linuxhint.com/understanding_vm_swappiness/
-        - name: vm.swappiness
-          value: '1'
-        # Disable IPv6
-        - name: net.ipv6.conf.all.disable_ipv6
-          value: '1'
-        - name: net.ipv6.conf.default.disable_ipv6
-          value: '1'
-        - name: net.ipv6.conf.lo.disable_ipv6
-          value: '1'
-
-
-    - name: Configure syslog forwarding
-      tags: logging
-      ansible.builtin.include_tasks:
-        file: ../tasks/logging.yml
-        apply:
-          tags: logging
-
-
     - name: Install and dhcpd, dns, and network configuration
       tags: lanmanager
       ansible.builtin.include_tasks:
@@ -159,26 +114,6 @@
         name: unbound
         state: restarted
 
-
-    - name: Restart rsyslog
-      become: true
-      ansible.builtin.service:
-        name: rsyslog
-        state: restarted
-
-
-    - name: Reload sshd
-      become: true
-      ansible.builtin.service:
-        name: sshd
-        state: reloaded
-
-
-    - name: Restart fail2ban
-      become: true
-      ansible.builtin.service:
-        name: fail2ban
-        state: restarted
 
     - name: Restart unbound_exporter
       become: true
