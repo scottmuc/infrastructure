@@ -82,6 +82,14 @@
           tags: git
 
 
+    - name: Install webserver things
+      tags: webserver
+      ansible.builtin.include_tasks:
+        file: tasks/webserver.yml
+        apply:
+          tags: webserver
+
+
     - name: Install monitoring
       tags: monitoring
       vars:
