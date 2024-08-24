@@ -60,7 +60,7 @@
     content: |
       # https://unbound.docs.nlnetlabs.nl/en/latest/manpages/unbound.conf.html
       server:
-        interface: 192.168.2.10
+        interface: 0.0.0.0
         access-control: 192.168.2.0/24 allow
         do-ip6: no
         include: /etc/unbound/blocklist.conf
@@ -111,14 +111,6 @@
     - Restart unbound
 
 
-- name: Ensure unbound is running
-  become: true
-  ansible.builtin.service:
-    name: unbound
-    state: started
-    enabled: true
-
-
 - name: Ensure dnsmasq service is started
   become: true
   ansible.builtin.service:
@@ -127,10 +119,20 @@
     enabled: true
 
 
-- name: Uninstall isc-dhcp-client
+- name: Ensure unbound is running
+  become: true
+  ansible.builtin.service:
+    name: unbound
+    state: started
+    enabled: true
+
+
+- name: Ensure avahi-daemon and isc-dhcp-client are not installed
   become: true
   ansible.builtin.apt:
-    name: isc-dhcp-client
+    pkg:
+      - avahi-daemon
+      - isc-dhcp-client
     state: absent
 
 
@@ -161,7 +163,7 @@
     mode: '0644'
     content: |
       search middle-earth.internal
-      nameserver 192.168.2.10
+      nameserver 127.0.0.1
 
 
 - name: Install /etc/hosts
