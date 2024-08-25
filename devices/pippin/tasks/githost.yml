@@ -10,6 +10,7 @@
   ansible.builtin.user:
     comment: "Low priv git repo access user"
     system: true
+    uid: 995
     name: git
     shell: /usr/bin/git-shell
     createhome: true

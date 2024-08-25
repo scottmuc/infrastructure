@@ -2,6 +2,7 @@
   become: true
   ansible.builtin.user:
     name: prometheus
+    uid: 994
     comment: Service account for prometheus process
     system: true
 

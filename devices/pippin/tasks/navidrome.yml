@@ -2,6 +2,7 @@
   become: true
   ansible.builtin.user:
     name: navidrome
+    uid: 999
     comment: Service account for navidrome process
     system: true
 
