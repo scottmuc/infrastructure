@@ -8,7 +8,7 @@ Restart=always
 User=prometheus
 ExecStart=/opt/dnsmasq_exporter/go/bin/dnsmasq_exporter \
   -listen "192.168.2.10:9153" \
-  -dnsmasq "192.168.2.10:53"
+  -dnsmasq "192.168.2.10:5353"
 
 [Install]
 WantedBy=multi-user.target
