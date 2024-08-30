@@ -266,12 +266,14 @@ install_os_packages() {
     bc                    \
     ca-certificates       \
     curl                  \
+    fzf                   \
     git-crypt             \
     gnome-tweak-tool      \
     gnupg                 \
     graphviz              \
     jq                    \
     myrepos               \
+    ripgrep               \
     syncthing             \
     tmux                  \
     unzip                 \
