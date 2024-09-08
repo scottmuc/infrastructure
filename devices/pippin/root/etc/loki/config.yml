@@ -6,7 +6,7 @@ server:
 
 
 common:
-  path_prefix: /mnt/vcapstore
+  path_prefix: /mnt/vcapstore/loki
   storage:
     filesystem:
       chunks_directory: /mnt/vcapstore/loki/chunks
