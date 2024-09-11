@@ -103,3 +103,5 @@ heigh-ho() {
     export OPENAI_API_KEY
   fi
 }
+
+# vim: set ft=sh
