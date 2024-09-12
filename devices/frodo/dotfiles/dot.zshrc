@@ -1,3 +1,8 @@
+# Going to see if this can become a common .zshrc for all my systems.
+# This would entail some conditional checks for which system this is
+# exuecute in. This should be able to run on Frodo and in WSL.
+
+
 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
 export PATH="$HOME/workspace/infrastructure/vendor/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -44,31 +49,38 @@ fi
 # GREP_OPTIONS env variable is deprecated
 alias grep='grep --color'
 alias opauth='eval $(op signin)'
-alias keys="ssh-op-agent load -n 20240609.keys -f \"base64 encoded ssh private key\" -p \"ssh key passphrase\" -t 4"
-
+alias keys="ssh-op-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4"
 
 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
 start_ssh_agent() {
   ( umask 077; ssh-agent > ~/.ssh/agent.env)
+    # shellcheck disable=SC1090
   . ~/.ssh/agent.env >| /dev/null
 }
 
 load_ssh_agent_env() {
   if [[ -f ~/.ssh/agent.env ]]; then
+    # shellcheck disable=SC1090
     . ~/.ssh/agent.env >| /dev/null
   fi
 }
 
-load_ssh_agent_env
+# Only need to launch the ssh-agent on frodo (ubuntu machine)
+if [[ "$(hostname)" = "frodo" ]]; then
+  load_ssh_agent_env
 
-# agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
-agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
+  # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
+  agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
 
-if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
-  start_ssh_agent
+  if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
+    start_ssh_agent
+  fi
 fi
 
-[ -s "$HOME/.asdf/asdf.sh" ] && \. "$HOME/.asdf/asdf.sh"
+if [[ -s ~/.asdf/asdf.sh ]]; then
+  # shellcheck disable=SC1090
+  . ~/.asdf/asdf.sh
+fi
 
 heigh-ho() {
   gum style \
@@ -86,7 +98,6 @@ heigh-ho() {
     echo "ssh 20240609.keys already loaded"
   else
     ssh-op-agent load -n 20240609.keys \
-      -f "base64 encoded ssh private key" \
       -p "ssh key passphrase" \
       -t 9
   fi
