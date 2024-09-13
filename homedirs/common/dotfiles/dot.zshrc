@@ -19,7 +19,7 @@ alias ls="ls --color=always"
 bindkey -e
 
 # Erase duplicates in history, keep 10k entris, and append to the history file
-# rather than overwriting it.
+# rather than overwritingin it.
 export HISTCONTROL=erasedups
 export HISTSIZE=10000
 
