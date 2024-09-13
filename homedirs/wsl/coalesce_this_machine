@@ -193,10 +193,7 @@ install_1password_cli() {
 # to
 #   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
 symlink_all_the_things() {
-  local homedir_source common_source dotfiles_dir common_dotfiles_dir
-  homedir_source=$(cd "${DIR}/"; pwd)
   common_source=$(cd "${DIR}/../common"; pwd)
-  dotfiles_dir="${homedir_source}/dotfiles"
   common_dotfiles_dir="${common_source}/dotfiles"
 
   # I don't know how to do this command in a 1 line indempotent way. Repeated executions
@@ -216,11 +213,10 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
   ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
+  ln -sfv "${common_dotfiles_dir}/dot.zshrc" ~/.zshrc
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
-
-  ln -sfv "${dotfiles_dir}/dot.zshrc" ~/.zshrc
 }
 
 main
