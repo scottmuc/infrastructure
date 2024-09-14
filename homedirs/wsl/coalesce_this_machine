@@ -5,7 +5,6 @@ set -u
 
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-LIB_DIR="${DIR}/../common/lib"
 
 main() {
   configure_wsl
@@ -15,12 +14,24 @@ main() {
   install_os_packages
   default_to_zsh
   setup_ssh_dir
+  install_asdf
   install_nvim
   install_golang "1.22.3"
   install_python_dependencies
   install_all_things_docker
   install_1password_cli "2.28.0"
 }
+
+
+install_asdf() {
+  if command -v asdf >/dev/null; then
+    echo "asdf exists: $(asdf --version)"
+    return
+  fi
+
+  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
+}
+
 
 setup_ssh_for_stuart_az() {
   if command -v cloudflared &> /dev/null; then
@@ -38,7 +49,6 @@ EOF
 
   chmod 0660 ~/.ssh/config
 }
-
 
 
 install_golang() {
