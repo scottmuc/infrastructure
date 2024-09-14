@@ -7,9 +7,6 @@ set -u
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 LIB_DIR="${DIR}/../common/lib"
 
-# shellcheck disable=SC1091
-source "${LIB_DIR}/install_asdf.bash"
-
 main() {
   configure_wsl
   configure_dns
@@ -19,7 +16,6 @@ main() {
   default_to_zsh
   setup_ssh_dir
   install_nvim
-  install_asdf
   install_golang "1.22.3"
   install_python_dependencies
   install_all_things_docker
