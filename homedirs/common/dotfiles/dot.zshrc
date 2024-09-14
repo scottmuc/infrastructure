@@ -8,6 +8,19 @@ export PATH="$HOME/workspace/infrastructure/vendor/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/usr/local/go/bin:$PATH"
 
+# Adding mise shims to the PATH. The alternative is to do:
+#
+# eval "$(mise activate bash)"
+# eval "$(mise hook-env)"
+#
+# The above might be more what I want since it won't use shims. The paths
+# that get exported contain the version number and reference the actual
+# executable rather than a symlink to /usr/bin/mise
+#
+# I want something in my PATH because some of my neovim plugins require
+# things like python/node/ruby available in the PATH to work.
+export PATH="$HOME/.local/share/mise/shims:$PATH"
+
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
 
@@ -74,10 +87,6 @@ if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
   start_ssh_agent
 fi
 
-if [[ -s ~/.asdf/asdf.sh ]]; then
-  # shellcheck disable=SC1090
-  . ~/.asdf/asdf.sh
-fi
 
 heigh-ho() {
   gum style \

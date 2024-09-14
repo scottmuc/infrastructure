@@ -14,7 +14,6 @@ main() {
   default_to_zsh
   install_jetbrains_mono_nerdfont
   install_nvim
-  install_asdf
   install_golang "1.22.3"
   install_python_dependencies
   install_1password_cli "2.12.0"
@@ -76,15 +75,6 @@ https://mise.jdx.dev/deb stable main | sudo tee /etc/apt/sources.list.d/mise.lis
   sudo apt install mise -y
 }
 
-
-install_asdf() {
-  if command -v asdf >/dev/null; then
-    echo "asdf exists: $(asdf --version)"
-    return
-  fi
-
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
-}
 
 # https://askubuntu.com/questions/907246/how-to-disable-systemd-resolved-in-ubuntu
 # https://askubuntu.com/questions/1426243/ubuntu-22-04-lts-desktop-dhcp-dns-servers-ignored
