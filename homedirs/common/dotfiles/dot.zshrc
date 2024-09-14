@@ -99,8 +99,16 @@ heigh-ho() {
       -t 9
   fi
 
-  op read op://Automation/gpg.scottATscottmuc.com/passphrase \
-    | wl-copy --trim-newline
+  if command -v wl-copy >/dev/null; then
+    op read op://Automation/gpg.scottATscottmuc.com/passphrase \
+      | wl-copy --trim-newline
+  elif command -v xclip >/dev/null; then
+    op read op://Automation/gpg.scottATscottmuc.com/passphrase \
+      | xclip -selection clipboard
+  else
+    echo "could not copy the following into your clipboard"
+    op read op://Automation/gpg.scottATscottmuc.com/passphrase
+  fi
 
   touch /tmp/gpg_agent_priming
   gpg --sign --local-user "scott@scottmuc.com" /tmp/gpg_agent_priming

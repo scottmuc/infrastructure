@@ -153,6 +153,7 @@ install_os_packages() {
     myrepos               \
     ripgrep               \
     unzip                 \
+    xclip                 \
     zsh
 }
 
