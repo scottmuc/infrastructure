@@ -85,13 +85,13 @@ all the [previous repave issues][repave-history]. Have fun!
 
   ```
   asdf plugin add python
-  asdf plugin add terraform
+  asdf plugin add opentofu
   asdf plugin add gum
   asdf plugin add shellcheck
   asdf plugin add nodejs
+  asdf plugin add ruby
   asdf install
   pip install ansible
-  ansible-galaxy collection install ansible.posix
   (cd ~/ && asdf install)
   ```
 
@@ -113,15 +113,23 @@ all the [previous repave issues][repave-history]. Have fun!
 
   ```
   cd dns
-  terraform init
+  tofu init
   # add TXT record to graffiti.scottmuc.com
-  ./terraform_apply
+  ./tofu_apply
   ```
 </details>
 
 - [ ] Configure PI (tests ansible)
 
-- [ ] Clone all the repos (`mr checkout`)
+- [ ] Clone all the repos<details>
+  <summary>Instructions</summary>
+
+  ```
+  cd ~/
+  mr checkout
+  mr github
+  ```
+</details>
 
 - [ ] Ensure `deploy.sh` of goodenoughmoney.com works
 
