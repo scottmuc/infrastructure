@@ -19,6 +19,7 @@ main() {
   install_python_dependencies
   install_1password_cli "2.12.0"
   install_all_things_docker
+  install_mise
   install_mods
   install_obsidian
   install_vivaldi
@@ -53,6 +54,26 @@ symlink_all_the_things() {
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
   ln -sTfv "${dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
+}
+
+
+install_mise() {
+  if command -v mise &> /dev/null; then
+    echo "mise exists: $(mise --version)"
+    return
+  fi
+
+  local keyring_path="/usr/share/keyrings/mise.gpg"
+  curl -fsSL https://mise.jdx.dev/gpg-key.pub \
+    | sudo gpg --dearmor -o "${keyring_path}"
+  sudo chmod a+r "${keyring_path}"
+
+  echo \
+      deb [arch="$(dpkg --print-architecture)" signed-by="${keyring_path}"] \
+https://mise.jdx.dev/deb stable main | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null
+
+  sudo apt update
+  sudo apt install mise -y
 }
 
 
@@ -151,7 +172,6 @@ install_vivaldi() {
   fi
 
   local keyring_path="/usr/share/keyrings/vivaldi.gpg"
-  set -x
   curl -fsSL https://repo.vivaldi.com/archive/linux_signing_key.pub \
     | sudo gpg --dearmor -o "${keyring_path}"
   sudo chmod a+r "${keyring_path}"
