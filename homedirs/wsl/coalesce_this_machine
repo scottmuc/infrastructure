@@ -14,7 +14,7 @@ main() {
   install_os_packages
   default_to_zsh
   setup_ssh_dir
-  install_asdf
+  install_mise
   install_nvim
   install_golang "1.22.3"
   install_python_dependencies
@@ -23,13 +23,23 @@ main() {
 }
 
 
-install_asdf() {
-  if command -v asdf >/dev/null; then
-    echo "asdf exists: $(asdf --version)"
+install_mise() {
+  if command -v mise &> /dev/null; then
+    echo "mise exists: $(mise --version)"
     return
   fi
 
-  git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.1
+  local keyring_path="/usr/share/keyrings/mise.gpg"
+  curl -fsSL https://mise.jdx.dev/gpg-key.pub \
+    | sudo gpg --dearmor -o "${keyring_path}"
+  sudo chmod a+r "${keyring_path}"
+
+  echo \
+      deb [arch="$(dpkg --print-architecture)" signed-by="${keyring_path}"] \
+https://mise.jdx.dev/deb stable main | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null
+
+  sudo apt update
+  sudo apt install mise -y
 }
 
 

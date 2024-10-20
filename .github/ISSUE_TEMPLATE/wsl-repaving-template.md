@@ -84,15 +84,8 @@ all the [previous repave issues][repave-history]. Have fun!
   <summary>Instructions</summary>
 
   ```
-  asdf plugin add python
-  asdf plugin add opentofu
-  asdf plugin add gum
-  asdf plugin add shellcheck
-  asdf plugin add nodejs
-  asdf plugin add ruby
-  asdf install
+  mise install
   pip install ansible
-  (cd ~/ && asdf install)
   ```
 
 

@@ -63,7 +63,7 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Ensure a working ansible enviroment <details>
   <summary>Instructions</summary>
 
-  This will exercise the `asdf` setup.
+  This will exercise the `mise` setup.
 </details>
 
 - [ ] Turn on the PI and note the IP obtained from the Router

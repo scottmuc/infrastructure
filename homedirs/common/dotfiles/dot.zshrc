@@ -19,7 +19,8 @@ export PATH="/usr/local/go/bin:$PATH"
 #
 # I want something in my PATH because some of my neovim plugins require
 # things like python/node/ruby available in the PATH to work.
-export PATH="$HOME/.local/share/mise/shims:$PATH"
+# export PATH="$HOME/.local/share/mise/shims:$PATH"
+eval "$(mise activate zsh)"
 
 # need this set to xterm-256color to get proper color support in vim
 export TERM='xterm-256color'
