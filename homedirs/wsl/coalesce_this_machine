@@ -234,6 +234,7 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
+  ln -sTfv "${common_dotfiles_dir}/dot.config/mise" ~/.config/mise
 }
 
 main
