@@ -37,6 +37,7 @@
     - name: dns-zone-blocklist
 
 
+# follow: false because https://stackoverflow.com/questions/70608966/create-link-with-specific-owner-group
 - name: Symlink repo directories
   become: true
   ansible.builtin.file:
@@ -45,6 +46,7 @@
     owner: git
     group: git
     state: link
+    follow: false
   loop:
     - name: infrastructure
     - name: presentations
