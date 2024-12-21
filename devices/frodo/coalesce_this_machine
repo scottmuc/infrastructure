@@ -46,11 +46,11 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
-  ln -sfv "${common_dotfiles_dir}/dot.tool-versions" ~/.tool-versions
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${common_dotfiles_dir}/dot.zshrc" ~/.zshrc
 
   # https://unix.stackexchange.com/a/355220
+  ln -sTfv "${common_dotfiles_dir}/dot.config/mise" ~/.config/mise
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
   ln -sTfv "${dotfiles_dir}/dot.config/alacritty" ~/.config/alacritty
 }
