@@ -269,18 +269,22 @@ install_nvim() {
 
 install_os_packages() {
   sudo apt-get update
+  # Reasons for dmidecode and lshw:
+  # https://knowledgebase.frame.work/en_us/how-to-check-the-bios-version-on-windows-linux-bios-ryupu8HT3
   sudo apt-get install -y \
     autojump              \
     alacritty             \
     bc                    \
     ca-certificates       \
     curl                  \
+    dmidecode             \
     fzf                   \
     git-crypt             \
     gnome-tweak-tool      \
     gnupg                 \
     graphviz              \
     jq                    \
+    lshw                  \
     myrepos               \
     ripgrep               \
     syncthing             \
