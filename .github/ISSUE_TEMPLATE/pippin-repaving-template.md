@@ -22,11 +22,10 @@ the [previous repave issues][repave-history]. Have fun!
 
 # Things to do with the existing build
 
-- [ ] Enable DHCP on the router, remove port mapping and statically assign network to PC<details>
+- [ ] Enable DHCP on the router, remove port mapping and refresh DHCP lease<details>
   <summary>Instructions</summary>
 
-  This is very important if repaving from the Windows PC. It being bound to 192.168.2.12 is necessary for the the
-  automation to work. Changing the DNS should be sufficient.
+  DHCP release/renew from the machine that's performing the repave.
 </details>
 
 
@@ -77,7 +76,7 @@ the [previous repave issues][repave-history]. Have fun!
   ```
   ssh-keygen -R 192.168.2.10
   ssh-keygen -R pi
-  ssh-keygen -R pi.home.scottmuc.com
+  ssh-keygen -R pi.middle-earth.internal.
   ```
 </details>
 
