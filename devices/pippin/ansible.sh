@@ -3,7 +3,7 @@
 set -e
 
   playbook=$(find ./playbooks/ -name "*.yml" \
-  | sort -r \
+  | sort \
   | gum choose --header "Select a playbook")
 
 tags=$(gum choose --header "Select tag to apply" \
