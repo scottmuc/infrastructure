@@ -22,14 +22,14 @@
     file: ../tasks/unbound_exporter.yml
 
 
-- name: Install loki and promtail
-  ansible.builtin.include_tasks:
-    file: ../tasks/loki.yml
-
-
 - name: Install grafana
   ansible.builtin.include_tasks:
     file: ../tasks/grafana.yml
+
+
+- name: Install loki and promtail
+  ansible.builtin.include_tasks:
+    file: ../tasks/loki.yml
 
 
 # vim: ft=yaml.ansible
