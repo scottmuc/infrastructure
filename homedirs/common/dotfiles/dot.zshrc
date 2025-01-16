@@ -88,6 +88,9 @@ if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
   start_ssh_agent
 fi
 
+if [[ -f "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh" ]]; then
+  . "${HOME}/.nix-profile/etc/profile.d/hm-session-vars.sh"
+fi
 
 heigh-ho() {
   gum style \
