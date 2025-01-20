@@ -52,6 +52,7 @@ symlink_all_the_things() {
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/mise"         ~/.config/mise
   #ln -sTfv "${common_dotfiles_dir}/dot.config/nix"          ~/.config/nix
+  ln -sTfv "${common_dotfiles_dir}/dot.config/home-manager" ~/.config/home-manager
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim"         ~/.config/nvim
   ln -sTfv "${dotfiles_dir}/dot.config/alacritty"           ~/.config/alacritty
 }
