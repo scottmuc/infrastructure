@@ -18,6 +18,7 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+    pkgs.bash
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -73,4 +74,14 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  # By enabling programs.bash this means home-manager will manage the following files:
+  # ~/.profile
+  # ~/.bash_profile
+  # ~/.bashrc
+  #
+  # Options at: https://github.com/nix-community/home-manager/blob/master/modules/programs/bash.nix
+  programs.bash = {
+    enable = true;
+  };
 }
