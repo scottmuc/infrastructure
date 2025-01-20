@@ -164,5 +164,31 @@ return { -- LSP Configuration & Plugins
         end,
       },
     }
+
+    -- https://github.com/vimjoyer/nix-editor-setup-video
+    -- Doing this separately because nix is used to install nixd, not Mason. This is making consider
+    -- this lua code has a bit too much automagic stuff. Mason doesn't have a package for nixd so it
+    -- cannot install it itself.
+    require('lspconfig').nixd.setup {
+      cmd = { 'nixd' },
+      settings = {
+        nixd = {
+          nixpkgs = {
+            expr = 'import <nixpkgs> { }',
+          },
+          -- formatting = {
+          --   command = { 'alejandra' }, -- or nixfmt or nixpkgs-fmt
+          -- },
+          -- options = {
+          --   nixos = {
+          --       expr = '(builtins.getFlake "/PATH/TO/FLAKE").nixosConfigurations.CONFIGNAME.options',
+          --   },
+          --   home_manager = {
+          --       expr = '(builtins.getFlake "/PATH/TO/FLAKE").homeConfigurations.CONFIGNAME.options',
+          --   },
+          -- },
+        },
+      },
+    }
   end,
 }
