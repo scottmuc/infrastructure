@@ -1,6 +1,0 @@
-[tools]
-python = "latest"
-gum = "latest"
-shellcheck = "latest"
-ruby = "latest"
-node = "latest"

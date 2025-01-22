@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
+# All of the options: https://nix-community.github.io/home-manager/options.xhtml
 {
   home.username = "smootz";
   home.homeDirectory = "/home/smootz";
@@ -19,6 +20,39 @@
     # Revert back to bash for daily terminal use.
     pkgs.bash
 
+    # Figure out how to allowUnfree for just 1password
+    #pkgs._1password-cli
+    pkgs.alacritty
+    pkgs.autojump
+    pkgs.bc
+    pkgs.curl
+    pkgs.fzf
+    pkgs.git-crypt
+    pkgs.gnome-tweaks
+    pkgs.gnupg
+    pkgs.gum
+    pkgs.jq
+    pkgs.mr
+    pkgs.neovim
+    pkgs.nerd-fonts.jetbrains-mono
+    pkgs.ripgrep
+    pkgs.shellcheck
+    pkgs.syncthing
+    pkgs.tmux
+    pkgs.unzip
+    pkgs.wl-clipboard
+
+    # Programming languages that need to be available globally
+    pkgs.go
+    pkgs.nodejs
+    pkgs.python3
+    pkgs.ruby
+
+    # Useful for bios inspection
+    # https://knowledgebase.frame.work/en_us/how-to-check-the-bios-version-on-windows-linux-bios-ryupu8HT3
+    pkgs.dmidecode
+    pkgs.lshw
+
     # Going to continue to use mise for project level dependency management. Not going to
     # impose Nix on anyone at this point.
     pkgs.mise
@@ -28,12 +62,6 @@
 
     # The nix LSP, not the Determinate Systems auth helper nor the crypto thingy.
     pkgs.nixd
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
     # # You can also create simple shell scripts directly inside your
     # # configuration. For example, this adds a command 'my-hello' to your
@@ -65,7 +93,9 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs.home-manager = {
+    enable = true;
+  };
 
   # By enabling programs.bash this means home-manager will manage the following files:
   # ~/.profile
