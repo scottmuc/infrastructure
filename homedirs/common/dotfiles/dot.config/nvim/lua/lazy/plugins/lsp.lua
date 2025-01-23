@@ -176,17 +176,12 @@ return { -- LSP Configuration & Plugins
           nixpkgs = {
             expr = 'import <nixpkgs> { }',
           },
-          -- formatting = {
-          --   command = { 'alejandra' }, -- or nixfmt or nixpkgs-fmt
-          -- },
-          -- options = {
-          --   nixos = {
-          --       expr = '(builtins.getFlake "/PATH/TO/FLAKE").nixosConfigurations.CONFIGNAME.options',
-          --   },
-          --   home_manager = {
-          --       expr = '(builtins.getFlake "/PATH/TO/FLAKE").homeConfigurations.CONFIGNAME.options',
-          --   },
-          -- },
+          options = {
+            -- https://nix-community.github.io/nixd/md_nixd_2docs_2configuration.html
+            home_manager = {
+              expr = '(import <home-manager/modules> { configuration = ~/.config/home-manager/home.nix; pkgs = import <nixpkgs> {}; }).options',
+            },
+          },
         },
       },
     }
