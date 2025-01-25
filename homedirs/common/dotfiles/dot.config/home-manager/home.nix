@@ -105,5 +105,21 @@
   # Options at: https://github.com/nix-community/home-manager/blob/master/modules/programs/bash.nix
   programs.bash = {
     enable = true;
+
+    enableCompletion = true;
+    shellAliases = {
+      ls = "ls --color=always";
+      vim = "echo woopsy, you probably meant nvim, right?";
+    };
+  };
+
+  # Sources autojump.sh in the .bashrc
+  programs.autojump = {
+    enable = true;
+  };
+
+  # evals mise activate in the .bashrc
+  programs.mise = {
+    enable = true;
   };
 }
