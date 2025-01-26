@@ -159,7 +159,7 @@
         };
       };
 
-      shell = {
+      terminal.shell = {
         program = "${pkgs.tmux}/bin/tmux";
       };
     };
