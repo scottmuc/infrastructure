@@ -19,9 +19,7 @@ main() {
 # I don't see what a separate tool would provide with this, so I prefer fewer dependencies
 # and something that can run without a bootstrapping step.
 symlink_all_the_things() {
-  local homedir_source dotfiles_dir common_dotfiles_dir
-  homedir_source=$(cd "${DIR}/"; pwd)
-  dotfiles_dir="${homedir_source}/dotfiles"
+  local common_dotfiles_dir
   common_dotfiles_dir="${COMMON_DIR}/dotfiles"
 
   # shellcheck disable=SC2174
@@ -42,7 +40,6 @@ symlink_all_the_things() {
   ln -sTfv "${common_dotfiles_dir}/dot.config/home-manager" ~/.config/home-manager
   ln -sTfv "${common_dotfiles_dir}/dot.config/nixpkgs"      ~/.config/nixpkgs
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim"         ~/.config/nvim
-  ln -sTfv "${dotfiles_dir}/dot.config/alacritty"           ~/.config/alacritty
 }
 
 

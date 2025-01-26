@@ -137,4 +137,31 @@
   programs.mise = {
     enable = true;
   };
+
+  programs.alacritty = {
+    enable = true;
+
+    # https://alacritty.org/config-alacritty.html
+    settings = {
+      window = {
+        decorations = "None";
+        startup_mode = "Maximized";
+      };
+
+      selection = {
+        save_to_clipboard = true;
+      };
+
+      font = {
+        size = 10.0;
+        normal = {
+          family = "JetBrains Mono Nerd Font" ;
+        };
+      };
+
+      shell = {
+        program = "${pkgs.tmux}/bin/tmux";
+      };
+    };
+  };
 }
