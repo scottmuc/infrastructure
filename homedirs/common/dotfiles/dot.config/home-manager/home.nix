@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 # All of the options: https://nix-community.github.io/home-manager/options.xhtml
 {
@@ -14,6 +14,12 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
+
+  # TODO: explain in detail how this code works.
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+       "1password-cli"
+  ];
+
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
@@ -21,7 +27,7 @@
     pkgs.bash
 
     # Figure out how to allowUnfree for just 1password
-    #pkgs._1password-cli
+    pkgs._1password-cli
     pkgs.alacritty
     pkgs.autojump
     pkgs.bc
