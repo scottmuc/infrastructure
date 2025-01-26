@@ -17,7 +17,9 @@
 
   # TODO: explain in detail how this code works.
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-       "1password-cli"
+    "1password-cli"
+    "obsidian"
+    "vivaldi"
   ];
 
   # The home.packages option allows you to install Nix packages into your
@@ -28,13 +30,11 @@
 
     # Figure out how to allowUnfree for just 1password
     pkgs._1password-cli
-    pkgs.alacritty
     pkgs.autojump
     pkgs.bc
     pkgs.curl
     pkgs.fzf
     pkgs.git-crypt
-    pkgs.gnome-tweaks
     pkgs.gnupg
     pkgs.gum
     pkgs.jq
@@ -46,6 +46,12 @@
     pkgs.syncthing
     pkgs.tmux
     pkgs.unzip
+
+    # Things used with a GUI
+    pkgs.alacritty
+    pkgs.gnome-tweaks
+    pkgs.obsidian
+    pkgs.vivaldi
     pkgs.wl-clipboard
 
     # Programming languages that need to be available globally
@@ -114,6 +120,9 @@
 
     enableCompletion = true;
     shellAliases = {
+      # https://github.com/NixOS/nixpkgs/issues/121694#issuecomment-2159420924
+      apparmor_nix = "echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns";
+
       ls = "ls --color=always";
       vim = "echo woopsy, you probably meant nvim, right?";
     };
