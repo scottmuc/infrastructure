@@ -48,7 +48,6 @@
     pkgs.unzip
 
     # Things used with a GUI
-    pkgs.alacritty
     pkgs.gnome-tweaks
     pkgs.obsidian
     pkgs.vivaldi
@@ -126,6 +125,7 @@
       ls = "ls --color=always";
       vim = "echo woopsy, you probably meant nvim, right?";
     };
+
   };
 
   # Sources autojump.sh in the .bashrc
@@ -136,32 +136,5 @@
   # evals mise activate in the .bashrc
   programs.mise = {
     enable = true;
-  };
-
-  programs.alacritty = {
-    enable = true;
-
-    # https://alacritty.org/config-alacritty.html
-    settings = {
-      window = {
-        decorations = "None";
-        startup_mode = "Maximized";
-      };
-
-      selection = {
-        save_to_clipboard = true;
-      };
-
-      font = {
-        size = 10.0;
-        normal = {
-          family = "JetBrains Mono Nerd Font" ;
-        };
-      };
-
-      terminal.shell = {
-        program = "${pkgs.tmux}/bin/tmux";
-      };
-    };
   };
 }

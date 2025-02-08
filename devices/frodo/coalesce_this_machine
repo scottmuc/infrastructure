@@ -10,7 +10,16 @@ COMMON_DIR="${REPO_DIR}/homedirs/common"
 
 main() {
   symlink_all_the_things
+  install_alacritty
   install_all_things_docker
+}
+
+install_alacritty() {
+  if command -v alacritty &> /dev/null; then
+    echo "alacritty exists: $(alacritty --version)"
+    return
+  fi
+  sudo apt update && sudo apt install alacritty -y
 }
 
 # Many would argue that I should replace this function with the stow command, see:
@@ -21,6 +30,7 @@ main() {
 symlink_all_the_things() {
   local common_dotfiles_dir
   common_dotfiles_dir="${COMMON_DIR}/dotfiles"
+  device_home_dir="${DIR}/dotfiles"
 
   # shellcheck disable=SC2174
   mkdir -p -m 0700 ~/.gnupg
@@ -37,6 +47,7 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.zshrc"                ~/.zshrc
 
   # https://unix.stackexchange.com/a/355220
+  ln -sTfv "${device_home_dir}/dot.config/alacritty"        ~/.config/alacritty
   ln -sTfv "${common_dotfiles_dir}/dot.config/home-manager" ~/.config/home-manager
   ln -sTfv "${common_dotfiles_dir}/dot.config/nixpkgs"      ~/.config/nixpkgs
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim"         ~/.config/nvim
