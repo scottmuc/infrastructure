@@ -2,6 +2,7 @@
 
 # All of the options: https://nix-community.github.io/home-manager/options.xhtml
 {
+  # TODO: exract the following to a machine specific import.
   home.username = "smootz";
   home.homeDirectory = "/home/smootz";
 
@@ -14,8 +15,6 @@
   # release notes.
   home.stateVersion = "24.11"; # Please read the comment before changing.
 
-
-  # TODO: explain in detail how this code works.
   nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
     "1password-cli"
     "obsidian"
@@ -123,8 +122,14 @@
       apparmor_nix = "echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns";
 
       ls = "ls --color=always";
+      opauth = "eval $(op signin)";
+      keys="ssh-op-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
       vim = "echo woopsy, you probably meant nvim, right?";
     };
+
+    initExtra = ''
+    export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+    '';
 
   };
 
