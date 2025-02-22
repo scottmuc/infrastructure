@@ -88,45 +88,9 @@ if [[ ! "${SSH_AUTH_SOCK}" ]] || [[ "${agent_run_state}" = 2 ]]; then
   start_ssh_agent
 fi
 
-heigh-ho() {
-  gum style \
-    --foreground 212 --border-foreground 212 --border double \
-    --align center --width 50 --margin "1 2" --padding "2 4" \
-    "Heigh ho, heigh ho," "it's off to work we go!"
-
-  if op-auth-status; then
-    echo "already logged into 1 Password"
-  else
-    eval "$(op signin)"
-  fi
-
-  if ssh-add -l | grep 20240609.keys; then
-    echo "ssh 20240609.keys already loaded"
-  else
-    ssh-op-agent load -n 20240609.keys \
-      -p "ssh key passphrase" \
-      -t 9
-  fi
-
-  if command -v wl-copy >/dev/null; then
-    op read op://Automation/gpg.scottATscottmuc.com/passphrase \
-      | wl-copy --trim-newline
-  elif command -v xclip >/dev/null; then
-    op read op://Automation/gpg.scottATscottmuc.com/passphrase \
-      | xclip -selection clipboard
-  else
-    echo "could not copy the following into your clipboard"
-    op read op://Automation/gpg.scottATscottmuc.com/passphrase
-  fi
-
-  touch /tmp/gpg_agent_priming
-  gpg --sign --local-user "scott@scottmuc.com" /tmp/gpg_agent_priming
-  rm /tmp/gpg_agent_priming*
-
-  if [[ -z "${OPENAI_API_KEY}" ]]; then
-    OPENAI_API_KEY="$(op read "op://Personal/OpenAI/api key")"
-    export OPENAI_API_KEY
-  fi
+load_openai_api_key() {
+  OPENAI_API_KEY="$(op read "op://Personal/OpenAI/api key")"
+  export OPENAI_API_KEY
 }
 
 # vim: set ft=sh
