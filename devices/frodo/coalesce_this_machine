@@ -10,6 +10,7 @@ COMMON_DIR="${REPO_DIR}/homedirs/common"
 
 main() {
   symlink_all_the_things
+  use_classic_dns_resolution
   install_alacritty
   install_all_things_docker
 }
