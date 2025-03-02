@@ -31,6 +31,7 @@
     pkgs._1password-cli
     pkgs.autojump
     pkgs.bc
+    pkgs.clang
     pkgs.curl
     pkgs.fzf
     pkgs.git-crypt
