@@ -11,4 +11,4 @@ size = 10.0
 normal = { family = "JetBrains Mono Nerd Font" }
 
 [shell]
-program = "/usr/bin/tmux"
+program = "tmux"
