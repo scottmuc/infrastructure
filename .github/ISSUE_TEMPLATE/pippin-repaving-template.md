@@ -107,6 +107,9 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
+  Unfortunately, commenting out the fail2ban service and the Windows smb mount need
+  to be commented out for this to work.
+
   `./ansible.sh` and select the `1-machine-config.yml`
 
   and then:
@@ -117,6 +120,18 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Reboot PI
 
 - [ ] Re-add port mapping to the static IP
+
+- [ ] Complete full configuration (again)<details>
+  <summary>Instructions</summary>
+
+  Uncomment the fail2ban and Windows smb mount config and run the following again:
+
+  `./ansible.sh` and select the `1-machine-config.yml`
+
+  and then:
+
+  `./ansible.sh` and select the `2-main.yml`
+</details>
 
 - [ ] Disable DHCP on the router
 
