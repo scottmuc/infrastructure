@@ -75,8 +75,8 @@ the [previous repave issues][repave-history]. Have fun!
 
   ```
   ssh-keygen -R 192.168.2.10
-  ssh-keygen -R pi
-  ssh-keygen -R pi.middle-earth.internal.
+  ssh-keygen -R pippin
+  ssh-keygen -R pippin.middle-earth.internal.
   ```
 </details>
 
@@ -95,7 +95,7 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
-  `./ansible.sh` and select the `bootstrap-playbook.yml`
+  `./ansible.sh` and select the `0-bootstrap.yml`
 </details>
 
 - [ ] Add the PI port forwarding<details>
@@ -107,7 +107,11 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
-  `./ansible.sh` and select the `main-playbook.yml`
+  `./ansible.sh` and select the `1-machine-config.yml`
+
+  and then:
+
+  `./ansible.sh` and select the `2-main.yml`
 </details>
 
 - [ ] Reboot PI
