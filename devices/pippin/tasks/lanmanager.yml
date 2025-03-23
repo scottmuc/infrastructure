@@ -1,11 +1,6 @@
-- name: Install dnsmasq and unbound
-  become: true
-  ansible.builtin.apt:
-    pkg:
-      - dnsmasq
-      - unbound
-
-
+# It's important that this happens before installing dnsmasq, otherwise it'll
+# start running with the default configuration which has port collisions with
+# unbound.
 - name: Configure dnsmasq
   become: true
   ansible.builtin.copy:
@@ -16,6 +11,15 @@
     mode: '0664'
   notify:
     - Restart dnsmasq
+
+
+- name: Install dnsmasq and unbound
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - dnsmasq
+      - unbound
+
 
 - name: Setup unbound log directory
   become: true
