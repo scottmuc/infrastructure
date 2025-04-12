@@ -3,8 +3,8 @@
 # All of the options: https://nix-community.github.io/home-manager/options.xhtml
 {
   # TODO: exract the following to a machine specific import.
-  home.username = "smootz";
-  home.homeDirectory = "/home/smootz";
+  home.username = "frodo";
+  home.homeDirectory = "/home/frodo";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
