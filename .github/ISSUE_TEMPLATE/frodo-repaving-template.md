@@ -44,14 +44,16 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
 - [ ] Reboot to load installer <details>
   <summary>Instructions</summary>
 
-  Hold down **F10** to trigger the boot selection menu.
+  Hold down **F12** to trigger the boot selection menu.
 </details>
 
 - [ ] Install the OS.
 
 # Post OS install steps
 
+- [ ] Install `git` and `curl`
 - [ ] Clone repo and run `coalesce_this_machine`
+- [ ] Install `nix` and `home-manager`
 - [ ] Launch and log into Vivaldi
 - [ ] Map capslock to control
 - [ ] Open the 1 Password browser extension and log into it.
