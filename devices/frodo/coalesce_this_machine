@@ -12,7 +12,7 @@ main() {
   symlink_all_the_things
   use_classic_dns_resolution
   install_alacritty
-  install_all_things_docker
+  #install_all_things_docker
 }
 
 install_alacritty() {
@@ -45,12 +45,10 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig"            ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig"             ~/.mrconfig
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf"            ~/.tmux.conf
-  ln -sfv "${common_dotfiles_dir}/dot.zshrc"                ~/.zshrc
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${device_home_dir}/dot.config/alacritty"        ~/.config/alacritty
   ln -sTfv "${common_dotfiles_dir}/dot.config/home-manager" ~/.config/home-manager
-  ln -sTfv "${common_dotfiles_dir}/dot.config/nixpkgs"      ~/.config/nixpkgs
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim"         ~/.config/nvim
 }
 
