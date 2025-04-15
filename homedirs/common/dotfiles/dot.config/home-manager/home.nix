@@ -26,6 +26,7 @@
   home.packages = [
     # Revert back to bash for daily terminal use.
     pkgs.bash
+    pkgs.starship
 
     # Figure out how to allowUnfree for just 1password
     pkgs._1password-cli
@@ -132,6 +133,10 @@
     export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
     '';
 
+  };
+
+  programs.starship = {
+    enable = true;
   };
 
   # Sources autojump.sh in the .bashrc
