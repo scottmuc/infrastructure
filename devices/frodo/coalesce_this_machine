@@ -45,6 +45,7 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig"            ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig"             ~/.mrconfig
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf"            ~/.tmux.conf
+  ln -sfv "${common_dotfiles_dir}/dot.config/starship.toml" ~/.config/starship.toml
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${device_home_dir}/dot.config/alacritty"        ~/.config/alacritty
