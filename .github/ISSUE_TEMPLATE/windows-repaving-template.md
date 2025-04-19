@@ -132,15 +132,11 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
   This was failing to install correctly using `choco`, test if this has improved.
 </details>
 
-- [ ] Configure Brave<details>
+- [ ] Configure Vivaldi<details>
   <summary>Instructions</summary>
 
   Do the following:
-  * Ensure 1 Password extension works (log into GitHub)
-  * Install [Pocket][pocket]
-  * Install [Unhook][unhook]
-  * Set search engine to DuckDuckGo ([config][brave-search-engine])
-  * Set default download location to Desktop ([config][brave-download-location] and [rationale](https://scottmuc.com/blog/why-i-ve-chosen-to-use-my-desktop-as-my-default-download-location/))
+  * Use credentials from 1 Password
 </details>
 
 [unhook]: https://chrome.google.com/webstore/detail/unhook-remove-youtube-rec/khncfooichmfjbepaaaebmommgaepoid
@@ -191,7 +187,7 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
   Right click on the items and hide them.
 </details>
 
-- [ ] Pair speakers and XBox controller
+- [ ] Pair with XBox controller
 
 - [ ] Configure 2nd monitor (TV)<details>
   <summary>Instructions</summary>
@@ -200,18 +196,6 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
   launch the audio settings and change the audio output to the TV. After this,
   switching back and forth will configure the audio output device correctly.
 </details>
-
-- [ ] Mount `Z:` drive<details>
-  <summary>Instructions</summary>
-
-  Run the following in a user cmd session:
-
-  `net use Z: \\192.168.2.10\fileserver /u:smbrw /persistent:yes`
-
-  For further exploration, look at [this post][mountz].
-</details>
-
-[mountz]: https://serverfault.com/questions/426288/permanently-mount-network-share-without-the-need-for-log-on-windows
 
 - [ ] Create SSH key and add GPG key<details>
   <summary>Instructions</summary>
