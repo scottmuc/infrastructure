@@ -144,9 +144,7 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
 [brave-search-engine]: brave://settings/?search=search+engine
 [brave-download-location]: brave://settings/?search=downloads
 
-- [ ] Install and configure Google Drive
-
-- [ ] Review Radeon Software<details>
+- [ ] Review Radeon Software (optional)<details>
   <summary>Instructions</summary>
 
   So far I am getting by without installing this software. Every now and then, it's worth reviewing
@@ -167,12 +165,6 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
 
 - [ ] Run Novabench<details>
   <summary>Instructions</summary>
-
-  Score should be around (old):
-  * CPU 1600
-  * RAM 260
-  * GPU 1000
-  * Disk 340
 
   Novabench's new version seems to augment the numbers:
   * CPU 1200
@@ -212,10 +204,18 @@ you may find help by viewing all the [previous repave issues][repave-history]. H
 
 </details>
 
+- [ ] Install Syncthing
+
+- [ ] Repave WSL
+
 # Verification Steps
 
 - [ ] Play a Steam game on the TV
 
+- [ ] Open personal Obsidian vault
+
+- [ ] Open personal GnuCash ledger
+
 - [ ] Commit (signed) and push without WSL by making [this template][this-template] slightly better.
 
-[this-template]: https://github.com/scottmuc/infrastructure/blob/master/.github/ISSUE_TEMPLATE/windows-repaving-template.md 
+[this-template]: https://github.com/scottmuc/infrastructure/blob/main/.github/ISSUE_TEMPLATE/windows-repaving-template.md 
