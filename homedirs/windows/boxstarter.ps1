@@ -1,6 +1,8 @@
 
 function Invoke-Main {
-    Remove-DefaultApplications
+    # Not sure why this isn't working, but will try alterative tools to
+    # clean up all the pre-installed cruft.
+    #Remove-DefaultApplications
 
     # https://boxstarter.org/winconfig#set-windowsexploreroptions
     Set-WindowsExplorerOptions `
@@ -9,11 +11,12 @@ function Invoke-Main {
     -EnableShowFullPathInTitleBar
 
 
+    # Pretty sure this doesn't work in Windows 11
     #  https://boxstarter.org/winconfig#set-boxstartertaskbaroptions
-    Set-BoxstarterTaskbarOptions `
-    -Size Small `
-    -Dock Top `
-    -DisableSearchBox
+    #Set-BoxstarterTaskbarOptions `
+    #-Size Small `
+    #-Dock Top `
+    #-DisableSearchBox
 
     Set-CapslockAsControlKey
     Disable-NetAdapterBinding -InterfaceAlias "*" -ComponentID "ms_tcpip6"
@@ -29,7 +32,8 @@ function Invoke-Main {
     Set-ThisDirectoryToQuickAccess
 
     Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
-    Enable-WindowsOptionalFeature -Online -FeatureName Virtual-Machine-Platform
+    # For some reason Virtual-Machine-Platform lost the hyphens in Windows 11
+    Enable-WindowsOptionalFeature -Online -FeatureName VirtualMachinePlatform
 }
 
 
@@ -37,7 +41,7 @@ function Invoke-Main {
 function Remove-DefaultApplications {
     $apps = @(
         # default Windows 10 apps
-        "Microsoft.549981C3F5F10" #Cortana
+        #"Microsoft.549981C3F5F10" #Cortana
         "Microsoft.3DBuilder"
         "Microsoft.Appconnector"
         "Microsoft.BingFinance"
@@ -188,7 +192,8 @@ function Install-ChocolateyPackages {
     choco install vivaldi.install -y
     choco install obsidian -y
 
-    choco install jetbrainsmononf -y
+    # Got renamed: http://disq.us/p/2uumufn
+    choco install nerd-fonts-JetBrainsMono -y
     choco install nerd-fonts-robotomono -y
     choco install nerd-fonts-inconsolata -y
 
