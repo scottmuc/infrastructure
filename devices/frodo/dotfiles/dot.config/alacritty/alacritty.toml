@@ -1,4 +1,9 @@
 # https://alacritty.org/config-alacritty.html
+
+import = [
+    "~/.config/alacritty/alacritty-theme/themes/solarized_dark.toml"
+]
+
 [window]
 decorations = "None"
 startup_mode = "Maximized"
