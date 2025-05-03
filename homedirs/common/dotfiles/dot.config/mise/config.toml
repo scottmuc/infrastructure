@@ -3,5 +3,6 @@
 gum = "latest"
 node = "latest"
 opentofu = "latest"
+python = "latest"
 ruby = "latest"
 shellcheck = "latest"
