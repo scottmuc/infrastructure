@@ -1,0 +1,7 @@
+# https://mise.jdx.dev/configuration.html
+[tools]
+gum = "latest"
+node = "latest"
+opentofu = "latest"
+ruby = "latest"
+shellcheck = "latest"

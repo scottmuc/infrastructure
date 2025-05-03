@@ -17,6 +17,7 @@ main() {
   install_nvim
   install_golang "1.22.3"
   install_python_dependencies
+  install_ruby_dependencies
   install_all_things_docker
   install_1password_cli "2.28.0"
 }
@@ -184,6 +185,14 @@ install_python_dependencies() {
     liblzma-dev           \
     libreadline-dev       \
     libssl-dev            \
+    zlib1g-dev
+}
+
+install_ruby_dependencies() {
+  sudo apt-get update
+  sudo apt-get install -y \
+    build-essential       \
+    libyaml-dev           \
     zlib1g-dev
 }
 
