@@ -1,3 +1,8 @@
+# https://alacritty.org/config-alacritty.html
+
+[general]
+import = [ "$THEME_PATH" ]
+
 [font]
 size = 12.0
 normal = { family = "JetBrainsMono Nerd Font" }

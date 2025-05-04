@@ -1,36 +1,24 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 theme="${1:-none}"
 
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-common_config_file="${DIR}/../dotfiles/dot.config/alacritty/alacritty.toml"
+common_config_file="${DIR}/../dotfiles/dot.config/alacritty/alacritty.template.toml"
 win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
 win_config_file="${win_config_dir}/alacritty.toml"
 mac_config_file=~/.config/alacritty/alacritty.toml
 
 copy_config() {
   local theme="$1"
-  local program_ref="$2"
-  local config_path="$3"
+  local config_path="$2"
 
-  local in_place_arg=""
-  if [[ "Darwin" = "$(uname)" ]]; then
-    in_place_arg="-i ''"
-  fi
-
-  if [[ "Linux" = "$(uname)" ]]; then
-    in_place_arg="--in-place"
-  fi
-
-  cp "${common_config_file}" ${config_path}
-  # Need to approach this differently not that the config is in TOML
-  # Doing nothing for now
-  # sed ${in_place_arg} \
-  #   -e 's/^colors:.*$/colors:\ \*'${theme}'/g' \
-  #   -e 's/  program:.*$/  program:\ \*'${program_ref}'/g' \
-  #   "${config_path}"
+  env \
+    THEME_PATH="~/AppData/Roaming/alacritty/themes/themes/solarized_${theme}.toml" \
+  envsubst '$THEME_PATH' < "${common_config_file}" > "${config_path}"
 }
 
 # Output the current background if no arguments are given
@@ -42,12 +30,12 @@ if [[ "${theme}" = "none" ]]; then
   fi
 else
   if [[ "Darwin" = "$(uname)" ]]; then
-    copy_config "${theme}" "$(uname)" ${mac_config_file}
+    copy_config "${theme}" ${mac_config_file}
   fi
 
   if [[ "Linux" = "$(uname)" ]]; then
     mkdir -p "${win_config_dir}"
-    copy_config "${theme}" "$(uname)" "${win_config_file}"
+    copy_config "${theme}" "${win_config_file}"
   fi
   # Writing to a state file because shelling out to Powershell to read the
   # registry breaks the pipes that delta needs for diffing (at least that's
