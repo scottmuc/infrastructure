@@ -10,11 +10,11 @@ psScript =
 ; Windows + Shift + d
 #+d::
 RunWait PowerShell.exe -Command &{%psScript%} '0',, hide
-RunWait wsl.exe --exec bash /home/wsl/workspace/infrastructure/homedirs/common/bin/background dark,, hide
+RunWait wsl.exe --cd ~ --exec bash ./workspace/infrastructure/homedirs/common/bin/background dark,, hide
 return
 
 ; Windows + Shift + l
 #+l::
 RunWait PowerShell.exe -Command &{%psScript%} '1',, hide
-RunWait wsl.exe --exec bash /home/wsl/workspace/infrastructure/homedirs/common/bin/background light,, hide
+RunWait wsl.exe --cd ~ --exec bash ./workspace/infrastructure/homedirs/common/bin/background light,, hide
 return
