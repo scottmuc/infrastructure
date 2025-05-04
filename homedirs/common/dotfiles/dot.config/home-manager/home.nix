@@ -36,6 +36,7 @@
     pkgs.curl
     pkgs.fzf
     pkgs.git-crypt
+    pkgs.gnumake
     pkgs.gnupg
     pkgs.gum
     pkgs.jq
