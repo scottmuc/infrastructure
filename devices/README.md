@@ -1,4 +1,4 @@
-# LAN Device Inventory
+# LAN Documentation
 
 Much of the context around the need for this information has been documented in the
 [host naming convention][issue-72] issue.
@@ -10,14 +10,14 @@ Much of the context around the need for this information has been documented in 
 ```
 Network           : 192.168.2.0/24
 Gateway           : 192.168.2.1
+Search Domain     : middle-earth.internal
+DNS Resolver(s)   : 192.168.2.10,192.168.2.11
 Static IP Range   : 192.168.2.10-192.168.2.99
 DHCP Range        : 192.168.2.150-192.168.2.199
 Backup DHCP Range : 192.168.2.100-192.168.2.149
-DNS Resolver      : 192.168.2.10
-Search Domain     : middle-earth.internal
 ```
 
-#### Inventory
+#### Device Inventory and IP Address Management
 
 | Device                  | Hostname             | IP Discovery Method | IP Address   | Open Ports                       |
 |-------------------------|----------------------|---------------------|--------------|----------------------------------|
@@ -36,12 +36,12 @@ Search Domain     : middle-earth.internal
 | Samsung TV              | sauron               | DHCP                | 192.168.2.15 |                                  |
 | RIPE Atlas Node         | palantir             | DHCP                | 192.168.2.16 |                                  |
 | Miele Washing Machine   | elrond               | DHCP                | 192.168.2.17 |                                  |
+| Radoff                  | [radagast][radagast] | DHCP                | 192.168.2.18 |                                  |
 | Windows PC              | gandalf              | DHCP                | random       | 9182 (node_exporter metrics)     |
 | Google Pixel 8          | sam                  | DHCP                | random       |                                  |
 | Framework 13" Laptop    | [frodo][frodo]       | DHCP                | random       |                                  |
 | M3 Macbook Pro          | treebeard            | DHCP                | random       |                                  |
 | 2014 Macbook Air        | [gollum][gollum]     | DHCP                | random       |                                  |
-| Radoff                  | [radagast][radagast] | DHCP                | random       |                                  |
 
 
 [pippin]: pippin/
