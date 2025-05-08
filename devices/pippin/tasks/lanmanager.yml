@@ -168,6 +168,8 @@
     content: |
       search middle-earth.internal
       nameserver 127.0.0.1
+  notify:
+    - Restart dnsmasq
 
 
 - name: Install /etc/hosts
@@ -180,5 +182,8 @@
     content: |
       127.0.0.1     localhost
       192.168.2.10  pippin.middle-earth.internal  pippin
+      192.168.2.11  merry.middle-earth.internal   merry
+  notify:
+    - Restart dnsmasq
 
 # vim: ft=yaml.ansible
