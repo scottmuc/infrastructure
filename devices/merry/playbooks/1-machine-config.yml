@@ -15,9 +15,30 @@
         name: merry
 
 
-    - name: Securing the machine
-      ansible.builtin.include_tasks:
-        file: ../tasks/security.yml
+    - name: Delete the 'gimli' bootstrap user
+      become: true
+      ansible.builtin.user:
+        name: gimli
+        state: absent
+        remove: true
+
+
+    # https://linuxhandbook.com/ssh-hardening-tips/
+    - name: Harden the sshd Configuration
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/ssh/sshd_config.d/ssh_hardening.conf
+        owner: root
+        group: root
+        mode: '0664'
+        content: |
+          PermitEmptyPasswords no
+          PasswordAuthentication no
+          PermitRootLogin no
+          Protocol 2
+          X11Forwarding no
+      notify:
+        - Reload sshd
 
 
     - name: Configure sysctls
@@ -40,14 +61,6 @@
           value: '1'
 
 
-    - name: Configure syslog forwarding
-      tags: logging
-      ansible.builtin.include_tasks:
-        file: ../tasks/logging.yml
-        apply:
-          tags: logging
-
-
   handlers:
     # It's important that Systemd reload is defined first here
     # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
@@ -59,15 +72,10 @@
         daemon_reload: true
 
 
-    - name: Restart rsyslog
-      become: true
-      ansible.builtin.service:
-        name: rsyslog
-        state: restarted
-
-
     - name: Reload sshd
       become: true
       ansible.builtin.service:
         name: sshd
         state: reloaded
+
+# vim: ft=yaml.ansible
