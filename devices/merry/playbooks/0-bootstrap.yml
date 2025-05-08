@@ -1,8 +1,9 @@
-- name: Bootstrap raspberry pi device to enable ansible automation runs.
+- name: Bootstrap a Debian ecosystem machine
   hosts: all
   remote_user: gimli
   gather_facts: false
   become: true
+  become_method: su
 
   pre_tasks:
     - name: Attempt to update apt's cache
@@ -16,8 +17,6 @@
         system: true
         state: present
 
-    # The Raspberry PI OS image comes with sudo installed, but will leave this
-    # check here just in case that assumption changes.
     - name: Ensure sudo is installed
       ansible.builtin.package:
         name: sudo

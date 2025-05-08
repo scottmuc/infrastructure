@@ -27,6 +27,7 @@ gum confirm "Deploy ${playbook} using ${inventory_choice}?" || exit 1
 set -x
 ansible-playbook \
   --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
+  --ask-become-pass \
   --inventory "${inventory_arg}" \
   --tags "${tags}" \
   "${playbook}"
