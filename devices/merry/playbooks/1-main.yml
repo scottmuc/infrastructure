@@ -61,6 +61,25 @@
           value: '1'
 
 
+    - name: Install and dns, and network configuration
+      tags: lanmanager
+      ansible.builtin.include_tasks:
+        file: ../tasks/lanmanager.yml
+        apply:
+          tags: lanmanager
+
+
+    # - name: Install monitoring
+    #   tags: monitoring
+    #   vars:
+    #     prometheus_version: "2.53.0"
+    #     node_exporter_version: "1.8.1"
+    #   ansible.builtin.include_tasks:
+    #     file: ../tasks/monitoring.yml
+    #     apply:
+    #       tags: monitoring
+
+
   handlers:
     # It's important that Systemd reload is defined first here
     # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
@@ -77,5 +96,26 @@
       ansible.builtin.service:
         name: sshd
         state: reloaded
+
+
+    - name: Restart node_exporter
+      become: true
+      ansible.builtin.service:
+        name: node_exporter
+        state: restarted
+
+
+    - name: Restart unbound
+      become: true
+      ansible.builtin.service:
+        name: unbound
+        state: restarted
+
+
+    - name: Restart unbound_exporter
+      become: true
+      ansible.builtin.service:
+        name: unbound_exporter
+        state: restarted
 
 # vim: ft=yaml.ansible

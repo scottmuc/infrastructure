@@ -1,0 +1,30 @@
+  # https://www.man7.org/linux/man-pages/man5/logind.conf.5.html
+- name: Disable suspend on laptop lid close
+  become: true
+  ansible.builtin.copy:
+    content: |
+      # This file is managed via ansible
+      [Login]
+      HandleLidSwitch=ignore
+      HandleLidSwitchExternalPower=ignore
+    dest: /etc/systemd/logind.conf
+    owner: root
+    group: root
+    mode: '0664'
+
+
+- name: Restart systemd-logind to reflect new config
+  become: true
+  systemd:
+    state: restarted
+    name: systemd-logind
+
+# https://linux.die.net/man/1/vbetool
+# This tool can be used to turn the screen off from the CLI
+# e.g.: sudo vbetool dpms off/on
+- name: Install vbetool
+  become: true
+  apt:
+    name: vbetool
+
+# vim: ft=yaml.ansible

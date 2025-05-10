@@ -1,23 +1,7 @@
-# It's important that this happens before installing dnsmasq, otherwise it'll
-# start running with the default configuration which has port collisions with
-# unbound.
-- name: Configure dnsmasq
-  become: true
-  ansible.builtin.copy:
-    src: root/etc/dnsmasq.conf
-    dest: /etc/dnsmasq.conf
-    owner: root
-    group: admin
-    mode: '0664'
-  notify:
-    - Restart dnsmasq
-
-
-- name: Install dnsmasq and unbound
+- name: Install unbound
   become: true
   ansible.builtin.apt:
     pkg:
-      - dnsmasq
       - unbound
 
 
@@ -115,14 +99,6 @@
     - Restart unbound
 
 
-- name: Ensure dnsmasq service is started
-  become: true
-  ansible.builtin.service:
-    name: dnsmasq
-    state: started
-    enabled: true
-
-
 - name: Ensure unbound is running
   become: true
   ansible.builtin.service:
@@ -131,54 +107,54 @@
     enabled: true
 
 
-- name: Ensure avahi-daemon and isc-dhcp-client are not installed
-  become: true
-  ansible.builtin.apt:
-    pkg:
-      - avahi-daemon
-      - isc-dhcp-client
-    state: absent
+# - name: Ensure avahi-daemon and isc-dhcp-client are not installed
+#   become: true
+#   ansible.builtin.apt:
+#     pkg:
+#       - avahi-daemon
+#       - isc-dhcp-client
+#     state: absent
 
 
-- name: Setup static IP
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/network/interfaces.d/eth0
-    owner: root
-    group: admin
-    mode: '0664'
-    content: |
-      auto eth0
-      allow-hotplug eth0
-      iface eth0 inet static
-      address 192.168.2.10
-      netmask 255.255.255.0
-      gateway 192.168.2.1
-      dns-nameservers 127.0.0.1
-      dns-search middle-earth.internal
+# - name: Setup static IP
+#   become: true
+#   ansible.builtin.copy:
+#     dest: /etc/network/interfaces.d/eth0
+#     owner: root
+#     group: admin
+#     mode: '0664'
+#     content: |
+#       auto eth0
+#       allow-hotplug eth0
+#       iface eth0 inet static
+#       address 192.168.2.10
+#       netmask 255.255.255.0
+#       gateway 192.168.2.1
+#       dns-nameservers 127.0.0.1
+#       dns-search middle-earth.internal
 
 
-- name: Install /etc/resolv.conf
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: '0644'
-    content: |
-      search middle-earth.internal
-      nameserver 127.0.0.1
+# - name: Install /etc/resolv.conf
+#   become: true
+#   ansible.builtin.copy:
+#     dest: /etc/resolv.conf
+#     owner: root
+#     group: root
+#     mode: '0644'
+#     content: |
+#       search middle-earth.internal
+#       nameserver 127.0.0.1
 
 
-- name: Install /etc/hosts
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/hosts
-    owner: root
-    group: root
-    mode: '0644'
-    content: |
-      127.0.0.1     localhost
-      192.168.2.10  pippin.middle-earth.internal  pippin
+# - name: Install /etc/hosts
+#   become: true
+#   ansible.builtin.copy:
+#     dest: /etc/hosts
+#     owner: root
+#     group: root
+#     mode: '0644'
+#     content: |
+#       127.0.0.1     localhost
+#       192.168.2.10  pippin.middle-earth.internal  pippin
 
 # vim: ft=yaml.ansible
