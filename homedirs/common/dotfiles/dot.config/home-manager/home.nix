@@ -58,8 +58,11 @@
     # Programming languages that need to be available globally
     pkgs.go
     pkgs.nodejs
-    pkgs.python3
     pkgs.ruby
+
+    pkgs.python3
+    pkgs.python3Packages.pip
+    pkgs.python3Packages.virtualenv
 
     # Useful for bios inspection
     # https://knowledgebase.frame.work/en_us/how-to-check-the-bios-version-on-windows-linux-bios-ryupu8HT3
