@@ -61,6 +61,19 @@
           value: '1'
 
 
+    - name: Configure syslog forwarding
+      tags: logging
+      ansible.builtin.include_tasks:
+        file: ../tasks/logging.yml
+        apply:
+          tags: logging
+
+
+    - name: Configure power management
+      ansible.builtin.include_tasks:
+        file: ../tasks/power_management.yml
+
+
     - name: Install and dns, and network configuration
       tags: lanmanager
       ansible.builtin.include_tasks:
@@ -98,10 +111,10 @@
         state: reloaded
 
 
-    - name: Restart node_exporter
+    - name: Restart rsyslog
       become: true
       ansible.builtin.service:
-        name: node_exporter
+        name: rsyslog
         state: restarted
 
 
@@ -109,6 +122,13 @@
       become: true
       ansible.builtin.service:
         name: unbound
+        state: restarted
+
+
+    - name: Restart node_exporter
+      become: true
+      ansible.builtin.service:
+        name: node_exporter
         state: restarted
 
 
