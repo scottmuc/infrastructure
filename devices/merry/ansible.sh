@@ -2,15 +2,12 @@
 
 set -e
 
-  playbook=$(find ./playbooks/ -name "*.yml" \
+playbook=$(find ./playbooks/ -name "*.yml" \
   | sort \
   | gum choose --header "Select a playbook")
 
 tags=$(gum choose --header "Select tag to apply" \
   "all"           \
-  "lanmanager"    \
-  "logging"       \
-  "monitoring"    \
 )
 
 inventory_choice=$(gum choose --header "Select inventory" \

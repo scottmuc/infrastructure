@@ -1,3 +1,19 @@
+- name: Create prometheus user group
+  become: true
+  ansible.builtin.group:
+    name: prometheus
+    system: true
+    state: present
+
+
+- name: Create prometheus user
+  become: true
+  ansible.builtin.user:
+    name: prometheus
+    system: true
+    state: present
+
+
 - name: Install node exporter
   vars:
     version: "{{ node_exporter_version }}"

@@ -5,39 +5,6 @@
       - unbound
 
 
-- name: Setup unbound log directory
-  become: true
-  ansible.builtin.file:
-    path: /var/log/unbound
-    state: directory
-    owner: unbound
-    group: unbound
-    mode: '0775'
-
-
-- name: Configure logrotate for unbound
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/logrotate.d/unbound
-    owner: root
-    group: root
-    mode: '0644'
-    content: |
-      /var/log/unbound/*.log {
-        weekly
-        rotate 7
-        missingok
-        notifempty
-        compress
-        delaycompress
-        sharedscripts
-        create 644
-        postrotate
-          /usr/sbin/unbound-control log_reopen
-        endscript
-      }
-
-
 - name: Configure unbound
   become: true
   ansible.builtin.copy:
@@ -60,7 +27,6 @@
         log-replies: yes
         log-tag-queryreply: yes
         log-local-actions: yes
-        logfile: /var/log/unbound/unbound.log
 
         # https://blog.josefsson.org/2015/10/26/combining-dnsmasq-and-unbound/#comment-1399545
         # ^^^ this comment from nearly 10 years ago really helped me figure all this out!
@@ -107,15 +73,6 @@
     enabled: true
 
 
-# - name: Ensure avahi-daemon and isc-dhcp-client are not installed
-#   become: true
-#   ansible.builtin.apt:
-#     pkg:
-#       - avahi-daemon
-#       - isc-dhcp-client
-#     state: absent
-
-
 # I'm using a USB/ethernet adapter and the interface name is stable because
 # it's following the structure enx + mac address
 # https://superuser.com/questions/1431018/network-interface-names-via-udev-for-usb-nics
@@ -136,28 +93,5 @@
       dns-nameservers 127.0.0.1
       dns-search middle-earth.internal
 
-
-# - name: Install /etc/resolv.conf
-#   become: true
-#   ansible.builtin.copy:
-#     dest: /etc/resolv.conf
-#     owner: root
-#     group: root
-#     mode: '0644'
-#     content: |
-#       search middle-earth.internal
-#       nameserver 127.0.0.1
-
-
-# - name: Install /etc/hosts
-#   become: true
-#   ansible.builtin.copy:
-#     dest: /etc/hosts
-#     owner: root
-#     group: root
-#     mode: '0644'
-#     content: |
-#       127.0.0.1     localhost
-#       192.168.2.10  pippin.middle-earth.internal  pippin
 
 # vim: ft=yaml.ansible

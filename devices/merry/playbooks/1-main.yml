@@ -62,11 +62,8 @@
 
 
     - name: Configure syslog forwarding
-      tags: logging
       ansible.builtin.include_tasks:
         file: ../tasks/logging.yml
-        apply:
-          tags: logging
 
 
     - name: Configure power management
@@ -75,22 +72,15 @@
 
 
     - name: Install and dns, and network configuration
-      tags: lanmanager
       ansible.builtin.include_tasks:
-        file: ../tasks/lanmanager.yml
-        apply:
-          tags: lanmanager
+        file: ../tasks/unbound.yml
 
 
-    # - name: Install monitoring
-    #   tags: monitoring
-    #   vars:
-    #     prometheus_version: "2.53.0"
-    #     node_exporter_version: "1.8.1"
-    #   ansible.builtin.include_tasks:
-    #     file: ../tasks/monitoring.yml
-    #     apply:
-    #       tags: monitoring
+    - name: Install monitoring
+      vars:
+        node_exporter_version: "1.8.1"
+      ansible.builtin.include_tasks:
+        file: ../tasks/monitoring.yml
 
 
   handlers:
