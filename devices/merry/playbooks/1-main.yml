@@ -78,7 +78,7 @@
 
     - name: Install monitoring
       vars:
-        node_exporter_version: "1.8.1"
+        node_exporter_version: "1.9.1"
       ansible.builtin.include_tasks:
         file: ../tasks/monitoring.yml
 
