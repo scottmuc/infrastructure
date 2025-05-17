@@ -20,7 +20,7 @@
 
 - name: Download node exporter
   ansible.builtin.unarchive:
-    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}.linux-armv7.tar.gz"
+    src: "https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}.linux-amd64.tar.gz"
     remote_src: true
     dest: "/opt/node_exporter/{{ version }}"
     creates: "/opt/node_exporter/{{ version }}/node_exporter"
