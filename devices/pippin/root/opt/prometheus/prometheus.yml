@@ -22,6 +22,7 @@ scrape_configs:
       - targets:
           - gandalf:9182
           - pippin:9100
+          - merry:9100
 
   - job_name: navidrome
     metrics_path: /music/metrics
@@ -33,6 +34,7 @@ scrape_configs:
     static_configs:
       - targets:
           - pippin:9167
+          - merry:9167
 
   - job_name: dnsmasq
     static_configs:
