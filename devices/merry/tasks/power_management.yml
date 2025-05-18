@@ -11,20 +11,21 @@
     owner: root
     group: root
     mode: '0664'
+  notify:
+    - Systemd reload
 
 
-- name: Restart systemd-logind to reflect new config
+# https://wiki.archlinux.org/title/Backlight
+# https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-class-backlight
+- name: Get current screen brightness
+  ansible.builtin.command: cat /sys/class/backlight/intel_backlight/brightness
+  register: current_brightness
+  changed_when: false
+
+
+- name: Turn off backlight if brightness is not already 0
   become: true
-  systemd:
-    state: restarted
-    name: systemd-logind
-
-# https://linux.die.net/man/1/vbetool
-# This tool can be used to turn the screen off from the CLI
-# e.g.: sudo vbetool dpms off/on
-- name: Install vbetool
-  become: true
-  apt:
-    name: vbetool
+  when: current_brightness.stdout != "0"
+  ansible.builtin.shell: "echo 0 | tee /sys/class/backlight/intel_backlight/brightness"
 
 # vim: ft=yaml.ansible
