@@ -23,8 +23,8 @@
         # Disable syslog when logging queries to not use all my papertrail quota
         use-syslog: no
         verbosity: 0
-        log-queries: yes
-        log-replies: yes
+        log-queries: no
+        log-replies: no
         log-tag-queryreply: yes
         log-local-actions: yes
 
