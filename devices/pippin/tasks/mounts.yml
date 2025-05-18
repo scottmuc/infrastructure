@@ -17,11 +17,11 @@
     fstype: ext4
 
 
-- name: Install cifs mount dependencies
+- name: Install mount dependencies
   become: true
   ansible.builtin.apt:
     pkg:
-      - cifs-utils
+      - nfs-common
 
 
 - name: Create mount for music share
@@ -34,13 +34,13 @@
     mode: '0555'
 
 
-- name: Mount music share from Windows PC
+- name: Mount music share from merry
   become: true
   ansible.posix.mount:
-    src: //gandalf.middle-earth.internal/music
+    src: merry.middle-earth.internal:/opt/data/music
     path: /mnt/music
-    fstype: cifs
+    fstype: nfs
     state: mounted
-    opts: ro,pass=,file_mode=0444,dir_mode=0555
+    opts: auto,nofail,noatime,nolock,intr,tcp,actimeo=1800
 
 # vim: ft=yaml.ansible
