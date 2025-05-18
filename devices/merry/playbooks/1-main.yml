@@ -82,6 +82,10 @@
       ansible.builtin.include_tasks:
         file: ../tasks/monitoring.yml
 
+    - name: Setup music share
+      ansible.builtin.include_tasks:
+        file: ../tasks/nfs_server.yml
+
 
   handlers:
     # It's important that Systemd reload is defined first here
