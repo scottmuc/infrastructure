@@ -1,10 +1,6 @@
 [user]
     name = Scott Muc
     email = scott@scottmuc.com
-    signingkey = 9F90692427653A6C
-
-[commit]
-    gpgsign = true
 
 [core]
     excludesfile = ~/.gitignore
