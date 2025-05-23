@@ -152,4 +152,9 @@
   programs.mise = {
     enable = true;
   };
+
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-services.syncthing.enable
+  services.syncthing = {
+    enable = true;
+  };
 }
