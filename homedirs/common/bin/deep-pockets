@@ -127,7 +127,7 @@ read_articles() {
 }
 
 all() {
-  jq ".list[]" "${SYNCED_JSON_DATA}"
+  jq ".[].list[]" "${SYNCED_JSON_DATA}"
 }
 
 
@@ -202,26 +202,51 @@ JSON
     jq -r .access_token)
 
 
-  # interesting thing about `read` is that it doesn't exit 0 when successful
-  # so that's why the trailing `true`
-  read -r -d '' req_json <<FOO ||
+  offset=0
+  count=30
+  request_num=1
+  total_request_needed=9999
+
+  while [[ "${request_num}" -le "${total_request_needed}" ]]; do
+
+    # interesting thing about `read` is that it doesn't exit 0 when successful
+    # so that's why the trailing `true`
+    read -r -d '' req_json <<FOO ||
 {
+  "offset":"${offset}",
+  "count":"${count}",
+  "total":"1",
   "consumer_key":"${consumer_key}",
   "access_token":"${access_token}",
   "state":"all",
   "detailType":"complete"
 }
 FOO
-  true
+    true
 
-  # There is 1 single endpoint for retrieval of date from pocket. Everything
-  # you need to know is here: https://getpocket.com/developer/docs/v3/retrieve
-  curl \
-    https://getpocket.com/v3/get 2>/dev/null \
-    -o "${SYNCED_JSON_DATA}" \
-    -X POST \
-    -H "Content-Type: application/json" \
-    -d "${req_json}"
+    # There is 1 single endpoint for retrieval of date from pocket. Everything
+    # you need to know is here: https://getpocket.com/developer/docs/v3/retrieve
+    # 2025-05-25 - I learn that this endpoint no longer returns everything. It can
+    # return 30 results maximum per request. Introducing pagination. using offset,
+    # count, and total fields in the req_json
+    curl \
+      https://getpocket.com/v3/get 2>/dev/null \
+      -o "${SYNCED_JSON_DATA}.${request_num}" \
+      -X POST \
+      -H "Content-Type: application/json" \
+      -d "${req_json}"
+
+    total="$(jq -r .total < "${SYNCED_JSON_DATA}.${request_num}")"
+    total_request_needed=$(( ( total / count ) + ( total % count > 0 ) ))
+    offset=$(( offset + count ))
+
+    echo "Completed ${request_num} of ${total_request_needed}"
+    request_num=$(( offset / count + 1 ))
+  done
+
+  # Merge all the files into one
+  # shellcheck disable=SC2086
+  jq -s '.' ${SYNCED_JSON_DATA}.* > "${SYNCED_JSON_DATA}"
 
   echo Data synchronized!
 }
