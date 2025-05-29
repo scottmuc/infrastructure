@@ -20,8 +20,9 @@
 
   # The ... is because "self" is also passed in, but I'm choosing to ignore
   # it since the linter complains that it's never referenced.
-  outputs = { nixpkgs, home-manager, ... }:
-     {
+  outputs = { nixpkgs, home-manager, ... }: let
+    system = "x86_64-linux";
+  in {
       # The arguments to homeManagerConfiguration are:
       # {
       #   modules ? [ ],
@@ -39,7 +40,7 @@
         # The { system = "x86_64-linux"; } attribute set is necessary because
         # nixpkgs at this point is a function, and we need to call it to get
         # the actual nixpkgs attribute set.
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        pkgs = import nixpkgs { inherit system; };
         modules = [
           {
             # Mandatory configurations to be set
