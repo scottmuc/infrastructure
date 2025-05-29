@@ -23,38 +23,38 @@
   outputs = { nixpkgs, home-manager, ... }: let
     system = "x86_64-linux";
   in {
-      # The arguments to homeManagerConfiguration are:
-      # {
-      #   modules ? [ ],
-      #   pkgs,
-      #   lib ? pkgs.lib,
-      #   extraSpecialArgs ? { },
-      #   check ? true,
-      #   # Deprecated:
-      #   configuration ? null,
-      # }
-      # src: https://github.com/nix-community/home-manager/blob/da282034f4d30e787b8a10722431e8b650a907ef/lib/default.nix#L4-L13
-      # Use the rec keyword so I can reference pkgs in the home.packages section
-      homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration rec {
-        # Imports nixpkgs for the specific system we're trying to configure.
-        # The { system = "x86_64-linux"; } attribute set is necessary because
-        # nixpkgs at this point is a function, and we need to call it to get
-        # the actual nixpkgs attribute set.
-        pkgs = import nixpkgs { inherit system; };
-        modules = [
-          {
-            # Mandatory configurations to be set
-            home.username = "frodo";
-            home.homeDirectory = "/home/frodo";
-            home.stateVersion = "25.11";
+    # The arguments to homeManagerConfiguration are:
+    # {
+    #   modules ? [ ],
+    #   pkgs,
+    #   lib ? pkgs.lib,
+    #   extraSpecialArgs ? { },
+    #   check ? true,
+    #   # Deprecated:
+    #   configuration ? null,
+    # }
+    # src: https://github.com/nix-community/home-manager/blob/da282034f4d30e787b8a10722431e8b650a907ef/lib/default.nix#L4-L13
+    # Use the rec keyword so I can reference pkgs in the home.packages section
+    homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration rec {
+      # Imports nixpkgs for the specific system we're trying to configure.
+      # The { system = "x86_64-linux"; } attribute set is necessary because
+      # nixpkgs at this point is a function, and we need to call it to get
+      # the actual nixpkgs attribute set.
+      pkgs = import nixpkgs { inherit system; };
+      modules = [
+        {
+          # Mandatory configurations to be set
+          home.username = "frodo";
+          home.homeDirectory = "/home/frodo";
+          home.stateVersion = "25.11";
 
-            programs.home-manager.enable = true;
+          programs.home-manager.enable = true;
 
-            home.packages = [
-              pkgs.hello
-            ];
-          }
-        ];
-      };
+          home.packages = [
+            pkgs.hello
+          ];
+        }
+      ];
     };
+  };
 }
