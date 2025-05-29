@@ -35,7 +35,10 @@
       # src: https://github.com/nix-community/home-manager/blob/da282034f4d30e787b8a10722431e8b650a907ef/lib/default.nix#L4-L13
       # Use the rec keyword so I can reference pkgs in the home.packages section
       homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration rec {
-        # Imports nixpkgs for the specific system we're trying to configure
+        # Imports nixpkgs for the specific system we're trying to configure.
+        # The { system = "x86_64-linux"; } attribute set is necessary because
+        # nixpkgs at this point is a function, and we need to call it to get
+        # the actual nixpkgs attribute set.
         pkgs = import nixpkgs { system = "x86_64-linux"; };
         modules = [
           {
