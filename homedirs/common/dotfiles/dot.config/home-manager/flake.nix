@@ -57,6 +57,16 @@
 
           programs.home-manager.enable = true;
 
+          # This anonymouse function is assigned to the allowUnfreePredicate
+          # and will be called whenever an unfree package is specfied. This
+          # allows me to only allow this specific list of unfree software.
+          nixpkgs.config.allowUnfreePredicate = pkg:
+            builtins.elem (pkgs.lib.getName pkg) [
+            "1password-cli"
+            "obsidian"
+            "vivaldi"
+          ];
+
           home.packages = [
             pkgs.hello
           ];
