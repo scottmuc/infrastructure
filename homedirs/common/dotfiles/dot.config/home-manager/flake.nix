@@ -24,6 +24,11 @@
   # scope of the expression after the "in" keyword
   outputs = { nixpkgs, home-manager, ... }: let
     system = "x86_64-linux";
+
+    # Imports nixpkgs for the specific system we're trying to configure.
+    # nixpkgs at this point is a function, and we need to call it to get
+    # the actual nixpkgs attribute set.
+    pkgs = import nixpkgs { inherit system; };
   in {
     # The arguments to homeManagerConfiguration are:
     # {
@@ -36,13 +41,9 @@
     #   configuration ? null,
     # }
     # src: https://github.com/nix-community/home-manager/blob/da282034f4d30e787b8a10722431e8b650a907ef/lib/default.nix#L4-L13
-    # Use the rec keyword so I can reference pkgs in the home.packages section
-    homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration rec {
-      # Imports nixpkgs for the specific system we're trying to configure.
-      # The { system = "x86_64-linux"; } attribute set is necessary because
-      # nixpkgs at this point is a function, and we need to call it to get
-      # the actual nixpkgs attribute set.
-      pkgs = import nixpkgs { inherit system; };
+    homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+
       modules = [
         {
           # Mandatory configurations to be set
