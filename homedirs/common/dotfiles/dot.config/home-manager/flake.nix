@@ -44,7 +44,11 @@
     homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
 
+      # This can be a list because one can logically seperate the configuration
+      # into different files. I'm not going to take advantage of that yet. I
+      # prefer the overly commented monolith.
       modules = [
+        # All of the options: https://nix-community.github.io/home-manager/options.xhtml
         {
           # Mandatory configurations to be set
           home.username = "frodo";
