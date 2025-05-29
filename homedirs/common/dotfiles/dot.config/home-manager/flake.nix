@@ -20,6 +20,8 @@
 
   # The ... is because "self" is also passed in, but I'm choosing to ignore
   # it since the linter complains that it's never referenced.
+  # The "let" keyword allows the ability to define variables to be accessed in
+  # scope of the expression after the "in" keyword
   outputs = { nixpkgs, home-manager, ... }: let
     system = "x86_64-linux";
   in {
