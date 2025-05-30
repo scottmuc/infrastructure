@@ -28,7 +28,19 @@
     # Imports nixpkgs for the specific system we're trying to configure.
     # nixpkgs at this point is a function, and we need to call it to get
     # the actual nixpkgs attribute set.
-    pkgs = import nixpkgs { inherit system; };
+    pkgs = import nixpkgs {
+      inherit system;
+
+      # This anonymouse function is assigned to the allowUnfreePredicate
+      # and will be called whenever an unfree package is specfied. This
+      # allows me to only allow this specific list of unfree software.
+      config.allowUnfreePredicate = pkg:
+        builtins.elem (pkgs.lib.getName pkg) [
+            "1password-cli"
+            "obsidian"
+            "vivaldi"
+        ];
+    };
   in {
     # The arguments to homeManagerConfiguration are:
     # {
@@ -57,18 +69,9 @@
 
           programs.home-manager.enable = true;
 
-          # This anonymouse function is assigned to the allowUnfreePredicate
-          # and will be called whenever an unfree package is specfied. This
-          # allows me to only allow this specific list of unfree software.
-          nixpkgs.config.allowUnfreePredicate = pkg:
-            builtins.elem (pkgs.lib.getName pkg) [
-            "1password-cli"
-            "obsidian"
-            "vivaldi"
-          ];
-
           home.packages = [
             pkgs.hello
+            pkgs._1password-cli
           ];
         }
       ];
