@@ -13,7 +13,7 @@
     # practice because now I may introduce a combination of home-manager and
     # nixpkgs that's never been tested together.
     home-manager = {
-      url = github:nix-community/home-manager;
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
