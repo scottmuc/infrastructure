@@ -7,18 +7,28 @@ theme="${1:-none}"
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-common_config_file="${DIR}/../dotfiles/dot.config/alacritty/alacritty.template.toml"
-win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
-win_config_file="${win_config_dir}/alacritty.toml"
-mac_config_file=~/.config/alacritty/alacritty.toml
+COMMON_CONFIG_FILE="${DIR}/../dotfiles/dot.config/alacritty/alacritty.template.toml"
 
 copy_config() {
-  local theme="$1"
+  local theme_path="$1"
   local config_path="$2"
 
   env \
-    THEME_PATH="~/AppData/Roaming/alacritty/themes/themes/solarized_${theme}.toml" \
-  envsubst '$THEME_PATH' < "${common_config_file}" > "${config_path}"
+    THEME_PATH="${theme_path}" \
+  envsubst '$THEME_PATH' < "${COMMON_CONFIG_FILE}" > "${config_path}"
+}
+
+is_macos() {
+  [[ "Darwin" = "$(uname)" ]]
+}
+
+is_linux() {
+  [[ "Linux" = "$(uname)" ]]
+}
+
+# Confident that checking for a c mountpoint is indictive of running on WSL
+is_wsl() {
+  [[ -d /mnt/c ]]
 }
 
 # Output the current background if no arguments are given
@@ -29,14 +39,23 @@ if [[ "${theme}" = "none" ]]; then
     echo "dark"
   fi
 else
-  if [[ "Darwin" = "$(uname)" ]]; then
-    copy_config "${theme}" ${mac_config_file}
+  if is_macos; then
+    echo "macOS implementation TODO"
+    # mac_config_file=~/.config/alacritty/alacritty.toml
+    # copy_config "${theme}" ${mac_config_file}
+  elif is_linux && is_wsl; then
+    win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
+    win_config_file="${win_config_dir}/alacritty.toml"
+    theme_path="~/AppData/Roaming/alacritty/themes/themes/solarized_${theme}.toml" \
+    mkdir -p "${win_config_dir}"
+    copy_config "${theme_path}" "${win_config_file}"
+  elif is_linux; then
+    echo "Linux implementation TODO"
+  else
+    echo "Couldn't figure out what OS we're on"
+    exit 1
   fi
 
-  if [[ "Linux" = "$(uname)" ]]; then
-    mkdir -p "${win_config_dir}"
-    copy_config "${theme}" "${win_config_file}"
-  fi
   # Writing to a state file because shelling out to Powershell to read the
   # registry breaks the pipes that delta needs for diffing (at least that's
   # my current guess as to what's happening)
