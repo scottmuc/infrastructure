@@ -87,6 +87,24 @@
         file: ../tasks/nfs_server.yml
 
 
+    - name: Configure static IP
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/network/interfaces.d/enx00e04c01156b
+        content: |
+          auto enx00e04c01156b
+          allow-hotplug enx00e04c01156b
+          iface enx00e04c01156b inet static
+          address 192.168.2.11
+          netmask 255.255.255.0
+          gateway 192.168.2.1
+          dns-nameservers 127.0.0.1
+          dns-search middle-earth.internal
+        owner: root
+        group: admin
+        mode: '0664'
+
+
   handlers:
     # It's important that Systemd reload is defined first here
     # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
