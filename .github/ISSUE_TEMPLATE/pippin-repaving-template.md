@@ -22,17 +22,19 @@ the [previous repave issues][repave-history]. Have fun!
 
 # Things to do with the existing build
 
-- [ ] Enable DHCP on the router, remove port mapping and refresh DHCP lease<details>
+- [ ] Enable DHCP on the router, remove port mapping<details>
   <summary>Instructions</summary>
 
-  DHCP release/renew from the machine that's performing the repave.
+  DHCP on the router needs to be enabled in order for pippin to be able to resolve hostnames in order to install all of
+  the things. If merry is running, it could be configured to use 192.168.2.11, but that might be a more complicated
+  orchestration.
 </details>
 
 
 - [ ] Shutdown PI<details>
   <summary>Instructions</summary>
 
-  Make sure the USB drive has spun down before doing any work.
+  Make sure the mounted drives are dismounted safely before powering down.
 
   `sudo shutdown -h now`
 </details>
@@ -107,9 +109,6 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Complete full configuration <details>
   <summary>Instructions</summary>
 
-  Unfortunately, commenting out the fail2ban service and the Windows smb mount need
-  to be commented out for this to work.
-
   `./ansible.sh` and select the `1-machine-config.yml`
 
   and then:
@@ -124,7 +123,7 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Complete full configuration (again)<details>
   <summary>Instructions</summary>
 
-  Uncomment the fail2ban and Windows smb mount config and run the following again:
+  **This might not be required anymore**
 
   `./ansible.sh` and select the `1-machine-config.yml`
 
