@@ -26,18 +26,4 @@
     - Reload sshd
 
 
-- name: Install fail2ban and its dependencies
-  become: true
-  ansible.builtin.apt:
-    pkg:
-      - fail2ban
-      - iptables
-
-
-- name: Ensure fail2ban is running
-  ansible.builtin.service:
-    name: fail2ban
-    state: started
-    enabled: true
-
 # vim: ft=yaml.ansible
