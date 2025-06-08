@@ -11,7 +11,7 @@
   ansible.builtin.copy:
     dest: /etc/exports
     content: |
-      /opt/data/music pippin(ro,sync,no_subtree_check)
+      /opt/data/music 192.168.2.0/24(ro,no_subtree_check)
     owner: root
     group: admin
     mode: '0664'
