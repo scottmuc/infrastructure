@@ -140,6 +140,13 @@
     state: absent
 
 
+- name: Ensure ifupdown installed so /etc/network/interfaces.d exists
+  become: true
+  ansible.builtin.apt:
+    pkg:
+      - ifupdown
+
+
 - name: Setup static IP
   become: true
   ansible.builtin.copy:
