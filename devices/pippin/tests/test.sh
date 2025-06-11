@@ -12,7 +12,7 @@ main() {
 }
 
 run_tests() {
-    npx cucumber-js \
+    npx ./node_modules/.bin/cucumber-js \
       features/*.feature \
       --require-module ts-node/register \
       --require steps/*.ts
