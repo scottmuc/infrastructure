@@ -31,14 +31,17 @@ is_wsl() {
   [[ -d /mnt/c ]]
 }
 
-# Output the current background if no arguments are given
-if [[ "${theme}" = "none" ]]; then
+return_current_background() {
   if [[ -f /tmp/background ]]; then
     cat /tmp/background
   else
     echo "dark"
   fi
-else
+}
+
+set_background() {
+  local theme="$1"
+
   if is_macos; then
     echo "macOS implementation TODO"
     # mac_config_file=~/.config/alacritty/alacritty.toml
@@ -46,7 +49,7 @@ else
   elif is_linux && is_wsl; then
     win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
     win_config_file="${win_config_dir}/alacritty.toml"
-    theme_path="~/AppData/Roaming/alacritty/themes/themes/solarized_${theme}.toml" \
+    theme_path="~/AppData/Roaming/alacritty/themes/themes/solarized_${theme}.toml"
     mkdir -p "${win_config_dir}"
     copy_config "${theme_path}" "${win_config_file}"
   elif is_linux; then
@@ -60,4 +63,11 @@ else
   # registry breaks the pipes that delta needs for diffing (at least that's
   # my current guess as to what's happening)
   echo "${theme}" > /tmp/background
+}
+
+# Output the current background if no arguments are given
+if [[ "${theme}" = "none" ]]; then
+  return_current_background
+else
+  set_background "${theme}"
 fi
