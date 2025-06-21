@@ -181,6 +181,7 @@
 
             initExtra = ''
             export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+            export PATH="$HOME/workspace/infrastructure/devices/frodo/bin:$PATH"
             '';
 
           };
