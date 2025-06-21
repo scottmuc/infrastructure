@@ -34,12 +34,9 @@ symlink_all_the_things() {
   device_home_dir="${DIR}/dotfiles"
 
   # shellcheck disable=SC2174
-  mkdir -p -m 0700 ~/.gnupg
-  # shellcheck disable=SC2174
   mkdir -p -m 0700 ~/.ssh
   mkdir -p ~/.config
 
-  ln -sfv "${common_dotfiles_dir}/dot.gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
   ln -sfv "${common_dotfiles_dir}/dot.githelpers"           ~/.githelpers
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf"            ~/.tmux.conf
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig"            ~/.gitconfig

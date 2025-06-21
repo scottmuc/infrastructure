@@ -227,12 +227,6 @@ symlink_all_the_things() {
     mkdir ~/.config
   fi
 
-  if [[ ! -d ~/.gnupg ]]; then
-    mkdir ~/.gnupg
-    chmod 700 ~/.gnupg
-  fi
-  ln -sfv "${common_dotfiles_dir}/dot.gnupg/gpg-agent.conf" ~/.gnupg/gpg-agent.conf
-
   ln -sfv "${common_dotfiles_dir}/dot.githelpers" ~/.githelpers
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
