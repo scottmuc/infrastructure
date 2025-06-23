@@ -1,11 +1,13 @@
-import { Given } from "cucumber";
-import { chromium } from "playwright";
+import { Given, When, After } from "cucumber";
+import { chromium, Page, Browser } from "playwright";
 import { expect } from "@playwright/test";
 
+let page: Page;
+let browser: Browser;
+
 Given("I am logged in as the testuser", async () => {
-  console.log("Logging in as testuser...");
-  const browser = await chromium.launch();
-  const page = await browser.newPage();
+  browser = await chromium.launch();
+  page = await browser.newPage();
   const loginUrl = "https://home.scottmuc.com/music/app/#/login";
   await page.goto(loginUrl);
   await page.waitForTimeout(1000);
@@ -23,6 +25,30 @@ Given("I am logged in as the testuser", async () => {
   const titleText = await titleElement.textContent();
 
   expect(titleText).toContain("Navidrome  - Albums - Recently Added");
+});
 
-  await browser.close();
+When(
+  "I navigate to the album {string} by the band {string}",
+  async function (albumName, bandName) {
+    await page.click("text=Albums");
+    await page.click("text=All");
+
+    await page.waitForURL("**/album/**");
+    expect(page.url()).toContain(
+      "https://home.scottmuc.com/music/app/#/album/"
+    );
+
+    await page.fill("input[id='search']", albumName);
+    await page.waitForTimeout(2000);
+    await page.click("img[aria-label='play']");
+
+    await page.waitForTimeout(2000);
+    await page.click("text='Click to pause']");
+  }
+);
+
+After(async () => {
+  if (browser) {
+    await browser.close();
+  }
 });
