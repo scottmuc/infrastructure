@@ -1,10 +1,10 @@
 {
   "dependencies": {
-    "@playwright/test": "^1.53.0",
-    "cucumber": "^6.0.7",
-    "playwright": "^1.53.0"
+    "cucumber": "^6.0.7"
   },
   "devDependencies": {
-    "@types/node": "^24.0.1"
+    "@playwright/test": "^1.53.0",
+    "@types/node": "^24.0.1",
+    "playwright": "^1.53.0"
   }
 }
