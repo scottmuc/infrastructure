@@ -3,11 +3,14 @@
 set -eu -o pipefail
 
 main() {
+    # Can't really do much if we don't have Node installed
     check_node
-    check_playwright
 
     # If we've reached here, all machine dependecnies are met!
     install_dependencies
+
+    # Must check browsers after installing dependencies
+    check_playwright
     run_tests
 }
 
@@ -32,11 +35,11 @@ check_node() {
 }
 
 check_playwright() {
-    browser_count="$(ls ~/.cache/ms-playwright/ | wc -l)"
-    if (( browser_count == 0 )); then
+    if npx playwright install --dry-run | grep -q 'Installing'; then
         echo "Playwright browsers not installed, run 'npx playwright install'"
         exit 1
     fi
+    echo "All Playwright browsers are installed"
 }
 
 main "$@"
