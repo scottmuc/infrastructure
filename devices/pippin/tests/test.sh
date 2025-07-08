@@ -9,8 +9,6 @@ main() {
     # If we've reached here, all machine dependecnies are met!
     install_dependencies
 
-    # Must check browsers after installing dependencies
-    check_playwright
     run_tests
 }
 
@@ -32,14 +30,6 @@ check_node() {
     fi
     echo "Node JS location : $(command -v node)"
     echo "Node JS version  : $(node --version)"
-}
-
-check_playwright() {
-    if npx playwright install --dry-run | grep -q 'Installing'; then
-        echo "Playwright browsers not installed, run 'npx playwright install'"
-        exit 1
-    fi
-    echo "All Playwright browsers are installed"
 }
 
 main "$@"
