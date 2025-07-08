@@ -10,6 +10,35 @@ const convertToString = (input: any): string => {
   return input.toString();
 };
 
+const constructUrl = (base: string, path: string): string => {
+  // OMG, the URL object will squash the path in the base if
+  // the path variable begins with a '/'. Rather than ensuring
+  // someone specifies a base WITH a trailing '/' and ensuring
+  // someone specifies a path WITHOUT a leading '/', we do some
+  // some sanitization of both params to ensure all the following
+  // work:
+  //
+  // base: https://home.scottmuc.com/music
+  // path: app/#/login
+  //  out: https://home.scottmuc.com/music/app/#/login
+  //
+  // base: https://home.scottmuc.com/music
+  // path: /app/#/login
+  //  out: https://home.scottmuc.com/music/app/#/login
+  //
+  // base: https://home.scottmuc.com/music/
+  // path: app/#/login
+  //  out: https://home.scottmuc.com/music/app/#/login
+  //
+  // base: https://home.scottmuc.com/music/
+  // path: /app/#/login
+  //  out: https://home.scottmuc.com/music/app/#/login
+  return new URL(
+    path.replace(/^\/+/g, ''),
+    base.replace(/\/+$/g, '') + '/'
+  ).href;
+}
+
 Given("I am logged in as the testuser", async () => {
   const baseUrl = convertToString(process.env.NAVIDROME_BASE_URL);
   const username = convertToString(process.env.NAVIDROME_USERNAME);
@@ -22,7 +51,7 @@ Given("I am logged in as the testuser", async () => {
   browser = await chromium.launch({ headless: false });
   page = await browser.newPage();
 
-  await page.goto(`${baseUrl}/music/app/#/login`);
+  await page.goto(constructUrl(baseUrl, '/app/#/login'));
   await page.waitForTimeout(500);
   await page.fill("input[name='username']", username);
   await page.fill("input[name='password']", password);
@@ -31,7 +60,7 @@ Given("I am logged in as the testuser", async () => {
   await page.waitForTimeout(1000);
 
   expect(page.url()).toContain(
-    `${baseUrl}/music/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}`
+    constructUrl(baseUrl, '/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}')
   );
 
   const titleElement = page.locator("#react-admin-title");
