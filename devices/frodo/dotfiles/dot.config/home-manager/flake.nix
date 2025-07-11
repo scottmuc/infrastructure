@@ -80,6 +80,7 @@
             pkgs.bc
             pkgs.clang
             pkgs.curl
+            pkgs.fly
             pkgs.fzf
             pkgs.git-crypt
             pkgs.gnumake
