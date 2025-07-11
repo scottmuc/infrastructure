@@ -61,6 +61,11 @@
           value: '1'
 
 
+    - name: Configure concourse
+      ansible.builtin.include_tasks:
+        file: ../tasks/concourse.yml
+
+
     - name: Configure syslog forwarding
       ansible.builtin.include_tasks:
         file: ../tasks/logging.yml
