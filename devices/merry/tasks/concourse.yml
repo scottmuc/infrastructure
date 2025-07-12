@@ -88,9 +88,9 @@
 - name: Unarchive source
   become: true
   unarchive:
-    creates: true
-    remote_src: true
     src: /tmp/concourse.tgz
+    remote_src: true
+    creates: /usr/local/concourse/6.7.5/concourse
     dest: /usr/local/concourse/6.7.5
     owner: concourse
     group: admin
@@ -143,8 +143,8 @@
     dest: /usr/local/concourse/etc/authorized_worker_keys
     remote_src: true
     owner: concourse
-    group: admin
-    mode: "0660"
+    group: concourse
+    mode: "0644"
 
 
 - name: create web launch script
