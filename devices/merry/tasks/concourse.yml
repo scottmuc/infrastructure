@@ -3,12 +3,18 @@
   ansible.builtin.get_url:
     url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
     dest: /usr/share/keyrings/postgres.asc
+    owner: root
+    group: root
+    mode: "0644"
 
 
 - name: Add Apt Repository
   become: true
   ansible.builtin.copy:
     dest: /etc/apt/sources.list.d/postgres.list
+    owner: root
+    group: root
+    mode: "0644"
     content: |
       deb [signed-by=/usr/share/keyrings/postgres.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main
 
@@ -18,12 +24,12 @@
   apt:
     update_cache: true
     pkg:
-    - postgresql-13
-    # Needed by the postgresql community module
-    - python3-psycopg2
-    # Needed to manage ACLs
-    # https://docs.ansible.com/ansible/latest/user_guide/become.html#risks-and-limitations-of-become
-    - acl
+      - postgresql-13
+      # Needed by the postgresql community module
+      - python3-psycopg2
+      # Needed to manage ACLs
+      # https://docs.ansible.com/ansible/latest/user_guide/become.html#risks-and-limitations-of-become
+      - acl
 
 - name: Create DB
   become: true
@@ -50,6 +56,8 @@
     path: /usr/local/concourse/6.7.5
     state: directory
     owner: concourse
+    group: admin
+    mode: "0755"
 
 - name: Create concourse config home
   become: true
@@ -57,6 +65,8 @@
     path: /usr/local/concourse/etc
     state: directory
     owner: concourse
+    group: admin
+    mode: "0755"
 
 - name: Create concourse worker workspace
   become: true
@@ -64,21 +74,27 @@
     path: /usr/local/concourse/worker
     state: directory
     owner: concourse
+    group: admin
+    mode: "0755"
 
 - name: Gets tarball
   get_url:
-    url="https://github.com/concourse/concourse/releases/download/v6.7.5/concourse-6.7.5-linux-amd64.tgz"
-    dest="/tmp/concourse.tgz"
-  register: new_archive
+    url: "https://github.com/concourse/concourse/releases/download/v6.7.5/concourse-6.7.5-linux-amd64.tgz"
+    dest: "/tmp/concourse.tgz"
+    owner: root
+    group: admin
+    mode: "0664"
 
 - name: Unarchive source
   become: true
   unarchive:
-    owner="concourse"
-    creates="true"
-    remote_src="true"
-    src="/tmp/concourse.tgz"
-    dest="/usr/local/concourse/6.7.5"
+    creates: true
+    remote_src: true
+    src: /tmp/concourse.tgz
+    dest: /usr/local/concourse/6.7.5
+    owner: concourse
+    group: admin
+    mode: "0664"
 
 - name: Create session signing key
   become: true
@@ -86,12 +102,12 @@
   command:
     creates: /usr/local/concourse/etc/session_signing_key
     argv:
-    - /usr/local/concourse/6.7.5/concourse/bin/concourse
-    - generate-key
-    - -t
-    - rsa
-    - -f
-    - /usr/local/concourse/etc/session_signing_key
+      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - generate-key
+      - -t
+      - rsa
+      - -f
+      - /usr/local/concourse/etc/session_signing_key
 
 - name: Create session TSA host key
   become: true
@@ -99,12 +115,12 @@
   command:
     creates: /usr/local/concourse/etc/tsa_host_key
     argv:
-    - /usr/local/concourse/6.7.5/concourse/bin/concourse
-    - generate-key
-    - -t
-    - ssh
-    - -f
-    - /usr/local/concourse/etc/tsa_host_key
+      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - generate-key
+      - -t
+      - ssh
+      - -f
+      - /usr/local/concourse/etc/tsa_host_key
 
 - name: Create session worker key
   become: true
@@ -112,12 +128,12 @@
   command:
     creates: /usr/local/concourse/etc/worker_key
     argv:
-    - /usr/local/concourse/6.7.5/concourse/bin/concourse
-    - generate-key
-    - -t
-    - ssh
-    - -f
-    - /usr/local/concourse/etc/worker_key
+      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - generate-key
+      - -t
+      - ssh
+      - -f
+      - /usr/local/concourse/etc/worker_key
 
 - name: Set authorized_worker_keys
   become: true
@@ -125,7 +141,10 @@
   copy:
     src: /usr/local/concourse/etc/worker_key.pub
     dest: /usr/local/concourse/etc/authorized_worker_keys
-    remote_src: yes
+    remote_src: true
+    owner: concourse
+    group: admin
+    mode: "0660"
 
 
 - name: create web launch script
@@ -134,7 +153,7 @@
   copy:
     dest: /usr/local/concourse/start.sh
     owner: "concourse"
-    mode: 0755
+    mode: "0755"
     content: |
       #!/usr/bin/env bash
       exec /usr/local/concourse/6.7.5/concourse/bin/concourse web \
@@ -154,7 +173,7 @@
   copy:
     dest: /usr/local/concourse/worker.sh
     owner: "concourse"
-    mode: 0755
+    mode: "0755"
     content: |
       #!/usr/bin/env bash
 
@@ -169,11 +188,13 @@
         ;
 
 - name: create web service
-  become: yes
+  become: true
   copy:
     dest: /etc/systemd/system/concourse-web.service
+    force: true
     owner: root
-    force: yes
+    group: admin
+    mode: "0664"
     content: |
       [Unit]
       Description=concourse-web
@@ -195,11 +216,13 @@
 
 
 - name: create worker service
-  become: yes
+  become: true
   copy:
     dest: /etc/systemd/system/concourse-worker.service
+    force: true
     owner: root
-    force: yes
+    group: admin
+    mode: "0664"
     content: |
       [Unit]
       Description=concourse-worker
@@ -220,31 +243,31 @@
 
 - name: systemd daemon reload
   systemd:
-    daemon_reload: yes
-  become: yes
+    daemon_reload: true
+  become: true
 
 - name: configure web service
   service:
     name: concourse-web
-    enabled: yes
-  become: yes
+    enabled: true
+  become: true
 
 - name: start web service
   service:
     name: concourse-web
     state: started
-  become: yes
+  become: true
 
 - name: configure worker service
   service:
     name: concourse-worker
-    enabled: yes
-  become: yes
+    enabled: true
+  become: true
 
 - name: start worker service
   service:
     name: concourse-worker
     state: started
-  become: yes
+  become: true
 
 # vim: ft=yaml.ansible
