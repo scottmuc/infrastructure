@@ -20,7 +20,7 @@
 
 - name: Include vars
   ansible.builtin.include_vars:
-    file: ../secret_vars.yml
+    file: ../secrets/papertrail.yml
     name: secrets
 
 
