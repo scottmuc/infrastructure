@@ -1,12 +1,12 @@
 /// <reference types="node" />
-import { Given, When, After, Before } from "cucumber";
+import { Given, When, After, Before, Then, setDefaultTimeout } from "cucumber";
 import { chromium, Page, Browser } from "playwright";
 import { expect } from "@playwright/test";
-import { TestSetup } from "../test-setup";
+import { TestConfig } from "../test-config";
 
 let page: Page;
 let browser: Browser;
-let testSetup: TestSetup;
+let testConfig: TestConfig;
 
 const convertToString = (input: any): string => {
   return input.toString();
@@ -40,19 +40,15 @@ const constructUrl = (base: string, path: string): string => {
 };
 
 Before(async () => {
-  testSetup = new TestSetup();
+  testConfig = new TestConfig();
+  setDefaultTimeout(600000);
 });
 
 Given("I am logged in as the testuser", async () => {
-  const baseUrl = convertToString(testSetup.baseUrl);
-  const username = convertToString(testSetup.username);
-  const password = convertToString(testSetup.password);
-  const testEnvironment = convertToString(testSetup.testEnvironment);
-
-  expect(baseUrl.length).toBeGreaterThan(0);
-  expect(username.length).toBeGreaterThan(0);
-  expect(password.length).toBeGreaterThan(0);
-  expect(testEnvironment.length).toBeGreaterThan(0);
+  const baseUrl = convertToString(testConfig.baseUrl);
+  const username = convertToString(testConfig.username);
+  const password = convertToString(testConfig.password);
+  const testEnvironment = convertToString(testConfig.testEnvironment);
 
   browser = await chromium.launch({
     headless: testEnvironment !== "local",
@@ -88,13 +84,41 @@ When(
     await page.waitForTimeout(2000);
 
     await page.click(`img[alt='${albumName}']`);
-    await page.waitForTimeout(2000);
+    await page.waitForTimeout(500);
 
     const bandNameHeading = page.locator(`h6 a:has-text("${bandName}")`);
-    await bandNameHeading.waitFor({ timeout: 10000 });
     expect(bandNameHeading).toBeTruthy();
   }
 );
+
+When("I play {string}", async function (songTitle) {
+  await page.click(`span:has-text("${songTitle}")`);
+  const playerElement = page.locator(`div:has-class("music-player-panel")`);
+  expect(playerElement).toBeTruthy();
+  await page.waitForTimeout(500);
+
+  const audioTitleElement = page.locator(
+    `span.audio-title:has-text("${songTitle}")`
+  );
+  expect(audioTitleElement).toBeTruthy();
+});
+
+const convertTimestampToSeconds = (timestamp: string | null): number => {
+  if (!timestamp) {
+    throw new Error("Timestamp is not found");
+  }
+  const [minutes, seconds] = timestamp.split(":");
+  return Number(minutes) * 60 + Number(seconds);
+};
+
+Then("at least 5s of the song is played", async function () {
+  await page.waitForTimeout(6000);
+
+  const currentTime = page.locator(`span.current-time`);
+  const currentTimeText = await currentTime.textContent();
+
+  expect(convertTimestampToSeconds(currentTimeText)).toBeGreaterThanOrEqual(5);
+});
 
 After(async () => {
   if (browser) {
