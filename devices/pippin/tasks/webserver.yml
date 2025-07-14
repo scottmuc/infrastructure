@@ -83,6 +83,19 @@
     - vhost: home.scottmuc.com
 
 
+- name: Serve private IP for public websites
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/unbound/unbound.conf.d/local-websites.conf
+    owner: root
+    group: root
+    mode: '0664'
+    content: |
+      server:
+        local-data: "home.scottmuc.com.   IN    A   192.168.2.10"
+  notify:
+    - Restart unbound
+
 # Favouring complete overwrite of the configuration file coming from the
 # package manager due to reasons identified here:
 # https://serverfault.com/questions/825363/override-default-nginx-http-configuration-without-changing-default-nginx-conf
