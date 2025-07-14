@@ -1,3 +1,8 @@
+- name: Include secret variables
+  ansible.builtin.include_vars:
+    file: ../secrets/concourse.yml
+    name: secrets
+
 - name: Install Apt Keys
   become: true
   ansible.builtin.get_url:
@@ -41,9 +46,9 @@
   become: true
   become_user: postgres
   postgresql_user:
-    db: concourse
-    user: concourse
-    password: "concourse"
+    db: "{{ secrets.concourse_db_database }}"
+    user: "{{ secrets.concourse_db_username }}"
+    password: "{{ secrets.concourse_db_password }}"
 
 - name: Concourse user
   become: true
@@ -162,9 +167,9 @@
         --tsa-authorized-keys "/usr/local/concourse/etc/authorized_worker_keys" \
         --external-url "http://192.168.2.11:8080" \
         --postgres-socket "/var/run/postgresql" \
-        --postgres-database "concourse" \
-        --add-local-user "concourse:concourse" \
-        --main-team-local-user "concourse" \
+        --postgres-database "{{ secrets.concourse_db_database }}" \
+        --add-local-user "{{ secrets.concourse_admin_username }}:{{ secrets.concourse_admin_password }}" \
+        --main-team-local-user "{{ secrets.concourse_admin_username }}" \
         ;
 
 - name: create web worker launch script
