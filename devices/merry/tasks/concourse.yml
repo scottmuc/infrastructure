@@ -1,8 +1,3 @@
-- name: Include secret variables
-  ansible.builtin.include_vars:
-    file: ../secrets/concourse.yml
-    name: secrets
-
 - name: Install Apt Keys
   become: true
   ansible.builtin.get_url:
@@ -23,6 +18,7 @@
     content: |
       deb [signed-by=/usr/share/keyrings/postgres.asc] http://apt.postgresql.org/pub/repos/apt/ bookworm-pgdg main
 
+
 # Inspired by https://github.com/troykinsella/ansible-concourse
 - name: Install concourse dependencies
   become: true
@@ -36,11 +32,52 @@
       # https://docs.ansible.com/ansible/latest/user_guide/become.html#risks-and-limitations-of-become
       - acl
 
+
+- name: Concourse user
+  become: true
+  user:
+    name: concourse
+
+
+- name: Application directory
+  become: true
+  ansible.builtin.file:
+    path: /opt/concourse
+    state: directory
+    owner: concourse
+    group: admin
+    mode: '0775'
+
+
+- name: Application versioned directory
+  become: true
+  ansible.builtin.file:
+    path: "/opt/concourse/{{ concourse_version }}"
+    state: directory
+    owner: concourse
+    group: admin
+    mode: '0775'
+
+
+- name: Symlink current application version
+  ansible.builtin.file:
+    src: "/opt/concourse/{{ concourse_version }}"
+    dest: "/opt/concourse/live"
+    state: link
+
+
+- name: Include secret variables
+  ansible.builtin.include_vars:
+    file: ../secrets/concourse.yml
+    name: secrets
+
+
 - name: Create DB
   become: true
   become_user: postgres
   postgresql_db:
     name: concourse
+
 
 - name: Create Concourse DB user
   become: true
@@ -50,19 +87,6 @@
     user: "{{ secrets.concourse_db_username }}"
     password: "{{ secrets.concourse_db_password }}"
 
-- name: Concourse user
-  become: true
-  user:
-    name: concourse
-
-- name: Create concourse home
-  become: true
-  file:
-    path: /usr/local/concourse/6.7.5
-    state: directory
-    owner: concourse
-    group: admin
-    mode: "0755"
 
 - name: Create concourse config home
   become: true
@@ -73,6 +97,7 @@
     group: admin
     mode: "0755"
 
+
 - name: Create concourse worker workspace
   become: true
   file:
@@ -82,24 +107,27 @@
     group: admin
     mode: "0755"
 
+
 - name: Gets tarball
   get_url:
-    url: "https://github.com/concourse/concourse/releases/download/v6.7.5/concourse-6.7.5-linux-amd64.tgz"
+    url: "https://github.com/concourse/concourse/releases/download/v{{ concourse_version }}/concourse-{{ concourse_version }}-linux-amd64.tgz"
     dest: "/tmp/concourse.tgz"
     owner: root
     group: admin
     mode: "0664"
+
 
 - name: Unarchive source
   become: true
   unarchive:
     src: /tmp/concourse.tgz
     remote_src: true
-    creates: /usr/local/concourse/6.7.5/concourse
-    dest: /usr/local/concourse/6.7.5
+    creates: /opt/concourse/{{ concourse_version }}/concourse
+    dest: /opt/concourse/{{ concourse_version }}
     owner: concourse
     group: admin
     mode: "0664"
+
 
 - name: Create session signing key
   become: true
@@ -107,12 +135,13 @@
   command:
     creates: /usr/local/concourse/etc/session_signing_key
     argv:
-      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - /opt/concourse/live/concourse/bin/concourse
       - generate-key
       - -t
       - rsa
       - -f
       - /usr/local/concourse/etc/session_signing_key
+
 
 - name: Create session TSA host key
   become: true
@@ -120,12 +149,13 @@
   command:
     creates: /usr/local/concourse/etc/tsa_host_key
     argv:
-      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - /opt/concourse/live/concourse/bin/concourse
       - generate-key
       - -t
       - ssh
       - -f
       - /usr/local/concourse/etc/tsa_host_key
+
 
 - name: Create session worker key
   become: true
@@ -133,12 +163,13 @@
   command:
     creates: /usr/local/concourse/etc/worker_key
     argv:
-      - /usr/local/concourse/6.7.5/concourse/bin/concourse
+      - /opt/concourse/live/concourse/bin/concourse
       - generate-key
       - -t
       - ssh
       - -f
       - /usr/local/concourse/etc/worker_key
+
 
 - name: Set authorized_worker_keys
   become: true
@@ -161,7 +192,7 @@
     mode: "0755"
     content: |
       #!/usr/bin/env bash
-      exec /usr/local/concourse/6.7.5/concourse/bin/concourse web \
+      exec /opt/concourse/live/concourse/bin/concourse web \
         --session-signing-key "/usr/local/concourse/etc/session_signing_key" \
         --tsa-host-key "/usr/local/concourse/etc/tsa_host_key" \
         --tsa-authorized-keys "/usr/local/concourse/etc/authorized_worker_keys" \
@@ -185,7 +216,7 @@
       # https://discuss.concourse-ci.org/t/trying-to-run-concourse-ci-on-ubuntu-azure-machine/2074/5
       export CONCOURSE_GARDEN_DNS_SERVER=8.8.8.8
 
-      exec /usr/local/concourse/6.7.5/concourse/bin/concourse worker \
+      exec /opt/concourse/live/concourse/bin/concourse worker \
         --tsa-host "127.0.0.1:2222" \
         --tsa-public-key "/usr/local/concourse/etc/tsa_host_key.pub" \
         --tsa-worker-private-key "/usr/local/concourse/etc/worker_key" \
