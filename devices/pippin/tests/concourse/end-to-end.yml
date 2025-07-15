@@ -1,0 +1,37 @@
+resources:
+- name: infrastructure
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/scottmuc/infrastructure
+
+jobs:
+- name: navidrome
+  plan:
+  - get: infrastructure
+
+  - task: cat-navidrome-feature
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs: # pass concourse-examples into this task step
+      - name: infrastructure
+      run:
+        path: cat
+        args: ["infrastructure/devices/pippin/tests/features/navidrome.feature"]
+
+  - task: run-tests
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: "node"
+      inputs: # pass concourse-examples into this task step
+      - name: infrastructure
+      run:
+        dir: ./infrastructure/devices/pippin/tests
+        path: ./test.sh
