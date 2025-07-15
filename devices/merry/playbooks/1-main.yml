@@ -63,7 +63,7 @@
 
     - name: Configure concourse
       vars:
-        concourse_version: "6.7.5"
+        concourse_version: "6.7.6"
       ansible.builtin.include_tasks:
         file: ../tasks/concourse.yml
 
@@ -155,6 +155,20 @@
       become: true
       ansible.builtin.service:
         name: unbound_exporter
+        state: restarted
+
+
+    - name: Restart concourse-web
+      become: true
+      ansible.builtin.service:
+        name: concourse-web
+        state: restarted
+
+
+    - name: Restart concourse-worker
+      become: true
+      ansible.builtin.service:
+        name: concourse-worker
         state: restarted
 
 # vim: ft=yaml.ansible

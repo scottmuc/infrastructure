@@ -59,11 +59,23 @@
     mode: '0775'
 
 
+- name: Download concourse
+  become: true
+  ansible.builtin.unarchive:
+    src: "https://github.com/concourse/concourse/releases/download/v{{ concourse_version }}/concourse-{{ concourse_version }}-linux-amd64.tgz"
+    remote_src: true
+    dest: /opt/concourse/{{ concourse_version }}
+    creates: /opt/concourse/{{ concourse_version }}/concourse
+
+
 - name: Symlink current application version
   ansible.builtin.file:
     src: "/opt/concourse/{{ concourse_version }}"
     dest: "/opt/concourse/live"
     state: link
+  notify:
+    - Restart concourse-web
+    - Restart concourse-worker
 
 
 - name: Include secret variables
@@ -106,27 +118,6 @@
     owner: concourse
     group: admin
     mode: "0755"
-
-
-- name: Gets tarball
-  get_url:
-    url: "https://github.com/concourse/concourse/releases/download/v{{ concourse_version }}/concourse-{{ concourse_version }}-linux-amd64.tgz"
-    dest: "/tmp/concourse.tgz"
-    owner: root
-    group: admin
-    mode: "0664"
-
-
-- name: Unarchive source
-  become: true
-  unarchive:
-    src: /tmp/concourse.tgz
-    remote_src: true
-    creates: /opt/concourse/{{ concourse_version }}/concourse
-    dest: /opt/concourse/{{ concourse_version }}
-    owner: concourse
-    group: admin
-    mode: "0664"
 
 
 - name: Create session signing key
@@ -202,6 +193,8 @@
         --add-local-user "{{ secrets.concourse_admin_username }}:{{ secrets.concourse_admin_password }}" \
         --main-team-local-user "{{ secrets.concourse_admin_username }}" \
         ;
+  notify:
+    - Restart concourse-web
 
 - name: create web worker launch script
   become: true
@@ -222,6 +215,8 @@
         --tsa-worker-private-key "/usr/local/concourse/etc/worker_key" \
         --work-dir "/usr/local/concourse/worker" \
         ;
+  notify:
+    - Restart concourse-worker
 
 - name: create web service
   become: true
@@ -249,6 +244,8 @@
 
       [Install]
       WantedBy=multi-user.target
+  notify:
+    - Restart concourse-web
 
 
 - name: create worker service
@@ -276,6 +273,9 @@
 
       [Install]
       WantedBy=multi-user.target
+  notify:
+    - Restart concourse-worker
+
 
 - name: systemd daemon reload
   systemd:
