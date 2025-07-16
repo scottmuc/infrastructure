@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+set -e
+
+fly --target concourse.scottmuc.com set-team \
+  --team-name smootz-gmbh \
+  --config <(cat <<'EOF'
+roles:
+  - name: owner
+    local:
+      users:
+        - smootz
+
+  - name: member
+    local:
+      users:
+        - nina
+EOF
+)

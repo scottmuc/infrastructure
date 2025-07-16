@@ -190,8 +190,10 @@
         --external-url "https://concourse.scottmuc.com/" \
         --postgres-socket "/var/run/postgresql" \
         --postgres-database "{{ secrets.concourse_db_database }}" \
-        --add-local-user "{{ secrets.concourse_admin_username }}:{{ secrets.concourse_admin_password }}" \
         --main-team-local-user "{{ secrets.concourse_admin_username }}" \
+        {% for user in secrets.concourse_local_users %}
+        --add-local-user "{{ user }}" \
+        {% endfor %}
         ;
   notify:
     - Restart concourse-web
