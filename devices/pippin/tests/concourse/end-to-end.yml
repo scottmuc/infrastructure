@@ -1,3 +1,5 @@
+public: true
+
 resources:
 - name: infrastructure
   type: git
@@ -17,7 +19,7 @@ jobs:
         type: registry-image
         source:
           repository: busybox
-      inputs: # pass concourse-examples into this task step
+      inputs:
       - name: infrastructure
       run:
         path: cat
@@ -30,7 +32,7 @@ jobs:
         type: registry-image
         source:
           repository: "node"
-      inputs: # pass concourse-examples into this task step
+      inputs:
       - name: infrastructure
       run:
         dir: ./infrastructure/devices/pippin/tests
