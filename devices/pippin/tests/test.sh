@@ -10,13 +10,14 @@ main() {
     install_dependencies
 
     if [[ "${NAVIDROME_TEST_ENVIRONMENT}" != "local" ]]; then
-      install_playright_browsers
+      install_playwright_browsers
     fi
 
     run_tests
 }
 
-install_playright_browsers() {
+install_playwright_browsers() {
+  npx playwright install-deps
   npx playwright install
 }
 
