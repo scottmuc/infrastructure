@@ -1,16 +1,19 @@
-public: true
-
 resources:
 - name: infrastructure
   type: git
   icon: github
   source:
     uri: https://github.com/scottmuc/infrastructure
+    path:
+      - devices/pippin/tests/**
 
 jobs:
 - name: navidrome
+  public: true
+
   plan:
   - get: infrastructure
+    trigger: true
 
   - task: cat-navidrome-feature
     config:
