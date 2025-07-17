@@ -34,9 +34,15 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: "node"
+          repository: mcr.microsoft.com/playwright
+          tag: v1.54.0-noble
       inputs:
       - name: infrastructure
       run:
         dir: ./infrastructure/devices/pippin/tests
         path: ./test.sh
+      params:
+        NAVIDROME_BASE_URL: "https://home.scottmuc.com/music/"
+        NAVIDROME_USERNAME: "tester"
+        NAVIDROME_PASSWORD: (( navidrome_password ))
+        NAVIDROME_TEST_ENVIRONMENT: "concourse"
