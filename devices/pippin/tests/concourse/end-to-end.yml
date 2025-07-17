@@ -44,5 +44,5 @@ jobs:
       params:
         NAVIDROME_BASE_URL: "https://home.scottmuc.com/music/"
         NAVIDROME_USERNAME: "tester"
-        NAVIDROME_PASSWORD: (( navidrome_password ))
+        NAVIDROME_PASSWORD: ((navidrome_password))
         NAVIDROME_TEST_ENVIRONMENT: "concourse"
