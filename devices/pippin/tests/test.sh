@@ -8,7 +8,16 @@ main() {
 
     # If we've reached here, all machine dependecnies are met!
     install_dependencies
+
+    if [[ "${NAVIDROME_TEST_ENVIRONMENT}" != "local" ]]; then
+      install_playwright_browsers
+    fi
+
     run_tests
+}
+
+install_playwright_browsers() {
+  npx playwright install
 }
 
 run_tests() {
