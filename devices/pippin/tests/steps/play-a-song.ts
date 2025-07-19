@@ -4,6 +4,10 @@ import { chromium, Page, Browser } from "playwright";
 import { expect } from "@playwright/test";
 import { TestConfig } from "../test-config";
 
+// This must be called in a global scope, otherwise it gets reset.
+// https://github.com/cucumber/cucumber-js/blob/HEAD/docs/support_files/timeouts.md
+setDefaultTimeout(600000);
+
 let page: Page;
 let browser: Browser;
 let testConfig: TestConfig;
@@ -41,7 +45,6 @@ const constructUrl = (base: string, path: string): string => {
 
 Before(async () => {
   testConfig = new TestConfig();
-  setDefaultTimeout(600000);
 });
 
 Given("I am logged in as the testuser", async () => {
