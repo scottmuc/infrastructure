@@ -24,7 +24,8 @@ run_tests() {
     npx cucumber-js \
       features/*.feature \
       --require-module ts-node/register \
-      --require steps/*.ts
+      --require steps/*.ts \
+      --format pretty
 }
 
 install_dependencies() {
