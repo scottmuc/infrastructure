@@ -74,10 +74,7 @@ Given("I am logged in as the testuser", async () => {
   );
 
   const titleElement = page.locator("#react-admin-title");
-  await titleElement.waitFor({ timeout: 10000 });
-  const titleText = await titleElement.textContent();
-
-  expect(titleText).toContain("Navidrome  - Albums - Recently Added");
+  expect(titleElement).toHaveText("Navidrome  - Albums - Recently Added");
 });
 
 When(
