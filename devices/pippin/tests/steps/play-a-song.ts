@@ -1,5 +1,5 @@
 /// <reference types="node" />
-import { Given, When, After, Before, Then, setDefaultTimeout } from "cucumber";
+import { Given, When, After, Before, Then, setDefaultTimeout } from "@cucumber/cucumber";
 import { chromium, Page, Browser } from "playwright";
 import { expect } from "@playwright/test";
 import { TestConfig } from "../test-config";

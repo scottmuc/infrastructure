@@ -1,10 +1,7 @@
 {
-  "dependencies": {
-    "cucumber": "^6.0.7"
-  },
   "devDependencies": {
+    "@cucumber/cucumber": "^12.1.0",
     "@playwright/test": "^1.53.0",
-    "@types/cucumber": "^6.0.1",
     "@types/node": "^24.0.1",
     "playwright": "^1.53.0",
     "ts-node": "^10.9.2",
