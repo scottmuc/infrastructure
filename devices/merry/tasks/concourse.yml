@@ -190,6 +190,11 @@
         --external-url "https://concourse.scottmuc.com/" \
         --postgres-socket "/var/run/postgresql" \
         --postgres-database "{{ secrets.concourse_db_database }}" \
+        --vault-path-prefix "/concourse" \
+        --vault-auth-backend token \
+        --vault-client-token "{{ secrets.concourse_vault_client_token }}" \
+        --vault-url https://localhost:8200 \
+        --vault-insecure-skip-verify \
         --main-team-local-user "{{ secrets.concourse_admin_username }}" \
         {% for user in secrets.concourse_local_users %}
         --add-local-user "{{ user }}" \
