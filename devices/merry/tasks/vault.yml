@@ -1,0 +1,29 @@
+- name: Install Apt Keys
+  become: true
+  ansible.builtin.get_url:
+    url: https://apt.releases.hashicorp.com/gpg
+    dest: /usr/share/keyrings/hashicorp.asc
+    owner: root
+    group: root
+    mode: "0644"
+
+
+- name: Add Apt Repository
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/apt/sources.list.d/hashicorp.list
+    owner: root
+    group: root
+    mode: "0644"
+    content: |
+      deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main
+
+
+- name: Install Vault
+  become: true
+  ansible.builtin.apt:
+    name: vault
+    state: present
+    update_cache: true
+
+# vim: ft=yaml.ansible

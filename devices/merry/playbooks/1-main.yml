@@ -61,6 +61,10 @@
           value: '1'
 
 
+    - name: Configure Vault
+      ansible.builtin.include_tasks:
+        file: ../tasks/vault.yml
+
     - name: Configure concourse
       vars:
         concourse_version: "7.13.2"
