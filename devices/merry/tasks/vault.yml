@@ -27,6 +27,32 @@
     update_cache: true
 
 
+- name: Configure vault
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/vault.d/vault.hcl
+    owner: vault
+    group: vault
+    mode: '0664'
+    content: |
+      # https://developer.hashicorp.com/vault/docs/configuration
+
+      ui = true
+
+      storage "file" {
+        path = "/opt/vault/data"
+      }
+
+      # https://merry:8200/
+      listener "tcp" {
+        address       = "0.0.0.0:8200"
+        tls_cert_file = "/opt/vault/tls/tls.crt"
+        tls_key_file  = "/opt/vault/tls/tls.key"
+      }
+  notify:
+    - Restart vault
+
+
 - name: Ensure vault is running
   become: true
   ansible.builtin.service:
