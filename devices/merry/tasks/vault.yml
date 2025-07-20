@@ -26,4 +26,12 @@
     state: present
     update_cache: true
 
+
+- name: Ensure vault is running
+  become: true
+  ansible.builtin.service:
+    name: vault
+    state: started
+    enabled: true
+
 # vim: ft=yaml.ansible
