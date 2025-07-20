@@ -15,7 +15,7 @@ jobs:
   - get: infrastructure
     trigger: true
 
-  - task: cat-navidrome-feature
+  - task: display-navidrome-feature
     config:
       platform: linux
       image_resource:
