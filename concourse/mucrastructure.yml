@@ -1,0 +1,71 @@
+resources:
+- name: infrastructure
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/scottmuc/infrastructure
+
+jobs:
+- name: bash-static-analysis
+
+  plan:
+  - get: infrastructure
+    trigger: true
+
+  - task: list-shell-scripts
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs:
+      - name: infrastructure
+      run:
+        path: find
+        args:
+        - -name
+        - "*.sh"
+
+- name: terraform-static-analysis
+
+  plan:
+  - get: infrastructure
+    trigger: true
+
+  - task: list-terraform-files
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs:
+      - name: infrastructure
+      run:
+        path: find
+        args:
+        - -name
+        - "*.tf"
+
+- name: ansible-static-analysis
+
+  plan:
+  - get: infrastructure
+    trigger: true
+
+  - task: list-ansible-files
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs:
+      - name: infrastructure
+      run:
+        path: find
+        args:
+        - -name
+        - "*/tasks/*.yml"
+
