@@ -8,6 +8,30 @@ import { TestConfig } from "../test-config";
 // https://github.com/cucumber/cucumber-js/blob/HEAD/docs/support_files/timeouts.md
 setDefaultTimeout(600000);
 
+export class LoginPage {
+  readonly page: Page;
+  readonly url: string
+
+  constructor(baseUrl: string, page: Page) {
+    this.page = page;
+    this.url = constructUrl(baseUrl, "/app/#/login");
+  }
+
+  async goto() {
+    await this.page.goto(this.url);
+  }
+
+  async login(username: string, password: string) {
+    await this.page.fill("input[name='username']", username);
+    await this.page.fill("input[name='password']", password);
+    await this.page.click("button[type='submit']");
+    await this.page.waitForTimeout(500);
+    expect(this.page.url()).toContain(
+        "/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}"
+    );
+  }
+}
+
 let page: Page;
 let browser: Browser;
 let testConfig: TestConfig;
@@ -58,21 +82,11 @@ Given("I am logged in as the testuser", async () => {
   });
   page = await browser.newPage();
 
-  await page.goto(constructUrl(baseUrl, "/app/#/login"));
-  await page.waitForTimeout(500);
-  await page.fill("input[name='username']", username);
-  await page.fill("input[name='password']", password);
-  await page.waitForTimeout(1000);
-  await page.click("button[type='submit']");
-  await page.waitForTimeout(1000);
+  const loginPage = new LoginPage(baseUrl, page);
+  await loginPage.goto();
+  await loginPage.login(username, password);
 
-  expect(page.url()).toContain(
-    constructUrl(
-      baseUrl,
-      "/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}"
-    )
-  );
-
+  // TODO: perform this assert on a Page Object
   const titleElement = page.locator("#react-admin-title");
   expect(titleElement).toHaveText("Navidrome  - Albums - Recently Added");
 });
