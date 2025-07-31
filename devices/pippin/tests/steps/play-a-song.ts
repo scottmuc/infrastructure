@@ -126,7 +126,7 @@ const convertTimestampToSeconds = (timestamp: string | null): number => {
 };
 
 Then("at least 5s of the song is played", async function () {
-  await page.waitForTimeout(6000);
+  await page.waitForTimeout(8000);
 
   const currentTime = page.locator(`span.current-time`);
   const currentTimeText = await currentTime.textContent();
