@@ -30,6 +30,8 @@ Backup DHCP Range : 192.168.2.100-192.168.2.149
 |                         |                      |                     |              | 9153 (dnsmasq_exporter metrics)  |
 |                         |                      |                     |              | 9167 (unbound_exporter metrics)  |
 | Dell XPS 9550           | [merry][merry]       | Static              | 192.168.2.11 | 22, 53, 80, 443                  |
+|                         |                      |                     |              | 8080 (concourse-web)             |
+|                         |                      |                     |              | 8200 (vault)                     |
 |                         |                      |                     |              | 9100 (node_exporter metrics)     |
 |                         |                      |                     |              | 9167 (unbound_exporter metrics)  |
 | Brother Printer         | denethor             | DHCP                | 192.168.2.12 | 80                               |
