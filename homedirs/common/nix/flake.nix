@@ -162,9 +162,6 @@
 
             enableCompletion = true;
             shellAliases = {
-              # https://github.com/NixOS/nixpkgs/issues/121694#issuecomment-2159420924
-              apparmor_nix = "echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns";
-
               ls = "ls --color=always";
               opauth = "eval $(op signin)";
               keys="ssh-op-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
@@ -173,7 +170,6 @@
 
             initExtra = ''
             export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
-            export PATH="$HOME/workspace/infrastructure/devices/frodo/bin:$PATH"
             '';
 
           };
@@ -189,11 +185,6 @@
 
           # evals mise activate in the .bashrc
           programs.mise = {
-            enable = true;
-          };
-
-          # https://nix-community.github.io/home-manager/options.xhtml#opt-services.syncthing.enable
-          services.syncthing = {
             enable = true;
           };
         }
