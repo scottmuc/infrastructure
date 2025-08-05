@@ -11,11 +11,9 @@ main() {
   configure_dns
   symlink_all_the_things
   install_os_packages
-  default_to_zsh
   setup_ssh_dir
   install_determinate_nix
   install_and_setup_home_manager
-  install_mise
   install_nvim
   install_golang "1.22.3"
   install_python_dependencies
@@ -51,26 +49,6 @@ install_and_setup_home_manager() {
     rm ~/.bashrc ~/.profile
     nix run "${DIR}/../common/nix#homeConfigurations.micro.activationPackage"
   fi
-}
-
-
-install_mise() {
-  if command -v mise &> /dev/null; then
-    echo "mise exists: $(mise --version)"
-    return
-  fi
-
-  local keyring_path="/usr/share/keyrings/mise.gpg"
-  curl -fsSL https://mise.jdx.dev/gpg-key.pub \
-    | sudo gpg --dearmor -o "${keyring_path}"
-  sudo chmod a+r "${keyring_path}"
-
-  echo \
-      deb [arch="$(dpkg --print-architecture)" signed-by="${keyring_path}"] \
-https://mise.jdx.dev/deb stable main | sudo tee /etc/apt/sources.list.d/mise.list > /dev/null
-
-  sudo apt update
-  sudo apt install mise -y
 }
 
 
@@ -266,11 +244,9 @@ symlink_all_the_things() {
   ln -sfv "${common_dotfiles_dir}/dot.tmux.conf" ~/.tmux.conf
   ln -sfv "${common_dotfiles_dir}/dot.gitconfig" ~/.gitconfig
   ln -sfv "${common_dotfiles_dir}/dot.mrconfig" ~/.mrconfig
-  ln -sfv "${common_dotfiles_dir}/dot.zshrc" ~/.zshrc
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim" ~/.config/nvim
-  ln -sTfv "${common_dotfiles_dir}/dot.config/mise" ~/.config/mise
 }
 
 main
