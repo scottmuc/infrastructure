@@ -3,7 +3,7 @@
 set -e
 
 fly --target concourse.scottmuc.com set-team \
-  --team-name smootz-gmbh \
+  --team-name sandbox \
   --config <(cat <<'EOF'
 roles:
   - name: owner
@@ -11,17 +11,12 @@ roles:
       users:
         - scottmuc
 
-    local:
-      users:
-        - smootz
-
   - name: member
-    local:
-      users:
-        - nina
-
     github:
       users:
+        - mrdavidlaing
         - ninabohm
+        - p-b-j
+        - totherme
 EOF
 )

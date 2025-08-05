@@ -195,6 +195,8 @@
         --vault-client-token "{{ secrets.concourse_vault_client_token }}" \
         --vault-url https://localhost:8200 \
         --vault-insecure-skip-verify \
+        --github-client-id Ov23liDtqVCxdBm22fZ7 \
+        --github-client-secret "{{ secrets.concourse_github_oauth_token }}" \
         --main-team-local-user "{{ secrets.concourse_admin_username }}" \
         {% for user in secrets.concourse_local_users %}
         --add-local-user "{{ user }}" \
