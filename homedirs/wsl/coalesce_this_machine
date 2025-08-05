@@ -14,6 +14,7 @@ main() {
   default_to_zsh
   setup_ssh_dir
   install_determinate_nix
+  install_and_setup_home_manager
   install_mise
   install_nvim
   install_golang "1.22.3"
@@ -36,6 +37,20 @@ install_determinate_nix() {
 
   curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
     sh -s -- install --determinate
+}
+
+install_and_setup_home_manager() {
+  if ! command -v nix &> /dev/null; then
+    echo "Can't do any home-manager stuff without nix"
+    return
+  fi
+
+  if command -v home-manager &> /dev/null; then
+    home-manager switch --flake "${DIR}/../common/nix"
+  else
+    rm ~/.bashrc ~/.profile
+    nix run "${DIR}/../common/nix#homeConfigurations.micro.activationPackage"
+  fi
 }
 
 
