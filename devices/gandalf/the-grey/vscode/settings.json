@@ -1,0 +1,12 @@
+{
+    "editor.minimap.enabled": false,
+    "editor.fontSize": 16,
+    "window.zoomLevel": 1,
+    "editor.fontLigatures": false,
+    "editor.fontFamily": "JetBrainsMono NF",
+    "window.autoDetectColorScheme": true,
+    "workbench.colorTheme": "Solarized Light",
+    "workbench.preferredDarkColorTheme": "Solarized Dark",
+    "workbench.preferredLightColorTheme": "Solarized Light",
+    "explorer.confirmDelete": false
+}

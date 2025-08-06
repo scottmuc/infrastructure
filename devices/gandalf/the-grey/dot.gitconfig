@@ -1,0 +1,25 @@
+[user]
+    name = Scott Muc
+    email = scott@scottmuc.com
+
+[safe]
+    directory = C:/Users/micro/workspace/infrastructure
+
+[core]
+    # https://adaptivepatchwork.com/2012/03/01/mind-the-end-of-your-line/
+    # sounds like this is an old fashioned fix for Windows/Linux line ending
+    # compatability. Mainly doing this for Windows drive mounted in WSL.
+    autocrlf = input
+
+[color]
+    ui = auto
+
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+
+    # I used this one to have a coloured graph and for repositories that have
+    # too many train tracks and push the information off the edge of the screen
+    ll  = log --oneline --decorate --graph
+    lla = !git ll --all
