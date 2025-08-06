@@ -11,7 +11,12 @@
   in {
     devShells.${system}.default = pkgs.mkShell {
       packages = [
-        pkgs.cowsay
+        pkgs.ansible
+        pkgs.bash
+        pkgs.fly
+        pkgs.git-crypt
+        pkgs.opentofu
+        pkgs.shellcheck
       ];
     };
   };
