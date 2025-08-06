@@ -12,8 +12,35 @@ main() {
   symlink_all_the_things
   use_classic_dns_resolution
   install_alacritty
+  install_determinate_nix
   #install_all_things_docker
 }
+
+install_determinate_nix() {
+  if command -v nix &> /dev/null; then
+    echo "nix exists: $(nix --version)"
+    return
+  fi
+
+  curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | \
+    sh -s -- install --determinate
+}
+
+install_and_setup_home_manager() {
+  if ! command -v nix &> /dev/null; then
+    echo "Can't do any home-manager stuff without nix"
+    return
+  fi
+
+  if command -v home-manager &> /dev/null; then
+    home-manager switch --flake "${REPO_DIR}/homedirs/common/nix"
+  else
+    rm ~/.bashrc ~/.profile
+    nix run "${REPO_DIR}/homedirs/common/nix#homeConfigurations.frodo.activationPackage"
+  fi
+}
+
+
 
 install_alacritty() {
   if command -v alacritty &> /dev/null; then
