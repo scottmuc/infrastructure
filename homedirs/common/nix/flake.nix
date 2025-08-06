@@ -236,24 +236,19 @@
             pkgs.bash
             pkgs.starship
 
-            # Figure out how to allowUnfree for just 1password
             pkgs._1password-cli
             pkgs.autojump
             pkgs.bc
             pkgs.clang
             pkgs.curl
-            pkgs.fly
             pkgs.fzf
-            pkgs.git-crypt
             pkgs.gnumake
             pkgs.gnupg
-            pkgs.gum
             pkgs.jq
             pkgs.mr
             pkgs.neovim
             pkgs.nerd-fonts.jetbrains-mono
             pkgs.ripgrep
-            pkgs.shellcheck
             pkgs.syncthing
             pkgs.tmux
             pkgs.unzip
@@ -281,9 +276,6 @@
             # Going to continue to use mise for project level dependency management. Not going to
             # impose Nix on anyone at this point.
             pkgs.mise
-
-            # Mods is a TUI for ChatGPT like functionality.
-            pkgs.mods
 
             # The nix LSP, not the Determinate Systems auth helper nor the crypto thingy.
             pkgs.nixd
@@ -344,29 +336,6 @@
 
             initExtra = ''
             export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
-
-            # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
-            start_ssh_agent() {
-              ( umask 077; ssh-agent > ~/.ssh/agent.env)
-                # shellcheck disable=SC1090
-              . ~/.ssh/agent.env >| /dev/null
-            }
-
-            load_ssh_agent_env() {
-              if [[ -f ~/.ssh/agent.env ]]; then
-                # shellcheck disable=SC1090
-                . ~/.ssh/agent.env >| /dev/null
-              fi
-            }
-
-            load_ssh_agent_env
-
-            # agent_run_state: 0=agent running w/ key; 1=agent w/o key; 2=agent not running
-            agent_run_state=$(ssh-add -l >| /dev/null 2>&1; echo $?)
-
-            if [[ ! "$SSH_AUTH_SOCK" ]] || [[ "$agent_run_state" = 2 ]]; then
-              start_ssh_agent
-            fi
             '';
 
           };
