@@ -13,6 +13,7 @@ main() {
   use_classic_dns_resolution
   install_alacritty
   install_determinate_nix
+  install_and_setup_home_manager
   #install_all_things_docker
 }
 
@@ -73,7 +74,6 @@ symlink_all_the_things() {
 
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${device_home_dir}/dot.config/alacritty"        ~/.config/alacritty
-  ln -sTfv "${device_home_dir}/dot.config/home-manager"     ~/.config/home-manager
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim"         ~/.config/nvim
 }
 
