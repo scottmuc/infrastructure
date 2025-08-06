@@ -17,7 +17,7 @@
 
 [ansible-standards]: https://www.ansiblejunky.com/blog/ansible-101-standards/
 [google-bash]: https://google.github.io/styleguide/shellguide.html
-[chormium-bash]: https://www.chromium.org/chromium-os/developer-library/reference/style-guides/shell/
+[chromium-bash]: https://www.chromium.org/chromium-os/developer-library/reference/style-guides/shell/
 [apple-bash]: https://developer.apple.com/library/archive/documentation/OpenSource/Conceptual/ShellScripting/Introduction/Introduction.html
 [poshcode]: https://github.com/PoshCode/PowerShellPracticeAndStyle
 
