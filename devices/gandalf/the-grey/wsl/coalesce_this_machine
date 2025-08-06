@@ -5,6 +5,7 @@ set -u
 
 # from https://stackoverflow.com/a/246128
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+REPO="$( cd "${DIR}/../../../../" >/dev/null 2>&1 && pwd )"
 
 main() {
   configure_wsl
@@ -38,10 +39,10 @@ install_and_setup_home_manager() {
   fi
 
   if command -v home-manager &> /dev/null; then
-    home-manager switch --flake "${DIR}/../common/nix"
+    home-manager switch --flake "${REPO}/homedirs/common/nix"
   else
     rm ~/.bashrc ~/.profile
-    nix run "${DIR}/../common/nix#homeConfigurations.micro.activationPackage"
+    nix run "${REPO}/homedirs/common/nix#homeConfigurations.micro.activationPackage"
   fi
 }
 
@@ -138,7 +139,7 @@ stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 # to
 #   .config -> /Users/spring/workspace/infrastructure/homedirs/osx/dotfiles/dot.config
 symlink_all_the_things() {
-  common_source=$(cd "${DIR}/../common"; pwd)
+  common_source="${REPO}/homedirs/common"
   common_dotfiles_dir="${common_source}/dotfiles"
 
   # I don't know how to do this command in a 1 line indempotent way. Repeated executions
