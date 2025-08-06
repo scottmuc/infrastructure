@@ -53,7 +53,7 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Install `git` and `curl`
 - [ ] Clone repo and run `coalesce_this_machine`
-- [ ] Install `nix` and `home-manager`
+- [ ] Reboot (to get nix profile loaded in XWindows)
 - [ ] Launch and log into Vivaldi
 - [ ] Map capslock to control
 - [ ] Open the 1 Password browser extension and log into it.
@@ -80,17 +80,7 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
     ```
 </details>
 
-- [ ] Make a signed commit mentioning this issue (exercises `gpg-op`)<details>
-  <summary>Instructions</summary>
-
-
-    ```
-    # Initialize and log into the 1 Password CLI
-    opauth
-    gpg_op restore -e "scottATscottmuc.com"
-    ```
-</details>
-
 - [ ] Be able to push the commit (exercises `ssh-op-agent`)
 - [ ] Old keys and credentials are deleted (GitHub and 1Password)
+- [ ] Add OS details to repave issue
 - [ ] Make this template slightly better
