@@ -13,7 +13,19 @@ main() {
       install_playwright_browsers
     fi
 
+    load_test_env
     run_tests
+}
+
+# This will only work on Scott's machine, but if you export
+# NAVIDROME_PASSWORD, the default behaviour will be skipped.
+load_test_env() {
+    : "${NAVIDROME_BASE_URL:="https://home.scottmuc.com/music"}"
+    export NAVIDROME_BASE_URL
+    : "${NAVIDROME_USERNAME:="tester"}"
+    export NAVIDROME_USERNAME
+    : "${NAVIDROME_PASSWORD:=$(op read "op://Personal/tester - navidrome/password")}"
+    export NAVIDROME_PASSWORD
 }
 
 install_playwright_browsers() {
