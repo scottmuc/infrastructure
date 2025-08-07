@@ -30,8 +30,7 @@ install_determinate_nix() {
 install_and_setup_home_manager() {
   # Re source ~/.profile to refresh PATH to handle first install scenariou
   # shellcheck disable=SC1090
-   source ~/.profile
-   echo "HELLO"
+  source ~/.profile
 
   if ! command -v nix &> /dev/null; then
     echo "Can't do any home-manager stuff without nix"
