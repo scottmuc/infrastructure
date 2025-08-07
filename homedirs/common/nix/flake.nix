@@ -41,6 +41,73 @@
             "vivaldi"
         ];
     };
+
+    defaultPackages = [
+      # Revert back to bash for daily terminal use.
+      pkgs.bash
+      pkgs.starship
+
+      # Figure out how to allowUnfree for just 1password
+      pkgs._1password-cli
+      pkgs.autojump
+      pkgs.bc
+      pkgs.clang
+      pkgs.curl
+      pkgs.fly
+      pkgs.fzf
+      pkgs.git-crypt
+      pkgs.gnumake
+      pkgs.gnupg
+      pkgs.gum
+      pkgs.gum
+      pkgs.jq
+      pkgs.mr
+      pkgs.neovim
+      pkgs.nerd-fonts.jetbrains-mono
+      pkgs.ripgrep
+      pkgs.shellcheck
+      pkgs.tmux
+      pkgs.unzip
+
+      # Programming languages that need to be available globally
+      pkgs.go
+      pkgs.nodejs
+      pkgs.ruby
+
+      pkgs.python3
+      pkgs.python3Packages.pip
+      pkgs.python3Packages.virtualenv
+
+      # Useful for bios inspection
+      # https://knowledgebase.frame.work/en_us/how-to-check-the-bios-version-on-windows-linux-bios-ryupu8HT3
+      pkgs.dmidecode
+      pkgs.lshw
+
+      # Going to continue to use mise for project level dependency management. Not going to
+      # impose Nix on anyone at this point.
+      pkgs.mise
+
+      # Mods is a TUI for ChatGPT like functionality.
+      pkgs.mods
+
+      # The nix LSP, not the Determinate Systems auth helper nor the crypto thingy.
+      pkgs.nixd
+
+      # # You can also create simple shell scripts directly inside your
+      # # configuration. For example, this adds a command 'my-hello' to your
+      # # environment:
+      # (pkgs.writeShellScriptBin "my-hello" ''
+      #   echo "Hello, ${config.home.username}!"
+      # '')
+    ];
+
+    guiPackages = [
+      # Things used with a GUI
+      pkgs.gnome-tweaks
+      pkgs.obsidian
+      pkgs.vivaldi
+      pkgs.wl-clipboard
+    ];
   in {
     # The arguments to homeManagerConfiguration are:
     # {
@@ -69,63 +136,7 @@
 
           # The home.packages option allows you to install Nix packages into your
           # environment.
-          home.packages = [
-            # Revert back to bash for daily terminal use.
-            pkgs.bash
-            pkgs.starship
-
-            # Figure out how to allowUnfree for just 1password
-            pkgs._1password-cli
-            pkgs.autojump
-            pkgs.bc
-            pkgs.clang
-            pkgs.curl
-            pkgs.fly
-            pkgs.fzf
-            pkgs.git-crypt
-            pkgs.gnumake
-            pkgs.gnupg
-            pkgs.gum
-            pkgs.jq
-            pkgs.mr
-            pkgs.neovim
-            pkgs.nerd-fonts.jetbrains-mono
-            pkgs.ripgrep
-            pkgs.shellcheck
-            pkgs.tmux
-            pkgs.unzip
-
-            # Programming languages that need to be available globally
-            pkgs.go
-            pkgs.nodejs
-            pkgs.ruby
-
-            pkgs.python3
-            pkgs.python3Packages.pip
-            pkgs.python3Packages.virtualenv
-
-            # Useful for bios inspection
-            # https://knowledgebase.frame.work/en_us/how-to-check-the-bios-version-on-windows-linux-bios-ryupu8HT3
-            pkgs.dmidecode
-            pkgs.lshw
-
-            # Going to continue to use mise for project level dependency management. Not going to
-            # impose Nix on anyone at this point.
-            pkgs.mise
-
-            # Mods is a TUI for ChatGPT like functionality.
-            pkgs.mods
-
-            # The nix LSP, not the Determinate Systems auth helper nor the crypto thingy.
-            pkgs.nixd
-
-            # # You can also create simple shell scripts directly inside your
-            # # configuration. For example, this adds a command 'my-hello' to your
-            # # environment:
-            # (pkgs.writeShellScriptBin "my-hello" ''
-            #   echo "Hello, ${config.home.username}!"
-            # '')
-          ];
+          home.packages = defaultPackages;
 
           # Home Manager is pretty good at managing dotfiles. The primary way to manage
           # plain files is through 'home.file'.
@@ -231,62 +242,7 @@
 
           # The home.packages option allows you to install Nix packages into your
           # environment.
-          home.packages = [
-            # Revert back to bash for daily terminal use.
-            pkgs.bash
-            pkgs.starship
-
-            pkgs._1password-cli
-            pkgs.autojump
-            pkgs.bc
-            pkgs.clang
-            pkgs.curl
-            pkgs.fzf
-            pkgs.gnumake
-            pkgs.gnupg
-            pkgs.jq
-            pkgs.mr
-            pkgs.neovim
-            pkgs.nerd-fonts.jetbrains-mono
-            pkgs.ripgrep
-            pkgs.syncthing
-            pkgs.tmux
-            pkgs.unzip
-
-            # Things used with a GUI
-            pkgs.gnome-tweaks
-            pkgs.obsidian
-            pkgs.vivaldi
-            pkgs.wl-clipboard
-
-            # Programming languages that need to be available globally
-            pkgs.go
-            pkgs.nodejs
-            pkgs.ruby
-
-            pkgs.python3
-            pkgs.python3Packages.pip
-            pkgs.python3Packages.virtualenv
-
-            # Useful for bios inspection
-            # https://knowledgebase.frame.work/en_us/how-to-check-the-bios-version-on-windows-linux-bios-ryupu8HT3
-            pkgs.dmidecode
-            pkgs.lshw
-
-            # Going to continue to use mise for project level dependency management. Not going to
-            # impose Nix on anyone at this point.
-            pkgs.mise
-
-            # The nix LSP, not the Determinate Systems auth helper nor the crypto thingy.
-            pkgs.nixd
-
-            # # You can also create simple shell scripts directly inside your
-            # # configuration. For example, this adds a command 'my-hello' to your
-            # # environment:
-            # (pkgs.writeShellScriptBin "my-hello" ''
-            #   echo "Hello, ${config.home.username}!"
-            # '')
-          ];
+          home.packages = defaultPackages ++ guiPackages;
 
           # Home Manager is pretty good at managing dotfiles. The primary way to manage
           # plain files is through 'home.file'.
