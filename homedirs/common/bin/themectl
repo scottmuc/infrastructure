@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  case "${1:-invalid}" in
+    list)
+      list_command
+      shift
+      ;;
+    get)
+      get_command
+      shift
+      ;;
+    set)
+      set_command
+      shift
+      ;;
+    *)
+      print_usage_and_exit
+      ;;
+  esac
+}
+
+list_command() {
+  ls ~/.config/alacritty/alacritty-theme/themes/ | sort
+  nvim --headless -c 'lua io.write(table.concat(vim.fn.getcompletion("", "color"), "\n"))' -c 'quit' 2>/dev/null
+  ls /usr/share/themes/ | sort
+}
+
+get_command() {
+  cat ~/.config/alacritty/alacritty.toml | grep alacritty-theme
+  cat ~/.config/nvim/lua/lazy/plugins/colorschems.lua | grep colorscheme
+  gsettings get org.gnome.shell.ubuntu color-scheme
+  gsettings get org.gnome.desktop.interface gtk-theme
+  gsettings get org.gnome.desktop.interface color-scheme
+}
+
+set_command() {
+  echo "set command"
+}
+
+print_usage_and_exit() {
+  cat <<USAGE
+usage: $0 <command>
+
+Commands:
+ - get
+     get the current theme in relevant applications
+
+ - set
+     sets the theme in relevant applications
+
+USAGE
+
+  exit 1
+}
+
+main "$@"
