@@ -42,6 +42,15 @@ return_current_background() {
 set_background() {
   local theme="$1"
 
+  theme_name=""
+  if [[ "${theme}" == "dark" ]]; then
+    theme_name="alabaster_dark"
+  elif [[ "${theme}" == "light" ]]; then
+    theme_name="alabaster"
+  else
+    theme_name="acme"
+  fi
+
   if is_macos; then
     echo "macOS implementation TODO"
     # mac_config_file=~/.config/alacritty/alacritty.toml
@@ -49,7 +58,7 @@ set_background() {
   elif is_linux && is_wsl; then
     win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
     win_config_file="${win_config_dir}/alacritty.toml"
-    theme_path="~/AppData/Roaming/alacritty/themes/themes/solarized_${theme}.toml"
+    theme_path="~/AppData/Roaming/alacritty/themes/themes/${theme_name}.toml"
     mkdir -p "${win_config_dir}"
     copy_config "${theme_path}" "${win_config_file}"
   elif is_linux; then

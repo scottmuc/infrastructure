@@ -22,18 +22,37 @@ main() {
   esac
 }
 
-list_command() {
-  ls ~/.config/alacritty/alacritty-theme/themes/ | sort
-  nvim --headless -c 'lua io.write(table.concat(vim.fn.getcompletion("", "color"), "\n"))' -c 'quit' 2>/dev/null
-  ls /usr/share/themes/ | sort
+is_linux() {
+  [[ "Linux" = "$(uname)" ]]
 }
 
+# Confident that checking for a c mountpoint is indictive of running on WSL
+is_wsl() {
+  [[ -d /mnt/c ]]
+}
+
+list_command() {
+  if is_linux && is_wsl; then
+    ls ~/workspace/infrastructure/homedirs/common/dotfiles/dot.config/alacritty/alacritty-theme/themes/ | sort
+    nvim --headless -c 'lua io.write(table.concat(vim.fn.getcompletion("", "color"), "\n"))' -c 'quit' 2>/dev/null
+  elif is_linux; then
+    ls ~/.config/alacritty/alacritty-theme/themes/ | sort
+    nvim --headless -c 'lua io.write(table.concat(vim.fn.getcompletion("", "color"), "\n"))' -c 'quit' 2>/dev/null
+    ls /usr/share/themes/ | sort
+  fi
+}
+
+
 get_command() {
-  cat ~/.config/alacritty/alacritty.toml | grep alacritty-theme
-  cat ~/.config/nvim/lua/lazy/plugins/colorschems.lua | grep colorscheme
-  gsettings get org.gnome.shell.ubuntu color-scheme
-  gsettings get org.gnome.desktop.interface gtk-theme
-  gsettings get org.gnome.desktop.interface color-scheme
+  if is_linux && is_wsl; then
+    echo Woohoo
+  elif is_linux; then
+    cat ~/.config/alacritty/alacritty.toml | grep alacritty-theme
+    cat ~/.config/nvim/lua/lazy/plugins/colorschems.lua | grep colorscheme
+    gsettings get org.gnome.shell.ubuntu color-scheme
+    gsettings get org.gnome.desktop.interface gtk-theme
+    gsettings get org.gnome.desktop.interface color-scheme
+  fi
 }
 
 set_command() {
@@ -45,6 +64,9 @@ print_usage_and_exit() {
 usage: $0 <command>
 
 Commands:
+ - list
+     list all the available themes
+
  - get
      get the current theme in relevant applications
 
