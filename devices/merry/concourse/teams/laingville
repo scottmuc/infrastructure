@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+fly --target concourse.scottmuc.com set-team \
+  --team-name laingville \
+  --config <(cat <<'EOF'
+roles:
+  - name: owner
+    github:
+      users:
+        - mrdavidlaing
+
+  - name: member
+    github:
+      users:
+EOF
+)
