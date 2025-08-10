@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Get a path to the current nix-shell derivation
+current_shell_drv="$(nix build --print-out-paths --no-link ".#devShells.x86_64-linux.default")"
+
+# Update the nixpkgs input
+nix flake update
+
+# Get a path to the updated nix-shell derivation
+updated_shell_drv="$(nix build --print-out-paths --no-link ".#devShells.x86_64-linux.default")"
+
+# Let Nix give us a report on what's updated
+nix store diff-closures "${current_shell_drv}" "${updated_shell_drv}"
