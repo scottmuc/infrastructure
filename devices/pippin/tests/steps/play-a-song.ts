@@ -1,7 +1,14 @@
 /// <reference types="node" />
-import { Given, When, After, Before, Then, setDefaultTimeout } from "@cucumber/cucumber";
+import {
+  Given,
+  When,
+  After,
+  Before,
+  Then,
+  setDefaultTimeout,
+} from "@cucumber/cucumber";
 import { chromium, Page, Browser } from "playwright";
-import { expect } from "@playwright/test";
+import { expect, Locator } from "@playwright/test";
 import { TestConfig } from "../test-config";
 
 // This must be called in a global scope, otherwise it gets reset.
@@ -10,7 +17,7 @@ setDefaultTimeout(600000);
 
 export class LoginPage {
   readonly page: Page;
-  readonly url: string
+  readonly url: string;
 
   constructor(baseUrl: string, page: Page) {
     this.page = page;
@@ -27,8 +34,24 @@ export class LoginPage {
     await this.page.click("button[type='submit']");
     await this.page.waitForTimeout(500);
     expect(this.page.url()).toContain(
-        "/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}"
+      "/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}"
     );
+  }
+}
+
+class HomePage {
+  readonly page: Page;
+  readonly url: string;
+  readonly titleSelector: string;
+
+  constructor(baseUrl: string, page: Page) {
+    this.page = page;
+    this.url = constructUrl(baseUrl, "app/#/album/recentlyAdded");
+    this.titleSelector = "#react-admin-title";
+  }
+
+  get titleLocator(): Locator {
+    return this.page.locator(this.titleSelector);
   }
 }
 
@@ -86,9 +109,10 @@ Given("I am logged in as the testuser", async () => {
   await loginPage.goto();
   await loginPage.login(username, password);
 
-  // TODO: perform this assert on a Page Object
-  const titleElement = page.locator("#react-admin-title");
-  expect(titleElement).toHaveText("Navidrome  - Albums - Recently Added");
+  const homePage = new HomePage(baseUrl, page);
+  expect(homePage.titleLocator).toHaveText(
+    "Navidrome  - Albums - Recently Added"
+  );
 });
 
 When(
