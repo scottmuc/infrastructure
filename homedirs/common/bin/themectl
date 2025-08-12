@@ -57,9 +57,11 @@ get_command() {
 
 set_command() {
   if is_linux && is_wsl; then
-    echo "set command"
+    echo "vim.cmd.colorscheme 'cyberdream'" > ~/.config/nvim/lua/selected_colorscheme.lua
   elif is_linux; then
-    echo "set command"
+    echo "vim.cmd.colorscheme 'cyberdream'" > ~/.config/nvim/lua/selected_colorscheme.lua
+    echp "general.import = [ \"~/.config/alacritty/alacritty-theme/themes/alabaster_dark.toml\" ]" \
+      > ~/.config/alacritty/selected_theme.toml
   fi
 }
 
