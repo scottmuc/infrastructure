@@ -47,16 +47,20 @@ get_command() {
   if is_linux && is_wsl; then
     echo Woohoo
   elif is_linux; then
-    cat ~/.config/alacritty/alacritty.toml | grep alacritty-theme
-    cat ~/.config/nvim/lua/lazy/plugins/colorschems.lua | grep colorscheme
-    gsettings get org.gnome.shell.ubuntu color-scheme
+    sed 's/.*themes\/\([^.]*\)\.toml.*/\1/' ~/.config/alacritty/selected_theme.toml
+    cat ~/.config/nvim/lua/selected_colorscheme.lua | grep colorscheme | cut -d' ' -f 2
     gsettings get org.gnome.desktop.interface gtk-theme
+    gsettings get org.gnome.shell.ubuntu color-scheme
     gsettings get org.gnome.desktop.interface color-scheme
   fi
 }
 
 set_command() {
-  echo "set command"
+  if is_linux && is_wsl; then
+    echo "set command"
+  elif is_linux; then
+    echo "set command"
+  fi
 }
 
 print_usage_and_exit() {
