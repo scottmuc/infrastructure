@@ -1,9 +1,7 @@
 # https://alacritty.org/config-alacritty.html
 
 [general]
-import = [
-    "~/.config/alacritty/alacritty-theme/themes/solarized_dark.toml"
-]
+import = [ "~/.config/alacritty/selected_theme.toml" ]
 
 [window]
 decorations = "None"
