@@ -46,26 +46,20 @@
       };
 
       defaultPackages = [
-        # Revert back to bash for daily terminal use.
-        pkgs.bash
-        pkgs.starship
-
-        # Figure out how to allowUnfree for just 1password
         pkgs._1password-cli
         pkgs.autojump
-        pkgs.bc
+        pkgs.bash
         pkgs.clang
         pkgs.curl
-        pkgs.fly
         pkgs.fzf
         pkgs.git-crypt
         pkgs.gnumake
-        pkgs.gnupg
         pkgs.gum
         pkgs.jq
         pkgs.mr
         pkgs.nerd-fonts.jetbrains-mono
         pkgs.ripgrep
+        pkgs.starship
         pkgs.tmux
         pkgs.unzip
 
@@ -73,8 +67,8 @@
         pkgs.go
         pkgs.nodejs
         pkgs.ruby
-
         pkgs.python3
+
         pkgs.python3Packages.pip
         pkgs.python3Packages.virtualenv
 
@@ -120,38 +114,14 @@
       homeConfigurations.micro = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
-        # This can be a list because one can logically seperate the configuration
-        # into different files. I'm not going to take advantage of that yet. I
-        # prefer the overly commented monolith.
         modules = [
-          # All of the options: https://nix-community.github.io/home-manager/options.xhtml
           {
-            # Mandatory configurations to be set
             home.username = "micro";
             home.homeDirectory = "/home/micro";
             home.stateVersion = "25.11";
 
-            # The home.packages option allows you to install Nix packages into your
-            # environment.
             home.packages = defaultPackages ++ programming_support;
 
-            # Home Manager is pretty good at managing dotfiles. The primary way to manage
-            # plain files is through 'home.file'.
-            home.file = {
-              # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-              # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-              # # symlink to the Nix store copy.
-              # ".screenrc".source = dotfiles/screenrc;
-
-              # # You can also set the file content immediately.
-              # ".gradle/gradle.properties".text = ''
-              #   org.gradle.console=verbose
-              #   org.gradle.daemon.idletimeout=3600000
-              # '';
-            };
-
-            # Variables defined here will show up in `.nix-profile/etc/profile.d/hm-session-vars.sh`,
-            # which is sourced by `~/.profile`.
             home.sessionVariables = {
               EDITOR = "nvim";
             };
@@ -161,12 +131,6 @@
               enable = true;
             };
 
-            # By enabling programs.bash this means home-manager will manage the following files:
-            # ~/.profile
-            # ~/.bash_profile
-            # ~/.bashrc
-            #
-            # Options at: https://github.com/nix-community/home-manager/blob/master/modules/programs/bash.nix
             programs.bash = {
               enable = true;
 
@@ -211,13 +175,7 @@
               enable = true;
             };
 
-            # Sources autojump.sh in the .bashrc
             programs.autojump = {
-              enable = true;
-            };
-
-            # evals mise activate in the .bashrc
-            programs.mise = {
               enable = true;
             };
           }
@@ -299,11 +257,6 @@
 
             # Sources autojump.sh in the .bashrc
             programs.autojump = {
-              enable = true;
-            };
-
-            # evals mise activate in the .bashrc
-            programs.mise = {
               enable = true;
             };
           }
