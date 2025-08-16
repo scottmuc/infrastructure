@@ -54,12 +54,5 @@ require('lazy').setup {
   },
 }
 
-vim.cmd [[
-" Adds a bit of complexity, but the `background` tool reads the OS level theme
-" and returns "light" or "dark" accordingly.
-let output=system("background")
-execute "set background=".escape(output, ' ')
-]]
-
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
