@@ -184,6 +184,7 @@
     content: |
       #!/usr/bin/env bash
       exec /opt/concourse/live/concourse/bin/concourse web \
+        --log-level "error" \
         --session-signing-key "/usr/local/concourse/etc/session_signing_key" \
         --tsa-host-key "/usr/local/concourse/etc/tsa_host_key" \
         --tsa-authorized-keys "/usr/local/concourse/etc/authorized_worker_keys" \
@@ -219,6 +220,7 @@
       export CONCOURSE_GARDEN_DNS_SERVER=8.8.8.8
 
       exec /opt/concourse/live/concourse/bin/concourse worker \
+        --log-level "error" \
         --tsa-host "127.0.0.1:2222" \
         --tsa-public-key "/usr/local/concourse/etc/tsa_host_key.pub" \
         --tsa-worker-private-key "/usr/local/concourse/etc/worker_key" \

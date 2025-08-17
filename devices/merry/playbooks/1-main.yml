@@ -67,7 +67,7 @@
 
     - name: Configure concourse
       vars:
-        concourse_version: "7.13.2"
+        concourse_version: "7.14.0"
       ansible.builtin.include_tasks:
         file: ../tasks/concourse.yml
 
