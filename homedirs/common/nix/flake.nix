@@ -45,6 +45,8 @@
           ];
       };
 
+      # I don't use with pkgs; here because I like typing `pkgs.` and get LSP
+      # completion of the available packages.
       defaultPackages = [
         pkgs._1password-cli
         pkgs.autojump
@@ -144,6 +146,7 @@
 
               initExtra = ''
                 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+                export PATH="$HOME/.local/bin:$PATH"
 
                 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
                 start_ssh_agent() {
