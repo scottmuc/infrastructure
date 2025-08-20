@@ -9,8 +9,8 @@ import {
 } from "@cucumber/cucumber";
 import { chromium, Page, Browser } from "playwright";
 import { expect, Locator } from "@playwright/test";
-import { TestConfig } from "../test-config";
-import { HomePage, LoginPage } from "../page-models";
+import { TestConfig } from "../lib/test-config";
+import { HomePage, LoginPage } from "../lib/page-models";
 // This must be called in a global scope, otherwise it gets reset.
 // https://github.com/cucumber/cucumber-js/blob/HEAD/docs/support_files/timeouts.md
 setDefaultTimeout(600000);
