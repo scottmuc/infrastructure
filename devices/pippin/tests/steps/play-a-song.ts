@@ -59,10 +59,6 @@ let page: Page;
 let browser: Browser;
 let testConfig: TestConfig;
 
-const convertToString = (input: any): string => {
-  return input.toString();
-};
-
 const constructUrl = (base: string, path: string): string => {
   // OMG, the URL object will squash the path in the base if
   // the path variable begins with a '/'. Rather than ensuring
@@ -95,21 +91,16 @@ Before(async () => {
 });
 
 Given("I am logged in as the testuser", async () => {
-  const baseUrl = convertToString(testConfig.baseUrl);
-  const username = convertToString(testConfig.username);
-  const password = convertToString(testConfig.password);
-  const testEnvironment = convertToString(testConfig.testEnvironment);
-
   browser = await chromium.launch({
-    headless: testEnvironment !== "local",
+    headless: testConfig.testEnvironment !== "local",
   });
   page = await browser.newPage();
 
-  const loginPage = new LoginPage(baseUrl, page);
+  const loginPage = new LoginPage(testConfig.baseUrl, page);
   await loginPage.goto();
-  await loginPage.login(username, password);
+  await loginPage.login(testConfig.username, testConfig.password);
 
-  const homePage = new HomePage(baseUrl, page);
+  const homePage = new HomePage(testConfig.baseUrl, page);
   expect(homePage.titleLocator).toHaveText(
     "Navidrome  - Albums - Recently Added"
   );
