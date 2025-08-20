@@ -88,14 +88,19 @@ const constructUrl = (base: string, path: string): string => {
 
 Before(async () => {
   testConfig = new TestConfig();
-});
-
-Given("I am logged in as the testuser", async () => {
   browser = await chromium.launch({
     headless: testConfig.testEnvironment !== "local",
   });
   page = await browser.newPage();
+});
 
+After(async () => {
+  if (browser) {
+    await browser.close();
+  }
+});
+
+Given("I am logged in as the testuser", async () => {
   const loginPage = new LoginPage(testConfig.baseUrl, page);
   await loginPage.goto();
   await loginPage.login(testConfig.username, testConfig.password);
@@ -147,10 +152,4 @@ Then("at least 5s of the song is played", async function () {
   const currentTimeText = await currentTime.textContent();
 
   expect(convertTimestampToSeconds(currentTimeText)).toBeGreaterThanOrEqual(5);
-});
-
-After(async () => {
-  if (browser) {
-    await browser.close();
-  }
 });
