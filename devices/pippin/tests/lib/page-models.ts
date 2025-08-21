@@ -1,4 +1,4 @@
-import { Page, Browser } from "playwright";
+import { Page } from "playwright";
 import { expect, Locator } from "@playwright/test";
 
 export class LoginPage {
@@ -39,6 +39,16 @@ export class HomePage {
   get titleLocator(): Locator {
     return this.page.locator(this.titleSelector);
   }
+
+  async searchForText(text: string) {
+    await this.page.fill("input[id='search']", text);
+    await this.page.waitForTimeout(2000);
+  }
+
+  async clickAlbum(albumName: string) {
+    await this.page.click(`img[alt='${albumName}']`);
+    await this.page.waitForTimeout(500);
+  }
 }
 
 const constructUrl = (base: string, path: string): string => {
@@ -68,3 +78,47 @@ const constructUrl = (base: string, path: string): string => {
     .href;
 };
 
+export class MusicPlayer {
+  readonly className: string;
+  readonly page: Page;
+  readonly audioTitleSelector: string;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.className = "music-player-panel";
+    this.audioTitleSelector = "span.audio-title";
+  }
+
+  async isVisible(): Promise<boolean> {
+    return this.page.locator(`div.${this.className}`).isVisible();
+  }
+
+  async isAudioTitleVisible(audioTitle: string): Promise<boolean> {
+    return this.page
+      .locator(`${this.audioTitleSelector}:has-text("${audioTitle}")`)
+      .isVisible();
+  }
+}
+
+export class AlbumDetailPage {
+  readonly page: Page;
+  readonly url: string;
+  readonly bandNameHeadingSelector: string;
+  readonly musicPlayer: MusicPlayer;
+
+  constructor(baseUrl: string, page: Page) {
+    this.page = page;
+    this.url = constructUrl(baseUrl, "app/#/album");
+    this.bandNameHeadingSelector = "h6 a";
+    this.musicPlayer = new MusicPlayer(page);
+  }
+
+  get bandNameHeadingLocator(): Locator {
+    return this.page.locator(this.bandNameHeadingSelector);
+  }
+
+  async clickSongByTitle(songTitle: string) {
+    await this.page.click(`span:has-text("${songTitle}")`);
+    await this.page.waitForTimeout(500);
+  }
+}
