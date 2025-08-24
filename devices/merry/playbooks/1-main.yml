@@ -61,9 +61,15 @@
           value: '1'
 
 
+    - name: Configure zot
+      ansible.builtin.include_tasks:
+        file: ../tasks/zot.yml
+
+
     - name: Configure Vault
       ansible.builtin.include_tasks:
         file: ../tasks/vault.yml
+
 
     - name: Configure concourse
       vars:

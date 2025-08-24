@@ -1,0 +1,87 @@
+- name: Install zot compile time dependencies
+  become: true
+  apt:
+    update_cache: true
+    pkg:
+      - curl
+      - make
+      - nodejs
+
+
+- name: Zot application directory
+  become: true
+  ansible.builtin.file:
+    path: /opt/zot
+    state: directory
+    owner: root
+    group: admin
+    mode: '0775'
+
+
+- name: Download golang
+  ansible.builtin.unarchive:
+    src: "https://go.dev/dl/go1.22.4.linux-amd64.tar.gz"
+    remote_src: true
+    dest: "/opt/zot/"
+    creates: "/opt/zot/go/bin/go"
+
+
+- name: Clone zot
+  ansible.builtin.command:
+    argv:
+      - git
+      - clone
+      - https://github.com/project-zot/zot.git
+      - /opt/zot/src
+    creates: "/opt/zot/src"
+
+
+# https://zotregistry.dev/v2.1.7/admin-guide/admin-getting-started/#building-an-executable-binary-from-source
+- name: Build
+  environment:
+    OS: "linux"
+    ARCH: "amd64"
+    PATH: "/opt/zot/go/bin:{{ ansible_env.PATH }}"
+  ansible.builtin.command:
+    chdir: "/opt/zot/src"
+    argv:
+      - make
+      - binary
+    creates: "/opt/zot/src/bin/zot-linux-amd64"
+
+
+- name: Zot bin dir
+  ansible.builtin.file:
+    path: /opt/zot/bin
+    state: directory
+
+
+- name: Install zot binary
+  ansible.builtin.copy:
+    remote_src: True
+    src: /opt/zot/src/bin/zot-linux-amd64
+    dest: /opt/zot/bin/zot
+    mode: '0775'
+
+
+# - name: Install exporter service
+#   become: true
+#   ansible.builtin.copy:
+#     src: root/etc/systemd/system/unbound_exporter.service
+#     dest: /etc/systemd/system/unbound_exporter.service
+#     owner: root
+#     group: admin
+#     mode: '0664'
+#   notify:
+#     - Restart unbound_exporter
+#     - Systemd reload
+#
+#
+# - name: Ensure exporter is running
+#   become: true
+#   ansible.builtin.service:
+#     name: unbound_exporter
+#     state: started
+#     enabled: true
+
+# vim: ft=yaml.ansible
