@@ -1,0 +1,12 @@
+[Unit]
+Description=Zot
+After=network.target
+
+[Service]
+User=zot
+Group=root
+Type=simple
+ExecStart=/opt/zot/bin/zot serve /opt/zot/config.json
+
+[Install]
+WantedBy=multi-user.target

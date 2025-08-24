@@ -188,4 +188,11 @@
         name: vault
         state: restarted
 
+
+    - name: Restart zot
+      become: true
+      ansible.builtin.service:
+        name: zot
+        state: restarted
+
 # vim: ft=yaml.ansible

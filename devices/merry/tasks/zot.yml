@@ -8,6 +8,14 @@
       - nodejs
 
 
+- name: Create zot user
+  become: true
+  ansible.builtin.user:
+    name: zot
+    system: true
+    state: present
+
+
 - name: Zot application directory
   become: true
   ansible.builtin.file:
@@ -57,9 +65,13 @@
 
 
 - name: Zot tmp dir
+  become: true
   ansible.builtin.file:
     path: /opt/zot/tmp
     state: directory
+    owner: zot
+    group: admin
+    mode: '0775'
 
 
 - name: Install zot binary
@@ -101,25 +113,28 @@
           }
         }
       }
+  notify:
+    - Restart zot
 
-# - name: Install exporter service
-#   become: true
-#   ansible.builtin.copy:
-#     src: root/etc/systemd/system/unbound_exporter.service
-#     dest: /etc/systemd/system/unbound_exporter.service
-#     owner: root
-#     group: admin
-#     mode: '0664'
-#   notify:
-#     - Restart unbound_exporter
-#     - Systemd reload
-#
-#
-# - name: Ensure exporter is running
-#   become: true
-#   ansible.builtin.service:
-#     name: unbound_exporter
-#     state: started
-#     enabled: true
+
+- name: Install service
+  become: true
+  ansible.builtin.copy:
+    src: root/etc/systemd/system/zot.service
+    dest: /etc/systemd/system/zot.service
+    owner: root
+    group: admin
+    mode: '0664'
+  notify:
+    - Restart zot
+    - Systemd reload
+
+
+- name: Ensure zot is running
+  become: true
+  ansible.builtin.service:
+    name: zot
+    state: started
+    enabled: true
 
 # vim: ft=yaml.ansible
