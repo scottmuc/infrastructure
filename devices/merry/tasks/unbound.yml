@@ -53,6 +53,22 @@
     - Restart unbound
 
 
+- name: Serve private IP for public websites
+  become: true
+  ansible.builtin.copy:
+    dest: /etc/unbound/unbound.conf.d/local-websites.conf
+    owner: root
+    group: root
+    mode: '0664'
+    content: |
+      server:
+        local-data: "home.scottmuc.com.        IN    A   192.168.2.10"
+        local-data: "concourse.scottmuc.com.   IN    A   192.168.2.10"
+        local-data: "zot.scottmuc.com.         IN    A   192.168.2.10"
+  notify:
+    - Restart unbound
+
+
 - name: Add blocklist
   become: true
   ansible.builtin.get_url:

@@ -38,6 +38,8 @@
       email: "scottmuc@gmail.com"
     - fqdn: concourse.scottmuc.com
       email: "scottmuc@gmail.com"
+    - fqdn: zot.scottmuc.com
+      email: "scottmuc@gmail.com"
 
 
 - name: Install nginx package
@@ -58,6 +60,7 @@
     - vhost: goodenoughmoney.com
     - vhost: home.scottmuc.com
     - vhost: concourse.scottmuc.com
+    - vhost: zot.scottmuc.com
 
 
 - name: Install vhost configs
@@ -74,6 +77,7 @@
     - vhost: goodenoughmoney.com
     - vhost: home.scottmuc.com
     - vhost: concourse.scottmuc.com
+    - vhost: zot.scottmuc.com
 
 
 - name: Enable vhosts
@@ -86,6 +90,7 @@
     - vhost: goodenoughmoney.com
     - vhost: home.scottmuc.com
     - vhost: concourse.scottmuc.com
+    - vhost: zot.scottmuc.com
 
 
 - name: Serve private IP for public websites
@@ -97,8 +102,9 @@
     mode: '0664'
     content: |
       server:
-        local-data: "home.scottmuc.com.   IN    A   192.168.2.10"
+        local-data: "home.scottmuc.com.        IN    A   192.168.2.10"
         local-data: "concourse.scottmuc.com.   IN    A   192.168.2.10"
+        local-data: "zot.scottmuc.com.         IN    A   192.168.2.10"
   notify:
     - Restart unbound
 

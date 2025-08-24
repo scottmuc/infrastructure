@@ -141,6 +141,17 @@ resource "gandi_livedns_record" "concourse_scottmuc_com" {
 }
 
 
+resource "gandi_livedns_record" "zot_scottmuc_com" {
+  zone = data.gandi_domain.scottmuc_com.id
+  name = "zot"
+  type = "A"
+  ttl = "3600"
+  values = [
+    var.home_ip
+  ]
+}
+
+
 resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   zone = data.gandi_domain.scottmuc_com.id
   name = "graffiti"
