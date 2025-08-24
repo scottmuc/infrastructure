@@ -34,8 +34,8 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: mcr.microsoft.com/playwright
-          tag: v1.54.0-noble
+          repository: zot.scottmuc.com/playwright
+          tag: v1.54.2-noble
       inputs:
       - name: infrastructure
       run:
