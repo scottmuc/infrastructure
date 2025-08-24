@@ -78,6 +78,7 @@ symlink_all_the_things() {
   # https://unix.stackexchange.com/a/355220
   ln -sTfv "${device_home_dir}/dot.config/alacritty"        ~/.config/alacritty
   ln -sTfv "${common_dotfiles_dir}/dot.config/nvim"         ~/.config/nvim
+  ln -sTfv "${common_dotfiles_dir}/dot.config/containers"   ~/.config/containers
 }
 
 

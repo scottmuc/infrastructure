@@ -20,6 +20,7 @@
           pkgs.git-crypt
           pkgs.opentofu
           pkgs.shellcheck
+          pkgs.skopeo
         ];
       };
     };
