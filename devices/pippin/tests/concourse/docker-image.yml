@@ -1,0 +1,45 @@
+resources:
+- name: infrastructure
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/scottmuc/infrastructure
+    path:
+      - devices/pippin/tests/docker/**
+
+- name: tester-image
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/tester
+    tag: latest
+
+jobs:
+- name: test-image-builder
+  public: true
+
+  plan:
+  - get: infrastructure
+    trigger: true
+
+  - task: build-task-image
+    privileged: true
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: concourse/oci-build-task
+      inputs:
+      - name: infrastructure
+      outputs:
+      - name: image
+      params:
+        CONTEXT: infrastructure/devices/pippin/tests/docker/
+      run:
+        path: build
+
+  - put: tester-image
+    params:
+      image: image/image.tar
+
