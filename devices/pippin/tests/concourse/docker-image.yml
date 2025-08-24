@@ -36,6 +36,9 @@ jobs:
       - name: image
       params:
         CONTEXT: infrastructure/devices/pippin/tests/docker/
+        BUILDKIT_EXTRA_CONFIG: |
+          [worker.oci]
+            noProcessSandbox = true
       run:
         path: build
 
