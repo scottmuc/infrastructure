@@ -56,6 +56,12 @@
     state: directory
 
 
+- name: Zot tmp dir
+  ansible.builtin.file:
+    path: /opt/zot/tmp
+    state: directory
+
+
 - name: Install zot binary
   ansible.builtin.copy:
     remote_src: True
@@ -63,6 +69,38 @@
     dest: /opt/zot/bin/zot
     mode: '0775'
 
+
+# https://zotregistry.dev/v2.1.7/admin-guide/admin-configuration/#setting-user-preferences
+- name: Configure zot
+  become: true
+  ansible.builtin.copy:
+    dest: /opt/zot/config.json
+    mode: '0664'
+    content: |
+      {
+        "distSpecVersion": "1.0.1",
+        "storage": {
+            "rootDirectory": "/opt/zot/tmp"
+        },
+        "http": {
+            "address": "0.0.0.0",
+            "port": "8081"
+        },
+        "log": {
+            "level": "debug"
+        },
+        "extensions": {
+          "ui": {
+            "enable": true
+          },
+          "search": {
+            "enable": true,
+            "cve": {
+              "updateInterval": "2h"
+            }
+          }
+        }
+      }
 
 # - name: Install exporter service
 #   become: true
