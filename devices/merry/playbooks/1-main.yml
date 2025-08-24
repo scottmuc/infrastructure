@@ -78,9 +78,9 @@
         file: ../tasks/concourse.yml
 
 
-    - name: Configure syslog forwarding
-      ansible.builtin.include_tasks:
-        file: ../tasks/logging.yml
+    # - name: Configure syslog forwarding
+    #   ansible.builtin.include_tasks:
+    #     file: ../tasks/logging.yml
 
 
     - name: Configure power management
