@@ -31,6 +31,9 @@
       # Needed to manage ACLs
       # https://docs.ansible.com/ansible/latest/user_guide/become.html#risks-and-limitations-of-become
       - acl
+      # Things needed for containerd runtime
+      - containerd
+      - iptables
 
 
 - name: Concourse user
@@ -218,8 +221,10 @@
 
       # https://discuss.concourse-ci.org/t/trying-to-run-concourse-ci-on-ubuntu-azure-machine/2074/5
       export CONCOURSE_GARDEN_DNS_SERVER=8.8.8.8
+      #export CONCOURSE_CONTAINERD_DNS_SERVER=8.8.8.8
 
       exec /opt/concourse/live/concourse/bin/concourse worker \
+        --runtime guardian \
         --log-level "error" \
         --tsa-host "127.0.0.1:2222" \
         --tsa-public-key "/usr/local/concourse/etc/tsa_host_key.pub" \
