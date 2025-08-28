@@ -15,10 +15,10 @@
         name: merry
 
 
-    - name: Delete the 'gimli' bootstrap user
+    - name: Delete the bootstrap user
       become: true
       ansible.builtin.user:
-        name: gimli
+        name: bootstrap
         state: absent
         remove: true
 
@@ -73,14 +73,9 @@
 
     - name: Configure concourse
       vars:
-        concourse_version: "7.14.0"
+        concourse_version: "7.14.1"
       ansible.builtin.include_tasks:
         file: ../tasks/concourse.yml
-
-
-    # - name: Configure syslog forwarding
-    #   ansible.builtin.include_tasks:
-    #     file: ../tasks/logging.yml
 
 
     - name: Configure power management
@@ -138,13 +133,6 @@
       ansible.builtin.service:
         name: sshd
         state: reloaded
-
-
-    - name: Restart rsyslog
-      become: true
-      ansible.builtin.service:
-        name: rsyslog
-        state: restarted
 
 
     - name: Restart unbound
