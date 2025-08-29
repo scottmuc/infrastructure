@@ -2,8 +2,8 @@
 
 tofu \
   apply \
-  -state ../secrets/dns.terraform.tfstate \
+  -state secrets/dns.terraform.tfstate \
   -backup - \
   -var "home_ip=$(curl -4 ifconfig.me/ip)" \
-  -var "gandi_pat=$(cat ../secrets/GANDI_PAT)" \
+  -var "gandi_pat=$(cat secrets/GANDI_PAT)" \
 
