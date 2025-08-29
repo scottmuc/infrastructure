@@ -191,6 +191,7 @@ function Install-ChocolateyPackages {
     choco install autohotkey.install -y
     choco install vivaldi.install -y
     choco install obsidian -y
+    choco install multimonitortool -y
 
     # Got renamed: http://disq.us/p/2uumufn
     choco install nerd-fonts-JetBrainsMono -y
