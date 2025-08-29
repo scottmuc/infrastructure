@@ -1,3 +1,1 @@
 secrets/** filter=git-crypt diff=git-crypt
-**/secrets/** filter=git-crypt diff=git-crypt
-**/secret_vars.yml filter=git-crypt diff=git-crypt
