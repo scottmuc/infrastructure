@@ -5,11 +5,6 @@
 [core]
     excludesfile = ~/.gitignore
 
-    # https://adaptivepatchwork.com/2012/03/01/mind-the-end-of-your-line/
-    # sounds like this is an old fashioned fix for Windows/Linux line ending
-    # compatability. Mainly doing this for Windows drive mounted in WSL.
-    autocrlf = input
-
 [merge]
     conflictstyle = diff3
 
