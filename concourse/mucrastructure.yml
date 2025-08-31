@@ -69,3 +69,25 @@ jobs:
         - -name
         - "*/tasks/*.yml"
 
+- name: nix-static-analysis
+
+  plan:
+  - get: infrastructure
+    trigger: true
+
+  - task: run-flake-checker
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: nixos/nix
+      inputs:
+      - name: infrastructure
+      run:
+        path: nix
+        args:
+        - --extra-experimental-features
+        - nix-command flakes
+        - run
+        - "github:DeterminateSystems/flake-checker"
