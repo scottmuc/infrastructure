@@ -6,7 +6,10 @@ return
 recordedKeys .= "g"
 if (recordedKeys="gg") {
     recordedKeys := ""
-    Run, displayswitch.exe /internal
+    Run, multimonitortool.exe /enable 1
+    Run, multimonitortool.exe /setprimary 1
+    Run, multimonitortool.exe /disable 3
+    Run, multimonitortool.exe /enable 2
 }
 return
 
@@ -14,7 +17,9 @@ return
 recordedKeys .= "o"
 if (recordedKeys="go") {
     resetRecordedKeys := ""
-    Run, displayswitch.exe /clone
+    Run, multimonitortool.exe /enable 3
+    Run, multimonitortool.exe /setprimary 3
+    Run, multimonitortool.exe /disable 1 2
     Sleep, 2000
     Run, "C:\Program Files (x86)\Steam\steam.exe" -newbigpicture "steam://open/bigpicture"
 }
