@@ -205,7 +205,7 @@ function Install-ChocolateyPackages {
 
 function Set-ThisDirectoryToQuickAccess {
     $Shell = New-Object -ComObject shell.application -Verbose
-    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\devices\gandalf\the-grey"
     $Shell.Namespace($ScriptDir).Self.InvokeVerb("pintohome")
 }
 
@@ -219,7 +219,7 @@ function Enable-CouchGamingOnStartup {
     $CouchGamingShortcut = Join-Path -Path $StartupFolder -ChildPath "couch_gaming.ahk.lnk"
     $Shortcut = $WshShell.CreateShortcut($CouchGamingShortcut)
     # https://www.autoitconsulting.com/site/scripting/get-current-script-directory-powershell-vbscript-batch/
-    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\devices\gandalf\the-grey"
     $CouchGamingAhk = Join-Path -Path $ScriptDir -ChildPath .\couch_gaming.ahk
     $Shortcut.TargetPath = $CouchGamingAhk
     $Shortcut.Save()
@@ -231,7 +231,7 @@ function Enable-DarkThemeToggler {
     $StartupFolder = Join-Path -Path $env:AppData -ChildPath "Microsoft\Windows\Start Menu\Programs\Startup"
     $ShortcutPath = Join-Path -Path $StartupFolder -ChildPath "toggle_windows_dark_theme.ahk.lnk"
     $Shortcut = $WshShell.CreateShortcut($ShortcutPath)
-    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\devices\gandalf\the-grey"
     $ShortcutSource = Join-Path -Path $ScriptDir -ChildPath .\toggle_windows_dark_theme.ahk
     $Shortcut.TargetPath = $ShortcutSource
     $Shortcut.Save()
@@ -240,7 +240,7 @@ function Enable-DarkThemeToggler {
 
 function Enable-GitConfig {
     $TargetGitConfigPath = Join-Path -Path $Env:USERPROFILE -Child ".gitconfig"
-    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows"
+    $ScriptDir = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\devices\gandalf\the-grey"
     $SourceGitConfigPath = Join-Path $ScriptDir -Child "dot.gitconfig"
     New-Item -Path $TargetGitConfigPath -ItemType SymbolicLink -Value $SourceGitConfigPath
 }
@@ -248,7 +248,7 @@ function Enable-GitConfig {
 function Enable-VsCodeSettings {
     # Not sure how this will go on a fresh install because I'm not sure if the app will exist
     $TargetConfigPath = Join-Path -Path $Env:USERPROFILE -Child "AppData\Roaming\Code\User\settings.json"
-    $SourceConfigPath = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\homedirs\windows\vscode\settings.json"
+    $SourceConfigPath = Join-Path -Path $Env:USERPROFILE -Child "workspace\infrastructure\devices\gandalf\the-grey\vscode\settings.json"
     New-Item -Path $TargetConfigPath -ItemType SymbolicLink -Value $SourceConfigPath  
 }
 
