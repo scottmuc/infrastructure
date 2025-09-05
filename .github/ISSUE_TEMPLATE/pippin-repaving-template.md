@@ -86,11 +86,11 @@ the [previous repave issues][repave-history]. Have fun!
   <summary>Instructions</summary>
 
   In order to avoid the use of `sshpass`, copy the current sessions public ssh key to
-  to `./ssh/authorized_keys` of the `pi` user on the PI. This user is only necessary to
+  to `./ssh/authorized_keys` of the `bootstrap` user on the PI. This user is only necessary to
   run the bootstrap playbook (which creates an admin `ansible` user) and will be subsequently
   cleaned up.
 
-  `ssh-copy-id pi@<pi ip>`
+  `ssh-copy-id bootstrap@<pi ip>`
 </details>
 
 
@@ -119,18 +119,6 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Reboot PI
 
 - [ ] Re-add port mapping to the static IP
-
-- [ ] Complete full configuration (again)<details>
-  <summary>Instructions</summary>
-
-  **This might not be required anymore**
-
-  `./ansible.sh` and select the `1-machine-config.yml`
-
-  and then:
-
-  `./ansible.sh` and select the `2-main.yml`
-</details>
 
 - [ ] Disable DHCP on the router
 

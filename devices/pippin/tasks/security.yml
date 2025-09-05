@@ -1,9 +1,9 @@
 # If this fails, it's likely due to user level systemd services running. A
 # reboot will resolve it... will look into more elegant ways later.
-- name: Delete the 'pi' bootstrap user
+- name: Delete the 'bootstrap' bootstrap user
   become: true
   ansible.builtin.user:
-    name: pi
+    name: boostrap
     state: absent
     remove: true
 
