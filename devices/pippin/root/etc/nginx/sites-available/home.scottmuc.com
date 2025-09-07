@@ -6,7 +6,7 @@ server {
     ssl_certificate_key /etc/letsencrypt/live/home.scottmuc.com/privkey.pem;
 
     location /music/ {
-        proxy_pass http://pippin:4533;
+        proxy_pass http://merry:4533;
     }
 
     index index.html;

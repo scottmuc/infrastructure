@@ -4,8 +4,8 @@
 LogLevel = "INFO"
 BaseURL = "/music"
 ScanSchedule = "0"
-DataFolder = "/mnt/vcapstore/navidrome"
-MusicFolder = "/mnt/music"
+DataFolder = "/var/vcap/store/navidrome"
+MusicFolder = "/opt/data/music"
 
 # Advanced Configuration
 FFmpegPath = "/opt/navidrome/ffmpeg/ffmpeg"

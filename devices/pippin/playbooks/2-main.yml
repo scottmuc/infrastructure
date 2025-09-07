@@ -19,16 +19,6 @@
           tags: mounts
 
 
-    - name: Install navidrome
-      vars:
-        navidrome_version: "0.58.0"
-      tags: navidrome
-      ansible.builtin.include_tasks:
-        file: ../tasks/navidrome.yml
-        apply:
-          tags: navidrome
-
-
     - name: Setup git host
       tags: git
       ansible.builtin.include_tasks:
@@ -77,13 +67,6 @@
       become: true
       ansible.builtin.service:
         name: nginx
-        state: restarted
-
-
-    - name: Restart navidrome
-      become: true
-      ansible.builtin.service:
-        name: navidrome
         state: restarted
 
 

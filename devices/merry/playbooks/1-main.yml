@@ -61,6 +61,15 @@
           value: '1'
 
 
+    - name: Install navidrome
+      vars:
+        navidrome_version: "0.58.0"
+      tags: navidrome
+      ansible.builtin.include_tasks:
+        file: ../tasks/navidrome.yml
+        apply:
+          tags: navidrome
+
     - name: Configure zot
       ansible.builtin.include_tasks:
         file: ../tasks/zot.yml
@@ -93,10 +102,6 @@
         node_exporter_version: "1.9.1"
       ansible.builtin.include_tasks:
         file: ../tasks/monitoring.yml
-
-    - name: Setup music share
-      ansible.builtin.include_tasks:
-        file: ../tasks/nfs_server.yml
 
 
     - name: Configure static IP
@@ -181,6 +186,13 @@
       become: true
       ansible.builtin.service:
         name: zot
+        state: restarted
+
+
+    - name: Restart navidrome
+      become: true
+      ansible.builtin.service:
+        name: navidrome
         state: restarted
 
 # vim: ft=yaml.ansible
