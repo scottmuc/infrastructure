@@ -25,7 +25,7 @@ export class LoginPage {
   }
 }
 
-export class HomePage {
+export class RecentlyAddedPage {
   readonly page: Page;
   readonly url: string;
   readonly titleSelector: string;
@@ -40,12 +40,12 @@ export class HomePage {
     return this.page.locator(this.titleSelector);
   }
 
-  async searchForText(text: string) {
+  async fillAndSubmitSearch(text: string) {
     await this.page.fill("input[id='search']", text);
     await this.page.waitForTimeout(2000);
   }
 
-  async clickAlbum(albumName: string) {
+  async clickOnSearchResult(albumName: string) {
     await this.page.click(`img[alt='${albumName}']`);
     await this.page.waitForTimeout(500);
   }
@@ -93,10 +93,12 @@ export class MusicPlayer {
     return this.page.locator(`div.${this.className}`).isVisible();
   }
 
-  async isAudioTitleVisible(audioTitle: string): Promise<boolean> {
-    return this.page
-      .locator(`${this.audioTitleSelector}:has-text("${audioTitle}")`)
-      .isVisible();
+  async playingSongShouldBe(audioTitle: string) {
+    const locator = this.page.locator(`${this.audioTitleSelector}`);
+    console.log("locator.allInnerTexts :>> ", await locator.allInnerTexts());
+    console.log("audioTitle :>> ", audioTitle);
+    expect("banana").toContain(audioTitle);
+    throw new Error("foo");
   }
 }
 
@@ -117,7 +119,7 @@ export class AlbumDetailPage {
     return this.page.locator(this.bandNameHeadingSelector);
   }
 
-  async clickSongByTitle(songTitle: string) {
+  async clickSong(songTitle: string) {
     await this.page.click(`span:has-text("${songTitle}")`);
     await this.page.waitForTimeout(500);
   }
