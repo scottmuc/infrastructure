@@ -67,16 +67,10 @@ When("I play {string}", async function (songTitle) {
   const albumDetailPage = new AlbumDetailPage(baseUrl, page);
   await albumDetailPage.clickSong(songTitle);
 
-  //TODO: albumDetailPage.musicPlayer wait to be visible. do we need the timeout even? POM are better to abstract away the waits
   const musicPlayer = new MusicPlayer(page);
-  //TODO: wtf?
-  musicPlayer.playingSongShouldBe("nananna");
+  musicPlayer.playingSongShouldBe(songTitle);
   expect(albumDetailPage.musicPlayer.isVisible()).toBeTruthy();
-  await page.waitForTimeout(500);
-
-  //TODO: see what makes this fail
-  // TODO: visibility assertions, expected to see the song title <bllaaa> but i saw <songTitle>
-  albumDetailPage.musicPlayer.playingSongShouldBe("songTitle");
+  albumDetailPage.musicPlayer.playingSongShouldBe(songTitle);
 });
 
 const convertTimestampToSeconds = (timestamp: string | null): number => {
@@ -88,10 +82,9 @@ const convertTimestampToSeconds = (timestamp: string | null): number => {
 };
 
 Then("at least 5s of the song is played", async function () {
-  await page.waitForTimeout(6000);
-
   const currentTime = page.locator(`span.current-time`);
-  const currentTimeText = await currentTime.textContent();
-
-  expect(convertTimestampToSeconds(currentTimeText)).toBeGreaterThanOrEqual(5);
+  await currentTime.waitFor({ state: "visible", timeout: 10000 });
+  await page.waitForTimeout(6000);
+  const finalTimeText = await currentTime.textContent();
+  expect(convertTimestampToSeconds(finalTimeText)).toBeGreaterThanOrEqual(5);
 });

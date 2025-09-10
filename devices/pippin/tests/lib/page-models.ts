@@ -95,10 +95,7 @@ export class MusicPlayer {
 
   async playingSongShouldBe(audioTitle: string) {
     const locator = this.page.locator(`${this.audioTitleSelector}`);
-    console.log("locator.allInnerTexts :>> ", await locator.allInnerTexts());
-    console.log("audioTitle :>> ", audioTitle);
-    expect("banana").toContain(audioTitle);
-    throw new Error("foo");
+    expect(locator).toContainText(audioTitle);
   }
 }
 
