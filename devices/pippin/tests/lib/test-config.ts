@@ -1,4 +1,4 @@
-import { expect } from "@playwright/test";
+import { expect } from "chai";
 
 export class TestConfig {
   baseUrl: string;
@@ -6,28 +6,17 @@ export class TestConfig {
   password: string;
   testEnvironment: string;
 
-  constructor() {
-    this.baseUrl = process.env.NAVIDROME_BASE_URL || "";
-    this.username = process.env.NAVIDROME_USERNAME || "";
-    this.password = process.env.NAVIDROME_PASSWORD || "";
-    this.testEnvironment = process.env.NAVIDROME_TEST_ENVIRONMENT || "local";
+  constructor(env = process.env) {
+    this.baseUrl = env.NAVIDROME_BASE_URL;
+    this.username = env.NAVIDROME_USERNAME;
+    this.password = env.NAVIDROME_PASSWORD;
+    this.testEnvironment = env.NAVIDROME_TEST_ENVIRONMENT || "local";
     this.verifyEnvVariablesAreSet();
   }
 
   verifyEnvVariablesAreSet() {
-    let message = "The following environment variables are not set:\n";
-    try {
-      expect(this.baseUrl.length).toBeGreaterThan(0);
-      message += "NAVIDROME_BASE_URL \n";
-      expect(this.username.length).toBeGreaterThan(0);
-      message += "NAVIDROME_USERNAME \n";
-      expect(this.password.length).toBeGreaterThan(0);
-      message += "NAVIDROME_PASSWORD \n";
-      expect(this.testEnvironment.length).toBeGreaterThan(0);
-      message += "NAVIDROME_TEST_ENVIRONMENT \n";
-    } catch (error) {
-      console.error(message);
-      throw error;
-    }
+    expect(this.baseUrl, "NAVIDROME_BASE_URL is not set").to.not.be.empty;
+    expect(this.username, "NAVIDROME_USERNAME is not set").to.not.be.empty;
+    expect(this.password, "NAVIDROME_PASSWORD is not set").to.not.be.empty;
   }
 }

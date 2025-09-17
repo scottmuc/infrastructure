@@ -37,7 +37,7 @@ run_tests() {
       features/*.feature \
       --require-module ts-node/register \
       --require steps/*.ts \
-      --format pretty
+      --format progress-bar
 }
 
 install_dependencies() {
