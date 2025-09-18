@@ -28,16 +28,14 @@ export class LoginPage {
 export class RecentlyAddedPage {
   readonly page: Page;
   readonly url: string;
-  readonly titleSelector: string;
 
   constructor(baseUrl: string, page: Page) {
     this.page = page;
     this.url = constructUrl(baseUrl, "app/#/album/recentlyAdded");
-    this.titleSelector = "#react-admin-title";
   }
 
-  get titleLocator(): Locator {
-    return this.page.locator(this.titleSelector);
+  get navigationTitle(): Promise<string> {
+    return this.page.locator("#react-admin-title").innerText();
   }
 
   async fillAndSubmitSearch(text: string) {

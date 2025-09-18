@@ -9,6 +9,7 @@ import {
 } from "@cucumber/cucumber";
 import { chromium, Page, Browser } from "playwright";
 import { expect } from "@playwright/test";
+import { expect as chaiExpect } from "chai";
 import { TestConfig } from "../lib/test-config";
 import {
   AlbumDetailPage,
@@ -44,8 +45,8 @@ Given("I am logged in as the testuser", async () => {
   await loginPage.login(testConfig.username, testConfig.password);
 
   const currentPage = new RecentlyAddedPage(testConfig.baseUrl, page);
-  expect(currentPage.titleLocator).toHaveText(
-    "Navidrome  - Albums - Recently Added"
+  chaiExpect(await currentPage.navigationTitle).to.equal(
+    "Navidrome - Albums - Recently Added"
   );
 });
 
