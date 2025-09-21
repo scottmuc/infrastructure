@@ -58,6 +58,7 @@
         pkgs.gnumake
         pkgs.gum
         pkgs.jq
+        pkgs.jujutsu
         pkgs.mr
         pkgs.nerd-fonts.jetbrains-mono
         pkgs.ripgrep
