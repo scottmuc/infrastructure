@@ -1,5 +1,5 @@
 import { Page } from "playwright";
-import { expect, Locator } from "@playwright/test";
+import { expect } from "@playwright/test";
 
 export class LoginPage {
   readonly page: Page;
@@ -100,18 +100,16 @@ export class MusicPlayer {
 export class AlbumDetailPage {
   readonly page: Page;
   readonly url: string;
-  readonly bandNameHeadingSelector: string;
   readonly musicPlayer: MusicPlayer;
 
   constructor(baseUrl: string, page: Page) {
     this.page = page;
     this.url = constructUrl(baseUrl, "app/#/album");
-    this.bandNameHeadingSelector = "h6 a";
     this.musicPlayer = new MusicPlayer(page);
   }
 
-  get bandNameHeadingLocator(): Locator {
-    return this.page.locator(this.bandNameHeadingSelector);
+  get bandName(): Promise<string> {
+    return this.page.locator("h6 a").innerText();
   }
 
   async clickSong(songTitle: string) {

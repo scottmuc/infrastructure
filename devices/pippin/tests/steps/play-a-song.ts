@@ -59,7 +59,7 @@ When(
     await currentPage.clickOnSearchResult(albumName);
 
     const albumDetailsPage = new AlbumDetailPage(baseUrl, page);
-    expect(albumDetailsPage.bandNameHeadingLocator).toHaveText(bandName);
+    chaiExpect(await albumDetailsPage.bandName).to.equal(bandName);
   }
 );
 
