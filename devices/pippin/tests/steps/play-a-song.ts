@@ -8,7 +8,6 @@ import {
   setDefaultTimeout,
 } from "@cucumber/cucumber";
 import { chromium, Page, Browser } from "playwright";
-import { expect } from "@playwright/test";
 import { expect as chaiExpect } from "chai";
 import { TestConfig } from "../lib/test-config";
 import {
@@ -70,8 +69,8 @@ When("I play {string}", async function (songTitle) {
 
   const musicPlayer = new MusicPlayer(page);
   musicPlayer.playingSongShouldBe(songTitle);
-  expect(albumDetailPage.musicPlayer.isVisible()).toBeTruthy();
-  albumDetailPage.musicPlayer.playingSongShouldBe(songTitle);
+  chaiExpect(await albumDetailPage.musicPlayer.isVisible()).to.be.true;
+  await albumDetailPage.musicPlayer.playingSongShouldBe(songTitle);
 });
 
 const convertTimestampToSeconds = (timestamp: string | null): number => {
@@ -87,5 +86,7 @@ Then("at least 5s of the song is played", async function () {
   await currentTime.waitFor({ state: "visible", timeout: 10000 });
   await page.waitForTimeout(6000);
   const finalTimeText = await currentTime.textContent();
-  expect(convertTimestampToSeconds(finalTimeText)).toBeGreaterThanOrEqual(5);
+  chaiExpect(convertTimestampToSeconds(finalTimeText)).to.be.greaterThanOrEqual(
+    5
+  );
 });

@@ -1,5 +1,6 @@
 import { Page } from "playwright";
 import { expect } from "@playwright/test";
+import { expect as chaiExpect } from "chai";
 
 export class LoginPage {
   readonly page: Page;
@@ -93,7 +94,8 @@ export class MusicPlayer {
 
   async playingSongShouldBe(audioTitle: string) {
     const locator = this.page.locator(`${this.audioTitleSelector}`);
-    expect(locator).toContainText(audioTitle);
+
+    chaiExpect(await locator.innerText()).to.contain(audioTitle);
   }
 }
 
