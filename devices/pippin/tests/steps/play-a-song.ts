@@ -73,18 +73,8 @@ When("I play {string}", async function (songTitle) {
   await albumDetailPage.musicPlayer.playingSongShouldBe(songTitle);
 });
 
-const convertTimestampToSeconds = (timestamp: string | null): number => {
-  if (!timestamp) {
-    throw new Error("Timestamp is not found");
-  }
-  const [minutes, seconds] = timestamp.split(":");
-  return Number(minutes) * 60 + Number(seconds);
-};
-
 Then("at least 5s of the song is played", async function () {
-  const currentTime = page.locator(`span.current-time`);
-  await currentTime.waitFor({ state: "visible", timeout: 10000 });
+  const musicPlayer = new MusicPlayer(page);
   await page.waitForTimeout(6000);
-  const finalTimeText = await currentTime.textContent();
-  expect(convertTimestampToSeconds(finalTimeText)).to.be.greaterThanOrEqual(5);
+  expect(await musicPlayer.readPlayedDuration()).to.be.greaterThanOrEqual(5);
 });

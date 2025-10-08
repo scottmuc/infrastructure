@@ -96,6 +96,16 @@ export class MusicPlayer {
 
     expect(await locator.innerText()).to.contain(audioTitle);
   }
+
+  async readPlayedDuration(): Promise<number> {
+    const currentTimeElement = this.page.locator(`span.current-time`);
+    const playedDurationTimestamp = await currentTimeElement.textContent();
+    if (!playedDurationTimestamp) {
+      throw new Error("Timestamp is not found");
+    }
+    const [minutes, seconds] = playedDurationTimestamp.split(":");
+    return Number(minutes) * 60 + Number(seconds);
+  }
 }
 
 export class AlbumDetailPage {
