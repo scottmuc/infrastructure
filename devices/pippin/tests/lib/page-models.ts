@@ -1,6 +1,5 @@
 import { Page } from "playwright";
-import { expect } from "@playwright/test";
-import { expect as chaiExpect } from "chai";
+import { expect } from "chai";
 
 export class LoginPage {
   readonly page: Page;
@@ -20,7 +19,7 @@ export class LoginPage {
     await this.page.fill("input[name='password']", password);
     await this.page.click("button[type='submit']");
     await this.page.waitForTimeout(500);
-    expect(this.page.url()).toContain(
+    expect(this.page.url()).to.contain(
       "/app/#/album/recentlyAdded?sort=recently_added&order=DESC&filter={}"
     );
   }
@@ -95,7 +94,7 @@ export class MusicPlayer {
   async playingSongShouldBe(audioTitle: string) {
     const locator = this.page.locator(`${this.audioTitleSelector}`);
 
-    chaiExpect(await locator.innerText()).to.contain(audioTitle);
+    expect(await locator.innerText()).to.contain(audioTitle);
   }
 }
 

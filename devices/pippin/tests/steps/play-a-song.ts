@@ -8,7 +8,7 @@ import {
   setDefaultTimeout,
 } from "@cucumber/cucumber";
 import { chromium, Page, Browser } from "playwright";
-import { expect as chaiExpect } from "chai";
+import { expect } from "chai";
 import { TestConfig } from "../lib/test-config";
 import {
   AlbumDetailPage,
@@ -44,7 +44,7 @@ Given("I am logged in as the testuser", async () => {
   await loginPage.login(testConfig.username, testConfig.password);
 
   const currentPage = new RecentlyAddedPage(testConfig.baseUrl, page);
-  chaiExpect(await currentPage.navigationTitle).to.equal(
+  expect(await currentPage.navigationTitle).to.equal(
     "Navidrome - Albums - Recently Added"
   );
 });
@@ -58,7 +58,7 @@ When(
     await currentPage.clickOnSearchResult(albumName);
 
     const albumDetailsPage = new AlbumDetailPage(baseUrl, page);
-    chaiExpect(await albumDetailsPage.bandName).to.equal(bandName);
+    expect(await albumDetailsPage.bandName).to.equal(bandName);
   }
 );
 
@@ -69,7 +69,7 @@ When("I play {string}", async function (songTitle) {
 
   const musicPlayer = new MusicPlayer(page);
   musicPlayer.playingSongShouldBe(songTitle);
-  chaiExpect(await albumDetailPage.musicPlayer.isVisible()).to.be.true;
+  expect(await albumDetailPage.musicPlayer.isVisible()).to.be.true;
   await albumDetailPage.musicPlayer.playingSongShouldBe(songTitle);
 });
 
@@ -86,7 +86,5 @@ Then("at least 5s of the song is played", async function () {
   await currentTime.waitFor({ state: "visible", timeout: 10000 });
   await page.waitForTimeout(6000);
   const finalTimeText = await currentTime.textContent();
-  chaiExpect(convertTimestampToSeconds(finalTimeText)).to.be.greaterThanOrEqual(
-    5
-  );
+  expect(convertTimestampToSeconds(finalTimeText)).to.be.greaterThanOrEqual(5);
 });
