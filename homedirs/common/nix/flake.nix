@@ -49,8 +49,6 @@
       # completion of the available packages.
       defaultPackages = [
         pkgs._1password-cli
-        pkgs.autojump
-        pkgs.bash
         pkgs.clang
         pkgs.curl
         pkgs.fzf
@@ -62,7 +60,6 @@
         pkgs.mr
         pkgs.nerd-fonts.jetbrains-mono
         pkgs.ripgrep
-        pkgs.starship
         pkgs.tmux
         pkgs.unzip
 
