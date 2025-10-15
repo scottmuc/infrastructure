@@ -137,6 +137,8 @@
                 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
                 export PATH="$HOME/.local/bin:$PATH"
 
+                PS1='\w \$ '
+
                 # https://docs.github.com/en/authentication/connecting-to-github-with-ssh/working-with-ssh-key-passphrases
                 start_ssh_agent() {
                   ( umask 077; ssh-agent > ~/.ssh/agent.env)
@@ -235,6 +237,8 @@
 
               initExtra = ''
                 export PATH="$HOME/workspace/infrastructure/homedirs/common/bin:$PATH"
+
+                PS1='\w \$ '
               '';
 
             };
