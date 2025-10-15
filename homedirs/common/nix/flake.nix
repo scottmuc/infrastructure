@@ -239,10 +239,6 @@
 
             };
 
-            programs.starship = {
-              enable = true;
-            };
-
             # Sources autojump.sh in the .bashrc
             programs.autojump = {
               enable = true;
