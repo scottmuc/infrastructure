@@ -163,10 +163,6 @@
 
             };
 
-            programs.starship = {
-              enable = true;
-            };
-
             programs.autojump = {
               enable = true;
             };
