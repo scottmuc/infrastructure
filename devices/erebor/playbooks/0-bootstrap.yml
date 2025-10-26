@@ -1,0 +1,13 @@
+- name: Bootstrap FreeBSD system
+  hosts: all
+  remote_user: ansible
+  gather_facts: false
+
+  tasks:
+    - name: Add authorized keys
+      ansible.posix.authorized_key:
+        user: ansible
+        state: present
+        key: https://github.com/scottmuc.keys
+
+# vim: ft=yaml.ansible
