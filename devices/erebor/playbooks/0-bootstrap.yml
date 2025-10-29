@@ -1,9 +1,22 @@
 - name: Bootstrap FreeBSD system
   hosts: all
+  # TODO: change the user to bootstrap when ready to repave
   remote_user: ansible
   gather_facts: false
 
   tasks:
+    - name: Ensure wheel group members can doas without a password
+      become: true
+      become_method: doas
+      ansible.builtin.copy:
+        dest: /usr/local/etc/doas.conf
+        owner: root
+        group: wheel
+        mode: '0640'
+        content: |
+          permit nopass :wheel
+
+
     - name: Add authorized keys
       ansible.posix.authorized_key:
         user: ansible
