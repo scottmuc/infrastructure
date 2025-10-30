@@ -1,22 +1,41 @@
-- name: Bootstrap FreeBSD system
-  hosts: all
-  # TODO: change the user to bootstrap when ready to repave
-  remote_user: ansible
-  gather_facts: false
+- name: Bootstrap FreeBSD for ansible
+  hosts: erebor
+
+  # INFO: the bootstrap user is created manually during the OS install
+  remote_user: bootstrap
+
+  # INFO: a fresh install of FreeBSD doesn't have sudo or doas
+  become_method: su
+  become: true
 
   tasks:
-    - name: Ensure wheel group members can doas without a password
-      become: true
-      become_method: doas
+    - name: Create Ansible user
+      ansible.builtin.user:
+        name: ansible
+        shell: /bin/sh
+        comment: "Ansible management user"
+        groups: wheel
+        home: /home/ansible
+        createhome: true
+
+
+    - name: Install doas
+      community.general.pkgng:
+        name: doas
+        state: present
+
+
+    - name: Permit ansible to elevate privileges without root password
       ansible.builtin.copy:
         dest: /usr/local/etc/doas.conf
         owner: root
         group: wheel
         mode: '0640'
         content: |
-          permit nopass :wheel
+          permit nopass ansible
 
 
+     # TODO: decouple this from GitHub
     - name: Add authorized keys
       ansible.posix.authorized_key:
         user: ansible
