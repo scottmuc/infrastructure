@@ -1,0 +1,14 @@
+- name: Setup device specific configuration
+  hosts: erebor
+  remote_user: ansible
+  become_method: doas
+
+  tasks:
+    - name: Delete the bootstrap user
+      become: true
+      ansible.builtin.user:
+        name: bootstrap
+        state: absent
+        remove: true
+
+# vim: ft=yaml.ansible
