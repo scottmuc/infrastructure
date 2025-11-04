@@ -35,6 +35,14 @@
         state: started
 
 
+    - name: Enable and start ntpd service
+      become: true
+      service:
+        name: ntpd
+        enabled: true
+        state: started
+
+
     # This driver enables reading of the CPU temperature probes
     - name: Enable amdtemp driver
       become: true
