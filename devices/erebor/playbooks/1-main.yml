@@ -26,4 +26,12 @@
         enabled: true
         state: started
 
+
+    - name: Enable and start powerd service
+      become: true
+      service:
+        name: powerd
+        enabled: true
+        state: started
+
 # vim: ft=yaml.ansible
