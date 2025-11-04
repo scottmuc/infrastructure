@@ -11,4 +11,19 @@
         state: absent
         remove: true
 
+
+    - name: Install node_exporter for prometheus
+      become: true
+      community.general.pkgng:
+        pkg:
+          - node_exporter
+
+
+    - name: Enable and start node_exporter service
+      become: true
+      service:
+        name: node_exporter
+        enabled: true
+        state: started
+
 # vim: ft=yaml.ansible
