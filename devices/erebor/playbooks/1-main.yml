@@ -34,4 +34,14 @@
         enabled: true
         state: started
 
+
+    # This driver enables reading of the CPU temperature probes
+    - name: Enable amdtemp driver
+      become: true
+      community.general.sysrc:
+        name: amdtemp_load
+        state: present
+        value: "YES"
+        path: /boot/loader.conf
+
 # vim: ft=yaml.ansible
