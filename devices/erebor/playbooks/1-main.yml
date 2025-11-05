@@ -12,6 +12,21 @@
         remove: true
 
 
+    # https://stackoverflow.com/a/50733168
+    - name: Apply sshd_config settings
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        # might be commented out, whitespace between key and value
+        regexp: '^#?\s*{{ item.key }}\s'
+        line: "{{ item.key }} {{ item.value }}"
+        validate: '/usr/sbin/sshd -T -f %s'
+      with_items:
+        - key: UsePAM
+          value: "yes"
+      notify: restart sshd
+
+
     - name: Install node_exporter for prometheus
       become: true
       community.general.pkgng:
@@ -51,5 +66,13 @@
         state: present
         value: "YES"
         path: /boot/loader.conf
+
+
+  handlers:
+    - name: restart sshd
+      become: true
+      service:
+        name: sshd
+        state: restarted
 
 # vim: ft=yaml.ansible
