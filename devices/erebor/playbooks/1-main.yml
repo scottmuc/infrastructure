@@ -12,6 +12,9 @@
         remove: true
 
 
+    # I'm actuall unsure what amount of locking down is really needed
+    # in FreeBSD's openssh default configuration. I think it's relatively
+    # secure out of the box.
     # https://stackoverflow.com/a/50733168
     - name: Apply sshd_config settings
       become: true
@@ -23,7 +26,7 @@
         validate: '/usr/sbin/sshd -T -f %s'
       with_items:
         - key: UsePAM
-          value: "yes"
+          value: "no"
       notify: restart sshd
 
 
