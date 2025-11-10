@@ -2,7 +2,7 @@
   description = "Flake for vagrant based FreeBSD testing";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=release-25.05";
   };
 
   outputs =
@@ -19,14 +19,23 @@
             ];
         };
       };
+
+      gems = pkgs.bundlerEnv {
+        name = "test-env";
+        ruby = pkgs.ruby_3_3;
+        gemdir = ./.;
+      };
     in
     {
       devShells.${system}.default = pkgs.mkShell {
         packages = [
+          pkgs.bundix
           pkgs.libvirt
           pkgs.qemu
-          pkgs.ruby
           pkgs.vagrant
+
+          gems
+          gems.wrappedRuby
         ];
 
         shellHook = ''
