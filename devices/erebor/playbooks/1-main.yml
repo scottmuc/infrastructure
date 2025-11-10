@@ -58,11 +58,46 @@
         path: /boot/loader.conf
 
 
+    - name: Prometheues testfile dir
+      become: true
+      ansible.builtin.file:
+        path: /usr/local/var/run/node_exporter
+        state: directory
+        recurse: true
+        owner: root
+        group: wheel
+        mode: '0775'
+
+
+    - name: Run prometheus_sysctl_exporter every minute
+      become: true
+      ansible.builtin.cron:
+        name: prometheus_sysctl_exporter
+        job: "/usr/sbin/prometheus_sysctl_exporter > /usr/local/var/run/node_exporter/sysctl.prom"
+
+
+    # This driver enables reading of the CPU temperature probes
+    - name: Configure node_export to read textfile dir
+      become: true
+      community.general.sysrc:
+        name: node_exporter_args
+        state: present
+        value: "--collector.textfile.directory=/usr/local/var/run/node_exporter"
+      notify: restart node_exporter
+
+
   handlers:
     - name: restart sshd
       become: true
       service:
         name: sshd
+        state: restarted
+
+
+    - name: restart node_exporter
+      become: true
+      service:
+        name: node_exporter
         state: restarted
 
 # vim: ft=yaml.ansible
