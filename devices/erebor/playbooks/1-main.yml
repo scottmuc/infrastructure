@@ -30,11 +30,23 @@
       notify: restart sshd
 
 
-    - name: Install node_exporter for prometheus
+    - name: Install packages
       become: true
       community.general.pkgng:
         pkg:
           - node_exporter
+          - smartmontools
+
+
+    - name: Configure smartd
+      become: true
+      ansible.builtin.copy:
+        dest: /usr/local/etc/smartd.conf
+        owner: root
+        group: wheel
+        mode: '0644'
+        content: |
+          DEVICESCAN
 
 
     - name: Enable and start services
@@ -45,8 +57,9 @@
         state: started
       with_items:
         - node_exporter
-        - powerd
         - ntpd
+        - powerd
+        - smartd
 
     # This driver enables reading of the CPU temperature probes
     - name: Enable amdtemp driver
