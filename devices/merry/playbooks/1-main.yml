@@ -63,7 +63,7 @@
 
     - name: Install navidrome
       vars:
-        navidrome_version: "0.58.0"
+        navidrome_version: "0.58.5"
       tags: navidrome
       ansible.builtin.include_tasks:
         file: ../tasks/navidrome.yml
@@ -82,7 +82,7 @@
 
     - name: Configure concourse
       vars:
-        concourse_version: "7.14.1"
+        concourse_version: "7.14.3"
       ansible.builtin.include_tasks:
         file: ../tasks/concourse.yml
 
