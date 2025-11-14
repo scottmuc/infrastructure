@@ -28,7 +28,7 @@ scrape_configs:
     metrics_path: /music/metrics
     static_configs:
       - targets:
-        - pippin:4533
+        - merry:4533
 
   - job_name: unbound
     static_configs:
