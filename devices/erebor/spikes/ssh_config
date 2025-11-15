@@ -1,11 +1,11 @@
-Host erebor
-  HostName 127.0.0.1
+Host test-erebor
+  HostName 192.168.121.249
   User vagrant
-  Port 2222
+  Port 22
   UserKnownHostsFile /dev/null
   StrictHostKeyChecking no
   PasswordAuthentication no
-  IdentityFile /home/smootz/workspace/infrastructure/devices/erebor/.vagrant/machines/erebor/virtualbox/private_key
+  IdentityFile /home/frodo/workspace/infrastructure/devices/erebor/spikes/.vagrant/machines/test-erebor/libvirt/private_key
   IdentitiesOnly yes
   LogLevel FATAL
   PubkeyAcceptedKeyTypes +ssh-rsa
