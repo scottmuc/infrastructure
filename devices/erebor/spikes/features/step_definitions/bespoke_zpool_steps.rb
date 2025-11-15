@@ -28,3 +28,8 @@ Then('has a raidz1 vdev with {int} providers') do |expected_provider_count|
   device_lines = output.lines.select { |line| line.match(/^\s+md\d+\s+ONLINE/) }
   expect(device_lines.count).to eq(3)
 end
+
+Then('the root filesystem of the zdata zpool is not mounted') do
+  output = @vagrant.exec "ls /"
+  expect(output).to_not match(/#{@zpool_name}/)
+end

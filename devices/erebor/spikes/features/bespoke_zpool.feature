@@ -10,6 +10,7 @@ Feature: Bespoke zpool configuration for erebor's data pool
   Scenario: Creating the zpool according to my specifications
     Given 3 disks with 4k physical sectors are attached
     When a zpool called "zdata" with a raidz1 vdev using those disks
-    And is created with the "-o ashift=12" option
+    And is created with the "-m none -o ashift=12" option
     Then the zdata pool has an ashift value of 12
     And has a raidz1 vdev with 3 providers
+    And the root filesystem of the zdata zpool is not mounted
