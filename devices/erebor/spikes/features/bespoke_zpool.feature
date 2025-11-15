@@ -14,3 +14,10 @@ Feature: Bespoke zpool configuration for erebor's data pool
     Then the zdata pool has an ashift value of 12
     And has a raidz1 vdev with 3 providers
     And the root filesystem of the zdata zpool is not mounted
+
+
+  Scenario: Creating the mcap dataset
+    Given a zdata zpool according to by bespoke requirements is created
+    When a new filesystem dataset for mcap
+    Then it is mounted at "/usr/local/var/mcap/store"
+    And it has atime set to off

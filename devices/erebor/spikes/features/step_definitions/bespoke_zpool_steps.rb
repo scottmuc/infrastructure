@@ -33,3 +33,26 @@ Then('the root filesystem of the zdata zpool is not mounted') do
   output = @vagrant.exec "ls /"
   expect(output).to_not match(/#{@zpool_name}/)
 end
+
+Given('a zdata zpool according to by bespoke requirements is created') do
+  steps %Q{
+    Given 3 disks with 4k physical sectors are attached
+    When a zpool called "zdata" with a raidz1 vdev using those disks
+    And is created with the "-m none -o ashift=12" option
+  }
+end
+
+When('a new filesystem dataset for mcap') do
+  @vagrant.exec "sudo mkdir -p /usr/local/var/mcap"
+  @vagrant.exec "sudo zfs create -o atime=off -o mountpoint=/usr/local/var/mcap/store zdata/store"
+end
+
+Then('it is mounted at {string}') do |mount_path|
+  output = @vagrant.exec "zfs list | grep #{@zpool_name}"
+  expect(output).to match(/#{mount_path}/)
+end
+
+Then('it has atime set to off') do
+  output = @vagrant.exec "zfs get -H atime zdata/store"
+  expect(output).to match(/zdata\/store\tatime\toff/)
+end
