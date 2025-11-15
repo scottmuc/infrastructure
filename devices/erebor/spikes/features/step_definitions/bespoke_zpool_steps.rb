@@ -18,9 +18,11 @@ When('is created with the {string} option') do |zpool_option|
 end
 
 Then('the zdata pool has an ashift value of {int}') do |expected_ashift|
-  pending # Write code here that turns the phrase above into concrete actions
+  output = @vagrant.exec "sudo zdb -C #{@zpool_name} | grep ashift"
+  expect(output).to match(/ashift: #{expected_ashift}/)
 end
 
 Then('has a raidz1 vdev with {int} providers') do |expected_provider_count|
-  pending # Write code here that turns the phrase above into concrete actions
+  output = @vagrant.exec "zpool status #{@zpool_name}"
+  expect(output).to match(/raidz1-0  ONLINE/)
 end
