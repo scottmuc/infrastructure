@@ -2,6 +2,7 @@ require "rspec"
 require "vagrant"
 
 Given('a 3 disk raidz1 pool') do
+  @zpool_name = "testpool"
   @vagrant = Vagrant.new
   @zfs = ZfsFixture.new
   @zfs.create_drive("md0", "1TB")
