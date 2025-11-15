@@ -19,8 +19,8 @@ class ZfsFixture
     @vagrant.exec "rm -f #{name}"
   end
 
-  def create_zpool(name, drives)
-    @vagrant.exec "sudo zpool create #{name} raidz1 #{drives}"
+  def create_zpool(name, options, drives)
+    @vagrant.exec "sudo zpool create #{options} #{name} raidz1 #{drives}"
   end
 
   def delete_zpool(name)

@@ -8,7 +8,7 @@ Given('a 3 disk raidz1 pool') do
   @zfs.create_drive("md0", "1TB")
   @zfs.create_drive("md1", "1TB")
   @zfs.create_drive("md2", "1TB")
-  @zfs.create_zpool("testpool", "/dev/md0 /dev/md1 /dev/md2")
+  @zfs.create_zpool("testpool", "", "/dev/md0 /dev/md1 /dev/md2")
 
   output = @vagrant.exec "zpool status testpool"
   # pool: testpool
