@@ -1,0 +1,67 @@
+- name: Setup NFS file sharing
+  hosts: erebor
+  remote_user: ansible
+  become_method: doas
+
+  tasks:
+    - name: Create NFS read/write group
+      become: true
+      ansible.builtin.group:
+        name: nfsrw
+        state: present
+        gid: 1980
+
+
+    - name: Create NFS read/write user
+      become: true
+      ansible.builtin.user:
+        name: nfsrw
+        shell: /usr/sbin/nologin
+        comment: "NFS read/write user"
+        groups: nfsrw
+        createhome: false
+        uid: 1980
+
+
+    - name: Ensure path is writeable by nfsrw group
+      become: true
+      ansible.builtin.file:
+        path: /usr/local/var/mcap/store
+        state: directory
+        owner: root
+        group: nfsrw
+        mode: '0775'
+
+
+    - name: Configure exports
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/exports
+        owner: root
+        group: wheel
+        mode: '0644'
+        content: |
+          /usr/local/var/mcap/store -mapall=nfsrw:nfsrw -network 192.168.2.0 -mask 255.255.255.0
+          /usr/local/var/mcap/store -ro -mapall=nobody:nobody -network 192.168.2.0 -mask 255.255.255.0
+
+
+    - name: Enable and start services
+      become: true
+      service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      with_items:
+        - nfsd
+        - mountd
+        - rpcbind
+
+
+  handlers:
+    - name: restart nfsd
+      become: true
+      service:
+        name: nfsd
+        state: restarted
+
+# vim: ft=yaml.ansible
