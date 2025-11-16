@@ -41,8 +41,9 @@
         group: wheel
         mode: '0644'
         content: |
-          /usr/local/var/mcap/store -mapall=nfsrw:nfsrw -network 192.168.2.0 -mask 255.255.255.0
+          /usr/local/var/mcap/store -mapall=frodo:nfsrw frodo.middle-earth.internal
           /usr/local/var/mcap/store -ro -mapall=nobody:nobody -network 192.168.2.0 -mask 255.255.255.0
+      notify: restart nfsd
 
 
     - name: Enable and start services
