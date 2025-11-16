@@ -23,6 +23,17 @@
         uid: 1980
 
 
+    - name: Create SMB read/write user
+      become: true
+      ansible.builtin.user:
+        name: smbrw
+        shell: /usr/sbin/nologin
+        comment: "NFS read/write user"
+        groups: nfsrw
+        createhome: false
+        uid: 1981
+
+
     - name: Ensure path is writeable by nfsrw group
       become: true
       ansible.builtin.file:
@@ -46,6 +57,71 @@
       notify: restart nfsd
 
 
+    - name: Install packages
+      become: true
+      community.general.pkgng:
+        pkg:
+          - samba416
+
+
+    # https://docs.freebsd.org/en/books/handbook/network-servers/index.html#network-samba
+    - name: Configure samba
+      become: true
+      ansible.builtin.copy:
+        dest: /usr/local/etc/smb4.conf
+        owner: root
+        group: wheel
+        mode: '0644'
+        content: |
+          [global]
+          workgroup = WORKGROUP
+          server string = Samba Server Version %v
+          netbios name = erebor
+          wins support = No
+          security = user
+          passdb backend = tdbsam
+          hostname lookups = yes
+
+          [mcap]
+          path = /usr/local/var/mcap/store
+          writable  = yes
+          browsable = yes
+          guest ok = no
+          create mask = 0664
+          directory mask = 0755
+          force group = nfsrw
+          hosts allow = gandalf.middle-earth.internal
+          hosts deny = ALL
+      notify: restart samba
+
+
+    - name: Load secrets from local file
+      ansible.builtin.include_vars:
+        file: ../secrets/smbrw_password.yml
+
+
+    - name: Set samba password for smbrw using pdbedit
+      become: true
+      ansible.builtin.shell: |
+        (echo "{{ smbrw_password }}"; echo "{{ smbrw_password }}") | pdbedit -a -t -u smbrw
+
+
+    - name: Ensure nmbd is disabled
+      become: true
+      community.general.sysrc:
+        name: nmbd_enable
+        state: present
+        value: "NO"
+
+
+    - name: Ensure winbindd is disabled
+      become: true
+      community.general.sysrc:
+        name: winbindd_enable
+        state: present
+        value: "NO"
+
+
     - name: Enable and start services
       become: true
       service:
@@ -56,6 +132,7 @@
         - nfsd
         - mountd
         - rpcbind
+        - samba_server
 
 
   handlers:
@@ -63,6 +140,13 @@
       become: true
       service:
         name: nfsd
+        state: restarted
+
+
+    - name: restart samba
+      become: true
+      service:
+        name: samba_server
         state: restarted
 
 # vim: ft=yaml.ansible
