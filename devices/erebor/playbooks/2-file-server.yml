@@ -52,9 +52,8 @@
         group: wheel
         mode: '0644'
         content: |
-          /usr/local/var/mcap/store -mapall=frodo:nfsrw frodo.middle-earth.internal
-          /usr/local/var/mcap/store -ro -mapall=nobody:nobody -network 192.168.2.0 -mask 255.255.255.0
-      notify: restart nfsd
+          /usr/local/var/mcap/store -mapall=nfsrw:nfsrw frodo.middle-earth.internal
+      notify: restart nfs
 
 
     - name: Install packages
@@ -136,11 +135,14 @@
 
 
   handlers:
-    - name: restart nfsd
-      become: true
-      service:
-        name: nfsd
+    - name: restart nfs
+      ansible.builtin.service:
+        name: "{{ item }}"
         state: restarted
+      loop:
+        - rpcbind
+        - mountd
+        - nfsd
 
 
     - name: restart samba
