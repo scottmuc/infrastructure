@@ -104,3 +104,28 @@ end
 When('I restore from the snapshot') do
   @vagrant.exec "sudo cp /testpool/.zfs/snapshot/test/data/Moby_Dick.txt /testpool/data/Moby_Dick.txt"
 end
+
+Given('the {string} zpool has been exported') do |zpool_name|
+  @zpool_name = zpool_name
+  @vagrant.exec "sudo zpool export #{zpool_name}"
+end
+
+When('the host OS is repaved') do
+  output = @vagrant.exec "sudo zpool import"
+  #   pool: testpool
+  #     id: 14898039212800388320
+  #  state: ONLINE
+  # action: The pool can be imported using its name or numeric identifier.
+  # config:
+  #
+  #        testpool    ONLINE
+  #          raidz1-0  ONLINE
+  #            md0     ONLINE
+  #            md1     ONLINE
+  #            md2     ONLINE
+  expect(output).to match(/pool: #{@zpool_name}/)
+end
+
+When('the {string} zpool has been imported') do |zpool_name|
+  @vagrant.exec "sudo zpool import #{zpool_name}"
+end

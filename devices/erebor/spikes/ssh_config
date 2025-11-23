@@ -1,5 +1,5 @@
 Host test-erebor
-  HostName 192.168.121.158
+  HostName 192.168.121.72
   User vagrant
   Port 22
   UserKnownHostsFile /dev/null
