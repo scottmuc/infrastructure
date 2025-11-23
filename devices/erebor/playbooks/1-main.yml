@@ -99,6 +99,15 @@
       notify: restart node_exporter
 
 
+    # https://github.com/scottmuc/infrastructure/issues/78#issuecomment-3448563023
+    - name: Disable bluetooth and wifi drivers
+      become: true
+      community.general.sysrc:
+        name: devmatch_blocklist
+        state: present
+        value: "if_rtw89 ng_ubt"
+
+
   handlers:
     - name: restart sshd
       become: true
