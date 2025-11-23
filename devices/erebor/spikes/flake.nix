@@ -39,9 +39,12 @@
         ];
 
         shellHook = ''
-          export VAGRANT_DEFAULT_PROVIDER=libvirt
           # Vagrant will connect to system libvirtd socket
           export LIBVIRT_DEFAULT_URI="qemu:///system"
+
+          # Ignores ruby warnings. The ruby wrapped by gems spits out warnings like:
+          # Ignoring rbs-3.4.0 because its extensions are not built. Try: gem pristine rbs --version 3.4.0
+          export RUBYOPT="-W0"
         '';
       };
     };
