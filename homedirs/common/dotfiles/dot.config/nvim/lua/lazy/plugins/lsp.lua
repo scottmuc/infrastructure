@@ -98,9 +98,6 @@ return { -- LSP Configuration & Plugins
     require('lspconfig').bashls.setup {
       capabilities = capabilities,
     }
-    require('lspconfig').ansiblels.setup {
-      capabilities = capabilities,
-    }
     require('lspconfig').lua_ls.setup {
       -- cmd = {...},
       -- filetypes { ...},
