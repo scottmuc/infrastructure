@@ -7,6 +7,14 @@
     system: true
 
 
+- name: Add navidrome user to nfsrw group
+  become: true
+  ansible.builtin.user:
+    name: navidrome
+    groups: nfsrw
+    append: true
+
+
 - name: Navidrome application directory
   become: true
   ansible.builtin.file:

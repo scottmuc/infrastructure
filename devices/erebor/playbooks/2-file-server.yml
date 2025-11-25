@@ -52,7 +52,9 @@
         group: wheel
         mode: '0644'
         content: |
-          /usr/local/var/mcap/store -mapall=nfsrw:nfsrw frodo.middle-earth.internal
+          /usr/local/var/mcap/store -mapall=nfsrw:nfsrw \
+          frodo.middle-earth.internal \
+          merry.middle-earth.internal
       notify: restart nfs
 
 

@@ -23,6 +23,39 @@
         remove: true
 
 
+    - name: Create NFS read/write group
+      become: true
+      ansible.builtin.group:
+        name: nfsrw
+        state: present
+        gid: 1980
+
+
+    - name: Install mount dependencies
+      become: true
+      ansible.builtin.apt:
+        pkg:
+          - nfs-common
+
+
+    - name: Mount music share from erebor
+      become: true
+      ansible.posix.mount:
+        src: erebor.middle-earth.internal:/usr/local/var/mcap/store
+        path: /mnt/mcap
+        fstype: nfs
+        state: mounted
+        opts: auto,nofail,noatime,nolock,intr,tcp,actimeo=1800
+
+
+    - name: Add ansible user to nfsrw group
+      become: true
+      ansible.builtin.user:
+        name: ansible
+        groups: nfsrw
+        append: true
+
+
     # https://linuxhandbook.com/ssh-hardening-tips/
     - name: Harden the sshd Configuration
       become: true
