@@ -81,9 +81,7 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: nixos/nix
-      # caches:
-      #   - path: /nix/store
+          repository: docker.nix-community.org/nixpkgs/cachix-flakes
       inputs:
       - name: infrastructure
       run:
@@ -92,14 +90,12 @@ jobs:
         args:
         - -exc
         - |
-          nix-env -iA cachix -f https://cachix.org/api/v1/install
-
           cachix use scottmuc
 
-          nix --extra-experimental-features "nix-command flakes" \
+          cachix watch-exec scottmuc -- nix \
+            --extra-experimental-features "nix-command flakes" \
             build \
-            "github:DeterminateSystems/flake-checker" \
-               | cachix push scottmuc
+            "github:DeterminateSystems/flake-checker/v0.2.8"
 
           ./result/bin/flake-checker
       params:
