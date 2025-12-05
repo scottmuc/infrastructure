@@ -39,7 +39,7 @@ the [previous repave issues][repave-history]. Have fun!
   `sudo shutdown -h now`
 </details>
 
-- [ ] Create SD card with the latest Raspberry Pi OS<details>
+- [ ] Create SD card with the latest Raspberry Pi OS **ensure you read this**<details>
   <summary>Instructions</summary>
 
   Using the SD card in the now powered down PI.
@@ -55,6 +55,10 @@ the [previous repave issues][repave-history]. Have fun!
   the Imager software, ensure to not select `no filtering` in the *Raspberry Pi Device*
   filter.
 
+  As of 2025.12.04, the Trixie image hasn't worked so use the Legacy Bookworm image to just
+  get the repave done. Next repave should at least attempt Trixie again to see if the issues
+  have been fixed.
+
   [advanced-options]: https://www.raspberrypi.com/documentation/computers/getting-started.html#advanced-options
 </details>
 
@@ -64,7 +68,7 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Ensure a working ansible enviroment <details>
   <summary>Instructions</summary>
 
-  This will exercise the `mise` setup.
+  Use the nix devshell by running `nix develop`
 </details>
 
 - [ ] Turn on the PI and note the IP obtained from the Router
