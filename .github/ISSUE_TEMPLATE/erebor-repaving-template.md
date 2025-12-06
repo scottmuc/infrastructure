@@ -55,6 +55,25 @@ find help by viewing all the [previous repave issues][repave-history]. Have fun!
   <summary>Instructions</summary>
 
   See https://github.com/scottmuc/infrastructure/issues/78
+
+  Also set the IP and resolvers manually
+
+  In `/etc/rc.conf`
+
+  ```
+  ifconfig_re0="inet 192.168.2.19 netmask 255.255.255.0"
+  defaultrouter="192.168.2.1"
+  ``` 
+
+  In `/etc/resolve.conf`
+
+  ```
+  search middle-earth.internal
+  nameserver 192.168.2.10
+  nameserver 192.168.2.11
+  ```
+
+  The new IP will apply on reboot
 </details>
 
 # Post OS install steps
