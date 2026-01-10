@@ -28,6 +28,8 @@ fi
 gum confirm "Deploy ${playbook} using ${inventory_choice}?" || exit 1
 
 set -x
+env \
+  ANSIBLE_CONFIG=../ansible.cfg \
 ansible-playbook \
   --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
   --inventory "${inventory_arg}" \
