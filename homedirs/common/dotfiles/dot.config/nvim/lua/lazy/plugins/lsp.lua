@@ -95,10 +95,12 @@ return { -- LSP Configuration & Plugins
     local capabilities = vim.lsp.protocol.make_client_capabilities()
     capabilities = vim.tbl_deep_extend('force', capabilities, require('cmp_nvim_lsp').default_capabilities())
 
-    require('lspconfig').bashls.setup {
+    vim.lsp.config('bashls', {
       capabilities = capabilities,
-    }
-    require('lspconfig').lua_ls.setup {
+    })
+    vim.lsp.enable 'bashls'
+
+    vim.lsp.config('lua_ls', {
       -- cmd = {...},
       -- filetypes { ...},
       capabilities = capabilities,
@@ -111,13 +113,14 @@ return { -- LSP Configuration & Plugins
           -- diagnostics = { disable = { 'missing-fields' } },
         },
       },
-    }
+    })
+    vim.lsp.enable 'lua_ls'
 
     -- https://github.com/vimjoyer/nix-editor-setup-video
     -- Doing this separately because nix is used to install nixd, not Mason. This is making consider
     -- this lua code has a bit too much automagic stuff. Mason doesn't have a package for nixd so it
     -- cannot install it itself.
-    require('lspconfig').nixd.setup {
+    vim.lsp.config('nixd', {
       cmd = { 'nixd' },
       settings = {
         nixd = {
@@ -135,6 +138,7 @@ return { -- LSP Configuration & Plugins
           },
         },
       },
-    }
+    })
+    vim.lsp.enable 'nixd'
   end,
 }
