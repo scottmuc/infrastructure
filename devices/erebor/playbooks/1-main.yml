@@ -1,0 +1,125 @@
+- name: Setup device specific configuration
+  hosts: erebor
+  remote_user: ansible
+  become_method: doas
+
+  tasks:
+    - name: Delete the bootstrap user
+      become: true
+      ansible.builtin.user:
+        name: bootstrap
+        state: absent
+        remove: true
+
+
+    # I'm actuall unsure what amount of locking down is really needed
+    # in FreeBSD's openssh default configuration. I think it's relatively
+    # secure out of the box.
+    # https://stackoverflow.com/a/50733168
+    - name: Apply sshd_config settings
+      become: true
+      ansible.builtin.lineinfile:
+        path: /etc/ssh/sshd_config
+        # might be commented out, whitespace between key and value
+        regexp: '^#?\s*{{ item.key }}\s'
+        line: "{{ item.key }} {{ item.value }}"
+        validate: '/usr/sbin/sshd -T -f %s'
+      with_items:
+        - key: UsePAM
+          value: "no"
+      notify: restart sshd
+
+
+    - name: Install packages
+      become: true
+      community.general.pkgng:
+        pkg:
+          - node_exporter
+          - smartmontools
+
+
+    - name: Configure smartd
+      become: true
+      ansible.builtin.copy:
+        dest: /usr/local/etc/smartd.conf
+        owner: root
+        group: wheel
+        mode: '0644'
+        content: |
+          DEVICESCAN
+
+
+    - name: Enable and start services
+      become: true
+      service:
+        name: "{{ item }}"
+        enabled: true
+        state: started
+      with_items:
+        - node_exporter
+        - ntpd
+        - powerd
+        - smartd
+
+    # This driver enables reading of the CPU temperature probes
+    - name: Enable amdtemp driver
+      become: true
+      community.general.sysrc:
+        name: amdtemp_load
+        state: present
+        value: "YES"
+        path: /boot/loader.conf
+
+
+    - name: Prometheues testfile dir
+      become: true
+      ansible.builtin.file:
+        path: /usr/local/var/run/node_exporter
+        state: directory
+        recurse: true
+        owner: root
+        group: wheel
+        mode: '0775'
+
+
+    - name: Run prometheus_sysctl_exporter every minute
+      become: true
+      ansible.builtin.cron:
+        name: prometheus_sysctl_exporter
+        job: "/usr/sbin/prometheus_sysctl_exporter > /usr/local/var/run/node_exporter/sysctl.prom"
+
+
+    # This driver enables reading of the CPU temperature probes
+    - name: Configure node_export to read textfile dir
+      become: true
+      community.general.sysrc:
+        name: node_exporter_args
+        state: present
+        value: "--collector.textfile.directory=/usr/local/var/run/node_exporter"
+      notify: restart node_exporter
+
+
+    # https://github.com/scottmuc/infrastructure/issues/78#issuecomment-3448563023
+    - name: Disable bluetooth and wifi drivers
+      become: true
+      community.general.sysrc:
+        name: devmatch_blocklist
+        state: present
+        value: "if_rtw89 ng_ubt"
+
+
+  handlers:
+    - name: restart sshd
+      become: true
+      service:
+        name: sshd
+        state: restarted
+
+
+    - name: restart node_exporter
+      become: true
+      service:
+        name: node_exporter
+        state: restarted
+
+# vim: ft=yaml.ansible

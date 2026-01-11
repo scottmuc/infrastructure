@@ -1,41 +1,14 @@
 require "rspec"
 require "vagrant"
 
-class ZfsFixture
-  def initialize
-    @vagrant = Vagrant.new
-  end
-
-  def create_drive(name, size)
-    @vagrant.exec "truncate -s #{size} #{name}"
-    @vagrant.exec "sudo mdconfig -u #{name} -f #{name} || true"
-  end
-
-  def damage_drive(name)
-    @vagrant.exec "dd if=/dev/zero of=#{name} bs=4M count=1"
-  end
-
-  def delete_drive(name)
-    @vagrant.exec "sudo mdconfig -du #{name} || true"
-    @vagrant.exec "rm -f #{name}"
-  end
-
-  def create_zpool(name, drives)
-    @vagrant.exec "sudo zpool create #{name} raidz1 #{drives}"
-  end
-
-  def delete_zpool(name)
-    @vagrant.exec "sudo zpool destroy #{name}"
-  end
-end
-
 Given('a 3 disk raidz1 pool') do
+  @zpool_name = "testpool"
   @vagrant = Vagrant.new
   @zfs = ZfsFixture.new
   @zfs.create_drive("md0", "1TB")
   @zfs.create_drive("md1", "1TB")
   @zfs.create_drive("md2", "1TB")
-  @zfs.create_zpool("testpool", "/dev/md0 /dev/md1 /dev/md2")
+  @zfs.create_zpool("testpool", "", "/dev/md0 /dev/md1 /dev/md2")
 
   output = @vagrant.exec "zpool status testpool"
   # pool: testpool
@@ -130,4 +103,29 @@ end
 
 When('I restore from the snapshot') do
   @vagrant.exec "sudo cp /testpool/.zfs/snapshot/test/data/Moby_Dick.txt /testpool/data/Moby_Dick.txt"
+end
+
+Given('the {string} zpool has been exported') do |zpool_name|
+  @zpool_name = zpool_name
+  @vagrant.exec "sudo zpool export #{zpool_name}"
+end
+
+When('the host OS is repaved') do
+  output = @vagrant.exec "sudo zpool import"
+  #   pool: testpool
+  #     id: 14898039212800388320
+  #  state: ONLINE
+  # action: The pool can be imported using its name or numeric identifier.
+  # config:
+  #
+  #        testpool    ONLINE
+  #          raidz1-0  ONLINE
+  #            md0     ONLINE
+  #            md1     ONLINE
+  #            md2     ONLINE
+  expect(output).to match(/pool: #{@zpool_name}/)
+end
+
+When('the {string} zpool has been imported') do |zpool_name|
+  @vagrant.exec "sudo zpool import #{zpool_name}"
 end

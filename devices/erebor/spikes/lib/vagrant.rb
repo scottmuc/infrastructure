@@ -8,7 +8,7 @@ class VagrantStatus
   end
 
   # vagrant status --machine-readable
-  # 1721851780,erebor,state,not_created
+  # 1721851780,test-erebor,state,not_created
   def self.newFromString(vagrant_status_output)
     state = "unknown"
     vagrant_status_output.each_line do |line|
@@ -23,17 +23,17 @@ end
 
 class Vagrant
   def status
-    cmd = "vagrant status erebor --machine-readable"
+    cmd = "vagrant status test-erebor --machine-readable"
     VagrantStatus.newFromString(run_cmd_or_exit(cmd).strip)
   end
 
   def exec(command_arg)
-    cmd = "ssh -F ./ssh_config erebor -- #{command_arg}"
+    cmd = "ssh -F ./ssh_config test-erebor -- #{command_arg}"
     run_cmd_or_exit(cmd).strip
   end
 
   def scp(src, dst)
-    cmd = "scp -F ./ssh_config #{src} erebor:#{dst}"
+    cmd = "scp -F ./ssh_config #{src} test-erebor:#{dst}"
     run_cmd_or_exit(cmd).strip
   end
 

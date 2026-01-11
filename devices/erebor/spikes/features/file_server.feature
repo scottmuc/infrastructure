@@ -23,3 +23,9 @@ Feature: A FreeBSD ZFS NAS
     When a file has been deleted
     And I restore from the snapshot
     Then my files are all still available
+
+  Scenario: Importing zdata after OS repave
+    Given the "testpool" zpool has been exported
+    When the host OS is repaved
+    And the "testpool" zpool has been imported
+    Then my files are all still available

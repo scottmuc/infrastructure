@@ -1,6 +1,6 @@
 
 After do
-  @zfs.delete_zpool "testpool"
+  @zfs.delete_zpool @zpool_name
   @zfs.delete_drive "md6"
   @zfs.delete_drive "md5"
   @zfs.delete_drive "md4"

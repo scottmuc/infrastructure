@@ -190,6 +190,8 @@
       127.0.0.1     localhost
       192.168.2.10  pippin.middle-earth.internal  pippin
       192.168.2.11  merry.middle-earth.internal   merry
+      192.168.2.19  erebor.middle-earth.internal  erebor
+      192.168.2.20  gandalf.middle-earth.internal gandalf
   notify:
     - Restart dnsmasq
 
