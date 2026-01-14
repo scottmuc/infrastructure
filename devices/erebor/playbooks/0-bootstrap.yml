@@ -35,11 +35,10 @@
           permit nopass ansible
 
 
-     # TODO: decouple this from GitHub
     - name: Add authorized keys
       ansible.posix.authorized_key:
         user: ansible
         state: present
-        key: https://github.com/scottmuc.keys
+        key: "{{ lookup('file', '../../authorized_keys') }}"
 
 # vim: ft=yaml.ansible

@@ -12,6 +12,5 @@
         key: "{{ lookup('file', '../../authorized_keys') }}"
       loop:
         - user: ansible
-        - user: git
 
 # vim: ft=yaml.ansible
