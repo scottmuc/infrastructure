@@ -1,0 +1,76 @@
+- name: Update Apt cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+
+- name: Ensure required packages are installed
+  become: true
+  apt:
+    pkg:
+    - rsyslog-gnutls
+    state: latest
+
+
+- name: Include Betterstack variables
+  ansible.builtin.include_vars:
+    file: ../../secrets/betterstack.yml
+    name: secrets
+
+
+- name: Add Betterstack forwarding configuration
+  become: true
+  copy:
+    dest: /etc/rsyslog.d/betterstack.conf
+    content: |
+
+      global(DefaultNetstreamDriverCAFile="/etc/ssl/certs/ca-certificates.crt")
+
+      template(name="LogtailFormat" type="list") {
+       constant(value="<")
+       property(name="pri")
+       constant(value=">")
+       constant(value="1")
+       constant(value=" ")
+       property(name="timestamp" dateFormat="rfc3339")
+       constant(value=" ")
+       property(name="hostname")
+       constant(value=" ")
+       property(name="app-name")
+       constant(value=" ")
+       property(name="procid")
+       constant(value=" ")
+       property(name="msgid")
+       constant(value=" ")
+       property(name="structured-data" regex.expression="[^-]" regex.nomatchmode="BLANK" regex.submatch="0")
+       constant(value="[logtail@11993 source_token=\"{{ secrets.betterstack_log_source_token }}\"]")
+       constant(value=" ")
+       property(name="msg" droplastlf="on")
+      }
+
+      action(
+       type="omfwd"
+       protocol="tcp"
+
+       target="{{ secrets.betterstack_log_ingesting_host }}"
+       port="6514"
+       template="LogtailFormat"
+       TCP_Framing="octet-counted"
+       StreamDriver="gtls"
+       StreamDriverMode="1"
+       StreamDriverAuthMode="x509/name"
+       StreamDriverPermittedPeers="*.betterstackdata.com"
+       queue.spoolDirectory="/var/spool/rsyslog"
+       queue.filename="logtail"
+       queue.maxdiskspace="75m"
+       queue.type="LinkedList"
+       queue.saveonshutdown="on"
+      )
+
+
+    owner: root
+    group: admin
+
+    mode: '0640'
+  notify:
+    - Restart rsyslog
