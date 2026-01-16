@@ -12,6 +12,12 @@
     state: latest
 
 
+- name: Include Betterstack variables
+  ansible.builtin.include_vars:
+    file: ../../secrets/betterstack.yml
+    name: secrets
+
+
 - name: Add Betterstack forwarding configuration
   become: true
   copy:
@@ -37,7 +43,7 @@
        property(name="msgid")
        constant(value=" ")
        property(name="structured-data" regex.expression="[^-]" regex.nomatchmode="BLANK" regex.submatch="0")
-       constant(value="[logtail@11993 source_token=\"CHANGEME\"]")
+       constant(value="[logtail@11993 source_token=\"{{ secrets.betterstack_log_source_token }}\"]")
        constant(value=" ")
        property(name="msg" droplastlf="on")
       }
@@ -46,7 +52,7 @@
        type="omfwd"
        protocol="tcp"
 
-       target="CHANGEME"
+       target="{{ secrets.betterstack_log_ingesting_host }}"
        port="6514"
        template="LogtailFormat"
        TCP_Framing="octet-counted"
