@@ -28,10 +28,6 @@ install_determinate_nix() {
 }
 
 install_and_setup_home_manager() {
-  # Re source ~/.profile to refresh PATH to handle first install scenariou
-  # shellcheck disable=SC1090
-  source ~/.profile
-
   if ! command -v nix &> /dev/null; then
     echo "Can't do any home-manager stuff without nix"
     return
@@ -40,7 +36,6 @@ install_and_setup_home_manager() {
   if command -v home-manager &> /dev/null; then
     home-manager switch --flake "${REPO_DIR}/homedirs/common/nix"
   else
-    rm ~/.bashrc ~/.profile
     nix run "${REPO_DIR}/homedirs/common/nix#homeConfigurations.$(whoami).activationPackage"
   fi
 }

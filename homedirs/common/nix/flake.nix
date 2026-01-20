@@ -170,7 +170,7 @@
           }
         ];
       };
-      homeConfigurations.frodo = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.smootz = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
 
         # This can be a list because one can logically seperate the configuration
@@ -180,8 +180,8 @@
           # All of the options: https://nix-community.github.io/home-manager/options.xhtml
           {
             # Mandatory configurations to be set
-            home.username = "frodo";
-            home.homeDirectory = "/home/frodo";
+            home.username = "smootz";
+            home.homeDirectory = "/home/smootz";
             home.stateVersion = "25.11";
 
             # The home.packages option allows you to install Nix packages into your
