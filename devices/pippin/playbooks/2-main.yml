@@ -1,5 +1,5 @@
 - name: Installs and configures applications and services
-  hosts: all
+  hosts: pippin
   remote_user: ansible
 
   tasks:

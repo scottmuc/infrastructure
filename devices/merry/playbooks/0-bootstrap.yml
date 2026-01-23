@@ -1,6 +1,6 @@
 - name: Bootstrap a Debian ecosystem machine
-  hosts: all
-  remote_user: gimli
+  hosts: merry
+  remote_user: bootstrap
   gather_facts: false
   become: true
   become_method: su

@@ -1,5 +1,5 @@
 - name: Setup device specific configuration
-  hosts: all
+  hosts: pippin
   remote_user: ansible
 
   tasks:

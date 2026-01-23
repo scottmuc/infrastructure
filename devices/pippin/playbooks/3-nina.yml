@@ -1,5 +1,5 @@
 - name: Create a user account for Nina
-  hosts: all
+  hosts: pippin
   remote_user: ansible
 
   tasks:

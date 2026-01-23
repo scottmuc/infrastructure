@@ -14,7 +14,7 @@ inventory_choice=$(gum choose --header "Select inventory" \
   "inventory file" \
   "specific ip")
 
-inventory_arg="inventory.ini"
+inventory_arg="../inventory.ini"
 if [ "${inventory_choice}" = "specific ip" ]; then
   inventory_arg="$(gum input --placeholder "192.168.2.x"),"
 fi

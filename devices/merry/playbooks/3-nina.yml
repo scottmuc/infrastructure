@@ -1,5 +1,5 @@
 - name: Create a user account for Nina
-  hosts: all
+  hosts: merry
   gather_facts: false
   remote_user: ansible
 

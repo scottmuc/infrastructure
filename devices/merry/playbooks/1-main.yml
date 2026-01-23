@@ -1,5 +1,5 @@
 - name: Setup device specific configuration
-  hosts: all
+  hosts: merry
   remote_user: ansible
 
   tasks:

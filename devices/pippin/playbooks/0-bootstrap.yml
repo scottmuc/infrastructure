@@ -1,5 +1,5 @@
 - name: Bootstrap raspberry pi device to enable ansible automation runs.
-  hosts: all
+  hosts: pippin
   remote_user: bootstrap
   gather_facts: false
   become: true
