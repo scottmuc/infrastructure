@@ -116,6 +116,7 @@ return { -- LSP Configuration & Plugins
     })
     vim.lsp.enable 'lua_ls'
 
+    local user = os.getenv 'USER'
     -- https://github.com/vimjoyer/nix-editor-setup-video
     -- Doing this separately because nix is used to install nixd, not Mason. This is making consider
     -- this lua code has a bit too much automagic stuff. Mason doesn't have a package for nixd so it
@@ -133,7 +134,7 @@ return { -- LSP Configuration & Plugins
           options = {
             -- https://nix-community.github.io/nixd/md_nixd_2docs_2configuration.html
             home_manager = {
-              expr = '(import <home-manager/modules> { configuration = ~/.config/home-manager/home.nix; pkgs = import <nixpkgs> {}; }).options',
+              expr = '(builtins.getFlake (builtins.toString ~/workspace/infrastructure/homedirs/nix/)).homeConfigurations.' .. user .. '.options',
             },
           },
         },
