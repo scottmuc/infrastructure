@@ -1,7 +1,5 @@
 - name: Setup git hosting
   hosts: erebor
-  remote_user: ansible
-  become_method: doas
 
   vars:
     repositories:

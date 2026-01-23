@@ -1,7 +1,5 @@
 - name: Setup NFS file sharing
   hosts: erebor
-  remote_user: ansible
-  become_method: doas
 
   tasks:
     - name: Create NFS read/write group

@@ -1,6 +1,5 @@
 - name: Installs and configures applications and services
   hosts: pippin
-  remote_user: ansible
 
   tasks:
     - name: Install and dhcpd, dns, and network configuration

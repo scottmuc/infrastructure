@@ -1,6 +1,5 @@
 - name: Setup device specific configuration
   hosts: merry
-  remote_user: ansible
 
   tasks:
     # I am uncertain if this belongs in the bootstrap, or in some overarching

@@ -1,7 +1,5 @@
 - name: Setup device specific configuration
   hosts: erebor
-  remote_user: ansible
-  become_method: doas
 
   tasks:
     - name: Delete the bootstrap user

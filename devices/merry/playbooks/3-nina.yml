@@ -1,7 +1,6 @@
 - name: Create a user account for Nina
   hosts: merry
   gather_facts: false
-  remote_user: ansible
 
   tasks:
     - name: Create Nina user

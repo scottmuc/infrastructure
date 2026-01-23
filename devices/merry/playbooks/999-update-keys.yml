@@ -1,6 +1,5 @@
 - name: Update Authorized Keys
   hosts: merry
-  remote_user: ansible
   gather_facts: false
 
   tasks:
