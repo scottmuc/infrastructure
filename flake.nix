@@ -16,7 +16,6 @@
         packages = [
           pkgs.ansible
           pkgs.bash
-          pkgs.fly
           pkgs.git-crypt
           pkgs.opentofu
           pkgs.shellcheck
