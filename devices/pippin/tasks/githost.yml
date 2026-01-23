@@ -1,61 +1,4 @@
-- name: Ensure git is installed
-  become: true
-  ansible.builtin.package:
-    name: git
-    state: present
-
-
-- name: Create a git user for remote access
-  become: true
-  ansible.builtin.user:
-    comment: "Low priv git repo access user"
-    system: true
-    uid: 995
-    name: git
-    shell: /usr/bin/git-shell
-    createhome: true
-
-
-- name: Add my keys to git user
-  become: true
-  ansible.posix.authorized_key:
-    user: git
-    state: present
-    key: https://github.com/scottmuc.keys
-
-
-- name: Create repo directories
-  become: true
-  ansible.builtin.command:
-    cmd: sudo -u git git init --initial-branch main --bare "/mnt/vcapstore/repos/{{ item.name }}.git"
-    creates: "/mnt/vcapstore/repos/{{ item.name }}.git/HEAD"
-  loop:
-    - name: infrastructure
-    - name: presentations
-    - name: tabularasa
-    - name: website
-    - name: dns-zone-blocklist
-
-
-# follow: false because https://stackoverflow.com/questions/70608966/create-link-with-specific-owner-group
-- name: Symlink repo directories
-  become: true
-  ansible.builtin.file:
-    src: /mnt/vcapstore/repos/{{ item.name }}.git
-    dest: /home/git/{{ item.name }}.git
-    owner: git
-    group: git
-    state: link
-    follow: false
-  loop:
-    - name: infrastructure
-    - name: presentations
-    - name: tabularasa
-    - name: website
-    - name: dns-zone-blocklist
-
-
-- name: Serve private IP for git.scottmuc.com
+- name: Serve erebor's IP for git.scottmuc.com
   become: true
   ansible.builtin.copy:
     dest: /etc/unbound/unbound.conf.d/git.scottmuc.com.conf
@@ -64,7 +7,7 @@
     mode: '0664'
     content: |
       server:
-        local-data: "git.scottmuc.com.   IN    A   192.168.2.10"
+        local-data: "git.scottmuc.com.   IN    A   192.168.2.19"
   notify:
     - Restart unbound
 

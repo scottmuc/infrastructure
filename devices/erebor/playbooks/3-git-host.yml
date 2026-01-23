@@ -1,0 +1,72 @@
+- name: Setup git hosting
+  hosts: erebor
+  remote_user: ansible
+  become_method: doas
+
+  vars:
+    repositories:
+      - name: infrastructure
+      - name: presentations
+      - name: tabularasa
+      - name: website
+      - name: dns-zone-blocklist
+    repos_path: "/usr/local/var/mcap/store/repos"
+
+  tasks:
+    - name: Ensure git is installed
+      become: true
+      ansible.builtin.pkgng:
+        pkg:
+          - git
+
+
+    - name: Create a git user for remote access
+      become: true
+      ansible.builtin.user:
+        comment: "Low priv git repo access user"
+        system: true
+        uid: 995
+        name: git
+        shell: /usr/local/bin/git-shell
+        createhome: true
+
+
+    - name: Add my keys to git user
+      become: true
+      ansible.posix.authorized_key:
+        user: git
+        state: present
+        key: "{{ lookup('file', '../../authorized_keys') }}"
+
+
+    - name: Ensure repos path exists
+      become: true
+      ansible.builtin.file:
+        path: "{{ repos_path }}"
+        state: directory
+        owner: git
+        group: git
+        mode: '0775'
+
+
+    - name: Create repo directories
+      ansible.builtin.command:
+        cmd: doas -u git git init --initial-branch main --bare "{{ repos_path }}/{{ item.name }}.git"
+        creates: "{{ repos_path }}/{{ item.name }}.git/HEAD"
+      loop: "{{ repositories }}"
+
+
+    # follow: false because https://stackoverflow.com/questions/70608966/create-link-with-specific-owner-group
+    - name: Symlink repo directories
+      become: true
+      ansible.builtin.file:
+        src: "{{ repos_path }}/{{ item.name }}.git"
+        dest: /home/git/{{ item.name }}.git
+        owner: git
+        group: git
+        state: link
+        follow: false
+      loop: "{{ repositories }}"
+
+
+# vim: ft=yaml.ansible
