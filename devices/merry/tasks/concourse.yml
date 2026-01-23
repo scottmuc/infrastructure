@@ -90,15 +90,15 @@
 - name: Create DB
   become: true
   become_user: postgres
-  postgresql_db:
+  community.postgresql.postgresql_db:
     name: concourse
 
 
 - name: Create Concourse DB user
   become: true
   become_user: postgres
-  postgresql_user:
-    db: "{{ secrets.concourse_db_database }}"
+  community.postgresql.postgresql_user:
+    login_db: "{{ secrets.concourse_db_database }}"
     user: "{{ secrets.concourse_db_username }}"
     password: "{{ secrets.concourse_db_password }}"
 
