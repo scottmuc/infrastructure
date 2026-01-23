@@ -4,7 +4,7 @@ resources:
   icon: github
   source:
     uri: https://github.com/scottmuc/infrastructure
-    path:
+    paths:
       - devices/pippin/tests/**
 
 jobs:
