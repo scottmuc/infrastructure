@@ -110,22 +110,6 @@
         apply:
           tags: navidrome
 
-    - name: Configure zot
-      ansible.builtin.include_tasks:
-        file: ../tasks/zot.yml
-
-
-    - name: Configure Vault
-      ansible.builtin.include_tasks:
-        file: ../tasks/vault.yml
-
-
-    - name: Configure concourse
-      vars:
-        concourse_version: "8.0.0"
-      ansible.builtin.include_tasks:
-        file: ../tasks/concourse.yml
-
 
     - name: Configure power management
       ansible.builtin.include_tasks:

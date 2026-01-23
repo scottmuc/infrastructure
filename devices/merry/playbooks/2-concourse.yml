@@ -1,0 +1,62 @@
+- name: Setup Concourse
+  hosts: merry
+
+  tasks:
+    - name: Configure zot
+      ansible.builtin.include_tasks:
+        file: ../tasks/zot.yml
+
+
+    - name: Configure Vault
+      ansible.builtin.include_tasks:
+        file: ../tasks/vault.yml
+
+
+    - name: Configure concourse
+      vars:
+        concourse_version: "8.0.0"
+      ansible.builtin.include_tasks:
+        file: ../tasks/concourse.yml
+
+
+
+  handlers:
+    # It's important that Systemd reload is defined first here
+    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
+    #
+    # This might not be necessary though... still need to think this through
+    - name: Systemd reload
+      become: true
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+
+    - name: Restart concourse-web
+      become: true
+      ansible.builtin.service:
+        name: concourse-web
+        state: restarted
+
+
+    - name: Restart concourse-worker
+      become: true
+      ansible.builtin.service:
+        name: concourse-worker
+        state: restarted
+
+
+    - name: Restart vault
+      become: true
+      ansible.builtin.service:
+        name: vault
+        state: restarted
+
+
+    - name: Restart zot
+      become: true
+      ansible.builtin.service:
+        name: zot
+        state: restarted
+
+
+# vim: ft=yaml.ansible
