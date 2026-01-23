@@ -16,7 +16,7 @@
     group: root
     mode: "0644"
     content: |
-      deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_lsb.codename }} main
+      deb [arch=amd64 signed-by=/usr/share/keyrings/hashicorp.asc] https://apt.releases.hashicorp.com {{ ansible_facts['lsb'].codename }} main
 
 
 - name: Install Vault

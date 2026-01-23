@@ -49,7 +49,7 @@
   environment:
     OS: "linux"
     ARCH: "amd64"
-    PATH: "/opt/zot/go/bin:{{ ansible_env.PATH }}"
+    PATH: "/opt/zot/go/bin:{{ ansible_facts['env'].PATH }}"
   ansible.builtin.command:
     chdir: "/opt/zot/src"
     argv:
