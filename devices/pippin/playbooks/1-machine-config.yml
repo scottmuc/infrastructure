@@ -70,3 +70,4 @@
         name: rsyslog
         state: restarted
 
+# vim: ft=yaml.ansible
