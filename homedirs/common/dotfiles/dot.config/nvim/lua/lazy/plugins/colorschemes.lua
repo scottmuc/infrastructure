@@ -4,14 +4,28 @@ return {
     lazy = false,
     priority = 1000,
     init = function()
-      require 'selected_colorscheme'
+      -- background is a CLI tool that I wrote to return what the system
+      -- background is set to. It only returns dark or light.
+      local handle = io.popen 'background'
+      if not handle then
+        return
+      end
 
-      vim.cmd [[
-        " Adds a bit of complexity, but the `background` tool reads the OS
-        " level theme and returns "light" or "dark" accordingly.
-        let output=system("background")
-        execute "set background=".escape(output, ' ')
-      ]]
+      local output = handle:read '*a'
+      handle:close()
+
+      if not output then
+        return
+      end
+
+      output = output:gsub('%s+', '')
+      vim.o.background = output
+
+      if output == 'dark' then
+        vim.cmd.colorscheme 'cyberdream'
+      elseif output == 'light' then
+        vim.cmd.colorscheme 'cyberdream-light'
+      end
     end,
   },
 }
