@@ -1,0 +1,26 @@
+all:
+  vars:
+    ansible_user: ansible
+    ansible_python_interpreter: /usr/bin/python3
+
+    users_to_propogate_authorized_keys_to:
+      - ansible
+
+  hosts:
+    erebor.middle-earth.internal.:
+      ansible_become_method: doas
+      ansible_python_interpreter: /usr/local/bin/python3
+
+      users_to_propogate_authorized_keys_to:
+        - ansible
+        - git
+    merry.middle-earth.internal.:
+    pippin.middle-earth.internal.:
+
+  children:
+    linux:
+      hosts:
+        merry.middle-earth.internal.:
+        pippin.middle-earth.internal.:
+
+# vim: ft=yaml.ansible

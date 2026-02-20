@@ -12,6 +12,5 @@ set -x
 env \
   ANSIBLE_CONFIG=./ansible.cfg \
 ansible-playbook \
-  --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
-  --inventory ./inventory.ini \
+  --inventory ./inventory.yml \
   "${playbook}"
