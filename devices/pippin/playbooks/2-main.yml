@@ -90,13 +90,6 @@
         state: restarted
 
 
-    - name: Restart unbound
-      become: true
-      ansible.builtin.service:
-        name: unbound
-        state: restarted
-
-
     - name: Restart unbound_exporter
       become: true
       ansible.builtin.service:

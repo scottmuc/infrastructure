@@ -164,13 +164,6 @@
         state: reloaded
 
 
-    - name: Restart unbound
-      become: true
-      ansible.builtin.service:
-        name: unbound
-        state: restarted
-
-
     - name: Restart node_exporter
       become: true
       ansible.builtin.service:
