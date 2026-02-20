@@ -108,6 +108,20 @@
         - Restart unbound
 
 
+    - name: Serve erebor's IP for git.scottmuc.com
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/unbound/unbound.conf.d/git.scottmuc.com.conf
+        owner: root
+        group: root
+        mode: '0664'
+        content: |
+          server:
+            local-data: "git.scottmuc.com.   IN    A   192.168.2.19"
+      notify:
+        - Restart unbound
+
+
     - name: Add blocklist
       become: true
       ansible.builtin.get_url:

@@ -18,14 +18,6 @@
           tags: mounts
 
 
-    - name: Setup git host
-      tags: git
-      ansible.builtin.include_tasks:
-        file: ../tasks/githost.yml
-        apply:
-          tags: git
-
-
     - name: Install webserver things
       tags: webserver
       ansible.builtin.include_tasks:
