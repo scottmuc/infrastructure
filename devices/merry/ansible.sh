@@ -14,7 +14,7 @@ inventory_choice=$(gum choose --header "Select inventory" \
   "inventory file" \
   "specific ip")
 
-inventory_arg="../inventory.ini"
+inventory_arg="../inventory.yml"
 if [ "${inventory_choice}" = "specific ip" ]; then
   inventory_arg="$(gum input --placeholder "192.168.2.x"),"
 fi
@@ -25,7 +25,6 @@ set -x
 env \
   ANSIBLE_CONFIG=../ansible.cfg \
 ansible-playbook \
-  --extra-vars "ansible_python_interpreter=/usr/bin/python3" \
   --inventory "${inventory_arg}" \
   --tags "${tags}" \
   "${playbook}"

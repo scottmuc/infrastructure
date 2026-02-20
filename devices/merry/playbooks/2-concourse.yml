@@ -1,5 +1,5 @@
 - name: Setup Concourse
-  hosts: merry
+  hosts: merry.middle-earth.internal.
 
   tasks:
     - name: Configure zot

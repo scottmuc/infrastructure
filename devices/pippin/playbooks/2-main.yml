@@ -1,5 +1,5 @@
 - name: Installs and configures applications and services
-  hosts: pippin
+  hosts: pippin.middle-earth.internal.
 
   tasks:
     - name: Install and dhcpd, dns, and network configuration

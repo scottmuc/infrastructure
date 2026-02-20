@@ -1,5 +1,5 @@
 - name: Bootstrap FreeBSD for ansible
-  hosts: erebor
+  hosts: erebor.middle-earth.internal.
 
   # INFO: the bootstrap user is created manually during the OS install
   remote_user: bootstrap

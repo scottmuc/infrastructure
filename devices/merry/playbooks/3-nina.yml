@@ -1,5 +1,5 @@
 - name: Create a user account for Nina
-  hosts: merry
+  hosts: merry.middle-earth.internal.
   gather_facts: false
 
   tasks:

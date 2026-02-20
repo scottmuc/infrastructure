@@ -1,5 +1,5 @@
 - name: Setup NFS file sharing
-  hosts: erebor
+  hosts: erebor.middle-earth.internal.
 
   tasks:
     - name: Create NFS read/write group

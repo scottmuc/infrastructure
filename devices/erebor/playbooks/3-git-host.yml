@@ -1,5 +1,5 @@
 - name: Setup git hosting
-  hosts: erebor
+  hosts: erebor.middle-earth.internal.
 
   vars:
     repositories:

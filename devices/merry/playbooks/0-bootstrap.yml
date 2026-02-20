@@ -1,5 +1,5 @@
 - name: Bootstrap a Debian ecosystem machine
-  hosts: merry
+  hosts: merry.middle-earth.internal.
   remote_user: bootstrap
   gather_facts: false
   become: true

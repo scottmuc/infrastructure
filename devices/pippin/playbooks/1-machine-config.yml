@@ -1,5 +1,5 @@
 - name: Setup device specific configuration
-  hosts: pippin
+  hosts: pippin.middle-earth.internal.
 
   tasks:
     # I am uncertain if this belongs in the bootstrap, or in some overarching

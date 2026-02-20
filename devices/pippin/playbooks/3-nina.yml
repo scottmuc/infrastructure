@@ -1,5 +1,5 @@
 - name: Create a user account for Nina
-  hosts: pippin
+  hosts: pippin.middle-earth.internal.
 
   tasks:
     - name: Create Nina user

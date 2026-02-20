@@ -1,5 +1,5 @@
 - name: Setup device specific configuration
-  hosts: erebor
+  hosts: erebor.middle-earth.internal.
 
   tasks:
     - name: Delete the bootstrap user
