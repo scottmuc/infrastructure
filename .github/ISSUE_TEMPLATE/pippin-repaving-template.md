@@ -73,15 +73,15 @@ the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Turn on the PI and note the IP obtained from the Router
 
-- [ ] Clean up old host keys<details>
+- [ ] Update `/etc/hosts` mapping the IP in the step above to `pippin.middle-earth.internal.`
+
+- [ ] Clean up old host key<details>
   <summary>Instructions</summary>
 
   The new instance will have new host keys so to ensure host key warning messages don't
   distract us from the repaving, run the following:
 
   ```
-  ssh-keygen -R 192.168.2.10
-  ssh-keygen -R pippin
   ssh-keygen -R pippin.middle-earth.internal.
   ```
 </details>
@@ -94,7 +94,7 @@ the [previous repave issues][repave-history]. Have fun!
   run the bootstrap playbook (which creates an admin `ansible` user) and will be subsequently
   cleaned up.
 
-  `ssh-copy-id bootstrap@<pi ip>`
+  `ssh-copy-id bootstrap@pippin.middle-earth.internal.`
 </details>
 
 
@@ -128,17 +128,13 @@ the [previous repave issues][repave-history]. Have fun!
 
 - [ ] Deploy goodenoughmoney.com
 
-- [ ] Clean up host key for ephemeral IP<details>
+- [ ] Clean up `~/.ssh/known_hosts`<details>
   <summary>Instructions</summary>
 
-  Remove host key reference to the temporary IP that was used to bootstrap the
-  device. This cleanup will ensure that an error won't occur in the next refresh
-  if the same IP is used again.
-
-  ```
-  ssh-keygen -R <ephemeral IP>
-  ```
+  Run `really-well-known-hosts` to completey reset the file
 </details>
+
+- [ ] Update `/etc/hosts` and remove entry for `pippin.middle-earth.internal.`
 
 - [ ] Make this template slightly better
 
