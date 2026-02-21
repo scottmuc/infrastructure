@@ -120,7 +120,6 @@
 - name: Install service
   become: true
   ansible.builtin.copy:
-    src: root/etc/systemd/system/zot.service
     dest: /etc/systemd/system/zot.service
     owner: root
     group: admin

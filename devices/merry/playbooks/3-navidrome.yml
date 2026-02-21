@@ -1,9 +1,6 @@
 - name: Setup Navidrome
   hosts: merry.middle-earth.internal.
 
-  vars:
-    navidrome_version: "0.58.5"
-
   tasks:
     - name: Navidrome user
       become: true

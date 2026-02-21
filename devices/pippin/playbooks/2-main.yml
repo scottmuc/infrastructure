@@ -28,8 +28,6 @@
 
     - name: Install monitoring
       tags: monitoring
-      vars:
-        prometheus_version: "2.55.1"
       ansible.builtin.include_tasks:
         file: ../tasks/monitoring.yml
         apply:

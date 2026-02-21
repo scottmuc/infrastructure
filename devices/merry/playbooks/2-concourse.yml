@@ -13,11 +13,8 @@
 
 
     - name: Configure concourse
-      vars:
-        concourse_version: "8.0.0"
       ansible.builtin.include_tasks:
         file: ../tasks/concourse.yml
-
 
 
   handlers:

@@ -19,6 +19,8 @@ all:
       golang_arch: amd64
       node_exporter_arch: amd64
       node_exporter_version: "1.10.2"
+      navidrome_version: "0.58.5"
+      concourse_version: "8.0.0"
 
     pippin.middle-earth.internal.:
       ansible_become_method: doas
@@ -26,6 +28,7 @@ all:
       golang_arch: arm64
       node_exporter_arch: armv7
       node_exporter_version: "1.10.2"
+      prometheus_version: "2.55.1"
 
   children:
     linux:
