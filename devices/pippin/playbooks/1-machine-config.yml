@@ -39,13 +39,6 @@
           value: '1'
 
 
-    - name: Configure syslog forwarding
-      tags: logging
-      include_tasks:
-        file: ../tasks/logging.yml
-        apply:
-          tags: logging
-
   handlers:
     # It's important that Systemd reload is defined first here
     # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
@@ -63,11 +56,5 @@
         name: sshd
         state: reloaded
 
-
-    - name: Restart rsyslog
-      become: true
-      ansible.builtin.service:
-        name: rsyslog
-        state: restarted
 
 # vim: ft=yaml.ansible

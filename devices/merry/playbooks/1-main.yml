@@ -93,14 +93,6 @@
           value: '1'
 
 
-    - name: Configure syslog forwarding
-      tags: logging
-      include_tasks:
-        file: ../tasks/logging.yml
-        apply:
-          tags: logging
-
-
     - name: Install navidrome
       vars:
         navidrome_version: "0.58.5"
@@ -186,11 +178,5 @@
         name: navidrome
         state: restarted
 
-
-    - name: Restart rsyslog
-      become: true
-      ansible.builtin.service:
-        name: rsyslog
-        state: restarted
 
 # vim: ft=yaml.ansible
