@@ -1,0 +1,185 @@
+- name: Setup Navidrome
+  hosts: merry.middle-earth.internal.
+
+  vars:
+    navidrome_version: "0.58.5"
+
+  tasks:
+    - name: Navidrome user
+      become: true
+      ansible.builtin.user:
+        name: navidrome
+        uid: 1010
+        comment: Service account for navidrome process
+        system: true
+
+
+    - name: Add navidrome user to nfsrw group
+      become: true
+      ansible.builtin.user:
+        name: navidrome
+        groups: nfsrw
+        append: true
+
+
+    - name: Navidrome application directory
+      become: true
+      ansible.builtin.file:
+        path: /opt/navidrome
+        state: directory
+        owner: navidrome
+        group: admin
+        mode: '0775'
+
+
+    - name: Navidrome versioned directory
+      become: true
+      ansible.builtin.file:
+        path: "/opt/navidrome/{{ navidrome_version }}"
+        state: directory
+        owner: navidrome
+        group: admin
+        mode: '0775'
+
+
+    - name: Download navidrome
+      ansible.builtin.unarchive:
+        src: "https://github.com/navidrome/navidrome/releases/download/v{{ navidrome_version }}/navidrome_{{ navidrome_version }}_linux_amd64.tar.gz"
+        remote_src: true
+        dest: "/opt/navidrome/{{ navidrome_version }}"
+        creates: "/opt/navidrome/{{ navidrome_version }}/navidrome"
+
+
+    - name: Symlink current navidrome version
+      ansible.builtin.file:
+        src: "/opt/navidrome/{{ navidrome_version }}"
+        dest: "/opt/navidrome/live"
+        state: link
+        owner: navidrome
+        group: admin
+        mode: '0775'
+      notify:
+        - Restart navidrome
+
+
+    - name: Create ffmpeg directory
+      become: true
+      ansible.builtin.file:
+        path: /opt/navidrome/ffmpeg
+        state: directory
+        owner: navidrome
+        group: admin
+        mode: '0775'
+
+
+    - name: Download ffmpeg
+      ansible.builtin.unarchive:
+        src: https://johnvansickle.com/ffmpeg/releases/ffmpeg-release-amd64-static.tar.xz
+        remote_src: true
+        dest: /opt/navidrome/ffmpeg
+        creates: /opt/navidrome/ffmpeg/ffmpeg
+        extra_opts:
+          - --strip-components=1
+
+
+    - name: Install navidrome configuration
+      become: true
+      ansible.builtin.copy:
+        dest: /opt/navidrome/navidrome.toml
+        owner: navidrome
+        group: admin
+        mode: '0444'
+        content: |
+          # https://www.navidrome.org/docs/usage/configuration-options/#available-options
+
+          # Basic Configuration
+          LogLevel = "INFO"
+          BaseURL = "/music"
+          ScanSchedule = "0"
+          DataFolder = "/var/vcap/store/navidrome"
+          MusicFolder = "/mnt/mcap/music"
+
+          # Advanced Configuration
+          FFmpegPath = "/opt/navidrome/ffmpeg/ffmpeg"
+          TranscodingCacheSize = "15MB"
+          EnableSharing = "true"
+          Prometheus.Enabled = "true"
+
+      notify:
+        - Restart navidrome
+
+
+    - name: Install navidrome service
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/navidrome.service
+        owner: root
+        group: admin
+        mode: '0644'
+        content: |
+          [Unit]
+          Description=Navidrome Music Server and Streamer compatible with Subsonic/Airsonic
+          After=remote-fs.target network.target
+          AssertPathExists=/opt/navidrome
+
+          [Install]
+          WantedBy=multi-user.target
+
+          [Service]
+          User=navidrome
+          Group=root
+          Type=simple
+          ExecStart=/opt/navidrome/live/navidrome --configfile "/opt/navidrome/navidrome.toml"
+          WorkingDirectory=/opt/navidrome
+          TimeoutStopSec=20
+          KillMode=process
+          Restart=on-failure
+
+          # See https://www.freedesktop.org/software/systemd/man/systemd.exec.html
+          DevicePolicy=closed
+          NoNewPrivileges=yes
+          PrivateTmp=yes
+          PrivateUsers=yes
+          ProtectControlGroups=yes
+          ProtectKernelModules=yes
+          ProtectKernelTunables=yes
+          RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+          RestrictNamespaces=yes
+          RestrictRealtime=yes
+          SystemCallFilter=~@clock @debug @module @mount @obsolete @privileged @reboot @setuid @swap
+          ReadWritePaths=/var/vcap/store/navidrome
+          ProtectSystem=strict
+          ProtectHome=true
+
+      notify:
+        - Restart navidrome
+        - Systemd reload
+
+
+    - name: Ensure navidrome is running
+      become: true
+      ansible.builtin.service:
+        name: navidrome
+        state: started
+        enabled: true
+
+
+  handlers:
+    # It's important that Systemd reload is defined first here
+    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
+    #
+    # This might not be necessary though... still need to think this through
+    - name: Systemd reload
+      become: true
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+
+    - name: Restart navidrome
+      become: true
+      ansible.builtin.service:
+        name: navidrome
+        state: restarted
+
+
+# vim: ft=yaml.ansible
