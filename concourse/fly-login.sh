@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+fly --target concourse.scottmuc.com login \
+  --concourse-url https://concourse.scottmuc.com \
+  --team-name smootz-gmbh
