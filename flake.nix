@@ -12,15 +12,24 @@
       pkgs = import nixpkgs { inherit system; };
     in
     {
-      devShells.${system}.default = pkgs.mkShell {
-        packages = [
-          pkgs.ansible
-          pkgs.bash
-          pkgs.git-crypt
-          pkgs.opentofu
-          pkgs.shellcheck
-          pkgs.skopeo
-        ];
+      devShells.${system} = {
+        default = pkgs.mkShell {
+          packages = [
+            pkgs.ansible
+            pkgs.bash
+            pkgs.git-crypt
+            pkgs.opentofu
+            pkgs.skopeo
+          ];
+        };
+        ci = pkgs.mkShell {
+          packages = [
+            pkgs.shellcheck
+            pkgs.tflint
+            pkgs.ansible-lint
+            pkgs.flake-checker
+          ];
+        };
       };
     };
 }

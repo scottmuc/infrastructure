@@ -94,9 +94,8 @@ jobs:
 
           cachix watch-exec scottmuc -- nix \
             --extra-experimental-features "nix-command flakes" \
-            build \
-            "github:DeterminateSystems/flake-checker/v0.2.8"
+            develop .#ci
 
-          ./result/bin/flake-checker
+          flake-checker --fail-mode
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
