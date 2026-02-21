@@ -4,6 +4,10 @@
   gather_facts: false
   become: true
 
+  # Raspian image sets up the bootstrap user to be able to sudo, and we
+  # need to override inventory configuration since we don't have doas yet.
+  become_method: sudo
+
   pre_tasks:
     - name: Attempt to update apt's cache
       ansible.builtin.apt:
@@ -16,14 +20,12 @@
         system: true
         state: present
 
-    # The Raspberry PI OS image comes with sudo installed, but will leave this
-    # check here just in case that assumption changes.
-    - name: Ensure sudo is installed
+    - name: Ensure doas is installed
       ansible.builtin.package:
-        name: sudo
+        name: doas
         state: present
 
-    - name: Create Ansible user
+    - name: Create ansible user
       ansible.builtin.user:
         name: ansible
         shell: /bin/bash
@@ -31,23 +33,22 @@
         home: /home/ansible
         createhome: true
 
-    - name: Add Ansible user to admin group
+    - name: Add ansible user to admin group
       ansible.builtin.user:
         name: ansible
         groups: admin
         append: true
 
-    # https://stackoverflow.com/a/62459797
-    - name: Ensure admin group can sudo
+    - name: Permit ansible to elevate privileges without root password
       ansible.builtin.copy:
-        dest: /etc/sudoers.d/admin-group-nopasswd
+        dest: /etc/doas.conf
         owner: root
-        group: root
-        mode: '0440'
+        group: admin
+        mode: '0640'
         content: |
-          %admin ALL=(ALL) NOPASSWD: ALL
+          permit nopass ansible
 
-    - name: Add authorized keys
+    - name: Initialized authorized_keys for the ansible user
       ansible.posix.authorized_key:
         user: ansible
         state: present

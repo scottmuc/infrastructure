@@ -62,6 +62,7 @@
       dns-search middle-earth.internal
 
 
+# TODO: this shouldn't be managed here, move to top-level unbound-resolvers
 - name: Install /etc/resolv.conf
   become: true
   ansible.builtin.copy:
@@ -72,6 +73,7 @@
     content: |
       search middle-earth.internal
       nameserver 127.0.0.1
+      nameserver 9.9.9.9
   notify:
     - Restart dnsmasq
 
