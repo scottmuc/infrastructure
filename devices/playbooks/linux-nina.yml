@@ -1,5 +1,6 @@
-- name: Create a user account for Nina
-  hosts: pippin.middle-earth.internal.
+- name: Propogate authorized_keys
+  hosts: linux
+  gather_facts: false
 
   tasks:
     - name: Create Nina user
