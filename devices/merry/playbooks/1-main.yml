@@ -116,11 +116,6 @@
         file: ../tasks/power_management.yml
 
 
-    - name: Install and dns, and network configuration
-      ansible.builtin.include_tasks:
-        file: ../tasks/unbound.yml
-
-
     - name: Install monitoring
       vars:
         node_exporter_version: "1.10.2"
