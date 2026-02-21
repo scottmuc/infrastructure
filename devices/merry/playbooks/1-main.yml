@@ -116,13 +116,6 @@
         file: ../tasks/power_management.yml
 
 
-    - name: Install monitoring
-      vars:
-        node_exporter_version: "1.10.2"
-      ansible.builtin.include_tasks:
-        file: ../tasks/monitoring.yml
-
-
     - name: Configure static IP
       become: true
       ansible.builtin.copy:
@@ -157,13 +150,6 @@
       ansible.builtin.service:
         name: sshd
         state: reloaded
-
-
-    - name: Restart node_exporter
-      become: true
-      ansible.builtin.service:
-        name: node_exporter
-        state: restarted
 
 
     - name: Restart concourse-web

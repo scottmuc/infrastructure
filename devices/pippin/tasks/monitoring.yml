@@ -5,13 +5,6 @@
     file: ../tasks/prometheus.yml
 
 
-- name: Install node exporter
-  vars:
-    version: "{{ node_exporter_version }}"
-  ansible.builtin.include_tasks:
-    file: ../tasks/node_exporter.yml
-
-
 - name: Install dnsmasq exporter
   ansible.builtin.include_tasks:
     file: ../tasks/dnsmasq_exporter.yml

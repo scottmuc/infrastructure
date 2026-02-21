@@ -14,12 +14,18 @@ all:
       users_to_propogate_authorized_keys_to:
         - ansible
         - git
+
     merry.middle-earth.internal.:
       golang_arch: amd64
+      node_exporter_arch: amd64
+      node_exporter_version: "1.10.2"
 
     pippin.middle-earth.internal.:
       ansible_become_method: doas
+
       golang_arch: arm64
+      node_exporter_arch: armv7
+      node_exporter_version: "1.10.2"
 
   children:
     linux:

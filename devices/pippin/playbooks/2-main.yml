@@ -30,7 +30,6 @@
       tags: monitoring
       vars:
         prometheus_version: "2.55.1"
-        node_exporter_version: "1.10.2"
       ansible.builtin.include_tasks:
         file: ../tasks/monitoring.yml
         apply:
@@ -65,13 +64,6 @@
       become: true
       ansible.builtin.service:
         name: prometheus
-        state: restarted
-
-
-    - name: Restart node_exporter
-      become: true
-      ansible.builtin.service:
-        name: node_exporter
         state: restarted
 
 

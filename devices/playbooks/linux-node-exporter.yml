@@ -1,0 +1,113 @@
+---
+- hosts: linux
+  gather_facts: yes
+  become: yes
+
+  vars:
+    version: "{{ node_exporter_version }}"
+    arch: "{{ node_exporter_arch }}"
+
+  tasks:
+    - name: Create prometheus user group
+      become: true
+      ansible.builtin.group:
+        name: prometheus
+        system: true
+        state: present
+
+
+    - name: Create prometheus user
+      become: true
+      ansible.builtin.user:
+        name: prometheus
+        system: true
+        state: present
+
+
+    - name: Node exporter application directory
+      become: true
+      ansible.builtin.file:
+        path: /opt/node_exporter
+        state: directory
+        owner: prometheus
+        group: admin
+        mode: '0775'
+
+
+    - name: Node exporter versioned directory
+      become: true
+      ansible.builtin.file:
+        path: "/opt/node_exporter/{{ version }}"
+        state: directory
+        owner: prometheus
+        group: admin
+        mode: '0775'
+
+
+    - name: Download node exporter
+      ansible.builtin.unarchive:
+        src: "https://github.com/prometheus/node_exporter/releases/download/v{{ version }}/node_exporter-{{ version }}.linux-{{ arch }}.tar.gz"
+        remote_src: true
+        dest: "/opt/node_exporter/{{ version }}"
+        creates: "/opt/node_exporter/{{ version }}/node_exporter"
+        extra_opts:
+          - "--strip-components=1"
+
+
+    - name: Symlink current node exporter version
+      ansible.builtin.file:
+        src: "/opt/node_exporter/{{ version }}"
+        dest: "/opt/node_exporter/live"
+        state: link
+      notify:
+        - Restart node_exporter
+
+
+    - name: Install node exporter service
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/node_exporter.service
+        owner: root
+        group: admin
+        mode: '0664'
+        content: |
+          [Unit]
+          Description=Node Exporter
+          After=network.target
+
+          [Service]
+          User=prometheus
+          Group=root
+          Type=simple
+          ExecStart=/opt/node_exporter/live/node_exporter
+
+          [Install]
+          WantedBy=multi-user.target
+      notify:
+        - Restart node_exporter
+        - Systemd reload
+
+
+    - name: Ensure node exporter is running
+      become: true
+      ansible.builtin.service:
+        name: node_exporter
+        state: started
+        enabled: true
+
+
+  handlers:
+    - name: Systemd reload
+      become: true
+      ansible.builtin.systemd:
+        daemon_reload: true
+
+
+    - name: Restart node_exporter
+      become: true
+      ansible.builtin.service:
+        name: node_exporter
+        state: restarted
+
+
+# vim: ft=yaml.ansible
