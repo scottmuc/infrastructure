@@ -14,11 +14,6 @@
         name: pippin
 
 
-    - name: Securing the machine
-      ansible.builtin.include_tasks:
-        file: ../tasks/security.yml
-
-
     - name: Configure sysctls
       become: true
       ansible.posix.sysctl:
@@ -37,24 +32,6 @@
           value: '1'
         - name: net.ipv6.conf.lo.disable_ipv6
           value: '1'
-
-
-  handlers:
-    # It's important that Systemd reload is defined first here
-    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
-    #
-    # This might not be necessary though... still need to think this through
-    - name: Systemd reload
-      become: true
-      ansible.builtin.systemd:
-        daemon_reload: true
-
-
-    - name: Reload sshd
-      become: true
-      ansible.builtin.service:
-        name: sshd
-        state: reloaded
 
 
 # vim: ft=yaml.ansible

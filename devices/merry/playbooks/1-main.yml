@@ -14,14 +14,6 @@
         name: merry
 
 
-    - name: Delete the bootstrap user
-      become: true
-      ansible.builtin.user:
-        name: bootstrap
-        state: absent
-        remove: true
-
-
     - name: Create NFS read/write group
       become: true
       ansible.builtin.group:
@@ -53,24 +45,6 @@
         name: ansible
         groups: nfsrw
         append: true
-
-
-    # https://linuxhandbook.com/ssh-hardening-tips/
-    - name: Harden the sshd Configuration
-      become: true
-      ansible.builtin.copy:
-        dest: /etc/ssh/sshd_config.d/ssh_hardening.conf
-        owner: root
-        group: root
-        mode: '0664'
-        content: |
-          PermitEmptyPasswords no
-          PasswordAuthentication no
-          PermitRootLogin no
-          Protocol 2
-          X11Forwarding no
-      notify:
-        - Reload sshd
 
 
     - name: Configure sysctls
@@ -114,24 +88,6 @@
         owner: root
         group: admin
         mode: '0664'
-
-
-  handlers:
-    # It's important that Systemd reload is defined first here
-    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_handlers.html#controlling-when-handlers-run
-    #
-    # This might not be necessary though... still need to think this through
-    - name: Systemd reload
-      become: true
-      ansible.builtin.systemd:
-        daemon_reload: true
-
-
-    - name: Reload sshd
-      become: true
-      ansible.builtin.service:
-        name: sshd
-        state: reloaded
 
 
 # vim: ft=yaml.ansible

@@ -1,0 +1,41 @@
+---
+- hosts: linux
+  gather_facts: yes
+  become: yes
+
+  tasks:
+    - name: Delete the bootstrap user
+      become: true
+      ansible.builtin.user:
+        name: bootstrap
+        state: absent
+        remove: true
+
+
+    # https://linuxhandbook.com/ssh-hardening-tips/
+    - name: Harden the sshd Configuration
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/ssh/sshd_config.d/ssh_hardening.conf
+        owner: root
+        group: root
+        mode: '0664'
+        content: |
+          PermitEmptyPasswords no
+          PasswordAuthentication no
+          PermitRootLogin no
+          Protocol 2
+          X11Forwarding no
+      notify:
+        - Reload sshd
+
+
+  handlers:
+    - name: Reload sshd
+      become: true
+      ansible.builtin.service:
+        name: sshd
+        state: reloaded
+
+
+# vim: ft=yaml.ansible
