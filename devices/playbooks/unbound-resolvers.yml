@@ -141,12 +141,107 @@
         state: started
         enabled: true
 
+
+    - name: Unbound exporter application directory
+      become: true
+      ansible.builtin.file:
+        path: /opt/unbound_exporter
+        state: directory
+        owner: root
+        group: admin
+        mode: '0775'
+
+
+    # TODO: extract golang version and architecture
+    - name: Download golang
+      ansible.builtin.unarchive:
+        src: "https://go.dev/dl/go1.22.4.linux-{{ golang_arch }}.tar.gz"
+        remote_src: true
+        dest: "/opt/unbound_exporter/"
+        creates: "/opt/unbound_exporter/go/bin/go"
+
+
+    # TODO: extract release version
+    - name: Compile unbound_exporter
+      environment:
+        GOPATH: "/opt/unbound_exporter/go"
+      ansible.builtin.command:
+        argv:
+          - /opt/unbound_exporter/go/bin/go
+          - install
+          - github.com/letsencrypt/unbound_exporter@latest
+        creates: "/opt/unbound_exporter/go/bin/unbound_exporter"
+
+
+    - name: Configure unbound remote-control
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/unbound/unbound.conf.d/exporter.conf
+        owner: root
+        group: root
+        mode: '0664'
+        content: |
+          remote-control:
+            control-enable: yes
+            control-interface: /run/unbound.ctl
+          server:
+            extended-statistics: yes
+      notify:
+        - Restart unbound
+
+
+    - name: Install exporter service
+      become: true
+      ansible.builtin.copy:
+        dest: /etc/systemd/system/unbound_exporter.service
+        owner: root
+        group: admin
+        mode: '0664'
+        content: |
+          [Unit]
+          Description=Unbound Exporter
+          After=network.target
+          AssertPathExists=/opt/unbound_exporter
+
+          [Install]
+          WantedBy=multi-user.target
+
+          [Service]
+          User=prometheus
+          Group=unbound
+          Type=simple
+          ExecStart=/opt/unbound_exporter/go/bin/unbound_exporter \
+            -unbound.ca "" \
+            -unbound.cert "" \
+            -unbound.host "unix:///run/unbound.ctl"
+      notify:
+        - Restart unbound_exporter
+        - Systemd reload
+
+
+    - name: Ensure exporter is running
+      become: true
+      ansible.builtin.service:
+        name: unbound_exporter
+        state: started
+        enabled: true
+
   handlers:
+    - name: Systemd reload
+      become: true
+      ansible.builtin.systemd:
+        daemon_reload: true
+
     - name: Restart unbound
       become: true
       ansible.builtin.service:
         name: unbound
         state: restarted
 
+    - name: Restart unbound_exporter
+      become: true
+      ansible.builtin.service:
+        name: unbound_exporter
+        state: restarted
 
 # vim: ft=yaml.ansible

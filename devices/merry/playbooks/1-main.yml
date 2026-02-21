@@ -171,13 +171,6 @@
         state: restarted
 
 
-    - name: Restart unbound_exporter
-      become: true
-      ansible.builtin.service:
-        name: unbound_exporter
-        state: restarted
-
-
     - name: Restart concourse-web
       become: true
       ansible.builtin.service:

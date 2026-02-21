@@ -17,11 +17,6 @@
     file: ../tasks/dnsmasq_exporter.yml
 
 
-- name: Install unbound exporter
-  ansible.builtin.include_tasks:
-    file: ../tasks/unbound_exporter.yml
-
-
 - name: Install grafana
   ansible.builtin.include_tasks:
     file: ../tasks/grafana.yml

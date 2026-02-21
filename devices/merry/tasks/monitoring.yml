@@ -21,9 +21,4 @@
     file: ../tasks/node_exporter.yml
 
 
-- name: Install unbound exporter
-  ansible.builtin.include_tasks:
-    file: ../tasks/unbound_exporter.yml
-
-
 # vim: ft=yaml.ansible

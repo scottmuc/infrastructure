@@ -15,7 +15,9 @@ all:
         - ansible
         - git
     merry.middle-earth.internal.:
+      golang_arch: amd64
     pippin.middle-earth.internal.:
+      golang_arch: arm64
 
   children:
     linux:
