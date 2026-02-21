@@ -17,9 +17,9 @@
         system: true
         state: present
 
-    - name: Ensure sudo is installed
+    - name: Ensure doas is installed
       ansible.builtin.package:
-        name: sudo
+        name: doas
         state: present
 
     - name: Create Ansible user
@@ -36,15 +36,14 @@
         groups: admin
         append: true
 
-    # https://stackoverflow.com/a/62459797
-    - name: Ensure admin group can sudo
+    - name: Permit ansible to elevate privileges without root password
       ansible.builtin.copy:
-        dest: /etc/sudoers.d/admin-group-nopasswd
+        dest: /etc/doas.conf
         owner: root
-        group: root
-        mode: '0440'
+        group: admin
+        mode: '0640'
         content: |
-          %admin ALL=(ALL) NOPASSWD: ALL
+          permit nopass ansible
 
     - name: Add authorized keys
       ansible.posix.authorized_key:

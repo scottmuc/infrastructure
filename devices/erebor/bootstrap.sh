@@ -6,15 +6,14 @@ set -eux
 # https://docs.ansible.com/ansible/latest/os_guide/intro_bsd.html
 ansible --module-name raw \
   --args "pkg install -y python" \
-  --inventory "inventory.ini" \
+  --inventory "../inventory.yml" \
   --become \
   --become-method "su" \
   --ask-become-pass \
   --user "bootstrap" \
-  erebor
+  erebor.middle-earth.internal.
 
 ansible-playbook \
-  --extra-vars "ansible_python_interpreter=/usr/local/bin/python" \
-  --inventory "inventory.ini" \
+  --inventory "../inventory.yml" \
   --ask-become-pass \
   ./playbooks/0-bootstrap.yml
