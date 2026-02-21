@@ -2,9 +2,10 @@
 
 set -e
 
-playbook=$(find ./playbooks/ -name "*.yml" \
+playbook=$(find ./ -wholename "*/playbooks/*.yml" \
   | sort -r \
-  | gum choose --header "Select a playbook")
+  | grep -v bootstrap \
+  | gum choose --height 20 --header "Select a playbook")
 
 gum confirm "Running ${playbook}" || exit 1
 
