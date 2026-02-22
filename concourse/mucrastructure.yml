@@ -58,20 +58,22 @@ jobs:
   - get: infrastructure
     trigger: true
 
-  - task: list-ansible-files
+  - task: run-ansible-checks
     config:
       platform: linux
       image_resource:
         type: registry-image
         source:
-          repository: busybox
+          repository: docker.nix-community.org/nixpkgs/cachix-flakes
       inputs:
       - name: infrastructure
       run:
-        path: find
+        path: bin/cachix-ci-nix-wrapper.sh
+        dir: infrastructure
         args:
-        - -name
-        - "*/tasks/*.yml"
+        - bin/ansible-checks.sh
+      params:
+        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
 
 - name: nix-static-analysis
 
