@@ -12,11 +12,12 @@
       pkgs = import nixpkgs { inherit system; };
 
       ciPkgs = [
-        pkgs.shellcheck
-        pkgs.tflint
         pkgs.ansible-lint
         pkgs.flake-checker
         pkgs.nixfmt
+        pkgs.opentofu
+        pkgs.shellcheck
+        pkgs.tflint
       ];
 
       devPkgs = [
@@ -24,7 +25,6 @@
         pkgs.bash
         pkgs.cachix
         pkgs.git-crypt
-        pkgs.opentofu
         pkgs.skopeo
       ]
       ++ ciPkgs;
