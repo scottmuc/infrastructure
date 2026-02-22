@@ -157,10 +157,9 @@
         mode: '0775'
 
 
-    # TODO: extract golang version and architecture
     - name: Download golang
       ansible.builtin.unarchive:
-        src: "https://go.dev/dl/go1.22.4.linux-{{ golang_arch }}.tar.gz"
+        src: "https://go.dev/dl/go{{ golang_version }}.linux-{{ golang_arch }}.tar.gz"
         remote_src: true
         dest: "/opt/unbound_exporter/"
         creates: "/opt/unbound_exporter/go/bin/go"

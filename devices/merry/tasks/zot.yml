@@ -28,7 +28,7 @@
 
 - name: Download golang
   ansible.builtin.unarchive:
-    src: "https://go.dev/dl/go1.22.4.linux-amd64.tar.gz"
+    src: "https://go.dev/dl/go1.22.4.linux-{{ golang_arch }}.tar.gz"
     remote_src: true
     dest: "/opt/zot/"
     creates: "/opt/zot/go/bin/go"

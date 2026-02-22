@@ -1,6 +1,7 @@
 - name: Install prometheus
   vars:
     version: "{{ prometheus_version }}"
+    arch: "{{ prometheus_arch }}"
   ansible.builtin.include_tasks:
     file: ../tasks/prometheus.yml
 

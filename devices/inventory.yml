@@ -6,6 +6,8 @@ all:
     users_to_propogate_authorized_keys_to:
       - ansible
 
+    golang_version: "1.22.4"
+
   hosts:
     erebor.middle-earth.internal.:
       ansible_become_method: doas
@@ -28,6 +30,7 @@ all:
       golang_arch: arm64
       node_exporter_arch: armv7
       node_exporter_version: "1.10.2"
+      prometheus_arch: armv7
       prometheus_version: "2.55.1"
 
   children:

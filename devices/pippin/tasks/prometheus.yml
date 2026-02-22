@@ -29,7 +29,7 @@
 
 - name: Download prometheus
   ansible.builtin.unarchive:
-    src: "https://github.com/prometheus/prometheus/releases/download/v{{ version }}/prometheus-{{ version }}.linux-armv7.tar.gz"
+    src: "https://github.com/prometheus/prometheus/releases/download/v{{ version }}/prometheus-{{ version }}.linux-{{ arch }}.tar.gz"
     remote_src: true
     dest: "/opt/prometheus/{{ version }}"
     creates: "/opt/prometheus/{{ version }}/prometheus"
