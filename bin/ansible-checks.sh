@@ -2,4 +2,4 @@
 
 set -e
 
-ansible-lint devices
+ansible-lint --exclude secrets devices

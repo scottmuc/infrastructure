@@ -1,4 +1,5 @@
-- name: Propogate authorized_keys
+- name: Propagate my authorized keys to all hosts
+
   hosts: all
   gather_facts: false
 

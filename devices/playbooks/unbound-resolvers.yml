@@ -1,5 +1,10 @@
 ---
-- hosts: linux
+- name: Deploy unbound resolvers to assigned hosts
+
+  hosts:
+    - merry.middle-earth.internal.
+    - pippin.middle-earth.internal.
+
   gather_facts: yes
 
   tasks:

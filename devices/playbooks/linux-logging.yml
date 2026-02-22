@@ -1,6 +1,8 @@
 
 ---
-- hosts: linux
+- name: Configure syslog forwarding for all linux hosts
+
+  hosts: linux
   gather_facts: yes
   become: yes
 

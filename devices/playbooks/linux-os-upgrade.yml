@@ -1,5 +1,7 @@
 ---
-- hosts: linux
+- name: Perform package and OS upgrades on all linux hosts
+
+  hosts: linux
   gather_facts: yes
   become: yes
 

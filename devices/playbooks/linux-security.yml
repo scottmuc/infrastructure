@@ -1,5 +1,7 @@
 ---
-- hosts: linux
+- hosts: Perform baseline security configuration on all linux hosts
+
+  hosts: linux
   gather_facts: yes
   become: yes
 
