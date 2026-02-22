@@ -2,4 +2,9 @@
 
 set -e
 
-ansible-lint --exclude secrets devices
+pushd devices
+  ansible-lint \
+    --exclude secrets \
+    --exclude concourse \
+    --exclude root
+popd
