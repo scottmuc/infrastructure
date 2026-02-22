@@ -2,7 +2,7 @@
   description = "Flake for vagrant based FreeBSD testing";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=release-25.11";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-25.11";
   };
 
   outputs =
