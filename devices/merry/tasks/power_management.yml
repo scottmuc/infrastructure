@@ -24,6 +24,7 @@
 
 
 # noqa: risky-shell-pipe
+# noqa: no-changed-when
 - name: Turn off backlight if brightness is not already 0
   become: true
   when: current_brightness.stdout != "0"
