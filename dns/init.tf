@@ -12,12 +12,12 @@ terraform {
 
 variable "gandi_pat" {
   description = "Personal PAT that expires after 90 days"
-  type = string
+  type        = string
 }
 
 variable "home_ip" {
   description = "IP address use to assign to home.scottmuc.com"
-  type = string
+  type        = string
 }
 
 provider "gandi" {
