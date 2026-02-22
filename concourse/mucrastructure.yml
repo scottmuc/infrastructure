@@ -94,8 +94,6 @@ jobs:
 
           cachix watch-exec scottmuc -- nix \
             --extra-experimental-features "nix-command flakes" \
-            develop .#ci
-
-          flake-checker --fail-mode
+            develop .#ci --command flake-checker --fail-mode
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
