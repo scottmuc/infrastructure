@@ -10,25 +10,32 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+
+      ciPkgs = [
+        pkgs.shellcheck
+        pkgs.tflint
+        pkgs.ansible-lint
+        pkgs.flake-checker
+      ];
+
+      devPkgs = [
+        pkgs.ansible
+        pkgs.bash
+        pkgs.cachix
+        pkgs.git-crypt
+        pkgs.opentofu
+        pkgs.skopeo
+      ]
+      ++ ciPkgs;
+
     in
     {
       devShells.${system} = {
         default = pkgs.mkShell {
-          packages = [
-            pkgs.ansible
-            pkgs.bash
-            pkgs.git-crypt
-            pkgs.opentofu
-            pkgs.skopeo
-          ];
+          packages = devPkgs;
         };
         ci = pkgs.mkShell {
-          packages = [
-            pkgs.shellcheck
-            pkgs.tflint
-            pkgs.ansible-lint
-            pkgs.flake-checker
-          ];
+          packages = ciPkgs;
         };
       };
     };
