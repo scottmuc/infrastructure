@@ -25,7 +25,7 @@
 - name: Acquire certificates
   become: true
   # This breaks when making it a full qualified module name
-  command: |
+  ansible.builtin.command: |
     certbot certonly --standalone --non-interactive --agree-tos
     -d {{ item.fqdn }} \
     -m {{ item.email }}

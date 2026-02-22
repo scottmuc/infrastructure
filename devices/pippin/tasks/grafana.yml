@@ -5,6 +5,9 @@
   ansible.builtin.get_url:
     url: https://apt.grafana.com/gpg.key
     dest: /usr/share/keyrings/grafana.asc
+    owner: root
+    group: admin
+    mode: '0664'
 
 
 - name: Add Grafana Apt Repository
@@ -13,6 +16,9 @@
     dest: /etc/apt/sources.list.d/grafana.list
     content: |
       deb [signed-by=/usr/share/keyrings/grafana.asc] https://apt.grafana.com stable main
+    owner: root
+    group: admin
+    mode: '0664'
 
 
 - name: Install grafana package

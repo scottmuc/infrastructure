@@ -1,4 +1,3 @@
-
 ---
 - name: Configure syslog forwarding for all linux hosts
   hosts: linux
@@ -16,7 +15,6 @@
       ansible.builtin.apt:
         pkg:
           - rsyslog-gnutls
-        state: latest
 
 
     - name: Include Betterstack variables

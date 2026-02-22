@@ -13,7 +13,7 @@
   tasks:
     - name: Ensure git is installed
       become: true
-      ansible.builtin.pkgng:
+      community.general.pkgng:
         pkg:
           - git
 

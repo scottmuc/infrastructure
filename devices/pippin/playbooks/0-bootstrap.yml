@@ -6,7 +6,7 @@
 
   # Raspian image sets up the bootstrap user to be able to sudo, and we
   # need to override inventory configuration since we don't have doas yet.
-  become_method: sudo
+  become_method: ansible.builtin.sudo
 
   pre_tasks:
     - name: Attempt to update apt's cache

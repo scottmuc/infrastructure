@@ -123,7 +123,7 @@
 
     - name: Enable and start services
       become: true
-      service:
+      ansible.builtin.service:
         name: "{{ item }}"
         enabled: true
         state: started
@@ -147,7 +147,7 @@
 
     - name: Restart samba
       become: true
-      service:
+      ansible.builtin.service:
         name: samba_server
         state: restarted
 
