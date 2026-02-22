@@ -2,6 +2,7 @@
 
 set -e
 
+# shellcheck disable=SC2044
 for flake in $(find . -name "flake.nix"); do
   echo "*********************************************************"
   echo " Inspecting: ${flake}"
