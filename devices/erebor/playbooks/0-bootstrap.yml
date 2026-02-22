@@ -5,7 +5,7 @@
   remote_user: bootstrap
 
   # INFO: a fresh install of FreeBSD doesn't have sudo or doas
-  become_method: su
+  become_method: ansible.builtin.su
   become: true
 
   tasks:

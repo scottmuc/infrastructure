@@ -23,9 +23,11 @@
   changed_when: false
 
 
+# noqa: risky-shell-pipe
 - name: Turn off backlight if brightness is not already 0
   become: true
   when: current_brightness.stdout != "0"
-  ansible.builtin.shell: "echo 0 | tee /sys/class/backlight/intel_backlight/brightness"
+  ansible.builtin.shell: |
+    echo 0 | tee /sys/class/backlight/intel_backlight/brightness
 
 # vim: ft=yaml.ansible

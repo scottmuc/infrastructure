@@ -102,6 +102,7 @@
     - name: Set samba password for smbrw using pdbedit
       become: true
       ansible.builtin.shell: |
+        set -o pipefail
         (echo "{{ smbrw_password }}"; echo "{{ smbrw_password }}") | pdbedit -a -t -u smbrw
 
 

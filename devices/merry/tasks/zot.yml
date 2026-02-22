@@ -62,6 +62,9 @@
   ansible.builtin.file:
     path: /opt/zot/bin
     state: directory
+    owner: zot
+    group: admin
+    mode: '0775'
 
 
 - name: Zot tmp dir
@@ -76,7 +79,7 @@
 
 - name: Install zot binary
   ansible.builtin.copy:
-    remote_src: True
+    remote_src: true
     src: /opt/zot/src/bin/zot-linux-amd64
     dest: /opt/zot/bin/zot
     mode: '0775'
