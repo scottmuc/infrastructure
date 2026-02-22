@@ -85,15 +85,9 @@ jobs:
       inputs:
       - name: infrastructure
       run:
-        path: bash
+        path: bin/cachix-ci-nix-wrapper.sh
         dir: infrastructure
         args:
-        - -exc
-        - |
-          cachix use scottmuc
-
-          cachix watch-exec scottmuc -- nix \
-            --extra-experimental-features "nix-command flakes" \
-            develop .#ci --command flake-checker --fail-mode
+        - bin/nix-checks.sh
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
