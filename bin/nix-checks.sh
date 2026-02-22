@@ -16,3 +16,9 @@ for flake in $(find . -name "flake.nix"); do
     flake-checker --fail-mode
   popd
 done
+
+cat << EOT
+********************************************************************************
+The code has passed all the nix static analyis checks!
+********************************************************************************
+EOT
