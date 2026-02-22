@@ -1,5 +1,4 @@
 - name: Propagate Nina's keys to allowed hosts
-
   hosts: linux
   gather_facts: false
 

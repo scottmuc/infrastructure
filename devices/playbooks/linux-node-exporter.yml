@@ -1,6 +1,5 @@
 ---
 - name: Setup and run node_exporter on all linux hosts
-
   hosts: linux
   gather_facts: true
 

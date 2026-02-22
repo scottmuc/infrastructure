@@ -53,7 +53,7 @@
           /usr/local/var/mcap/store -mapall=nfsrw:nfsrw \
           frodo.middle-earth.internal \
           merry.middle-earth.internal
-      notify: restart nfs
+      notify: Restart nfs
 
 
     - name: Install packages
@@ -91,7 +91,7 @@
           force group = nfsrw
           hosts allow = gandalf.middle-earth.internal
           hosts deny = ALL
-      notify: restart samba
+      notify: Restart samba
 
 
     - name: Load secrets from local file
@@ -135,7 +135,7 @@
 
 
   handlers:
-    - name: restart nfs
+    - name: Restart nfs
       ansible.builtin.service:
         name: "{{ item }}"
         state: restarted
@@ -145,7 +145,7 @@
         - nfsd
 
 
-    - name: restart samba
+    - name: Restart samba
       become: true
       service:
         name: samba_server

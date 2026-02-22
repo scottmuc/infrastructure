@@ -25,7 +25,7 @@
       with_items:
         - key: UsePAM
           value: "no"
-      notify: restart sshd
+      notify: Restart sshd
 
 
     - name: Install packages
@@ -49,7 +49,7 @@
 
     - name: Enable and start services
       become: true
-      service:
+      ansible.builtin.service:
         name: "{{ item }}"
         enabled: true
         state: started
@@ -94,7 +94,7 @@
         name: node_exporter_args
         state: present
         value: "--collector.textfile.directory=/usr/local/var/run/node_exporter"
-      notify: restart node_exporter
+      notify: Restart node_exporter
 
 
     # https://github.com/scottmuc/infrastructure/issues/78#issuecomment-3448563023
@@ -107,14 +107,14 @@
 
 
   handlers:
-    - name: restart sshd
+    - name: Restart sshd
       become: true
       service:
         name: sshd
         state: restarted
 
 
-    - name: restart node_exporter
+    - name: Restart node_exporter
       become: true
       service:
         name: node_exporter

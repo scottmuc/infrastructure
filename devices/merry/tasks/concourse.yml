@@ -177,7 +177,7 @@
     mode: "0644"
 
 
-- name: create web launch script
+- name: Create web launch script
   become: true
   become_user: concourse
   ansible.builtin.copy:
@@ -209,7 +209,7 @@
   notify:
     - Restart concourse-web
 
-- name: create web worker launch script
+- name: Create web worker launch script
   become: true
   become_user: concourse
   ansible.builtin.copy:
@@ -231,7 +231,7 @@
   notify:
     - Restart concourse-worker
 
-- name: create web service
+- name: Create web service
   become: true
   ansible.builtin.copy:
     dest: /etc/systemd/system/concourse-web.service
@@ -261,7 +261,7 @@
     - Restart concourse-web
 
 
-- name: create worker service
+- name: Create worker service
   become: true
   ansible.builtin.copy:
     dest: /etc/systemd/system/concourse-worker.service
@@ -290,30 +290,30 @@
     - Restart concourse-worker
 
 
-- name: systemd daemon reload
+- name: Systemd daemon reload
   ansible.builtin.systemd:
     daemon_reload: true
   become: true
 
-- name: configure web service
+- name: Configure web service
   ansible.builtin.service:
     name: concourse-web
     enabled: true
   become: true
 
-- name: start web service
+- name: Start web service
   ansible.builtin.service:
     name: concourse-web
     state: started
   become: true
 
-- name: configure worker service
+- name: Configure worker service
   ansible.builtin.service:
     name: concourse-worker
     enabled: true
   become: true
 
-- name: start worker service
+- name: Start worker service
   ansible.builtin.service:
     name: concourse-worker
     state: started

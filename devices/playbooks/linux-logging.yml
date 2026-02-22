@@ -1,7 +1,6 @@
 
 ---
 - name: Configure syslog forwarding for all linux hosts
-
   hosts: linux
   gather_facts: true
 
@@ -16,7 +15,7 @@
       become: true
       ansible.builtin.apt:
         pkg:
-        - rsyslog-gnutls
+          - rsyslog-gnutls
         state: latest
 
 

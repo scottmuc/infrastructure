@@ -1,5 +1,5 @@
 ---
-- hosts: Perform baseline security configuration on all linux hosts
+- name: Perform baseline security configuration on all linux hosts
 
   hosts: linux
   gather_facts: true
