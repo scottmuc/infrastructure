@@ -3,8 +3,7 @@
 - name: Configure syslog forwarding for all linux hosts
 
   hosts: linux
-  gather_facts: yes
-  become: yes
+  gather_facts: true
 
   tasks:
     - name: Update Apt cache
@@ -29,7 +28,7 @@
 
     - name: Add Betterstack forwarding configuration
       become: true
-      copy:
+      ansible.builtin.copy:
         dest: /etc/rsyslog.d/betterstack.conf
         content: |
 

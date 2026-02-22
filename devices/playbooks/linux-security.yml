@@ -2,8 +2,7 @@
 - hosts: Perform baseline security configuration on all linux hosts
 
   hosts: linux
-  gather_facts: yes
-  become: yes
+  gather_facts: true
 
   tasks:
     - name: Delete the bootstrap user

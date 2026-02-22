@@ -1,6 +1,6 @@
 - name: Install zot compile time dependencies
   become: true
-  apt:
+  ansible.builtin.apt:
     update_cache: true
     pkg:
       - curl

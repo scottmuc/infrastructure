@@ -2,8 +2,7 @@
 - name: Setup and run node_exporter on all linux hosts
 
   hosts: linux
-  gather_facts: yes
-  become: yes
+  gather_facts: true
 
   vars:
     version: "{{ node_exporter_version }}"

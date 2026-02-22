@@ -2,8 +2,8 @@
 - name: Perform package and OS upgrades on all linux hosts
 
   hosts: linux
-  gather_facts: yes
-  become: yes
+  gather_facts: true
+  become: true
 
   tasks:
     - name: Perform a dist-upgrade.
