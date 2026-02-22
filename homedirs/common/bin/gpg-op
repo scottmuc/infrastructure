@@ -50,10 +50,12 @@ restore_command() {
 }
 
 backup() {
-  local email="$1"
-  local secret_key="$(gpg -a --export-secret-keys "${email}")"
-  local public_key="$(gpg -a --export "${email}")"
-  local ownertrust="$(gpg -a --export-ownertrust)"
+  local email secret_key public_key ownertrust
+
+  email="$1"
+  secret_key="$(gpg -a --export-secret-keys "${email}")"
+  public_key="$(gpg -a --export "${email}")"
+  ownertrust="$(gpg -a --export-ownertrust)"
 
   IFS='' read -r -d '' credential_json <<JSON ||
 {
@@ -69,13 +71,13 @@ source: https://github.com/scottmuc/infrastructure/blob/master/homedirs/osx/bin/
           "n": "base64.secret.key",
           "k": "concealed",
           "t": "base64.secret.key",
-          "v": "$(echo ${secret_key} | base64)"
+          "v": "$(echo "${secret_key}" | base64)"
         },
         {
           "n": "base64.public.key",
           "k": "concealed",
           "t": "base64.public.key",
-          "v": "$(echo ${public_key} | base64)"
+          "v": "$(echo "${public_key}" | base64)"
         },
         {
           "n": "base64.ownertrust",
@@ -90,7 +92,7 @@ source: https://github.com/scottmuc/infrastructure/blob/master/homedirs/osx/bin/
 JSON
   true
 
-  encoded_json=$(echo ${credential_json} | op encode)
+  encoded_json="$(echo "${credential_json}" | op encode)"
 
   op create item "Secure Note" "${encoded_json}" \
     --title="gpg.${email}" \
@@ -98,7 +100,8 @@ JSON
 }
 
 restore() {
-  local email="$1"
+  local secretkey ownertrust email
+  email="$1"
 
   # base64 uses different flags for decoding between Linux and Darwin. Since I'm not going single OS
   # anytime soon, I'll define the base64 decode command dependent on the OSTYPE
@@ -111,8 +114,8 @@ restore() {
     ;;
   esac
 
-  local secretkey="$(op read op://Automation/gpg.${email}/base64.secret.key | $base64_decode_cmd)"
-  local ownertrust="$(op read op://Automation/gpg.${email}/base64.ownertrust | $base64_decode_cmd)"
+  secretkey="$(op read "op://Automation/gpg.${email}/base64.secret.key" | $base64_decode_cmd)"
+  ownertrust="$(op read "op://Automation/gpg.${email}/base64.ownertrust" | $base64_decode_cmd)"
 
   gpg --import <(echo -e "${secretkey}")
   gpg --import-ownertrust <(echo -e "${ownertrust}")

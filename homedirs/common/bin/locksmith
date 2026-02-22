@@ -15,7 +15,7 @@ main() {
       locksmith_file=$(find_locksmith_file "${DIR}")
       # because of the following line, this script shouldn't be copy
       # pasted blindly!
-      base64_key="$(eval $(cat "${locksmith_file}"))"
+      base64_key="$(eval "$(cat "${locksmith_file}")")"
       git-crypt unlock <(echo "${base64_key}" | base64 --decode -)
       ;;
     lock)
@@ -46,7 +46,7 @@ find_locksmith_file() {
   if [[ -f "${search_dir}/.locksmith" ]]; then
     echo "${search_dir}/.locksmith"
   else
-    find_locksmith_file "$(realpath ${search_dir}/..)"
+    find_locksmith_file "$(realpath "${search_dir}/..")"
   fi
 }
 

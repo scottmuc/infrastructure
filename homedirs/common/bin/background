@@ -13,6 +13,7 @@ copy_config() {
   local theme_path="$1"
   local config_path="$2"
 
+  # shellcheck disable=SC2016
   env \
     THEME_PATH="${theme_path}" \
   envsubst '$THEME_PATH' < "${COMMON_CONFIG_FILE}" > "${config_path}"
@@ -58,7 +59,7 @@ set_background() {
   elif is_linux && is_wsl; then
     win_config_dir=/mnt/c/Users/micro/AppData/Roaming/alacritty
     win_config_file="${win_config_dir}/alacritty.toml"
-    theme_path="~/AppData/Roaming/alacritty/themes/themes/${theme_name}.toml"
+    theme_path="${HOME}/AppData/Roaming/alacritty/themes/themes/${theme_name}.toml"
     mkdir -p "${win_config_dir}"
     copy_config "${theme_path}" "${win_config_file}"
   elif is_linux; then
