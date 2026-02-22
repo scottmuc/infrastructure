@@ -16,6 +16,7 @@
         pkgs.tflint
         pkgs.ansible-lint
         pkgs.flake-checker
+        pkgs.nixfmt
       ];
 
       devPkgs = [
