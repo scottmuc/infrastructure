@@ -13,6 +13,7 @@
 
       ciPkgs = [
         pkgs.ansible-lint
+        pkgs.bashNonInteractive
         pkgs.flake-checker
         pkgs.nixfmt
         pkgs.opentofu
@@ -22,7 +23,6 @@
 
       devPkgs = [
         pkgs.ansible
-        pkgs.bash
         pkgs.cachix
         pkgs.git-crypt
         pkgs.skopeo
