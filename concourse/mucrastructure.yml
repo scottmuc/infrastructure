@@ -6,14 +6,21 @@ resources:
     uri: https://github.com/scottmuc/infrastructure
 
 jobs:
-- name: bash-static-analysis
+- name: static-analysis
   public: true
 
   plan:
   - get: infrastructure
     trigger: true
 
-  - task: run-shell-checks
+  - across:
+    - var: script
+      values:
+      - bin/ansible-checks.sh
+      - bin/nix-checks.sh
+      - bin/shell-checks.sh
+      - bin/terraform-checks.sh
+    task: running-((.:script))
     config:
       platform: linux
       image_resource:
@@ -26,78 +33,6 @@ jobs:
         path: bin/cachix-ci-nix-wrapper.sh
         dir: infrastructure
         args:
-        - bin/shell-checks.sh
-      params:
-        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
-
-- name: terraform-static-analysis
-  public: true
-
-  plan:
-  - get: infrastructure
-    trigger: true
-
-  - task: run-terraform-checks
-    config:
-      platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: docker.nix-community.org/nixpkgs/cachix-flakes
-      inputs:
-      - name: infrastructure
-      run:
-        path: bin/cachix-ci-nix-wrapper.sh
-        dir: infrastructure
-        args:
-        - bin/terraform-checks.sh
-      params:
-        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
-
-- name: ansible-static-analysis
-  public: true
-
-  plan:
-  - get: infrastructure
-    trigger: true
-
-  - task: run-ansible-checks
-    config:
-      platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: docker.nix-community.org/nixpkgs/cachix-flakes
-      inputs:
-      - name: infrastructure
-      run:
-        path: bin/cachix-ci-nix-wrapper.sh
-        dir: infrastructure
-        args:
-        - bin/ansible-checks.sh
-      params:
-        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
-
-- name: nix-static-analysis
-  public: true
-
-  plan:
-  - get: infrastructure
-    trigger: true
-
-  - task: run-nix-checks
-    config:
-      platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: docker.nix-community.org/nixpkgs/cachix-flakes
-      inputs:
-      - name: infrastructure
-      run:
-        path: bin/cachix-ci-nix-wrapper.sh
-        dir: infrastructure
-        args:
-        - bin/nix-checks.sh
+          - "((.:script))"
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
