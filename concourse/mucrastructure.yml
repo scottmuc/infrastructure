@@ -7,6 +7,7 @@ resources:
 
 jobs:
 - name: bash-static-analysis
+  public: true
 
   plan:
   - get: infrastructure
@@ -30,6 +31,7 @@ jobs:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
 
 - name: terraform-static-analysis
+  public: true
 
   plan:
   - get: infrastructure
@@ -53,6 +55,7 @@ jobs:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
 
 - name: ansible-static-analysis
+  public: true
 
   plan:
   - get: infrastructure
@@ -76,6 +79,7 @@ jobs:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
 
 - name: nix-static-analysis
+  public: true
 
   plan:
   - get: infrastructure
