@@ -79,6 +79,7 @@
       programming_support = [
         (pkgs.neovim.override { withNodeJs = true; })
 
+        pkgs.ansible-language-server
         pkgs.bash-language-server
         pkgs.ansible-lint
         pkgs.lua-language-server
@@ -86,7 +87,7 @@
 
         pkgs.shellcheck
         pkgs.stylua
-        pkgs.nixfmt-rfc-style
+        pkgs.nixfmt
       ];
     in
     {
