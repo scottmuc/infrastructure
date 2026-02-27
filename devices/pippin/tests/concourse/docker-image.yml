@@ -38,10 +38,6 @@ jobs:
         CONTEXT: infrastructure/devices/pippin/tests/docker/
         OUTPUT_OCI: true
         BUILDKIT_PROGRESS: plain
-        BUILDKIT_EXTRA_CONFIG: |
-          [worker.oci]
-            noProcessSandbox = true
-            snapshotter = "native"
       run:
         path: build
 
