@@ -59,6 +59,7 @@
 
 
 - name: Zot bin dir
+  become: true
   ansible.builtin.file:
     path: /opt/zot/bin
     state: directory
