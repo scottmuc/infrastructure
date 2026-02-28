@@ -6,6 +6,14 @@ resources:
     uri: https://github.com/scottmuc/infrastructure
 
 
+- name: bootstrapped-skopeo
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/skopeo
+    tag: latest
+
+
 - name: upstream-cachix-flakes
   type: registry-image
   icon: docker
@@ -14,46 +22,38 @@ resources:
     tag: latest
 
 
+- name: cachix-flakes
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/cachix-flakes
+    tag: latest
+
+
 jobs:
 - name: vendor-registry-images
   public: true
   plan:
   - get: upstream-cachix-flakes
+    trigger: true
     params:
       format: oci
 
-  - task: inspect
-    config:
-      platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: busybox
-      inputs:
-        - name: upstream-cachix-flakes
-      run:
-        path: sh
-        args:
-          - -c
-          - |
-            tar -tvf upstream-cachix-flakes/image.tar | head -30
+  - get: bootstrapped-skopeo
+    trigger: true
 
   - task: convert-and-push
+    image: bootstrapped-skopeo
     config:
       platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: quay.io/skopeo/stable
       inputs:
         - name: upstream-cachix-flakes
       run:
         path: skopeo
         args:
           - copy
-          - --format=oci
           - docker-archive:upstream-cachix-flakes/image.tar
-          - docker://zot.scottmuc.com/cachix-flakes:latest
+          - docker:zot.scottmuc.com/cachix-flakes:latest
 
 
 - name: static-analysis
@@ -61,6 +61,9 @@ jobs:
 
   plan:
   - get: infrastructure
+    trigger: true
+
+  - get: cachix-flakes
     trigger: true
 
   - across:
@@ -71,12 +74,9 @@ jobs:
       - bin/shell-checks.sh
       - bin/terraform-checks.sh
     task: running-((.:script))
+    image: cachix-flakes
     config:
       platform: linux
-      image_resource:
-        type: registry-image
-        source:
-          repository: zot.scottmuc.com/cachix-flakes
       inputs:
       - name: infrastructure
       run:
