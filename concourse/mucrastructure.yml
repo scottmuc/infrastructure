@@ -38,7 +38,41 @@ resources:
     tag: latest
 
 
+- name: navidrome-ci
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/navidrome-ci
+    tag: latest
+
+
 jobs:
+- name: navidrome
+  public: true
+
+  plan:
+  - get: navidrome-ci
+    trigger: true
+
+  - get: infrastructure
+    trigger: true
+
+  - task: run-tests
+    image: navidrome-ci
+    config:
+      platform: linux
+      inputs:
+      - name: infrastructure
+      run:
+        dir: ./infrastructure/devices/pippin/tests
+        path: ./test.sh
+      params:
+        NAVIDROME_BASE_URL: "https://home.scottmuc.com/music/"
+        NAVIDROME_USERNAME: "tester"
+        NAVIDROME_PASSWORD: ((navidrome_password))
+        NAVIDROME_TEST_ENVIRONMENT: "concourse"
+
+
 - name: build-publish-ci-images
   public: true
 
