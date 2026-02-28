@@ -5,7 +5,57 @@ resources:
   source:
     uri: https://github.com/scottmuc/infrastructure
 
+
+- name: upstream-cachix-flakes
+  type: registry-image
+  icon: docker
+  source:
+    repository: docker.nix-community.org/nixpkgs/cachix-flakes
+    tag: latest
+
+
 jobs:
+- name: vendor-registry-images
+  public: true
+  plan:
+  - get: upstream-cachix-flakes
+    params:
+      format: oci
+
+  - task: inspect
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: busybox
+      inputs:
+        - name: upstream-cachix-flakes
+      run:
+        path: sh
+        args:
+          - -c
+          - |
+            tar -tvf upstream-cachix-flakes/image.tar | head -30
+
+  - task: convert-and-push
+    config:
+      platform: linux
+      image_resource:
+        type: registry-image
+        source:
+          repository: quay.io/skopeo/stable
+      inputs:
+        - name: upstream-cachix-flakes
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:upstream-cachix-flakes/image.tar
+          - docker://zot.scottmuc.com/cachix-flakes:latest
+
+
 - name: static-analysis
   public: true
 
@@ -26,7 +76,7 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: docker.nix-community.org/nixpkgs/cachix-flakes
+          repository: zot.scottmuc.com/cachix-flakes
       inputs:
       - name: infrastructure
       run:
