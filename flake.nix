@@ -23,6 +23,7 @@
       ciPkgs = [
         pkgs.ansible-lint
         pkgs.bashNonInteractive
+        pkgs.coreutils # provides ls, env, cat, etc...
         pkgs.flake-checker
         pkgs.nixfmt
         pkgs.opentofu

@@ -30,6 +30,14 @@ resources:
     tag: latest
 
 
+- name: infrastructure-ci
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/infrastructure-ci
+    tag: latest
+
+
 jobs:
 - name: build-publish-ci-images
   public: true
@@ -38,7 +46,6 @@ jobs:
   - get: infrastructure
   - get: bootstrapped-skopeo
   - get: cachix-flakes
-    trigger: true
 
   - task: build-infrastructure-ci-image
     image: cachix-flakes
@@ -113,7 +120,7 @@ jobs:
   - get: infrastructure
     trigger: true
 
-  - get: cachix-flakes
+  - get: infrastructure-ci
     trigger: true
 
   - across:
@@ -124,15 +131,11 @@ jobs:
       - bin/shell-checks.sh
       - bin/terraform-checks.sh
     task: running-((.:script))
-    image: cachix-flakes
+    image: infrastructure-ci
     config:
       platform: linux
       inputs:
       - name: infrastructure
       run:
-        path: bin/cachix-ci-nix-wrapper.sh
+        path: "((.:script))"
         dir: infrastructure
-        args:
-          - "((.:script))"
-      params:
-        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
