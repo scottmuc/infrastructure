@@ -36,8 +36,7 @@ jobs:
 
   plan:
   - get: infrastructure
-    trigger: true
-
+  - get: bootstrapped-skopeo
   - get: cachix-flakes
     trigger: true
 
@@ -47,6 +46,8 @@ jobs:
       platform: linux
       inputs:
       - name: infrastructure
+      outputs:
+      - name: result
       run:
         path: sh
         args:
@@ -56,9 +57,28 @@ jobs:
 
             cachix watch-exec scottmuc -- \
               nix --extra-experimental-features "nix-command flakes" \
-              build infrastructure#ci-image
+              build ./infrastructure#ci-image -o result/image
+              # Create a local filesystem reference because /nix/store
+              # doesn't persist across steps.
+              cp result/image result/image.tar.gz
+              (cd result && gunzip image.tar.gz)
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
+
+
+  - task: convert-and-push
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+      - name: result
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:result/image.tar
+          - docker://zot.scottmuc.com/infrastructure-ci:latest
 
 
 - name: vendor-registry-images
