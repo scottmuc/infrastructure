@@ -53,7 +53,7 @@ jobs:
         args:
           - copy
           - docker-archive:upstream-cachix-flakes/image.tar
-          - docker:zot.scottmuc.com/cachix-flakes:latest
+          - docker://zot.scottmuc.com/cachix-flakes:latest
 
 
 - name: static-analysis
