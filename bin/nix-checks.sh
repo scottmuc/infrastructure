@@ -12,7 +12,9 @@ for flake in $(find . -name "flake.nix"); do
 
   pushd "${dir}" > /dev/null
     nixfmt --check "${file}"
-    nix flake check
+    # Ignore flake check because I'm not sure I want the whole nix
+    # echosystem in the ci image yet.
+    #nix flake check
     flake-checker --fail-mode
   popd
 done
