@@ -54,14 +54,13 @@
       packages.${system}.ci-image = pkgs.dockerTools.buildLayeredImage {
         name = "infrastructure-ci";
         tag = "latest";
-        contents = (
-          pkgs.dockerTools.usrBinEnv (
-            pkgs.buildEnv {
-              name = "ci-env";
-              paths = ciPkgs;
-            }
-          )
-        );
+        contents = [
+          pkgs.dockerTools.usrBinEnv
+          (pkgs.buildEnv {
+            name = "ci-env";
+            paths = ciPkgs;
+          })
+        ];
       };
     };
 }
