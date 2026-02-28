@@ -72,8 +72,7 @@ jobs:
       params:
         CACHIX_AUTH_TOKEN: ((nix.cachix_token))
 
-
-  - task: convert-and-push
+  - task: convert-and-push-infrastructure-ci
     image: bootstrapped-skopeo
     config:
       platform: linux
@@ -86,6 +85,45 @@ jobs:
           - --format=oci
           - docker-archive:result/image.tar
           - docker://zot.scottmuc.com/infrastructure-ci:latest
+
+  - task: build-navidrome-ci-image
+    image: cachix-flakes
+    config:
+      platform: linux
+      inputs:
+      - name: infrastructure
+      outputs:
+      - name: result
+      run:
+        path: sh
+        args:
+          - -c
+          - |
+            cachix use scottmuc
+
+            cachix watch-exec scottmuc -- \
+              nix --extra-experimental-features "nix-command flakes" \
+              build ./infrastructure/devices/pippin/tests#ci-image -o result/image
+              # Create a local filesystem reference because /nix/store
+              # doesn't persist across steps.
+              cp result/image result/image.tar.gz
+              (cd result && gunzip image.tar.gz)
+      params:
+        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
+
+  - task: convert-and-push-navidrome-ci
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+      - name: result
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:result/image.tar
+          - docker://zot.scottmuc.com/navidrome-ci:latest
 
 
 - name: vendor-registry-images

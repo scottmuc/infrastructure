@@ -24,5 +24,27 @@
           export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
         '';
       };
+
+      packages.${system}.ci-image = pkgs.dockerTools.buildLayeredImage {
+        name = "navidrome-ci";
+        tag = "latest";
+        contents = [
+          pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
+          pkgs.dockerTools.fakeNss # provides /etc/passwd and /etc/group so that getpwuid() works
+          (pkgs.buildEnv {
+            name = "ci-env";
+            paths = [
+              pkgs.nodejs
+              pkgs.playwright-driver
+            ];
+          })
+        ];
+        config = {
+          Env = [
+            "PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}"
+            "PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true"
+          ];
+        };
+      };
     };
 }
