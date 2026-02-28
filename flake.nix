@@ -6,7 +6,7 @@
   };
 
   outputs =
-    { nixpkgs, ... }:
+    { nixpkgs, self, ... }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -48,6 +48,17 @@
         ci = pkgs.mkShell {
           packages = ciPkgs;
         };
+      };
+
+      packages.${system}.ci-image = pkgs.dockerTools.buildLayeredImage {
+        name = "infrastructure-ci";
+        tag = "latest";
+        contents = (
+          pkgs.buildEnv {
+            name = "ci-env";
+            paths = ciPkgs;
+          }
+        );
       };
     };
 }

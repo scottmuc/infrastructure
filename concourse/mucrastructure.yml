@@ -31,6 +31,36 @@ resources:
 
 
 jobs:
+- name: build-publish-ci-images
+  public: true
+
+  plan:
+  - get: infrastructure
+    trigger: true
+
+  - get: cachix-flakes
+    trigger: true
+
+  - task: build-infrastructure-ci-image
+    image: cachix-flakes
+    config:
+      platform: linux
+      inputs:
+      - name: infrastructure
+      run:
+        path: sh
+        args:
+          - -c
+          - |
+            cachix use scottmuc
+
+            cachix watch-exec scottmuc -- \
+              nix --extra-experimental-features "nix-command flakes" \
+              build infrastructure#ci-image
+      params:
+        CACHIX_AUTH_TOKEN: ((nix.cachix_token))
+
+
 - name: vendor-registry-images
   public: true
   plan:
