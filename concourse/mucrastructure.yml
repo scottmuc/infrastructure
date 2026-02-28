@@ -163,13 +163,11 @@ jobs:
 - name: vendor-registry-images
   public: true
   plan:
+  - get: bootstrapped-skopeo
   - get: upstream-cachix-flakes
     trigger: true
     params:
       format: oci
-
-  - get: bootstrapped-skopeo
-    trigger: true
 
   - task: convert-and-push
     image: bootstrapped-skopeo
