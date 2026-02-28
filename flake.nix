@@ -55,10 +55,12 @@
         name = "infrastructure-ci";
         tag = "latest";
         contents = (
-          pkgs.buildEnv {
-            name = "ci-env";
-            paths = ciPkgs;
-          }
+          pkgs.dockerTools.usrBinEnv (
+            pkgs.buildEnv {
+              name = "ci-env";
+              paths = ciPkgs;
+            }
+          )
         );
       };
     };
