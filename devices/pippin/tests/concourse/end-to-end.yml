@@ -34,8 +34,8 @@ jobs:
       image_resource:
         type: registry-image
         source:
-          repository: zot.scottmuc.com/playwright
-          tag: v1.54.2-noble
+          repository: zot.scottmuc.com/navidrome-ci
+          tag: latest
       inputs:
       - name: infrastructure
       run:
