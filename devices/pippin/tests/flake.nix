@@ -34,6 +34,8 @@
           (pkgs.buildEnv {
             name = "ci-env";
             paths = [
+              pkgs.bashNonInteractive
+              pkgs.coreutils # provides ls, env, cat, etc...
               pkgs.nodejs
               pkgs.playwright-driver
             ];
