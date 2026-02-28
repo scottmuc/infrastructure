@@ -24,6 +24,7 @@
         pkgs.ansible-lint
         pkgs.bashNonInteractive
         pkgs.coreutils # provides ls, env, cat, etc...
+        pkgs.findutils # provides find and xargs
         pkgs.flake-checker
         pkgs.nixfmt
         pkgs.opentofu
@@ -55,7 +56,8 @@
         name = "infrastructure-ci";
         tag = "latest";
         contents = [
-          pkgs.dockerTools.usrBinEnv
+          pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
+          pkgs.dockerTools.fakeNss # provides /etc/passwd and /etc/group so that getpwuid() works
           (pkgs.buildEnv {
             name = "ci-env";
             paths = ciPkgs;
