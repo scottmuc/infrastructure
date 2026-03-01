@@ -50,6 +50,41 @@ resources:
 
 
 jobs:
+- name: clickops-propagate-authorized-keys
+  public: true
+
+  plan:
+  - get: infrastructure-ci
+    trigger: false
+
+  - get: infrastructure
+    trigger: false
+
+  - task: run-playbook
+    image: infrastructure-ci
+    config:
+      platform: linux
+      inputs:
+      - name: infrastructure
+      run:
+        dir: ./infrastructure/devices
+        path: sh
+        args:
+          - -c
+          - |
+            echo "${PRIVATE_KEY}" > ./private_key
+            chmod 0600 ./private_key
+
+            env \
+              ANSIBLE_CONFIG=./ansible.cfg \
+            ansible-playbook \
+              --private-key ./private_key \
+              --inventory ./inventory.yml \
+              ./playbooks/propagate-authorized-keys.yml
+      params:
+        ANSIBLE_HOST_KEY_CHECKING: False
+        PRIVATE_KEY: ((concourse_private_key))
+
 - name: dns-drift-detector
   public: true
 
