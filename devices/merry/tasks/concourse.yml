@@ -221,7 +221,9 @@
 
       exec /opt/concourse/live/concourse/bin/concourse worker \
         --runtime containerd \
-        --containerd-dns-server="9.9.9.9" \
+        --containerd-dns-server="192.168.2.10" \
+        --containerd-dns-server="192.168.2.11" \
+        --containerd-allow-host-access \
         --log-level "error" \
         --tsa-host "127.0.0.1:2222" \
         --tsa-public-key "/usr/local/concourse/etc/tsa_host_key.pub" \
