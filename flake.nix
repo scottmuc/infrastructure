@@ -31,6 +31,7 @@
         pkgs.nixfmt
         pkgs.opentofu
         pkgs.shellcheck
+        pkgs.openssh # needed by ansible-playbook
         pkgs.tflint
       ];
 
