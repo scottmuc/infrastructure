@@ -4,6 +4,7 @@ resources:
   icon: github
   source:
     uri: git@git.scottmuc.com:infrastructure.git
+    branch: main
     private_key: ((concourse_private_key))
 
 
