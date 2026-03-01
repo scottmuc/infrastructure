@@ -6,6 +6,7 @@ resources:
     uri: git@git.scottmuc.com:infrastructure.git
     branch: main
     private_key: ((concourse_private_key))
+    git_crypt_key: ((infrastructure_git_crypt_key))
 
 
 - name: bootstrapped-skopeo
@@ -49,6 +50,38 @@ resources:
 
 
 jobs:
+- name: dns-drift-detector
+  public: true
+
+  plan:
+  - get: infrastructure-ci
+    trigger: false
+
+  - get: infrastructure
+    trigger: true
+
+  - task: run-tests
+    image: infrastructure-ci
+    config:
+      platform: linux
+      inputs:
+      - name: infrastructure
+      run:
+        dir: ./infrastructure/dns
+        path: sh
+        args:
+          - -c
+          - |
+            tofu init
+            # Will exit 2 if there are changes
+            tofu \
+              plan \
+              -detailed-exitcode \
+              -state secrets/dns.terraform.tfstate \
+              -var "home_ip=$(curl -4 ifconfig.me/ip)" \
+              -var "gandi_pat=$(cat secrets/GANDI_PAT)" \
+
+
 - name: navidrome
   public: true
 
