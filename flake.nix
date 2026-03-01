@@ -24,6 +24,7 @@
         pkgs.ansible-lint
         pkgs.bashNonInteractive
         pkgs.coreutils # provides ls, env, cat, etc...
+        pkgs.curl # needed by dns drift detector
         pkgs.findutils # provides find and xargs
         pkgs.flake-checker
         pkgs.nixfmt
