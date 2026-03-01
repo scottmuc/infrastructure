@@ -35,8 +35,10 @@
           (pkgs.buildEnv {
             name = "ci-env";
             paths = [
-              pkgs.bashNonInteractive
+              pkgs.bash
               pkgs.coreutils # provides ls, env, cat, etc...
+              pkgs.curl
+              pkgs.neovim
               pkgs.nodejs
               pkgs.playwright-driver
             ];
@@ -47,6 +49,7 @@
             "PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}"
             "PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true"
             "NODE_EXTRA_CA_CERTS=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+            "NAVIDROME_TEST_ENVIRONMENT=container"
           ];
         };
       };
