@@ -21,6 +21,7 @@
       };
 
       ciPkgs = [
+        pkgs.ansible
         pkgs.ansible-lint
         pkgs.bashNonInteractive
         pkgs.coreutils # provides ls, env, cat, etc...
@@ -34,7 +35,6 @@
       ];
 
       devPkgs = [
-        pkgs.ansible
         pkgs.cachix
         pkgs.git-crypt
         pkgs.skopeo
