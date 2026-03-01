@@ -33,6 +33,11 @@
         pkgs.shellcheck
         pkgs.openssh # needed by ansible-playbook
         pkgs.tflint
+
+        pkgs.iproute2 # ip route, ip addr
+        pkgs.iputils # ping
+        pkgs.netcat-gnu # nc -zv host port
+        pkgs.dig # DNS lookups
       ];
 
       devPkgs = [
