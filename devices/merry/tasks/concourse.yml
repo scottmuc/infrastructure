@@ -222,7 +222,6 @@
       exec /opt/concourse/live/concourse/bin/concourse worker \
         --runtime containerd \
         --containerd-dns-server="192.168.2.10" \
-        --containerd-dns-server="192.168.2.11" \
         --containerd-allow-host-access \
         --log-level "error" \
         --tsa-host "127.0.0.1:2222" \
