@@ -33,7 +33,8 @@ install_playwright_browsers() {
 }
 
 run_tests() {
-    DEBUG=pw:browser npx cucumber-js \
+    # use DEBUG=pw:browser to get useful headless browser details
+    npx cucumber-js \
       features/*.feature \
       --require-module ts-node/register \
       --require steps/*.ts \

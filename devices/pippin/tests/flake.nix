@@ -38,6 +38,8 @@
               pkgs.bash
               pkgs.coreutils # provides ls, env, cat, etc...
               pkgs.curl
+              pkgs.dejavu_fonts
+              pkgs.fontconfig
               pkgs.neovim
               pkgs.nodejs
               pkgs.playwright-driver
@@ -46,10 +48,11 @@
         ];
         config = {
           Env = [
+            "FONTCONFIG_FILE=${pkgs.fontconfig.out}/etc/fonts/fonts.conf"
+            "NAVIDROME_TEST_ENVIRONMENT=container"
+            "NODE_EXTRA_CA_CERTS=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
             "PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}"
             "PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true"
-            "NODE_EXTRA_CA_CERTS=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
-            "NAVIDROME_TEST_ENVIRONMENT=container"
           ];
         };
       };
