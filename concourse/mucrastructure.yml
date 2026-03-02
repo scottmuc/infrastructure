@@ -124,6 +124,7 @@ jobs:
 
   plan:
   - get: navidrome-ci
+    passed: [build-publish-ci-images]
     trigger: true
 
   - get: infrastructure
@@ -230,13 +231,19 @@ jobs:
       platform: linux
       inputs:
       - name: result
+      outputs:
+      - name: converted2
       run:
         path: skopeo
         args:
           - copy
           - --format=oci
           - docker-archive:result/image.tar
-          - docker://zot.scottmuc.com/navidrome-ci:latest
+          - oci:converted2/oci
+
+  - put: navidrome-ci
+    params:
+      image: converted2/oci
 
 
 - name: vendor-registry-images
