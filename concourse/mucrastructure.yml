@@ -150,6 +150,7 @@ jobs:
   - get: infrastructure
   - get: bootstrapped-skopeo
   - get: cachix-flakes
+    passed: [vendor-registry-images]
 
   - task: build-infrastructure-ci-image
     image: cachix-flakes
@@ -239,18 +240,25 @@ jobs:
     params:
       format: oci
 
-  - task: convert-and-push
+  - task: convert-nix-image-to-oci-layout
     image: bootstrapped-skopeo
     config:
       platform: linux
       inputs:
         - name: upstream-cachix-flakes
+      outputs:
+        - name: converted
       run:
         path: skopeo
         args:
           - copy
+          - --format=oci
           - docker-archive:upstream-cachix-flakes/image.tar
-          - docker://zot.scottmuc.com/cachix-flakes:latest
+          - oci:converted/oci
+
+  - put: cachix-flakes
+    params:
+      image: converted/oci
 
 
 - name: static-analysis
