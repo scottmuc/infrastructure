@@ -1,0 +1,127 @@
+resources:
+- name: bootstrapped-skopeo
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/skopeo
+    tag: latest
+
+
+- name: upstream-busybox
+  type: registry-image
+  icon: docker
+  source:
+    repository: docker.io/library/busybox
+    tag: latest
+
+
+- name: vendored-busybox
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/busybox
+    tag: latest
+
+
+jobs:
+- name: baseline
+  public: true
+
+  plan:
+  - get: upstream-busybox
+    params:
+      format: oci
+
+  - put: vendored-busybox
+    params:
+      image: upstream-busybox/image.tar
+
+
+- name: skopeo-convert-to-oci-archive
+  public: true
+
+  plan:
+  - get: bootstrapped-skopeo
+  - get: upstream-busybox
+    params:
+      format: oci
+
+  - task: convert
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+        - name: upstream-busybox
+      outputs:
+        - name: converted
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:upstream-busybox/image.tar
+          - oci-archive:converted/image.tar:latest
+
+  - put: vendored-busybox
+    params:
+      image: converted/image.tar
+
+
+- name: skopeo-convert-to-docker-archive
+  public: true
+
+  plan:
+  - get: bootstrapped-skopeo
+  - get: upstream-busybox
+    params:
+      format: oci
+
+  - task: convert
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+        - name: upstream-busybox
+      outputs:
+        - name: converted
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:upstream-busybox/image.tar
+          - docker-archive:converted/image.tar
+
+  - put: vendored-busybox
+    params:
+      image: converted/image.tar
+
+
+- name: skopeo-convert-to-oci-layout
+  public: true
+
+  plan:
+  - get: bootstrapped-skopeo
+  - get: upstream-busybox
+    params:
+      format: oci
+
+  - task: convert
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+        - name: upstream-busybox
+      outputs:
+        - name: converted
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:upstream-busybox/image.tar
+          - oci:converted/oci
+
+  - put: vendored-busybox
+    params:
+      image: converted/oci
