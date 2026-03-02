@@ -59,29 +59,31 @@
         };
       };
 
-      packages.${system}.ci-image = pkgs.dockerTools.buildLayeredImage {
-        name = "infrastructure-ci";
-        tag = "latest";
-        contents = [
-          pkgs.dockerTools.caCertificates # installs CAs into expected /etc/ssl/certs
-          pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
-          pkgs.dockerTools.fakeNss # provides /etc/passwd and /etc/group so that getpwuid() works
-          (pkgs.buildEnv {
-            name = "ci-env";
-            paths = ciPkgs;
-          })
-        ];
-      };
+      packages.${system} = {
+        ci-image = pkgs.dockerTools.buildLayeredImage {
+          name = "infrastructure-ci";
+          tag = "latest";
+          contents = [
+            pkgs.dockerTools.caCertificates # installs CAs into expected /etc/ssl/certs
+            pkgs.dockerTools.usrBinEnv # provides /usr/bin/env
+            pkgs.dockerTools.fakeNss # provides /etc/passwd and /etc/group so that getpwuid() works
+            (pkgs.buildEnv {
+              name = "ci-env";
+              paths = ciPkgs;
+            })
+          ];
+        };
 
-      packages.${system}.test-image = pkgs.dockerTools.buildLayeredImage {
-        name = "test-image";
-        tag = "latest";
-        contents = [
-          (pkgs.buildEnv {
-            name = "test-env";
-            paths = [ pkgs.bash ];
-          })
-        ];
+        test-image = pkgs.dockerTools.buildLayeredImage {
+          name = "test-image";
+          tag = "latest";
+          contents = [
+            (pkgs.buildEnv {
+              name = "test-env";
+              paths = [ pkgs.bash ];
+            })
+          ];
+        };
       };
     };
 }
