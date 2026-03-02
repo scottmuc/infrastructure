@@ -23,6 +23,21 @@ resources:
     tag: latest
 
 
+- name: cachix-flakes
+  type: registry-image
+  icon: docker
+  source:
+    repository: zot.scottmuc.com/cachix-flakes
+    tag: latest
+
+
+- name: infrastructure
+  type: git
+  icon: github
+  source:
+    uri: https://github.com/scottmuc/infrastructure.git
+    branch: main
+
 jobs:
 - name: baseline
   public: true
@@ -120,6 +135,56 @@ jobs:
           - copy
           - --format=oci
           - docker-archive:upstream-busybox/image.tar
+          - oci:converted/oci
+
+  - put: vendored-busybox
+    params:
+      image: converted/oci
+
+
+
+- name: build-and-push-nix-image
+  public: true
+
+  plan:
+  - get: infrastructure
+  - get: bootstrapped-skopeo
+  - get: cachix-flakes
+
+  - task: build-image
+    image: cachix-flakes
+    config:
+      platform: linux
+      inputs:
+      - name: infrastructure
+      outputs:
+      - name: result
+      run:
+        path: sh
+        args:
+          - -c
+          - |
+              nix --extra-experimental-features "nix-command flakes" \
+              build ./infrastructure#test-image -o result/image
+              # Create a local filesystem reference because /nix/store
+              # doesn't persist across steps.
+              cp result/image result/image.tar.gz
+              (cd result && gunzip image.tar.gz)
+
+  - task: convert
+    image: bootstrapped-skopeo
+    config:
+      platform: linux
+      inputs:
+      - name: result
+      outputs:
+        - name: converted
+      run:
+        path: skopeo
+        args:
+          - copy
+          - --format=oci
+          - docker-archive:result/image.tar
           - oci:converted/oci
 
   - put: vendored-busybox
