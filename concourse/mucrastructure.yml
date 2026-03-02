@@ -55,6 +55,7 @@ jobs:
 
   plan:
   - get: infrastructure-ci
+    passed: [build-publish-ci-images]
     trigger: false
 
   - get: infrastructure
@@ -91,6 +92,7 @@ jobs:
   plan:
   - get: infrastructure-ci
     trigger: false
+    passed: [build-publish-ci-images]
 
   - get: infrastructure
     trigger: true
@@ -183,13 +185,19 @@ jobs:
       platform: linux
       inputs:
       - name: result
+      outputs:
+      - name: converted
       run:
         path: skopeo
         args:
           - copy
           - --format=oci
           - docker-archive:result/image.tar
-          - docker://zot.scottmuc.com/infrastructure-ci:latest
+          - oci:converted/oci
+
+  - put: infrastructure-ci
+    params:
+      image: converted/oci
 
   - task: build-navidrome-ci-image
     image: cachix-flakes
@@ -269,6 +277,7 @@ jobs:
     trigger: true
 
   - get: infrastructure-ci
+    passed: [build-publish-ci-images]
     trigger: true
 
   - across:
