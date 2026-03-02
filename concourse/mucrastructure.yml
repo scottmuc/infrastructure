@@ -95,7 +95,7 @@ jobs:
     passed: [build-publish-ci-images]
 
   - get: infrastructure
-    trigger: true
+    trigger: false
 
   - task: run-tests
     image: infrastructure-ci
@@ -154,6 +154,7 @@ jobs:
   - get: bootstrapped-skopeo
   - get: cachix-flakes
     passed: [vendor-registry-images]
+    trigger: true
 
   - task: build-infrastructure-ci-image
     image: cachix-flakes
