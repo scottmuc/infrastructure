@@ -72,5 +72,16 @@
           })
         ];
       };
+
+      packages.${system}.test-image = pkgs.dockerTools.buildLayeredImage {
+        name = "test-image";
+        tag = "latest";
+        contents = [
+          (pkgs.buildEnv {
+            name = "test-env";
+            paths = [ pkgs.bash ];
+          })
+        ];
+      };
     };
 }
