@@ -48,6 +48,20 @@ resources:
     repository: zot.scottmuc.com/navidrome-ci
     tag: latest
 
+groups:
+  - name: all
+    jobs:
+      - "*"
+  - name: kernel
+    jobs:
+      - vendor-registry-images
+      - build-publish-ci-images
+  - name: userland
+    jobs:
+      - clickops-propagate-authorized-keys
+      - dns-drift-detector
+      - navidrome
+      - static-analysis
 
 jobs:
 - name: clickops-propagate-authorized-keys
