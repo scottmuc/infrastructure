@@ -35,12 +35,11 @@
           (pkgs.buildEnv {
             name = "ci-env";
             paths = [
-              pkgs.bash
+              pkgs.bashNonInteractive
               pkgs.coreutils # provides ls, env, cat, etc...
               pkgs.curl
               pkgs.dejavu_fonts
               pkgs.fontconfig
-              pkgs.neovim
               pkgs.nodejs
               pkgs.playwright-driver
             ];
