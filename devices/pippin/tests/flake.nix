@@ -57,6 +57,7 @@
               pkgs.fontconfig
               pkgs.nodejs
               pkgs.playwright-driver
+              nodeModules
             ];
           })
         ];
@@ -65,6 +66,7 @@
             "FONTCONFIG_FILE=${pkgs.fontconfig.out}/etc/fonts/fonts.conf"
             "NAVIDROME_TEST_ENVIRONMENT=container"
             "NODE_EXTRA_CA_CERTS=${pkgs.cacert}/etc/ssl/certs/ca-bundle.crt"
+            "NODE_PATH=${nodeModules}/node_modules"
             "PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}"
             "PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true"
           ];
