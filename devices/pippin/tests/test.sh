@@ -35,17 +35,19 @@ run_tests() {
 
 install_dependencies() {
     if [[ -L ./node_modules ]]; then
+      # This case handles the Nix devShell
       echo "node_modules is a symlink, assuming a nix devShell and skipping npm install"
+    elif [[ "${NAVIDROME_TEST_ENVIRONMENT}" == "container" ]]; then
+      # This case handles when running in a container (usually Concourse)
+      echo "node_modules is exists in nix store, assuming a container run, and skipping npm install"
+      ln -sf "${NODE_PATH}" ./node_modules
     else
+      # Fall back to old fashioned fetching random stuff from the Internet
       npm install
     fi
 }
 
 check_node() {
-    if ! command -v node >/dev/null; then
-        echo "Node JS not detected, please install Node JS into your environment"
-        exit 1
-    fi
     echo "Node JS location : $(command -v node)"
     echo "Node JS version  : $(node --version)"
 }
