@@ -9,10 +9,6 @@ main() {
     # If we've reached here, all machine dependecnies are met!
     install_dependencies
 
-    # if [[ "${NAVIDROME_TEST_ENVIRONMENT:="local"}" != "local" ]]; then
-    #   install_playwright_browsers
-    # fi
-
     load_test_env
     run_tests
 }
@@ -28,13 +24,9 @@ load_test_env() {
     export NAVIDROME_PASSWORD
 }
 
-install_playwright_browsers() {
-  npx playwright install
-}
-
 run_tests() {
     # use DEBUG=pw:browser to get useful headless browser details
-    npx cucumber-js \
+    ./node_modules/.bin/cucumber-js \
       features/*.feature \
       --require-module ts-node/register \
       --require steps/*.ts \
@@ -42,7 +34,11 @@ run_tests() {
 }
 
 install_dependencies() {
-    npm install
+    if [[ -L ./node_modules ]]; then
+      echo "node_modules is a symlink, assuming a nix devShell and skipping npm install"
+    else
+      npm install
+    fi
 }
 
 check_node() {

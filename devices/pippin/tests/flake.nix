@@ -11,17 +11,32 @@
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
+
+      nodeModules = pkgs.buildNpmPackage {
+        name = "navidrome-node-modules";
+        src = ./.; # must contain package.json and package-lock.json
+        npmDepsHash = "sha256-B7mCAyCKAMMbIsWkgNmccERkcLAFCHevDI6LVUNqTc4=";
+        dontBuild = true; # skip `npm run build`
+        installPhase = ''
+          mkdir -p $out
+          cp -r node_modules $out/node_modules
+        '';
+      };
     in
     {
       devShells.${system}.default = pkgs.mkShell {
-        buildInputs = [
+        packages = [
           pkgs.nodejs
           pkgs.playwright-driver
+          nodeModules
         ];
 
         shellHook = ''
           export PLAYWRIGHT_BROWSERS_PATH=${pkgs.playwright-driver.browsers}
           export PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS=true
+          export NODE_PATH=${nodeModules}/node_modules
+          export PATH=${nodeModules}/node_modules/.bin:$PATH
+          ln -sf ${nodeModules}/node_modules ./node_modules
         '';
       };
 
