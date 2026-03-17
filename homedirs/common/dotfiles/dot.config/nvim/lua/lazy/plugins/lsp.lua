@@ -141,5 +141,20 @@ return { -- LSP Configuration & Plugins
       },
     })
     vim.lsp.enable 'nixd'
+
+    vim.lsp.config('pyright', {
+      -- cmd = {...},
+      -- filetypes { ...},
+      capabilities = capabilities,
+      settings = {
+        python = {
+          analysis = {
+            diagnosticMode = 'openFilesOnly',
+            typeCheckingMode = 'basic',
+          },
+        },
+      },
+    })
+    vim.lsp.enable 'pyright'
   end,
 }

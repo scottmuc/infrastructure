@@ -84,6 +84,7 @@
         pkgs.ansible-lint
         pkgs.lua-language-server
         pkgs.nixd
+        pkgs.pyright
 
         pkgs.shellcheck
         pkgs.stylua
