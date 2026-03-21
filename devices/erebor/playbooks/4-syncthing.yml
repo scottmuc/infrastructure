@@ -1,0 +1,172 @@
+- name: Setup syncthing
+  hosts: erebor.middle-earth.internal.
+
+  tasks:
+    - name: Ensure syncthing is installed
+      become: true
+      community.general.pkgng:
+        pkg:
+          - syncthing
+
+
+    - name: Create syncthing user
+      become: true
+      ansible.builtin.user:
+        name: syncthing
+        shell: /usr/sbin/nologin
+        comment: "syncthing service user"
+        groups: syncthing
+        createhome: false
+
+
+    - name: Create syncthing directories
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: directory
+        owner: syncthing
+        group: syncthing
+        mode: '0750'
+      loop:
+        - /usr/local/var/mcap/store/syncthing
+        - /usr/local/var/mcap/store/syncthing/state
+        - /usr/local/var/mcap/store/syncthing/data
+
+
+    - name: Configure syncthing_user in rc.d
+      become: true
+      community.general.sysrc:
+        name: syncthing_user
+        state: present
+        value: "syncthing"
+
+
+    - name: Configure syncthing_home in rc.d
+      become: true
+      community.general.sysrc:
+        name: syncthing_home
+        state: present
+        value: "/usr/local/var/mcap/store/syncthing/state"
+
+
+    - name: Enable and syncthing service
+      become: true
+      ansible.builtin.service:
+        name: syncthing
+        enabled: true
+        state: started
+
+
+    - name: Configure syncthing
+      become: true
+      ansible.builtin.copy:
+        dest: /usr/local/var/mcap/store/syncthing/state/config.xml
+        owner: syncthing
+        group: syncthing
+        mode: '0600'
+        content: |
+          <configuration version="37">
+            <folder id="smootz-syncthing" label="smootz-syncthing" path="/usr/local/var/mcap/store/syncthing/data" type="sendreceive" rescanIntervalS="3600" fsWatcherEnabled="true" fsWatcherDelayS="10" ignorePerms="false" autoNormalize="true">
+              <!-- add peer device IDs here -->
+              <minDiskFree unit="%">1</minDiskFree>
+              <versioning/>
+              <copiers>0</copiers>
+              <pullerMaxPendingKiB>0</pullerMaxPendingKiB>
+              <hashers>0</hashers>
+              <order>random</order>
+              <ignoreDelete>false</ignoreDelete>
+              <scanProgressIntervalS>0</scanProgressIntervalS>
+              <pullerPauseS>0</pullerPauseS>
+              <maxConflicts>10</maxConflicts>
+              <disableSparseFiles>false</disableSparseFiles>
+              <disableTempIndexes>false</disableTempIndexes>
+              <paused>false</paused>
+              <weakHashThresholdPct>25</weakHashThresholdPct>
+              <markerName>.stfolder</markerName>
+              <copyOwnershipFromParent>false</copyOwnershipFromParent>
+              <modTimeWindowS>0</modTimeWindowS>
+              <maxConcurrentWrites>2</maxConcurrentWrites>
+              <disableFsync>false</disableFsync>
+              <blockPullOrder>standard</blockPullOrder>
+              <copyRangeMethod>standard</copyRangeMethod>
+              <caseSensitiveFS>true</caseSensitiveFS>
+              <junctionsAsDirs>false</junctionsAsDirs>
+            </folder>
+
+            <gui enabled="true" tls="false" debugging="false">
+              <address>192.168.2.19:8384</address>
+              <apiKey>generate-with-openssl-rand-hex-32</apiKey>
+              <theme>default</theme>
+            </gui>
+
+            <ldap/>
+
+            <options>
+              <!-- LAN listen only -->
+              <listenAddress>tcp://192.168.2.19:22000</listenAddress>
+
+              <!-- disable all external communication -->
+              <globalAnnounceEnabled>false</globalAnnounceEnabled>
+              <globalAnnounceServer>default</globalAnnounceServer>
+              <localAnnounceEnabled>false</localAnnounceEnabled>
+              <localAnnouncePort>21027</localAnnouncePort>
+              <localAnnounceMCAddr>[ff12::8384]:21027</localAnnounceMCAddr>
+              <relaysEnabled>false</relaysEnabled>
+              <relayReconnectIntervalM>10</relayReconnectIntervalM>
+              <natEnabled>false</natEnabled>
+              <natLeaseMinutes>60</natLeaseMinutes>
+              <natRenewalMinutes>30</natRenewalMinutes>
+              <natTimeoutSeconds>10</natTimeoutSeconds>
+              <stunKeepaliveStartS>0</stunKeepaliveStartS>
+              <stunKeepaliveMinS>0</stunKeepaliveMinS>
+              <stunServer>default</stunServer>
+
+              <!-- no auto-upgrade, no telemetry -->
+              <autoUpgradeIntervalH>0</autoUpgradeIntervalH>
+              <upgradeToPreReleases>false</upgradeToPreReleases>
+              <urAccepted>-1</urAccepted>
+              <urSeen>3</urSeen>
+              <urURL></urURL>
+              <urPostInsecurely>false</urPostInsecurely>
+              <crashReportingEnabled>false</crashReportingEnabled>
+              <crashReportingURL></crashReportingURL>
+
+              <!-- general -->
+              <maxSendKbps>0</maxSendKbps>
+              <maxRecvKbps>0</maxRecvKbps>
+              <reconnectionIntervalS>60</reconnectionIntervalS>
+              <startBrowser>false</startBrowser>
+              <progressUpdateIntervalS>5</progressUpdateIntervalS>
+              <limitBandwidthInLan>false</limitBandwidthInLan>
+              <minHomeDiskFree unit="%">1</minHomeDiskFree>
+              <maxFolderConcurrency>0</maxFolderConcurrency>
+              <defaultFolderPath>/usr/local/var/mcap/store/syncthing/data</defaultFolderPath>
+              <setLowPriority>false</setLowPriority>
+              <keepTemporariesH>24</keepTemporariesH>
+              <cacheIgnoredFiles>false</cacheIgnoredFiles>
+              <overwriteRemoteDeviceNamesOnConnect>false</overwriteRemoteDeviceNamesOnConnect>
+              <tempIndexMinBlocks>10</tempIndexMinBlocks>
+              <trafficClass>0</trafficClass>
+              <defaultKilobitsPerSecond>0</defaultKilobitsPerSecond>
+              <insecureAllowOldTLSVersions>false</insecureAllowOldTLSVersions>
+              <connectionLimitEnough>0</connectionLimitEnough>
+              <connectionLimitMax>0</connectionLimitMax>
+              <insecureSkipTLSCheck>false</insecureSkipTLSCheck>
+              <connectionPriorityTCPLAN>10</connectionPriorityTCPLAN>
+              <connectionPriorityQUICLAN>20</connectionPriorityQUICLAN>
+              <connectionPriorityTCPWAN>30</connectionPriorityTCPWAN>
+              <connectionPriorityQUICWAN>40</connectionPriorityQUICWAN>
+              <connectionPriorityRelay>50</connectionPriorityRelay>
+            </options>
+          </configuration>
+
+      notify: Restart syncthing
+
+  handlers:
+    - name: Restart syncthing
+      become: true
+      ansible.builtin.service:
+        name: syncthing
+        state: restarted
+
+# vim: ft=yaml.ansible
