@@ -15,7 +15,7 @@
       nodeModules = pkgs.buildNpmPackage {
         name = "navidrome-node-modules";
         src = ./.; # must contain package.json and package-lock.json
-        npmDepsHash = "sha256-RwQVauB6wRoq3KuvFHtEDpTklWIao9zDaznBA7wJZHQ=";
+        npmDepsHash = "sha256-ujJDyUqvHt/4+u5eKvVVT0kyHllyiF3q+q/0qLNSWRA=";
         dontBuild = true; # skip `npm run build`
         installPhase = ''
           mkdir -p $out
