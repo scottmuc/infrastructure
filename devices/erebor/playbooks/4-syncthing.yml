@@ -26,7 +26,7 @@
         state: directory
         owner: syncthing
         group: syncthing
-        mode: '0750'
+        mode: '0700'
       loop:
         - /usr/local/var/mcap/store/syncthing
         - /usr/local/var/mcap/store/syncthing/state
@@ -67,6 +67,7 @@
         content: |
           <configuration version="37">
             <folder id="smootz-syncthing" label="smootz-syncthing" path="/usr/local/var/mcap/store/syncthing/data" type="sendreceive" rescanIntervalS="3600" fsWatcherEnabled="true" fsWatcherDelayS="10" ignorePerms="false" autoNormalize="true">
+              <device id="3HULVMB-VXBGAW7-25X7RVG-QXZ7NAP-GGS2IPR-EJQU7N6-7I4YCYZ-3KWCRAF"/>
               <!-- add peer device IDs here -->
               <minDiskFree unit="%">1</minDiskFree>
               <versioning/>
@@ -92,6 +93,14 @@
               <caseSensitiveFS>true</caseSensitiveFS>
               <junctionsAsDirs>false</junctionsAsDirs>
             </folder>
+
+            <device id="MWYUCVR-6MMTF4O-YFEJUIN-JFAU6LE-LLJEZ77-ISLBHS6-YNGBHUS-MKQA7AC" name="erebor" introducer="false">
+              <address>dynamic</address>
+            </device>
+
+            <device id="3HULVMB-VXBGAW7-25X7RVG-QXZ7NAP-GGS2IPR-EJQU7N6-7I4YCYZ-3KWCRAF" name="frodo" introducer="false">
+              <address>dynamic</address>
+            </device>
 
             <gui enabled="true" tls="false" debugging="false">
               <address>192.168.2.19:8384</address>
