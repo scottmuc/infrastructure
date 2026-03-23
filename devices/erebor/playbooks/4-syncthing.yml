@@ -60,7 +60,7 @@
     - name: Configure syncthing
       become: true
       ansible.builtin.copy:
-        sec: ./files/syncthing.config.xml
+        src: ./files/syncthing.config.xml
         dest: /usr/local/var/mcap/store/syncthing/state/config.xml
         owner: syncthing
         group: syncthing
