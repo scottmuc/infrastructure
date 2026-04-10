@@ -2,14 +2,19 @@
 
 set -euo pipefail
 
+flake_output="$(gum choose --header "Select flake output" \
+  ".#devShells.x86_64-linux.default" \
+  ".#homeConfigurations.$(whoami).activationPackage"
+)"
+
 # Get a path to the current nix-shell derivation
-current_shell_drv="$(nix build --print-out-paths --no-link ".#devShells.x86_64-linux.default")"
+current_shell_drv="$(nix build --print-out-paths --no-link "${flake_output}")"
 
 # Update the nixpkgs input
 nix flake update
 
 # Get a path to the updated nix-shell derivation
-updated_shell_drv="$(nix build --print-out-paths --no-link ".#devShells.x86_64-linux.default")"
+updated_shell_drv="$(nix build --print-out-paths --no-link "${flake_output}")"
 
 # Let Nix give us a report on what's updated
 nix store diff-closures "${current_shell_drv}" "${updated_shell_drv}"
