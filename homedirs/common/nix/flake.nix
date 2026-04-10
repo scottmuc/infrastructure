@@ -59,6 +59,7 @@
         pkgs.jujutsu
         pkgs.mr
         pkgs.nerd-fonts.jetbrains-mono
+        pkgs.opencode
         pkgs.ripgrep
         pkgs.tmux
         pkgs.unzip
