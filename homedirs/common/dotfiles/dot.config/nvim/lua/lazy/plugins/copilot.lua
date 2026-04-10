@@ -6,7 +6,7 @@ return {
       -- request a Copilot suggestion.
       vim.g.copilot_enabled = false
       -- Disable TAB from accepting a completion.
-      vim.api.nvim_set_keymap('i', '<C-j>', 'copilot#Accept("<CR>")', { expr = true, noremap = true, silent = true })
+      vim.api.nvim_set_keymap('i', '<C-j>', "vim.fn['copilot#Accept']('<CR>')", { expr = true, noremap = true, silent = true })
       vim.g.copilot_no_tab_map = true
     end,
   },
