@@ -110,23 +110,23 @@ the [previous repave issues][repave-history]. Have fun!
   Needed for the `certbot` ACME challenge in the next step.
 </details>
 
-- [ ] Complete full configuration <details>
+- [ ] Complete primary machine setup<details>
   <summary>Instructions</summary>
 
-  `./ansible.sh` and select the `1-machine-config.yml`
+  Run `./ansible.sh` and run the following playbooks in order:
 
-  and then:
+  * `./pippin/playbooks/1-machine-config.yml`
+  * `./pippin/playbooks/2-main.yml`
+  * `./playbooks/unbound-resolvers.yml`
 
-  `./ansible.sh` and select the `2-main.yml`
+  The last one will report errors configuring `merry`, this is expected
+  because at this stage of the repave, local name resolution isn't functional
+  until this playbook is applied.
 </details>
 
 - [ ] Reboot PI
 
-- [ ] Re-add port mapping to the static IP
-
-- [ ] Disable DHCP on the router
-
-- [ ] Deploy goodenoughmoney.com
+- [ ] Update `/etc/hosts` and remove entry for `pippin.middle-earth.internal.`
 
 - [ ] Clean up `~/.ssh/known_hosts`<details>
   <summary>Instructions</summary>
@@ -134,7 +134,22 @@ the [previous repave issues][repave-history]. Have fun!
   Run `really-well-known-hosts` to completey reset the file
 </details>
 
-- [ ] Update `/etc/hosts` and remove entry for `pippin.middle-earth.internal.`
+- [ ] Complete the rest of the configuration <details>
+  <summary>Instructions</summary>
+
+  Run `./ansible.sh` and run the following playbooks in order:
+
+  * `./playbooks/linux-security.yml`
+  * `./playbooks/linux-logging.yml`
+  * `./playbooks/linux-node-exporters.yml`
+
+</details>
+
+- [ ] Re-add port mapping to the static IP
+
+- [ ] Disable DHCP on the router
+
+- [ ] Deploy goodenoughmoney.com
 
 - [ ] Make this template slightly better
 
@@ -144,9 +159,9 @@ the [previous repave issues][repave-history]. Have fun!
 
 - [ ] https://home.scottmuc.com/music/ loads navidrome and the music is playable
 
-- [ ] http://192.168.2.10:9090/ loads and has data
+- [ ] http://pippin.middle-earth.internal:9090/ loads and has data
 
-- [ ] http://192.168.2.10:3000/ loads and has data
+- [ ] http://pippin.middle-earth.internal:3000/ loads and has data
 
 - [ ] `ipconfig /release` and then `ipconfig /renew` works
 
@@ -155,6 +170,6 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Print out newly repaved machine details<details>
   <summary>Instructions</summary>
 
-  `ssh ansible@192.168.2.10 -- "cat /etc/os-release; uname -a; dpkg -l" > state.txt`
+  `ssh ansible@pippin.middle-earth.internal -- "cat /etc/os-release; uname -a; dpkg -l" > state.txt`
 </details>
 
