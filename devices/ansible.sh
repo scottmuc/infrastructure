@@ -5,11 +5,10 @@ set -e
 drift_detection_args=""
 
 playbook=$(find ./ -wholename "*/playbooks/*.yml" \
-  | sort -r \
-  | grep -v bootstrap \
+  | sort \
   | gum choose --height 20 --header "Select a playbook")
 
-if gum confirm "Drift detection only?"; then
+if gum confirm "Run playbook instead of drift detection?"; then
   drift_detection_args="--check --diff"
 fi
 
