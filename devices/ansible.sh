@@ -8,7 +8,7 @@ playbook=$(find ./ -wholename "*/playbooks/*.yml" \
   | sort \
   | gum choose --height 20 --header "Select a playbook")
 
-if gum confirm "Run playbook instead of drift detection?"; then
+if ! gum confirm "Run playbook instead of drift detection?"; then
   drift_detection_args="--check --diff"
 fi
 
