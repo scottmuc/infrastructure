@@ -15,7 +15,8 @@
       nodeModules = pkgs.buildNpmPackage {
         name = "navidrome-node-modules";
         src = ./.; # must contain package.json and package-lock.json
-        npmDepsHash = "sha256-ujJDyUqvHt/4+u5eKvVVT0kyHllyiF3q+q/0qLNSWRA=";
+        npmDepsHash = "sha256-JoY0BRiaCX59dtzTEFYUEvIuiQGmV+uKQ+WOfulOMaM=";
+        #npmDepsHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
         dontBuild = true; # skip `npm run build`
         installPhase = ''
           mkdir -p $out
@@ -26,7 +27,7 @@
     {
       devShells.${system}.default = pkgs.mkShell {
         packages = [
-          pkgs.nodejs
+          pkgs.nodejs-slim
           pkgs.playwright-driver
           nodeModules
         ];
@@ -55,7 +56,7 @@
               pkgs.curl
               pkgs.dejavu_fonts
               pkgs.fontconfig
-              pkgs.nodejs
+              pkgs.nodejs-slim
               pkgs.playwright-driver
               nodeModules
             ];
