@@ -57,9 +57,14 @@
         state: started
 
 
+    - name: Load secrets from local file
+      ansible.builtin.include_vars:
+        file: ../secrets/syncthing.yml
+
+
     - name: Configure syncthing
       become: true
-      ansible.builtin.copy:
+      ansible.builtin.template:
         src: ./files/syncthing.config.xml
         dest: /usr/local/var/mcap/store/syncthing/state/config.xml
         owner: syncthing
