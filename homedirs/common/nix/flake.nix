@@ -16,6 +16,8 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nixgl.url = "github:nix-community/nixGL";
   };
 
   # The ... is because "self" is also passed in, but I'm choosing to ignore
@@ -23,7 +25,7 @@
   # The "let" keyword allows the ability to define variables to be accessed in
   # scope of the expression after the "in" keyword
   outputs =
-    { nixpkgs, home-manager, ... }:
+    { nixpkgs, home-manager, nixgl, ... }:
     let
       system = "x86_64-linux";
 
@@ -43,6 +45,8 @@
             "obsidian"
             "vivaldi"
           ];
+
+        overlays = [ nixgl.overlay ];
       };
 
       # I don't use with pkgs; here because I like typing `pkgs.` and get LSP
@@ -74,8 +78,18 @@
         # Things used with a GUI
         pkgs.gnome-tweaks
         pkgs.obsidian
-        pkgs.vivaldi
         pkgs.wl-clipboard
+
+        (pkgs.symlinkJoin {
+          name = "vivaldi";
+          paths = [ pkgs.vivaldi ];
+          buildInputs = [ pkgs.makeWrapper ];
+          postBuild = ''
+            rm $out/bin/vivaldi
+            makeWrapper ${pkgs.nixgl.nixGLIntel}/bin/nixGLIntel $out/bin/vivaldi \
+              --add-flags "${pkgs.vivaldi}/bin/vivaldi"
+          '';
+        })
       ];
       programming_support = [
         (pkgs.neovim.override { withNodeJs = true; })
@@ -191,19 +205,22 @@
             # environment.
             home.packages = defaultPackages ++ guiPackages ++ programming_support;
 
-            # Home Manager is pretty good at managing dotfiles. The primary way to manage
-            # plain files is through 'home.file'.
             home.file = {
               # # Building this configuration will create a copy of 'dotfiles/screenrc' in
               # # the Nix store. Activating the configuration will then make '~/.screenrc' a
               # # symlink to the Nix store copy.
               # ".screenrc".source = dotfiles/screenrc;
 
-              # # You can also set the file content immediately.
-              # ".gradle/gradle.properties".text = ''
-              #   org.gradle.console=verbose
-              #   org.gradle.daemon.idletimeout=3600000
-              # '';
+              ".local/share/applications/vivaldi-stable.desktop".text = ''
+                [Desktop Entry]
+                Name=Vivaldi
+                Exec=/home/smootz/.nix-profile/bin/vivaldi %U
+                Type=Application
+                Icon=vivaldi
+                Categories=Network;WebBrowser;
+                StartupNotify=true
+                Terminal=false
+              '';
             };
 
             # Variables defined here will show up in `.nix-profile/etc/profile.d/hm-session-vars.sh`,
