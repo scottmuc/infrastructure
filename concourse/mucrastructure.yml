@@ -22,7 +22,7 @@ resources:
   icon: docker
   source:
     repository: docker.nix-community.org/nixpkgs/cachix-flakes
-    tag: latest
+    tag: latest-x86_64-linux
 
 
 - name: cachix-flakes
