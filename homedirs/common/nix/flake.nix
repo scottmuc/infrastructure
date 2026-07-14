@@ -25,7 +25,12 @@
   # The "let" keyword allows the ability to define variables to be accessed in
   # scope of the expression after the "in" keyword
   outputs =
-    { nixpkgs, home-manager, nixgl, ... }:
+    {
+      nixpkgs,
+      home-manager,
+      nixgl,
+      ...
+    }:
     let
       system = "x86_64-linux";
 
