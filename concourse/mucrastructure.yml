@@ -23,6 +23,8 @@ resources:
   source:
     repository: docker.nix-community.org/nixpkgs/cachix-flakes
     tag: latest-x86_64-linux
+    username: scottmuc
+    password: ((concourse_docker_token))
 
 
 - name: cachix-flakes
