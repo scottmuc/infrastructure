@@ -152,6 +152,7 @@
                 opauth = "eval $(op signin)";
                 keys = "ssh-op-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
                 vim = "echo woopsy, you probably meant nvim, right?";
+                nnvim = "NVIM_APPNAME=nvim_new_config nvim";
               };
 
               initExtra = ''
