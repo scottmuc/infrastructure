@@ -40,13 +40,22 @@ all the [previous repave issues][repave-history]. Have fun!
   `~/workspace/infrastructure/homedirs/windows/Repave-WSLInstance.ps`
 </details>
 
+- [ ] Install setup script dependencies<details>
+  <summary>Instructions</summary>
+
+  ```
+  sudo apt update
+  sudo apt install curl git
+  ```
+</details>
+
 - [ ] Clone and run coalesce script<details>
   <summary>Instructions</summary>
 
   ```
   mkdir ~/workspace && cd ~/workspace
   git clone https://github.com/scottmuc/infrastructure.git
-  cd infrastructure/homedirs/wsl
+  cd infrastructure/devices/gandalf/the-grey/wsl
   ./coalesce_this_machine
   background light # or dark if that's the current windows setting
   ```
@@ -58,7 +67,7 @@ all the [previous repave issues][repave-history]. Have fun!
   In order for `/etc/wsl.conf` to take effect we need to restart the
   WSL instance.
 
-  `wsl --shutdown Ubuntu`
+  `wsl --shutdown Debian`
 
 </details>
 
@@ -69,27 +78,6 @@ all the [previous repave issues][repave-history]. Have fun!
 
 </details>
 
-- [ ] Load GPG Keys<details>
-  <summary>Instructions</summary>
-
-  ```
-  opauth
-  keys
-  gpg-op restore -e scottATscottmuc.com
-  ```
-
-</details>
-
-- [ ] Bootstrap repository tools<details>
-  <summary>Instructions</summary>
-
-  ```
-  mise install
-  pip install ansible
-  ```
-
-
-</details>
 
 # Verification Steps
 
