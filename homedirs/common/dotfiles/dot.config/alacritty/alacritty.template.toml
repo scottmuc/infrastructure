@@ -9,7 +9,7 @@ normal = { family = "JetBrainsMono Nerd Font" }
 
 [terminal.shell]
 program = "wsl"
-args = ["--distribution", "Ubuntu", "--cd", "~"]
+args = ["--distribution", "Debian", "--cd", "~"]
 
 [selection]
 save_to_clipboard = true

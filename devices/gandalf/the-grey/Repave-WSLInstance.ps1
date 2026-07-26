@@ -1,4 +1,4 @@
-$Distribution = "Ubuntu"
+$Distribution = "Debian"
 
 wsl --set-default-version 2
 wsl --terminate $Distribution
