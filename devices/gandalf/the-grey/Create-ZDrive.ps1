@@ -1,4 +1,4 @@
-$sharePath = "\\erebor\mcap"
+$sharePath = "\\erebor.middle-earth.internal\mcap"
 $driveLetter = "Z:"
 $username = "smbrw"
 
