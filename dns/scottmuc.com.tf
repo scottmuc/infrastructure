@@ -158,6 +158,7 @@ resource "gandi_livedns_record" "graffiti_scottmuc_com" {
   type = "TXT"
   ttl  = "3600"
   values = [
+    "\"Repaved WSL - switched to Debain 2026.07.26\"",
     "\"Repaved Frodo, the Framework laptop\"",
     "\"Cleaned up the historic graffiti\"",
   ]

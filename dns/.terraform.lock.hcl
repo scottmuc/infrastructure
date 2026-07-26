@@ -5,7 +5,18 @@ provider "registry.opentofu.org/go-gandi/gandi" {
   version     = "2.3.0"
   constraints = "~> 2.3.0"
   hashes = [
+    "h1:+QRivNRiQfXbOzSJwIKOmpqRLjfSbgGTVIot5HHaxzU=",
     "h1:9kqWL+eFk/ogrQSltL9zVqjMcOqbvs3EgIJEeyNPb8U=",
+    "h1:Fv/rdRU74oVDL6Tmu63qNl3fUrlOfMVPUFeLaPfWAGY=",
+    "h1:GC+kfSRx3FdF0dhh0LZrWXV+hLSFQd3cQ3mjQ3lBloU=",
+    "h1:M6MNub0wFKc/2MKOns9uWsgkFEjqNx1oucz+wGemBRM=",
+    "h1:Os/cyXb2LCyYLvaQ7inZPBdgjR7Ie5AsyIIHvYaMZB4=",
+    "h1:PH6KI61eli5OL/aN3Oi7NV9qkNbjGLoOYjJK3gvULj4=",
+    "h1:ZYWkA1hdIjQySftM5bWAQjiH50V5qMl9nJroYzCoqb0=",
+    "h1:aRZN5KmJwfLJ+sSYo4xd6MHS2oNk3Zlk417md3e9ry0=",
+    "h1:iTw/xbYXtScXLdhbjzF15Bf9wWu/r41ZertHYl9vDec=",
+    "h1:q/JXh50l2WZKxRpVTXzWp7nToqaU4TXD883k6Xi+8Jk=",
+    "h1:sSjatD9sHwGI8jJYF7Ps7BTBbmmCmLAdlUPDs3i/vQA=",
     "zh:0936d011cf75bb5162c6027d00575a586807adc9008f4152def157b6ad22bae9",
     "zh:2170e671f04d3346ea416fcc404be6d05f637eab7df77e289a6898a928885f0b",
     "zh:250329baae3cb09cfb88dd004d45f003ba76fbe7b8daf9d18fd640b93a2b7252",
