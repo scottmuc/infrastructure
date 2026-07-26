@@ -134,17 +134,6 @@ the [previous repave issues][repave-history]. Have fun!
   Run `really-well-known-hosts` to completey reset the file
 </details>
 
-- [ ] Complete the rest of the configuration <details>
-  <summary>Instructions</summary>
-
-  Run `./ansible.sh` and run the following playbooks in order:
-
-  * `./playbooks/linux-security.yml`
-  * `./playbooks/linux-logging.yml`
-  * `./playbooks/linux-node-exporters.yml`
-
-</details>
-
 - [ ] Re-add port mapping to the static IP
 
 - [ ] Disable DHCP on the router
