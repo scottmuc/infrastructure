@@ -20,17 +20,17 @@ vim.opt.mouse = 'a'
 vim.opt.clipboard = 'unnamedplus'
 
 vim.pack.add({
-	{ src = 'https://github.com/neovim/nvim-lspconfig', },
-	{ src = 'https://github.com/nvim-mini/mini.nvim', },
-	{ src = 'https://github.com/scottmckendry/cyberdream.nvim', },
+  { src = 'https://github.com/neovim/nvim-lspconfig', },
+  { src = 'https://github.com/nvim-mini/mini.nvim', },
+  { src = 'https://github.com/scottmckendry/cyberdream.nvim', },
 })
 
 -- https://github.com/neovim/nvim-lspconfig/blob/master/lsp/lua_ls.lua
 vim.lsp.enable({
-	'ansiblels',
-	'bashls',
-	'lua_ls',
-	'nixd',
+  'ansiblels',
+  'bashls',
+  'lua_ls',
+  'nixd',
 })
 
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
@@ -51,8 +51,8 @@ output = output:gsub('%s+', '')
 vim.opt.background = output
 
 require('cyberdream').setup({
-	variant = 'auto',
-	extensions = { mini = true, },
+  variant = 'auto',
+  extensions = { mini = true, },
 })
 
 vim.cmd("colorscheme cyberdream")
@@ -64,7 +64,7 @@ require('mini.files').setup {}
 require('mini.pick').setup {}
 
 local minifiles_toggle = function(...)
-	if not MiniFiles.close() then MiniFiles.open(...) end
+  if not MiniFiles.close() then MiniFiles.open(...) end
 end
 
 vim.keymap.set('n', '\\', minifiles_toggle)
