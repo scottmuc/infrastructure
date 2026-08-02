@@ -16,7 +16,7 @@ copy_config() {
   # shellcheck disable=SC2016
   env \
     THEME_PATH="${theme_path}" \
-  envsubst '$THEME_PATH' < "${COMMON_CONFIG_FILE}" > "${config_path}"
+  envsubst-go '$THEME_PATH' < "${COMMON_CONFIG_FILE}" > "${config_path}"
 }
 
 is_macos() {
