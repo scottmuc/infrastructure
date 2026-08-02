@@ -39,7 +39,20 @@ vim.lsp.enable({
 
 vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
 
-vim.opt.background = 'dark'
+local handle = io.popen 'background'
+if not handle then
+  return
+end
+
+local output = handle:read '*a'
+handle:close()
+
+if not output then
+  return
+end
+
+output = output:gsub('%s+', '')
+vim.opt.background = output
 
 require('cyberdream').setup({
 	variant = 'auto',
