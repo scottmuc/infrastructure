@@ -68,3 +68,7 @@ local minifiles_toggle = function(...)
 end
 
 vim.keymap.set('n', '\\', minifiles_toggle)
+
+vim.keymap.set('n', '<leader>sf', function()
+  require('mini.pick').builtin.files()
+end, { desc = "Pick files" })
