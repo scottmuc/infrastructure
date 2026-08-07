@@ -10,6 +10,6 @@
         user: "{{ item }}"
         state: present
         key: "{{ lookup('file', '../authorized_keys') }}"
-      loop: "{{ users_to_propogate_authorized_keys_to }}"
+      loop: "{{ users_to_propagate_authorized_keys_to }}"
 
 # vim: ft=yaml.ansible

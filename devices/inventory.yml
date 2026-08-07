@@ -3,7 +3,7 @@ all:
     ansible_user: ansible
     ansible_python_interpreter: /usr/bin/python3
 
-    users_to_propogate_authorized_keys_to:
+    users_to_propagate_authorized_keys_to:
       - ansible
 
     golang_version: "1.26.5"
@@ -13,7 +13,7 @@ all:
       ansible_become_method: doas
       ansible_python_interpreter: /usr/local/bin/python3
 
-      users_to_propogate_authorized_keys_to:
+      users_to_propagate_authorized_keys_to:
         - ansible
         - git
 
