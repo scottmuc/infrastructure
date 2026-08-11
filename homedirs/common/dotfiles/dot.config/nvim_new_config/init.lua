@@ -20,6 +20,7 @@ vim.opt.mouse = 'a'
 vim.opt.clipboard = 'unnamedplus'
 
 vim.pack.add({
+  { src = 'https://github.com/folke/which-key.nvim', },
   { src = 'https://github.com/neovim/nvim-lspconfig', },
   { src = 'https://github.com/nvim-mini/mini.nvim', },
   { src = 'https://github.com/scottmckendry/cyberdream.nvim', },
@@ -33,7 +34,7 @@ vim.lsp.enable({
   'nixd',
 })
 
-vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format)
+vim.keymap.set('n', '<leader>lf', vim.lsp.buf.format, { desc = "Format Buffer" })
 
 local handle = io.popen 'background'
 if not handle then
@@ -56,6 +57,8 @@ require('cyberdream').setup({
 })
 
 vim.cmd("colorscheme cyberdream")
+
+require('which-key').setup {}
 
 require('mini.comment').setup {}
 require('mini.completion').setup {}
