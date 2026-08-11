@@ -19,6 +19,10 @@
     ci = commit
     co = checkout
 
+    poh = push origin HEAD
+    fap = fetch --all --prune
+    mom = merge --ff-only origin/main
+
     # custom log that is a copy of Gary Bernhardt's
     l  = "!. ~/.githelpers && pretty_git_log"
     la = !git l --all
