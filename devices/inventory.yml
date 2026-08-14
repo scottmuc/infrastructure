@@ -22,7 +22,7 @@ all:
       node_exporter_arch: amd64
       node_exporter_version: "1.11.1"
       navidrome_version: "0.62.0"
-      concourse_version: "8.2.4"
+      concourse_version: "8.3.0"
 
     pippin.middle-earth.internal.:
       ansible_become_method: doas
