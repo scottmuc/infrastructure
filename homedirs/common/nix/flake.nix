@@ -6,7 +6,7 @@
     # As opposed to nix-channels, I can specify an arbitrary number of named
     # nixpkgs references depending on my needs. Unsure if nixos-unstable is
     # the branch I want to follow at the moment.
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
     # Here is how I input my home-manager version and instruct home-manager to
     # use the same nixpkgs input as this flake. I'm unsure if this is a good
