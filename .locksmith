@@ -1,1 +1,1 @@
-op read op://Automation/repo.infrastructure/git-crypt-key
+pass-cli item view pass://Automation/repo.infrastructure/git-crypt-key

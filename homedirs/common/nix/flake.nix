@@ -46,7 +46,6 @@
         config.allowUnfreePredicate =
           pkg:
           builtins.elem (pkgs.lib.getName pkg) [
-            "1password-cli"
             "obsidian"
             "vivaldi"
           ];
@@ -57,7 +56,6 @@
       # I don't use with pkgs; here because I like typing `pkgs.` and get LSP
       # completion of the available packages.
       defaultPackages = [
-        pkgs._1password-cli
         pkgs.clang
         pkgs.curl
         pkgs.fzf
@@ -67,6 +65,7 @@
         pkgs.jq
         pkgs.mr
         pkgs.nerd-fonts.jetbrains-mono
+        pkgs.proton-pass-cli
         pkgs.ripgrep
         pkgs.tmux
         pkgs.unzip
@@ -147,8 +146,7 @@
               enableCompletion = true;
               shellAliases = {
                 ls = "ls --color=always";
-                opauth = "eval $(op signin)";
-                keys = "ssh-op-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
+                keys = "ssh-pp-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
                 vim = "echo woopsy, you probably meant nvim, right?";
                 nnvim = "NVIM_APPNAME=nvim_new_config nvim";
               };
@@ -253,8 +251,7 @@
                 apparmor_nix = "echo 0 | sudo tee /proc/sys/kernel/apparmor_restrict_unprivileged_userns";
 
                 ls = "ls --color=always";
-                opauth = "eval $(op signin)";
-                keys = "ssh-op-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
+                keys = "ssh-pp-agent load -n 20240609.keys -p \"ssh key passphrase\" -t 4";
                 vim = "echo woopsy, you probably meant nvim, right?";
               };
 
