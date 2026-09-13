@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Ensure we have the latest remote state
+git fetch --all --prune
+
+# Ensure our local main is synced with remote main
+git merge --ff-only origin/main main
+
+# Ensure our github main is the same as origin main
+git push github main

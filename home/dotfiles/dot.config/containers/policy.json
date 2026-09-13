@@ -1,0 +1,54 @@
+{
+  "default": [
+    {
+      "type": "reject"
+    }
+  ],
+  "transports": {
+    "docker": {
+      "zot.scottmuc.com": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ],
+      "docker.io": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ],
+      "registry-1.docker.io": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ],
+      "quay.io": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+
+      ],
+      "ghcr.io": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ],
+      "mcr.microsoft.com": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ],
+      "registry.k8s.io": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ]
+    },
+    "docker-daemon": {
+      "": [
+        {
+          "type": "insecureAcceptAnything"
+        }
+      ]
+    }
+  }
+}

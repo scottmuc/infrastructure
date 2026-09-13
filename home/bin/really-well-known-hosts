@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+cat <<EOT | xargs ssh-keyscan -H > ~/.ssh/known_hosts.new
+merry
+merry.middle-earth.internal
+merry.middle-earth.internal.
+pippin
+pippin.middle-earth.internal
+pippin.middle-earth.internal.
+erebor
+erebor.middle-earth.internal
+erebor.middle-earth.internal.
+git.scottmuc.com
+github.com
+EOT
+
+mv ~/.ssh/known_hosts{.new,}

@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+main() {
+  cmd="${1:?Must specify mount/umount as an argument}"
+
+  case "${cmd}" in
+    mount)
+      mount_erebor
+      ;;
+    umount)
+      unmount_erebor
+      ;;
+    *)
+      echo "invalid argument, can only specify mount/umount"
+      exit 1
+      ;;
+  esac
+}
+
+mount_erebor() {
+  sudo mount -t nfs erebor:/usr/local/var/mcap/store /mnt/mcap
+}
+
+unmount_erebor() {
+  sudo umount /mnt/mcap
+}
+
+
+main "$@"
