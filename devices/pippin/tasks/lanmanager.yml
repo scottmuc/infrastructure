@@ -43,29 +43,22 @@
     state: absent
 
 
-- name: Ensure ifupdown installed so /etc/network/interfaces.d exists
+- name: Static IP via NetworkManager
   become: true
-  ansible.builtin.apt:
-    pkg:
-      - ifupdown
-
-
-- name: Setup static IP
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/network/interfaces.d/eth0
-    owner: root
-    group: admin
-    mode: '0664'
-    content: |
-      auto eth0
-      allow-hotplug eth0
-      iface eth0 inet static
-      address 192.168.2.10
-      netmask 255.255.255.0
-      gateway 192.168.2.1
-      dns-nameservers 127.0.0.1
-      dns-search middle-earth.internal
+  community.general.nmcli:
+    conn_name: netplan-eth0
+    ifname: eth0
+    type: ethernet
+    ip4: 192.168.2.10/24
+    gw4: 192.168.2.1
+    dns4:
+      - 127.0.0.1
+      - 192.168.2.11
+    dns4_search:
+      - middle-earth.internal
+    method4: manual
+    autoconnect: true
+    state: present
 
 
 # TODO: this shouldn't be managed here, move to top-level unbound-resolvers
