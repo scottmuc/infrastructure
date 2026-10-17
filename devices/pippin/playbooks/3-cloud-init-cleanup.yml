@@ -1,0 +1,42 @@
+- name: Clean up cloud-init now that the machine is configured
+  hosts: pippin.middle-earth.internal.
+
+  vars:
+    cloud_init_disable_marker: /etc/cloud/cloud-init.disabled
+    cloud_init_seed_files:
+      - /boot/firmware/user-data
+      - /boot/firmware/network-config
+      - /boot/firmware/meta-data
+
+  tasks:
+    - name: Check whether cloud-init is already disabled
+      ansible.builtin.stat:
+        path: "{{ cloud_init_disable_marker }}"
+      register: ci_marker
+
+
+    - name: Clear cloud-init state and logs
+      become: true
+      ansible.builtin.command: cloud-init clean --logs
+      when: not ci_marker.stat.exists
+      changed_when: true
+
+
+    - name: Disable cloud-init
+      become: true
+      ansible.builtin.file:
+        path: "{{ cloud_init_disable_marker }}"
+        state: touch
+        mode: "0644"
+        modification_time: preserve
+        access_time: preserve
+
+
+    - name: Remove cloud-init seed files
+      become: true
+      ansible.builtin.file:
+        path: "{{ item }}"
+        state: absent
+      loop: "{{ cloud_init_seed_files }}"
+
+# vim: ft=yaml.ansible
