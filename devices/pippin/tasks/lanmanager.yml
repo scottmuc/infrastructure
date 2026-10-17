@@ -46,7 +46,7 @@
 - name: Static IP via NetworkManager
   become: true
   community.general.nmcli:
-    conn_name: netplan-eth0
+    conn_name: eth0-static
     ifname: eth0
     type: ethernet
     ip4: 192.168.2.10/24
@@ -58,23 +58,9 @@
       - middle-earth.internal
     method4: manual
     autoconnect: true
+    dns6_ignore_auto: true
+    gw6_ignore_auto: true
     state: present
-
-
-# TODO: this shouldn't be managed here, move to top-level unbound-resolvers
-- name: Install /etc/resolv.conf
-  become: true
-  ansible.builtin.copy:
-    dest: /etc/resolv.conf
-    owner: root
-    group: root
-    mode: '0644'
-    content: |
-      search middle-earth.internal
-      nameserver 127.0.0.1
-      nameserver 9.9.9.9
-  notify:
-    - Restart dnsmasq
 
 
 - name: Install /etc/hosts
