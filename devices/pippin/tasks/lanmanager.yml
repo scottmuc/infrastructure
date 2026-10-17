@@ -28,6 +28,12 @@
     enabled: true
 
 
+# avahi-daemon listens on :5353 which I use for dnsmasq. The Raspbery PI Imager
+# application creates a cloud-init user-data file that installs avahi-daemon for
+# reasons I don't understand.
+#
+# The removal of the isc-dhcp-client is easier to explain. Why have a dhcp client
+# on a server intended to be a dhcp server?
 - name: Ensure avahi-daemon and isc-dhcp-client are not installed
   become: true
   ansible.builtin.apt:
