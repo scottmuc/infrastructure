@@ -26,12 +26,12 @@
           tags: webserver
 
 
-    - name: Install monitoring
-      tags: monitoring
-      ansible.builtin.include_tasks:
-        file: ../tasks/monitoring.yml
-        apply:
-          tags: monitoring
+    # - name: Install monitoring
+    #   tags: monitoring
+    #   ansible.builtin.include_tasks:
+    #     file: ../tasks/monitoring.yml
+    #     apply:
+    #       tags: monitoring
 
   handlers:
     # It's important that Systemd reload is defined first here
