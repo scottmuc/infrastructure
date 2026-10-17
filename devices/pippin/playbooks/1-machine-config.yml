@@ -2,12 +2,8 @@
   hosts: pippin.middle-earth.internal.
 
   tasks:
-    # I am uncertain if this belongs in the bootstrap, or in some overarching
-    # task file pertaining to networking among other things. I don't know if it
-    # really matters that much, but might as well start pondering it now.
-    #
-    # Turns out this is set when I created the installer image. So this resource
-    # might be redundant.
+    # cloud-init will set this, but it's good to keep this here to ensure it remains
+    # a documented persistent configuration change.
     - name: Set hostname
       become: true
       ansible.builtin.hostname:
