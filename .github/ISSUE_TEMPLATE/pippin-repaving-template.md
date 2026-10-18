@@ -51,13 +51,8 @@ the [previous repave issues][repave-history]. Have fun!
   **note** check if the underlying Debian distribution is changing as this might result
   in some issues in the playbook execution.
 
-  The Bookworm 64-bit lite image seems to work for now. **note** as of `v1.8.4` of
-  the Imager software, ensure to not select `no filtering` in the *Raspberry Pi Device*
-  filter.
-
-  As of 2025.12.04, the Trixie image hasn't worked so use the Legacy Bookworm image to just
-  get the repave done. Next repave should at least attempt Trixie again to see if the issues
-  have been fixed.
+  The Trixie 64-bit lite image works now with the `v2.0.3` version of the Imager software. This
+  has been tested as of 2026.10.17.
 
   [advanced-options]: https://www.raspberrypi.com/documentation/computers/getting-started.html#advanced-options
 </details>
@@ -101,7 +96,7 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] Bootstrap with Ansible <details>
   <summary>Instructions</summary>
 
-  `./ansible.sh` and select the `0-bootstrap.yml`
+  `ANSIBLE_BECOME_PASS=<the password> ./ansible.sh` and select the `0-bootstrap.yml`
 </details>
 
 - [ ] Add the PI port forwarding<details>
@@ -117,6 +112,10 @@ the [previous repave issues][repave-history]. Have fun!
 
   * `./pippin/playbooks/1-machine-config.yml`
   * `./pippin/playbooks/2-main.yml`
+  * `./pippin/playbooks/3-cloud-init-cleanup.yml`
+  * `./playbooks/linux-logging.yml`
+  * `./playbooks/linux-node-exporters.yml`
+  * `./playbooks/linux-security.yml`
   * `./playbooks/unbound-resolvers.yml`
 
   The last one will report errors configuring `merry`, this is expected
@@ -147,10 +146,6 @@ the [previous repave issues][repave-history]. Have fun!
 - [ ] https://www.goodenoughmoney.com/ displays stuff
 
 - [ ] https://home.scottmuc.com/music/ loads navidrome and the music is playable
-
-- [ ] http://pippin.middle-earth.internal:9090/ loads and has data
-
-- [ ] http://pippin.middle-earth.internal:3000/ loads and has data
 
 - [ ] `ipconfig /release` and then `ipconfig /renew` works
 
