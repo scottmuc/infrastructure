@@ -39,7 +39,7 @@
         pkgs.cachix
         pkgs.git-crypt
         pkgs.skopeo
-        pkgs.vault
+        #pkgs.vault
       ]
       ++ ciPkgs;
 
