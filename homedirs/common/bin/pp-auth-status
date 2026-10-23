@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-
-if pass-cli user info > /dev/null 2>&1; then
-  echo "authenticated"; exit 0
-else
-  echo "unauthenticated"; exit 1
-fi

@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-
-set -e
-set -u
-
-pass-cli item view  "pass://Automation/${SSH_OP_ASKPASS_NOTE}/${SSH_OP_ASKPASS_FIELD}"
