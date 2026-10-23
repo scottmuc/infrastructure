@@ -6,7 +6,7 @@ set -e
 find . -path '*/node_modules' -prune -o -name "*.sh" -print \
   | xargs shellcheck
 
-shellcheck home/common/bin/*
+shellcheck home/bin/*
 
 cat << EOT
 ********************************************************************************
